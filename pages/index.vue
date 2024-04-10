@@ -1,11 +1,5 @@
 <template>
-    <NuxtLayout>
-      <v-app>
-        <v-btn>
-          Button
-        </v-btn>
-      </v-app>
-    </NuxtLayout>
+  <div>Главная страница</div>
 </template>
   
 <style>
