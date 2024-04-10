@@ -1,0 +1,41 @@
+<script lang="ts">
+
+</script>
+
+
+<template>
+    <header class="">
+        <div class="header-wrapper d-flex flex-row justify-space-between align-center">
+            <nuxt-link to="/" class="home-link">Другие коллекции</nuxt-link>
+            <v-btn  
+            variant="flat"
+            size="34"
+            color="rgba(255, 252, 251, 1)"
+            base-color="rgba(255, 252, 251, 1)"
+            rounded="0">
+                <v-icon icon="mdi-cart-outline"></v-icon>
+              </v-btn>
+        </div>
+    </header>
+</template>
+
+<style scoped>
+    header{
+        background-color: rgba(221, 58, 26, 1);
+        height: 75px;
+        
+    }
+    .header-wrapper{
+        max-width: 1440px;
+        padding: 8px 118px;
+        margin: auto;
+        
+    }
+    .home-link{
+        font-family: 'Swis721CnBTRusbyme-Roman';
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 160%;
+        color: rgba(255, 252, 251, 1);
+    }
+</style>

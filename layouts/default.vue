@@ -15,5 +15,6 @@
 <style scoped>
     .main{
         background-color: rgba(255, 252, 251, 1);
+        z-index: -2;
     }
 </style>
