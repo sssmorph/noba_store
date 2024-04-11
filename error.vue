@@ -10,9 +10,9 @@
     </div>
     <div class="error-information d-flex flex-column">
         <p class="error-message">Кажется, здесь одежды нет</p>
-        <div>
+        <div class="arrow-container">
             <p class="arrow-text">Зато есть там</p>
-                
+            <img src="/public/image/error-arrow.svg" class="error-arrow">
         </div>
 
 
@@ -27,6 +27,14 @@
 </template>
 
 <style scoped>
+    .arrow-container{
+        position: relative;
+    }
+    .error-arrow{
+        position: absolute;
+        left: 25%;
+        top: 80%;
+    }
     .go-home-button{
         background-color: rgba(221, 58, 26, 1);
         color: rgba(255, 252, 251, 1);
