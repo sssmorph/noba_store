@@ -10,7 +10,7 @@
 
 
     <div class="bloger-container d-flex flex-row flex-wrap">
-      <div class="bloger-card">
+      <NuxtLink to="/catalog" class="bloger-card">
         <img src="/assets/image/bloger.png" class="bloger-card__photo">
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
           <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
@@ -26,8 +26,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="bloger-card">
+      </NuxtLink>
+      <NuxtLink to="/catalog" class="bloger-card">
         <img src="/assets/image/bloger.png" class="bloger-card__photo">
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
           <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
@@ -43,8 +43,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="bloger-card">
+      </NuxtLink>
+      <NuxtLink to="/catalog" class="bloger-card">
         <img src="/assets/image/bloger.png" class="bloger-card__photo">
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
           <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
@@ -60,8 +60,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="bloger-card">
+      </NuxtLink>
+      <NuxtLink to="/catalog" class="bloger-card">
         <img src="/assets/image/bloger.png" class="bloger-card__photo">
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
           <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
@@ -77,41 +77,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="bloger-card">
-        <img src="/assets/image/bloger.png" class="bloger-card__photo">
-        <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
-          <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
+      </NuxtLink>
 
-          <div class="d-flex flex-column">
-            <div class="description__header-container d-flex flex-row align-center justify-space-between">
-              <span class="description__title">Максим Иванов</span>
-              <span class="description__subscribers">275К</span>
-            </div>
-            <div>
-              <p class="description__text">Путешественник, настоящий мастер слова и виртуоз в креативном написании... </p>
-              <div class="description-text__border"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bloger-card">
-        <img src="/assets/image/bloger.png" class="bloger-card__photo">
-        <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
-          <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
-
-          <div class="d-flex flex-column">
-            <div class="description__header-container d-flex flex-row align-center justify-space-between">
-              <span class="description__title">Максим Иванов</span>
-              <span class="description__subscribers">275К</span>
-            </div>
-            <div>
-              <p class="description__text">Путешественник, настоящий мастер слова и виртуоз в креативном написании... </p>
-              <div class="description-text__border"></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </template>
@@ -125,8 +92,7 @@
   .bloger-card{
     z-index: 2;
     position:relative;
-    flex-grow: 1;
-    flex: 0 0 calc(33.33% - 20px);
+    flex: 0 0 calc(33.33% - 8px);
   }
   .bloger-card__photo{
     width: 438px;
@@ -135,17 +101,17 @@
     transform: translateX(37.5px);
     transform-origin: left bottom;
     object-fit: cover;
-    transition: 0.5s ease;
+    transition: all 0.5s ease;
+    margin-top: auto;
   }
   .bloger-card:hover {
-    flex-grow: 2;
     .bloger-card__photo{
       filter: none;
-      transform: scale(112px, -104px);
-      width:550px;
-      height: 350px;
+      width:550px !important;
+      height: 350px !important;
     }
   }
+
   .bloger-card__description{
     background-color: rgba(23, 7, 7, 1);
     padding: 4px 25px 13px 15px;
