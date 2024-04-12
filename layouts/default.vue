@@ -1,5 +1,4 @@
- <script lang="ts" setup>
-    console.log("loaded")
+<script lang="ts" setup>
 
 </script>
 

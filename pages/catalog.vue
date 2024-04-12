@@ -1,5 +1,5 @@
 <template>
-    <div>
-      Catalog page
-    </div>
-  </template>
+  <AppHeaderBig>
+    
+  </AppHeaderBig>
+</template>
