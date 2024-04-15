@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <AppHeaderBig/>
   <section class="error-page d-flex flex-row justify-space-between ga-16">
     <div class="error-box">
         <img src="/public/image/error-image.png" alt="">
