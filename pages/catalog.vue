@@ -162,6 +162,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 0 40px;
   }
   :global(.v-breadcrumbs){ 
     padding: 4px 0 !important;

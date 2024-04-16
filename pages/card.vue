@@ -18,8 +18,39 @@
           href: 'card'
         }
       ],
+      sizes:[
+        {
+          title: "XS"
+        },
+        {
+          title: "S"
+        },
+        {
+          title: "M"
+        },
+        {
+          title: "L"
+        },
+        {
+          title: "XL"
+        }
+      ],
+      compositions:[
+        {
+          imagePath: "/image/clean_P.svg",
+        },
+        {
+          imagePath: "/image/wash_30.svg",
+        },
+        {
+          imagePath: "/image/iron_2.svg",
+        },
+        {
+          imagePath: "/image/dont_dry.svg",
+        },
+      ]
     }),
-    methods
+
   }
 </script>
 
@@ -44,12 +75,73 @@
         size="34"
         color="rgba(221, 58, 26, 1)"
         rounded="0"
-
         >
-        <img src="/assets/image/cart-black.svg">
+        <img src="/assets/image/cart-black.svg" style="pointer-events: none;">
         </v-btn>        
       </div>
+    </div>
+    <div class="card-container">
+      <div class="card__photos">
 
+      </div>
+      <div class="card__description">
+        <h1 class="item-name">Свитшот Freedom</h1>
+        <p class="item-article">Арт.: 3265845</p>
+        <p class="item-description">Стильный и комфортный свитшот. Изготовлен из высококачественного материала, который обеспечивает мягкость и долговечность изделия. Эксклюзивный дизайн с символикой свободы. Подходит для повседневной носки, добавляя образу индивидуальности и выразительности.
+        </p>
+        <div class="item-information__container">
+          <div class="item-information">
+            <span class="information-title">Состав:</span>
+            <span class="information-description">100% хлопок</span>
+          </div>
+          <div class="item-information">
+            <span class="information-title">Производство:</span>
+            <span class="information-description">Россия</span>
+          </div>
+        </div>
+        <div class="size-conditions">
+          <div class="size-container">
+            <span class="size-title">Выбрать размер</span>
+            <div class="size-container__buttons">
+              <button 
+              v-for="(size, index) in sizes"
+              :key="index"
+              class="size-button">{{size.title}}</button>
+            </div>
+          </div>
+          <div class="composition-container">
+            <span class="composition-title">Гладить при 150°С</span>
+            <div class="composition-icon-container">
+              <img
+              v-for="(composition, index) in compositions"
+              :key="index"
+              :src="composition.imagePath"
+            />
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-bottom">
+          <span class="item-price">4500 ₽</span>
+          <v-btn
+          class="to-basket__button"
+          variant="flat"
+          width="190"
+          height="52"
+          rounded="0"
+          color="rgba(221, 58, 26, 1)"
+          >
+            <span class="to-basket">В корзину</span>
+            <img src="/assets/image/cart-white.svg" alt="">
+          </v-btn>  
+        </div>
+      </div>
+    </div>
+
+    <div class="recomendation-container">
+      <div class="recomendation-header">
+        <h1 class="recomendation-title">Вам может понравится</h1>
+      </div>
     </div>
   </section>
 </template>
@@ -65,6 +157,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 0 40px;
   }
   .sub-header__button-container{
     display: flex;
@@ -93,5 +186,185 @@
   }
   .button-text__collection:first-letter{
       text-transform: uppercase;
+  }
+  .card-container{
+    margin-top: 55px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 43px;
+    padding: 0 40px;
+    margin-bottom: 83px;
+  }
+  .item-name{
+    font-family: Manrope;
+    font-size: 54px;
+    font-weight: 500;
+    line-height: 64.8px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+    max-width: 430px;
+  }
+  .item-article{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color:rgba(166, 163, 163, 1);
+    margin-top: 27px;
+  }
+  .item-description{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+    max-width: 430px;
+    margin-top: 28px;
+
+  }
+  .item-information__container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 42px;
+  }
+  .item-information{
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 15px;
+  }
+  .information-title{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+  }
+  .information-description{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+
+  }
+  .size-conditions{
+    margin-top: 74px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .size-container{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+  }
+  .size-title{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+
+  }
+  .size-container__buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: flex-start;
+  }
+  .size-button{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    border: 1.5px solid rgba(23, 7, 7, 1);
+    color: rgba(23, 7, 7, 1);
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .composition-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .composition-title{
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 14.4px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+    margin-left: 3px;
+  }
+  .composition-icon-container{
+    display: flex;
+    flex-direction: row;
+    gap:7px;
+  }
+  .divider{
+    border-top: 1.5px solid rgba(221, 58, 26, 1);
+    margin-top: 39px;
+    margin-bottom: 20px;
+  }
+  .card-bottom{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 28px;
+  }
+  .item-price{
+    font-family: Manrope;
+    font-size: 54px;
+    font-weight: 300;
+    line-height: 86.4px;
+    text-align: right;
+    color: rgba(23, 7,7,1);
+
+  }
+  .to-basket__button{
+
+    .to-basket{
+      margin-right: 18px;
+      text-transform: lowercase;
+      font-family: Manrope;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 35.2px;
+      letter-spacing: -0.02em;
+      text-align: left;
+      color: rgba(255, 252, 251, 1);
+    }
+    .to-basket::first-letter{
+      text-transform: uppercase;
+    }
+  }
+  .recomendation-title{
+    font-family: Manrope;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 57.6px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
   }
 </style>
