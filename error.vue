@@ -1,5 +1,10 @@
-<script setup lang="ts">
-    
+<script>
+export default {
+  props: ['error'],
+  async asyncData({ error, statusCode }) {
+    return { error: { statusCode}};
+  }
+};
 </script>
 
 <template>
@@ -7,7 +12,7 @@
   <section class="error-page d-flex flex-row justify-space-between ga-16">
     <div class="error-box">
         <img src="/public/image/error-image.png" alt="">
-        <span class="error-code"> 404</span>
+        <span class="error-code">{{error.statusCode}}</span>
     </div>
     <div class="error-information d-flex flex-column">
         <p class="error-message">Кажется, здесь одежды нет</p>
