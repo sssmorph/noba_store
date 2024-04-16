@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+
 export default defineNuxtConfig({
   //...
   devtools: { enabled: true },
@@ -14,6 +15,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    'nuxt-swiper'
     //...
   ],
   vite: {
@@ -27,4 +29,7 @@ export default defineNuxtConfig({
     '@/assets/css/reset.css',
     '@/public/fonts/main.css',
   ],
+  
 })
+
+

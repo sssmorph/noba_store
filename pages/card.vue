@@ -1,5 +1,24 @@
 <script>
+  import { Navigation } from 'swiper/modules';
+  import { ref } from 'vue';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+
   export default {
+    components: {
+    Swiper,
+    SwiperSlide,
+  },
+  setup() {
+    const prev = ref(null);
+    const next = ref(null);
+    return {
+      modules: [Navigation],
+      prev,
+      next,
+    };
+  },
     data: () => ({
       items: [
         {
@@ -142,7 +161,35 @@
       <div class="recomendation-header">
         <h1 class="recomendation-title">Вам может понравится</h1>
       </div>
+      <div class="recomendation-slider">
+
+        <Swiper
+        :loop="true"
+        :slides-per-view="5"
+        :spaceBetween="44"
+        :navigation="{
+          prevEl: prev,
+          nextEl: next,
+        }"
+        >
+        <div ref="prev" class="swiper-button-prev">prev</div>
+        <div ref="next" class="swiper-button-next">next</div>
+          <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n">
+            <div class="slider__card-item">
+              <img src="/assets/image/for-slider.jpg" class="card-item__photo">
+              <div class="card-item__bottom">
+                <span class="card-item__bottom-title">Свитшот Noba</span>
+                <div class="card-item__bottom-price-container">
+                  <span class="card-item__bottom-price">{{n}}4500 ₽</span>
+                  <button class="card-item__bottom-cart"><img src="/assets/image/cart-red-13.svg" alt=""></button>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+        </Swiper>
+      </div>
     </div>
+
   </section>
 </template>
 
@@ -366,5 +413,56 @@
     line-height: 57.6px;
     text-align: left;
     color: rgba(23, 7, 7, 1);
+  }
+  .slider__card-item{
+    width: 268px;
+    height: 391px;
+  }
+  .card-item__photo{
+    width: 100%;
+    height: 352px;
+    object-fit: cover;
+  }
+  .card-item__bottom{
+    margin-top: 10px;
+    margin-left: 9px;
+    margin-right: 9px;
+    padding-top: 5px;
+    border-top: 1.5px solid rgba(221, 58, 26, 1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-item__bottom-title{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+  }
+  .card-item__bottom-price-container{
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+  }
+  .card-item__bottom-price{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+
+  }
+  .card-item__bottom-cart{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .recomendation-slider{
+    margin-top: 56px;
   }
 </style>
