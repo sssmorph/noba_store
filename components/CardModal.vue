@@ -1,0 +1,307 @@
+<script>
+export default {
+    setup() {
+        return{
+            productValue: ref(1),
+            showModal: ref(false),
+        }    
+    },
+    methods: {
+    increment() {
+      this.productValue++
+    },
+    decrement(){
+        if(this.productValue >= 2){
+            this.productValue--
+        }
+    },
+    closePopup(){
+        this.showModal = !this.showModal
+    },
+  },
+    
+}
+</script>
+
+<template>
+    <transition name="nested" :duration="550">
+        <section class="popup-container" v-if="showModal">
+            <div class="popup-background" @click="closePopup"></div>
+            <div class="popup-cart-container">
+                <div class="popup-cart">
+                    <v-btn
+                    class="close-popup"
+                    size="34"
+                    variant="flat"
+                    color="rgba(23, 7, 7, 1)"
+                    rounded="0"
+                    @click="closePopup"
+                    >
+                    <img src="/assets/image/white-arrow.svg" style="pointer-events:none;">
+
+                    </v-btn>
+                    <div class="product-in-cart">
+                        <img src="/assets/image/card-image.png" class="product-photo">
+                        <div class="product-information-container">
+                            <span class="product-name">Свитшот Freedom</span>
+                            <div class="product-information">
+                                <div class="product product-size">
+                                    <span class="product-title">Размер</span>
+                                    <span class="product-value">XXL</span>
+                                </div>
+                                <div class="product product-count">
+                                    <span class="product-title">Количество</span>
+                                    <div class="value-container">
+                                        <button class="product-value" @click="decrement">-</button>
+                                        <span class="product-value">{{productValue}}</span>
+                                        <button class="product-value" @click="increment">+</button>
+                                    </div>
+    
+                                </div>
+                                <div class="product product-price">
+                                    <span class="product-title">Цена</span>
+                                    <span class="product-value">4500₽</span>
+                                </div>
+                                <div class="product product-total-price">
+                                    <span class="product-title">Стоимость</span>
+                                    <span class="product-value">9000₽</span>
+                                </div>
+                            </div>
+                        </div>
+                        <v-btn
+                        class="cross-button"
+                        variant="plain"
+                        size="31"
+                        rounded="0"
+                        >
+                            <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
+                        </v-btn>
+                    </div>
+                    <div class="popup-cart-bottom">
+                        <v-responsive max-width="307" class="search-box-container">
+                            <v-text-field class="promo-code-box"
+                            clearable label="Промо-код" 
+                            variant="underlined"
+                            append-inner-icon="mdi-chevron-right"
+                            base-color="rgba(23, 7, 7, 1)"
+                            color="rgba(23, 7, 7, 1)"
+                            >
+                            </v-text-field>
+                        </v-responsive>
+                        <div class="price-container">
+                            <span class="without-sale">13500 ₽</span>
+                            <span class="current-price">12000 ₽</span>
+                        </div>
+                    </div>
+                    <div class="to-order-container">
+                        <v-btn
+                        class="to-order-button"
+                        variant="flat"
+                        width="307"
+                        height="52px"
+                        color="rgba(221, 58, 26, 1)"
+                        rounded="0"
+                        >
+                        <span class="to-order-text">Перейти к оформлению</span>
+                        <img src="/assets/image/text-box-white.svg" alt="">
+                        </v-btn>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </transition>
+</template>
+
+<style lang="scss" scoped>
+    .popup-container{
+        z-index: 9999;
+    }
+    .popup-background{
+        background-color: rgba(23, 7, 7, 0.5);
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+
+        z-index: 3;
+    }
+    .popup-cart-container{
+        background-color: rgba(255, 252, 251, 1);
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 5;
+    }  
+    .popup-cart{
+        background-color: rgba(255, 252, 251, 1);
+        max-width: 737px;
+        width: 100%;
+        height: 100%;
+        padding: 30px 40px;
+    }
+    .close-popup{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 44px;
+        img{
+            transform: translateX(2px);
+        }
+    }
+    .product-in-cart{
+        padding-bottom: 22px;
+        border-bottom: 1.5px solid rgba(166, 163, 163, 1);
+        width: 100%;
+        margin-bottom: 22px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .product-photo{
+        width: 117px;
+        height: 117px;
+        object-fit: cover;
+    }
+    .product-name{
+        font-family: Manrope;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19.2px;
+        text-align: left;
+        color: rgba(23, 7, 7, 1);
+        margin-top: 9px;
+    }
+    .product-information-container{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .product-information{
+        display: flex;
+        flex-direction: row;
+        gap: 67px;
+
+    }
+    .product{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap:13px;
+    }
+    .product-title{
+        font-family: Manrope;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 14.4px;
+        text-align: left;
+        color: rgba(23, 7, 7, 1);
+
+    }
+    .product-value{
+        font-family: Manrope;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.2px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: rgba(23, 7, 7, 1);
+    }
+    .cross-button{
+        margin-top: 10px;
+    }
+    .popup-cart-bottom{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .promo-code-box{
+        margin-top: 11px;
+    }
+    .v-field__append-inner{
+        margin-right: 13px !important;
+    }
+    .price-container{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-end;
+    }
+    .without-sale{
+        text-decoration: line-through rgba(221, 58, 26, 1) solid 1.5px;
+        font-family: Manrope;
+        font-size: 42px;
+        font-weight: 300;
+        line-height: 50.4px;
+        text-align: left;
+        color: rgba(166, 163, 163, 1);
+        margin-top: 22px;
+
+    }
+    .current-price{
+        font-family: Manrope;
+        font-size: 48px;
+        font-weight: 300;
+        line-height: 57.6px;
+        text-align: left;
+        color: rgba(23, 7, 7, 1);
+    }
+    .to-order-container{
+        display: flex;
+        justify-content: flex-end;
+        margin-block: 44px;
+    }
+    .to-order-button{
+
+    }
+    .to-order-text{
+        text-transform: lowercase;
+        font-family: Manrope;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 35.2px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: rgba(255, 252, 251, 1);
+        margin-right: 12px;
+    }
+    .to-order-text::first-letter{
+        text-transform: uppercase;
+    }
+    .value-container{
+        display: flex;
+        flex-direction: row;
+        gap:10px;
+    }
+
+
+
+    .nested-enter-active, .nested-leave-active {
+        transition: all 0.5s ease-in-out;
+    }
+    .nested-leave-active {
+      transition-delay: 0.2s;
+    }
+    
+    .nested-enter-from,
+    .nested-leave-to {
+      transform: translateY(-1000px);
+      opacity: 0;
+    }
+    
+    .nested-enter-active .popup-cart-container,
+    .nested-leave-active .popup-cart-container { 
+      transition: all 0.5s ease-in-out;
+    }
+    .nested-enter-active .popup-cart-container {
+        transition-delay: 0.2s;
+    }
+    
+    .nested-enter-from .popup-cart-container,
+    .nested-leave-to .popup-cart-container {
+      transform: translateX(1000px);
+
+      opacity: 0;
+    }
+</style>

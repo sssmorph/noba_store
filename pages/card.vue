@@ -67,13 +67,14 @@
         {
           imagePath: "/image/dont_dry.svg",
         },
-      ]
+      ],
     }),
-
   }
 </script>
 
 <template>
+  <CardModal/>
+  <ErrorModal/>
   <AppHeaderBig/>
   <section class="card-page-container">
     <div class="sub-header-container">
