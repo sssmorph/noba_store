@@ -74,7 +74,6 @@
 
 <template>
   <CardModal/>
-  <ErrorModal/>
   <AppHeaderBig/>
   <section class="card-page-container">
     <div class="sub-header-container">

@@ -28,7 +28,12 @@
         defaultCartImage: "image/to-basket-black.svg",
         hoverCartImage: "image/to-basket-white.svg",
         currentImage:  "image/to-basket-black.svg"
-      }
+      },
+      filterIsActive: ref(false),
+      categories: ["Худи","Свитшоты","Брюки","Костюмы", "Лонгсливы", "Юбки", "Футболки", "Рубашки", "Верхняя одежда"],
+      genders:["Женщины", "Мужчины", "Унисекс"],
+      filterSizes: ["XS", "S", "M", "L", "XL"],
+      prices: [0,10000]
     }),
     methods: {
     changeImage() {
@@ -36,6 +41,11 @@
     },
     restoreImage() {
       this.images.currentImage = this.images.defaultCartImage;
+    },
+    toggleFilter(){
+      console.log(this.filterIsActive)
+       return this.filterIsActive = !this.filterIsActive
+      console.log(this.filterIsActive)
     }
   }
   }
@@ -89,19 +99,23 @@
       </div>
     </div>
     <h1 class="catalog-title">Одежда</h1>
-    <div class="filter-container">
-      <div class="d-flex flex-row align-center">
+    <div class="filter-container" >
+      <div class="d-flex flex-row align-center filter-button-container">
         <v-btn
+        :class="{filterButtonActive: filterIsActive}"
         variant="flat"
         size="34"
         color="rgba(23, 7, 7, 1)"
         rounded="0"
+        @click="toggleFilter"
         >
           <img src="/assets/image/filter-button.svg" alt="">
         </v-btn>
         <span class="filter-title">Отфильтровать и упорядочить</span>
       </div>
-      <v-responsive max-width="390" class="search-box-container">
+      <v-responsive max-width="390" class="search-box-container"
+      :class="{hidden: filterIsActive}"
+      >
         <v-text-field class="search-box"
         clearable label="Поиск" 
         variant="underlined"
@@ -111,40 +125,131 @@
         >
         </v-text-field>
       </v-responsive>
-
+      <v-btn 
+      :class="{hidden: !filterIsActive}"
+      @click="toggleFilter"
+      variant="flat"
+      color="rgba(23, 7, 7, 1)"
+      size="34"
+      rounded="0"
+      >
+        <img src="/assets/image/white-arrow.svg" alt="" class="button-arrow-filter">
+      </v-btn>
     </div>
-    <div class="catalog-cards-container">
-      <NuxtLink to="/card" class="card-item">
-        <img src="/assets/image/card-image.png" class="card-photo">
-        <div class="card-item-bottom">
-          <div class="card-item-bottom__header">
-            <span class="item-name">Свитшот Freedom</span>
-            <span class="item-price">4500 ₽</span>      
-          </div>
-          <div class="to-basket-container">
-            <v-btn
-            @mouseover="changeImage" @mouseleave="restoreImage"
-            class="to-basket__button"
-            variant="outlined"
-            width="112"
-            height="28"
-            rounded="0"
-            color="rgba(221, 58, 26, 1)"
-            >
-              <span class="to-basket">В корзину</span>
-              <img :src="images.currentImage">
-            </v-btn>            
-          </div>
-
-        </div>
-        <div class="size-container">
-          <button 
-          v-for="(size, index) in sizes"
+    <div :class="{opennedFilter: filterIsActive, hidden: !filterIsActive}" class="filter-box">
+      <div class="filter-item">
+        <span class="filter-item__title">Категория</span>
+        <ul class="filter-item__list">
+          <li 
+          v-for="(category, index) in categories"
           :key="index"
-          class="size-button">{{size.title}}</button>
+          >
+            <span class="filter-item__text">{{category}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="filter-item__container">
+        <div class="filter-item">
+          <span class="filter-item__title">Пол</span>
+          <ul class="filter-item__list">
+            <li
+            v-for="(gender, index) in genders"
+            :key="index"
+            >
+              <span>{{gender}}</span>
+            </li>
+          </ul>
         </div>
-      </NuxtLink>
+        <div class="filter-item">
+          <span class="filter-item__title">Размер</span>
+          <div class="filter-item__button-container">
+            <v-btn
+            variant="outlined"
+            color="rgba(23, 7, 7, 1)"
+            rounded="0"
+            size="34"
+            v-for="(size, index) in filterSizes"
+            :key="index"
+            class="filter-size-button"
+            >
+              <span class="filter-size-button__text">{{size}}</span>
+            </v-btn>
+          </div>
+        </div>
+      </div>
+      <div class="filter-item__container">
+        <div class="filter-item">
+          <span class="filter-item__title">Цена</span>
+          <v-range-slider
+          max-width="190"
+          track-size="2"
+          track-color="rgba(166, 163, 163, 1)"
+          track-fill-color="rgba(221, 58, 26, 1)"
+          thumb-color="rgba(221, 58, 26, 1)"
+          rounded="0"
+          thumb-size="12"
+          strict="true"
+          thumb-label="always"
+          step="1"
+          v-model="prices"
+          min="0"
+          max="10000"
+          >
+          </v-range-slider>
+        </div>
+        <div class="filter-item">
+          <span class="filter-item__title">Упорядочить по</span>
+          <v-radio-group>
+            <v-radio label="Цена по возрастанию" value="Цена по возрастанию"></v-radio>
+            <v-radio label="Цена по убыванию" value="Цена по убыванию"></v-radio>
+          </v-radio-group>
+        </div>
+      </div>
+      <v-responsive max-width="390" class="search-box-container"
+      style="margin-top:12px;"
+      >
+        <v-text-field class="search-box"
+        clearable label="Поиск" 
+        variant="underlined"
+        append-inner-icon="mdi-magnify"
+        base-color="rgba(23, 7, 7, 1)"
+        color="rgba(23, 7, 7, 1)"
+        >
+        </v-text-field>
+      </v-responsive>
     </div>
+      <div class="catalog-cards-container ">
+        <NuxtLink to="/card" class="card-item">
+          <img src="/assets/image/card-image.png" class="card-photo">
+          <div class="card-item-bottom">
+            <div class="card-item-bottom__header">
+              <span class="item-name">Свитшот Freedom</span>
+              <span class="item-price">4500 ₽</span>      
+            </div>
+            <div class="to-basket-container">
+              <v-btn
+              @mouseover="changeImage" @mouseleave="restoreImage"
+              class="to-basket__button"
+              variant="outlined"
+              width="112"
+              height="28"
+              rounded="0"
+              color="rgba(221, 58, 26, 1)"
+              >
+                <span class="to-basket">В корзину</span>
+                <img :src="images.currentImage">
+              </v-btn>            
+            </div>
+
+          </div>
+          <div class="size-container">
+            <button
+            v-for="(size, index) in sizes"
+            :key="index"
+            class="size-button">{{size.title}}</button>
+          </div>
+        </NuxtLink>
+      </div>
   </section>
 </template>
 
@@ -299,9 +404,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 74px;
-    margin-right: 118px;
     margin-bottom: 45px;
+    padding-right: 118px;
+    padding-left: 74px;
   }
   .filter-title{
     font-family: Manrope;
@@ -426,5 +531,109 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .filterButtonActive{
+    background-color: rgba(221, 58, 26, 1);
+  }
+  .opennedFilter{
+    height: 415px;
+    padding: 0 118px 90px 79px;
+    display: block;
+  }
+  .search-box-container{
+    max-height: 52px;
+  }
+  .filter-button-container{
+    max-height: 35px;
+  }
+  .button-arrow-filter{
+    transform: rotate(270deg);
+  }
+  .hidden{
+    display: none !important;
+  }
+  .filter-item{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .filter-item__title{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+  }
+  .filter-item__list{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  .filter-item__text{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+  }
+  .filter-item__container{
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+  }
+  .filter-box{
+    display: flex;
+    flex-direction: row;
+    gap: 105px;
+  }
+  .filter-size-button__text{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+  }
+  .filter-item__button-container{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 130px;
+  }
+  :global(.v-slider-thumb__surface){
+    border-radius: 0 !important;
+    transform: rotate(45deg);
+  }
+  :global(.v-slider-track__fill){
+    height: 2px !important;
+  }
+  :global(.v-slider-thumb__label){
+    background: none !important;
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1) !important;
+  }
+  :global(.v-slider-thumb__label::before){
+    border:none !important;
+  }
+  :global(.v-label){
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+    opacity: 1 !important;
   }
 </style>
