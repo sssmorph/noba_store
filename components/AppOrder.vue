@@ -18,7 +18,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                 <span class="label second-label">Адрес доставки</span>
                 <span class="label third-label">Оплата</span>
             </div>
-            <div class="page first-page">
+            <div class="page first-page page-active">
                 <div class="input-container input-container__big">
                     <input type="text" placeholder="ФИО">
                     <img src="/assets/image/validate-arrow.svg" alt="">
@@ -34,7 +34,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                     </div>
                 </div>
             </div>
-            <div class="page second-page">
+            <div class="page second-page ">
                 <div class="double-input-container">
                     <div class="input-container input-container__small">
                         <input type="text" placeholder="Индекс">
@@ -60,7 +60,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                     </div>
                 </div>
             </div>
-            <div class="page third-page page-active">
+            <div class="page third-page ">
                 <div class="input-container input-container__big">
                     <input type="text" placeholder="Номер карты">
                     <img src="/assets/image/validate-arrow.svg" alt="">
@@ -69,7 +69,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                     <div class="input-container input-container__small">
                         <input type="text" placeholder="Срок действия">
                         <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
+                    </div> 
                     <div class="input-container input-container__small">
                         <input type="text" placeholder="CVV">
                         <img src="/assets/image/validate-arrow.svg" alt="">

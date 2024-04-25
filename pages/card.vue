@@ -1,9 +1,12 @@
 <script>
-  import { Navigation } from 'swiper/modules';
-  import { ref } from 'vue';
-  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/navigation';
+  import { ref } from 'vue';
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+  import 'swiper/css/free-mode';
+  import 'swiper/css/navigation';
+  import 'swiper/css/thumbs';
 
   export default {
     components: {
@@ -11,10 +14,18 @@
     SwiperSlide,
   },
   setup() {
+    const thumbsSwiper = ref(null);
+
+    const setThumbsSwiper = (swiper) => {
+      thumbsSwiper.value = swiper;
+      console.log(swiper)
+    };
     const prev = ref(null);
     const next = ref(null);
     return {
-      modules: [Navigation],
+      modules: [FreeMode, Navigation, Thumbs],
+      thumbsSwiper,
+      setThumbsSwiper,
       prev,
       next,
     };
@@ -73,7 +84,6 @@
 </script>
 
 <template>
-  <AppOrder/>
   <AppHeaderBig/>
   <section class="card-page-container">
     <div class="sub-header-container">
@@ -101,7 +111,61 @@
     </div>
     <div class="card-container">
       <div class="card__photos">
-        
+        <swiper
+        class="card-photo-slider"
+        :spaceBetween="5"
+        :navigation="true"
+        :slidesPerView="2"
+        :loop="true"
+        :thumbs="{swiper: thumbsSwiper}"
+        :modules="modules"
+        >
+        <swiper-slide class="card-photo-slider__item">
+          <img src="/assets/image/card-slider-1.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__item">
+          <img src="/assets/image/card-slider-2.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__item">
+          <img src="/assets/image/card-slider-3.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__item">
+          <img src="/assets/image/card-slider-1.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__item">
+          <img src="/assets/image/card-slider-2.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__item">
+          <img src="/assets/image/card-slider-3.jpg" />
+        </swiper-slide>
+      </swiper>
+      <swiper
+        :spaceBetween="5"
+        :slidesPerView="4"
+        :freeMode="true"
+        :loop="true"
+        :modules="modules"
+        @swiper="setThumbsSwiper"
+      >
+        <swiper-slide class="card-photo-slider__thumb">
+          <img src="/assets/image/card-slider-1.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__thumb">
+          <img src="/assets/image/card-slider-2.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__thumb">
+          <img src="/assets/image/card-slider-3.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__thumb">
+          <img src="/assets/image/card-slider-1.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__thumb">
+          <img src="/assets/image/card-slider-2.jpg" />
+        </swiper-slide>
+        <swiper-slide class="card-photo-slider__thumb">
+          <img src="/assets/image/card-slider-3.jpg" />
+        </swiper-slide>
+      </swiper>
       </div>
       <div class="card__description">
         <h1 class="item-name">Свитшот Freedom</h1>
@@ -161,6 +225,26 @@
       <div class="recomendation-header">
         <h1 class="recomendation-title">Вам может понравится</h1>
       </div>
+      <div class="recomendation-slider__buttons-container">
+        <v-btn
+        ref="prev"
+        variant="flat"
+        color="rgba(23, 7, 7, 1)"
+        size="34"
+        rounded="0"
+        >
+          <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+        </v-btn>
+        <v-btn
+        ref="next"
+        variant="flat"
+        color="rgba(23, 7, 7, 1)"
+        size="34"
+        rounded="0"
+        >
+          <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+        </v-btn>
+      </div>
       <div class="recomendation-slider">
 
         <Swiper
@@ -173,26 +257,7 @@
           nextEl: next,
         }"
         >
-        <div class="recomendation-slider__buttons-container">
-          <v-btn
-          ref="prev"
-          variant="flat"
-          color="rgba(23, 7, 7, 1)"
-          size="34"
-          rounded="0"
-          >
-            <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
-          </v-btn>
-          <v-btn
-          ref="next"
-          variant="flat"
-          color="rgba(23, 7, 7, 1)"
-          size="34"
-          rounded="0"
-          >
-            <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
-          </v-btn>
-        </div>
+        
           <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n">
             <div class="slider__card-item">
               <img src="/assets/image/for-slider.jpg" class="card-item__photo">
@@ -483,20 +548,39 @@
     justify-content: center;
   }
   .recomendation-slider{
-    margin-top: 56px;
+    margin-top: 40px;
   }
   .recomendation-slider__buttons-container{
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     gap: 5px;
-    position:absolute;
-    top: 0;
-    right: 0;
-    z-index: 5;
-    transform: translateY(-40px)
+    margin-right: 118px;
+    transform: translateY(-17px)
   }
 
   .prev-button{
     transform: rotate(180deg);
+  }
+  .card__photos{
+    max-width: 853px;
+    height: 900px;
+  }
+  .card-photo-slider{
+    margin-bottom: 5px;
+  }
+  .card-photo-slider__item{
+    img{
+      width: 424px;
+      height: 614px;
+      object-fit: cover;
+    }
+  }
+  .card-photo-slider__thumb{
+    img{
+      width: 210px;
+      height: 280px;
+      object-fit: cover;
+    }
   }
 </style>
