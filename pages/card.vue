@@ -73,7 +73,7 @@
 </script>
 
 <template>
-  <CardModal/>
+  <AppOrder/>
   <AppHeaderBig/>
   <section class="card-page-container">
     <div class="sub-header-container">
@@ -101,7 +101,7 @@
     </div>
     <div class="card-container">
       <div class="card__photos">
-
+        
       </div>
       <div class="card__description">
         <h1 class="item-name">Свитшот Freedom</h1>
@@ -164,6 +164,7 @@
       <div class="recomendation-slider">
 
         <Swiper
+        style="position: relative;"
         :loop="true"
         :slides-per-view="5"
         :spaceBetween="44"
@@ -172,8 +173,26 @@
           nextEl: next,
         }"
         >
-        <div ref="prev" class="swiper-button-prev">prev</div>
-        <div ref="next" class="swiper-button-next">next</div>
+        <div class="recomendation-slider__buttons-container">
+          <v-btn
+          ref="prev"
+          variant="flat"
+          color="rgba(23, 7, 7, 1)"
+          size="34"
+          rounded="0"
+          >
+            <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+          </v-btn>
+          <v-btn
+          ref="next"
+          variant="flat"
+          color="rgba(23, 7, 7, 1)"
+          size="34"
+          rounded="0"
+          >
+            <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+          </v-btn>
+        </div>
           <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n">
             <div class="slider__card-item">
               <img src="/assets/image/for-slider.jpg" class="card-item__photo">
@@ -413,6 +432,7 @@
     line-height: 57.6px;
     text-align: left;
     color: rgba(23, 7, 7, 1);
+    margin-left: 118px;
   }
   .slider__card-item{
     width: 268px;
@@ -464,5 +484,19 @@
   }
   .recomendation-slider{
     margin-top: 56px;
+  }
+  .recomendation-slider__buttons-container{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    transform: translateY(-40px)
+  }
+
+  .prev-button{
+    transform: rotate(180deg);
   }
 </style>

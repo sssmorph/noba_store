@@ -1,4 +1,5 @@
-<script>
+<script setup>
+
 const orderItems = ref(["Контакты", "Адрес доставки", "Оплата"])
 </script>
 
@@ -16,6 +17,85 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                 <span class="label first-label label-active">Контакты</span>
                 <span class="label second-label">Адрес доставки</span>
                 <span class="label third-label">Оплата</span>
+            </div>
+            <div class="page first-page">
+                <div class="input-container input-container__big">
+                    <input type="text" placeholder="ФИО">
+                    <img src="/assets/image/validate-arrow.svg" alt="">
+                </div>
+                <div class="double-input-container">
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="+7  (         ) ">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="E-mail">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="page second-page">
+                <div class="double-input-container">
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="Индекс">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="Город">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                </div>
+                <div class="input-container input-container__big">
+                    <input type="text" placeholder="Улица">
+                    <img src="/assets/image/validate-arrow.svg" alt="">
+                </div>
+                <div class="double-input-container">
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="Дом, строение/литер">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="Квартира">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="page third-page page-active">
+                <div class="input-container input-container__big">
+                    <input type="text" placeholder="Номер карты">
+                    <img src="/assets/image/validate-arrow.svg" alt="">
+                </div>
+                <div class="double-input-container">
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="Срок действия">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                    <div class="input-container input-container__small">
+                        <input type="text" placeholder="CVV">
+                        <img src="/assets/image/validate-arrow.svg" alt="">
+                    </div>
+                </div>
+                <div class="input-container input-container__big">
+                    <input type="text" placeholder="Имя Владельца">
+                    <img src="/assets/image/validate-arrow.svg" alt="">
+                </div>
+                <div class="third-page__bottom">
+                    <div class="personal-data__container">
+                        <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
+                        <NuxtLink to="#" class="personal-data__link">обработку персональных данных</NuxtLink>
+                    </div>
+                    <v-btn
+                    class="d-flex flex-row"
+                    variant="flat"
+                    color="rgba(221, 58, 26, 1)"
+                    rounded="0"
+                    width="230"
+                    height="52"
+                    >
+                    <span class="purchase-text">Оплатить</span>
+                    <img src="/assets/image/purchase.svg" alt="" class="buy-button">
+                    </v-btn>
+                </div>
             </div>
             <v-btn
             class="next-button"
@@ -138,5 +218,100 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
     }
     .third-label{
         transform: translateX(658px);
+    }
+    .page{
+        display: none;
+        width: 0;
+    }
+    .first-page{
+        margin-top: 100px;
+    }
+    .second-page{
+        margin-top: 25px;
+    }
+    .third-page{
+        margin-top: 25px;
+    }
+    .page-active{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 710px;
+        gap: 25px;
+    }
+    .double-input-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 44px;
+    }
+    .input-container{
+        padding: 13px 6px 13px 22px;
+        border-bottom: solid 1.5px rgba(23, 7, 7, 1);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .input-container__big{
+        width: 580px;
+    }
+    .input-container__small{
+        width: 268px;
+    }
+    input:focus, textarea:focus, select:focus {
+        outline: none !important;
+    }
+    input{
+        font-family: Manrope;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 25.6px;
+        letter-spacing: 0.02em;
+        text-align: left;
+        color: rgba(23, 7, 7, 1);
+    }
+    .purchase-text{
+        font-family: Manrope;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 35.2px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: rgba(255, 252, 251, 1);
+        text-transform: lowercase;
+        margin-right: 50px;
+    }
+    .purchase-text::first-letter{
+        text-transform: uppercase;
+    }
+    .personal-data{
+        font-family: Manrope;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 25.6px;
+        letter-spacing: 0.02em;
+        text-align: left;
+        color: rgba(166, 163, 163, 1);
+    }
+    .personal-data__link{
+        font-family: Manrope;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 25.6px;
+        letter-spacing: 0.02em;
+        text-align: left;
+        color: rgba(221, 58, 26, 1);
+        text-decoration: underline rgba(221, 58, 26, 1) 0.5px;
+        text-decoration-skip-ink: none;
+    }
+    .personal-data__container{
+        max-width: 390px;
+    }
+    .third-page__bottom{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 75px;
+        width: 710px;
     }
 </style>
