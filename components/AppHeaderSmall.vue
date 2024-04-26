@@ -20,6 +20,9 @@
 </template>
 
 <style scoped>
+    *{
+        transition: all 0.5s ease-in-out;
+    }
     header{
         background-color: rgba(221, 58, 26, 1);
         height: 75px;
@@ -29,7 +32,6 @@
         max-width: 1440px;
         padding: 8px 118px;
         margin: auto;
-        
     }
     .home-link{
         font-family: 'Swis721CnBTRusbyme-Roman';
@@ -37,5 +39,19 @@
         font-size: 36px;
         line-height: 160%;
         color: rgba(255, 252, 251, 1);
+    }
+    @media (max-width: 1024px) {
+        header{
+            height: 56px;
+        }
+        .home-link{
+            font-size: 26px;
+        }
+    }
+    @media (max-width: 768px) {
+        .header-wrapper{
+            max-width: 1440px;
+            padding: 7px 15px;
+        }
     }
 </style>

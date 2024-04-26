@@ -6,7 +6,7 @@
     <section class="main">
         <div>
             <slot />
-            <AppFooter/>
+            <!-- <AppFooter/> -->
         </div>
     </section>
 </template>
