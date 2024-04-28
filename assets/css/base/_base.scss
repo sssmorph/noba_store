@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  font-family: 'Roboto-Slab';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21px;
+
+  text-decoration: none;
+  color: currentColor;
+
+  // border: 1px solid #f0f;
+}
+
+.body {
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+}
+
+main {
+  overflow: hidden;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 86px;
+  
+  @include  min-content-width  {
+    padding: 0 56px;
+  }
+  
+  @include media-tablet {
+    padding: 0 18px;
+  }
+  
+  @include mobile-width {
+    padding: 0 12px;
+  }
+}
+
+
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+.z10 {
+  z-index: 10;
+}
+
+
+
+h1 {
+  font-family: 'Swis721 Cn BT';
+  font-size: 90px;
+  font-weight: 700;
+  line-height: 108px;
+  text-transform: uppercase;
+}
+
+h2 {
+font-family: 'Swis721 Cn BT';
+font-size: 60px;
+font-weight: 700;
+line-height: 72px;
+text-align: left;
+text-transform: uppercase;
+}
+
+h3,
+input {
+font-family: 'Swis721 Cn RM';
+font-size: 48px;
+font-weight: 400;
+line-height: 57.6px;
+text-align: left;
+text-transform: uppercase;
+}
+
+h4 {
+font-family: 'Manrope';
+font-size: 22px;
+font-weight: 400;
+line-height: 35.2px;
+text-align: left;
+}
+
+h5 {
+  font-family: 'Swis721 Cn RM';
+  font-size: 260px;
+  font-weight: 400;
+  line-height: 312px;
+  letter-spacing: -0.06em;
+  text-align: left;
+  color: $color_grey_dark;
+}
+
+h6 {
+  font-family: 'Swis721 Cn RM';
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 38.4px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: white;
+}
+
+p {
+font-family: 'Manrope';
+font-size: 18px;
+font-weight: 400;
+line-height: 28.8px;
+letter-spacing: 0.02em;
+text-align: left;
+}
+
+span {
+  font: inherit;
+}
+
+.texst_like_h1 {
+  font-size: 90px;
+  font-weight: 700;
+  line-height: 108px;
+}
+
+.red_text {
+  color: $color_red;
+}
+
+.bold_text {
+  font-weight: bold;
+}
+
+.overflow {
+  overflow: hidden,
+}
+
+.wrapper__for__img {
+  position: relative;
+  max-width: 1800px;
+  margin: 0 auto;
+}

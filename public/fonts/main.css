@@ -60,3 +60,25 @@
 	src: url('../fonts/swis721cnbtrusbyme-roman.woff2') format('woff2'), /* Super Modern Browsers */
 
 }
+
+
+@font-face {
+  font-family: 'Swis721 Cn RM';  
+  src: url('../fonts/swis721cnbtrusbyme_roman.otf') format('opentype'); 
+}
+@font-face {
+  font-family: 'Swis721 Cn BT';  
+  src: url('../fonts/swis721cnbtrusbyme_bold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Swis721 Hv Ha';  
+  src: url('../fonts/swis721hvbtrusbyme_heavy.otf') format('opentype'); 
+}
+@font-face {
+  font-family: 'Swis721 Hv HaIt';  
+  src: url('../fonts/swis721hvbtrusbyme_heavyitalic.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Manrope';  
+  src: url('../fonts/Manrope-VariableFont_wght.ttf') format('opentype'); 
+}

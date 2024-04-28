@@ -53,8 +53,8 @@ import CardModal from '~/components/CardModal.vue';
 </script>
 
 <template>
-  <!-- <AppHeaderBig/> -->
-  <AppOrder/>
+  <AppHeaderBig/>
+  
   <section class="catalog-container">
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"

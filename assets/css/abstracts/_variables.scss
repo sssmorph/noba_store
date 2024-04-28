@@ -1,0 +1,43 @@
+$color_text_black: #170707;
+$color_red: #DD3A1A;
+$color_red_light: #FFDBD0;
+$color_grey: #645D5D;
+$color_grey_light: #D8D8D8;
+$color_grey_dark: #A6A1A1;
+
+
+$width-4k: 1700px;
+$content-width: 1280px;
+$min-content-width: 1200px;
+$tablet-width: 868px;
+$mobile-width: 560px;
+
+@mixin media-4k {
+  @media (min-width: $width-4k) {
+    @content;
+  }
+}
+
+@mixin media-content {
+  @media (max-width: $content-width) {
+    @content;
+  }
+}
+
+@mixin min-content-width {
+  @media (max-width: $min-content-width) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin mobile-width {
+  @media (max-width: $mobile-width) {
+    @content;
+  }
+}

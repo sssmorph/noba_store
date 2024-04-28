@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <AppHeaderSmall/>
-  <CardModal/>
+  <!-- <AppHeaderSmall/> -->
+  <AppHeaderBig/>
   <section class="wrapper-container">
       <span class="background-text">BE REAL</span>
       <img src="../assets/image/heart.svg" class="background-image">
@@ -82,6 +82,7 @@
 
     </div>
   </section>
+  <AppFooter/>
 </template>
   
 <style scoped lang="scss">
