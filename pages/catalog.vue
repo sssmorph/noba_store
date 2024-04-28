@@ -1,4 +1,6 @@
 <script>
+import CardModal from '~/components/CardModal.vue';
+
   export default {
     data: () => ({
       items: [
@@ -45,14 +47,14 @@
     toggleFilter(){
       console.log(this.filterIsActive)
        return this.filterIsActive = !this.filterIsActive
-      console.log(this.filterIsActive)
     }
   }
   }
 </script>
 
 <template>
-  <AppHeaderBig/>
+  <!-- <AppHeaderBig/> -->
+  <AppOrder/>
   <section class="catalog-container">
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
@@ -217,8 +219,10 @@
         >
         </v-text-field>
       </v-responsive>
+      
     </div>
       <div class="catalog-cards-container ">
+        <div class="dark-background" :class="{hidden: !filterIsActive}"></div>
         <NuxtLink to="/card" class="card-item">
           <img src="/assets/image/card-image.png" class="card-photo">
           <div class="card-item-bottom">
@@ -255,7 +259,7 @@
 
 <style lang="scss" scoped>
  *{
-  transition: 0.2s all ease-in-out;
+  transition: 0.5s all ease-in-out;
  }
   .catalog-container{
     max-width: 1440px;
@@ -422,6 +426,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 25px 5px;
+    position: relative;
   }
   .card-item{
     width: 356px;
@@ -635,5 +640,14 @@
     text-align: left;
     color: rgba(23, 7, 7, 1);
     opacity: 1 !important;
+  }
+  .dark-background{
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: -50vw;
+    width: 1000vw;
+    height: 100%;
+    background-color: rgba(23, 7, 7, 0.35);
   }
 </style>

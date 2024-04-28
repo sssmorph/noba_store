@@ -67,6 +67,10 @@ export default {
                                     <span class="product-value">9000₽</span>
                                 </div>
                             </div>
+                            <div class="mobile-product-price">
+                                <span class="product-title-bold">Стоимость</span>
+                                <span class="product-value-bold">9000₽</span>
+                            </div>
                         </div>
                         <v-btn
                         class="cross-button"
@@ -122,7 +126,7 @@ export default {
         width: 100vw;
         height: 100vh;
         position: fixed;
-
+        top: 0;
         z-index: 3;
     }
     .popup-cart-container{
@@ -274,22 +278,17 @@ export default {
         flex-direction: row;
         gap:10px;
     }
-
-
-
     .nested-enter-active, .nested-leave-active {
         transition: all 0.5s ease-in-out;
     }
     .nested-leave-active {
       transition-delay: 0.2s;
     }
-    
     .nested-enter-from,
     .nested-leave-to {
       transform: translateY(-1000px);
       opacity: 0;
     }
-    
     .nested-enter-active .popup-cart-container,
     .nested-leave-active .popup-cart-container { 
       transition: all 0.5s ease-in-out;
@@ -297,11 +296,108 @@ export default {
     .nested-enter-active .popup-cart-container {
         transition-delay: 0.2s;
     }
-    
     .nested-enter-from .popup-cart-container,
     .nested-leave-to .popup-cart-container {
       transform: translateX(1000px);
 
       opacity: 0;
+    }
+    .mobile-product-price{
+        display: none;
+    }
+    @media (max-width:1400px) {
+        .popup-cart-container{
+            width: 70%;
+        }
+    }
+    @media (max-width: 1024px) {
+        .product-information{
+            gap: 48px;
+        }
+    }
+    @media (max-width: 900px) {
+        .popup-cart{
+            padding: 15px 10px 15px 15px;
+        }
+    }
+    @media (max-width: 800px) {
+        .close-popup{
+            margin-bottom: 25px;
+        }
+        .product-photo{
+            width: 103px;
+            height: 103px;
+        }
+        .product-name{
+            margin-top: 0;
+            font-size: 14px;
+            line-height: 120%;
+        }
+        .search-box-container{
+            max-width: 211px !important;
+        }
+        .to-order-button{
+            width: 265px !important;
+            height: 38px !important;
+        }
+        .to-order-text{
+            font-size: 18px;
+            line-height: 160%;
+        }
+        .to-order-container{
+            margin-block: 24px;
+        }
+        .current-price{
+            font-size: 38px;
+            line-height: 160%;
+        }
+        .without-sale{
+            font-size: 32px;
+            line-height: 160%;
+            margin-top: 0;
+        }
+        .price-container{
+            gap:0;
+        }
+        :global(.v-field__append-inner) {
+            margin-right: 13px !important;
+        }
+        .product-title-bold{
+            font-family: Manrope;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 120%;
+            color: rgba(23, 7, 7, 1);
+        }
+        .product-value-bold{
+            font-family: Manrope;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 28.8px;
+            letter-spacing: -0.02em;
+            text-align: left;
+        }
+        .product-total-price{
+            display: none;
+        }
+        .mobile-product-price{
+            display: flex;
+            flex-direction: row;
+            gap: 33px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .product-information{
+            margin-top: 15px;
+            gap: 48px;
+        }
+        .product-information-container{
+            gap: 20px;
+        }
+    }
+    @media (max-width: 680px) {
+        .popup-cart-container{
+            width: 100%;
+        }
     }
 </style>

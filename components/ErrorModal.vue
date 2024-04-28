@@ -71,4 +71,28 @@ export default {
         max-width: 300px;
         margin-top: 25px;
     }
+    @media (max-width:800px) {
+        .modal-container{
+            width: 400px;
+            height: 227px;
+            padding: 21px 22px 32px 30px;
+        }
+        .close-button{
+            width: 49px !important;
+            height: 49px !important;
+        }
+        .content-container{
+            gap: 42px;
+            img{
+                width: 63px;
+                height: 174px;
+            }
+        }
+        .content-text{
+            margin-top: 19px;
+            height: 100px;
+            font-size: 18px;
+            line-height: 160%;
+        }
+    }
 </style>
