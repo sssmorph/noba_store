@@ -275,6 +275,7 @@
     </div>
 
   </section>
+  <AppFooter/>
 </template>
 
 <style lang="scss" scoped>

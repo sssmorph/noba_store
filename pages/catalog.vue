@@ -255,6 +255,7 @@ import CardModal from '~/components/CardModal.vue';
         </NuxtLink>
       </div>
   </section>
+  <AppFooter/>
 </template>
 
 <style lang="scss" scoped>
