@@ -37,9 +37,7 @@
                             size="73"
                             color="rgba(221, 58, 26, 1)"
                             rounded="0">
-                                <v-icon icon="mdi-cart-outline"
-                                    color="rgba(0, 0, 0, 1)"
-                                    size="38"></v-icon>
+                                <img src="/assets/image/bi_cart.svg" alt="">
                         </v-btn>
                     </div>
                 </div>

@@ -6,14 +6,12 @@
     <section class="main">
         <div>
             <slot />
-            
         </div>
     </section>
 </template>
 
 <style scoped>
     .main{
-        background-color: rgba(255, 252, 251, 1);
-
+        background-color: rgba(255, 252, 251, 0);
     }
 </style>

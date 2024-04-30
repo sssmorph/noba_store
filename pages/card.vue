@@ -18,7 +18,6 @@
 
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
-      console.log(swiper)
     };
     const prev = ref(null);
     const next = ref(null);
@@ -256,9 +255,29 @@
           prevEl: prev,
           nextEl: next,
         }"
+        :breakpoints="{
+          '100':{
+            slidesPerView:2,
+            spaceBetween: 28,
+          },
+          '840':{
+            slidesPerView: 3,
+            spaceBetween: 44,
+          },
+          '1100': {
+            slidesPerView: 4,
+            spaceBetween: 44,
+          },
+          '1440': {
+            slidesPerView: 5,
+            spaceBetween: 44,
+          },
+        }"
         >
         
-          <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n">
+          <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n"
+          class="swiper-slide__item"
+          >
             <div class="slider__card-item">
               <img src="/assets/image/for-slider.jpg" class="card-item__photo">
               <div class="card-item__bottom">
@@ -582,6 +601,19 @@
       width: 210px;
       height: 280px;
       object-fit: cover;
+    }
+  }
+  @media (max-width: 840px) {
+    .swiper-slide__item{
+      max-height: 597px !important;
+    }
+    .slider__card-item{
+      width: 400px !important;
+      height: 597px !important;
+    }
+    .card-item__photo{
+      width: 400px;
+      height: 534px;
     }
   }
 </style>

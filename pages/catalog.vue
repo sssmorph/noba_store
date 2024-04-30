@@ -93,11 +93,20 @@ import CardModal from '~/components/CardModal.vue';
           <span class="button-text__preorder">Предзаказ</span>
           <img src="/assets/image/cart-white.svg">
         </v-btn>
+        
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
-          <img src="/assets/image/shirt.svg">          
+          <img src="/assets/image/shirt.png">          
         </NuxtLink>
-
+        <v-btn
+        variant="flat"
+        size="34"
+        rounded="0"
+        color="rgba(221, 58, 26, 1)"
+        class="hidden"
+        >
+          <img src="/assets/image/cart-black.svg" alt="">
+        </v-btn>
       </div>
     </div>
     <h1 class="catalog-title">Одежда</h1>
@@ -223,9 +232,11 @@ import CardModal from '~/components/CardModal.vue';
     </div>
       <div class="catalog-cards-container ">
         <div class="dark-background" :class="{hidden: !filterIsActive}"></div>
-        <NuxtLink to="/card" class="card-item">
-          <img src="/assets/image/card-image.png" class="card-photo">
-          <div class="card-item-bottom">
+        <div  class="card-item">
+          <NuxtLink to="/card">
+            <img src="/assets/image/card-image.png" class="card-photo">            
+          </NuxtLink>
+          <NuxtLink to="/card" class="card-item-bottom">
             <div class="card-item-bottom__header">
               <span class="item-name">Свитшот Freedom</span>
               <span class="item-price">4500 ₽</span>      
@@ -244,15 +255,15 @@ import CardModal from '~/components/CardModal.vue';
                 <img :src="images.currentImage">
               </v-btn>            
             </div>
-
-          </div>
+          </NuxtLink>
           <div class="size-container">
             <button
             v-for="(size, index) in sizes"
             :key="index"
             class="size-button">{{size.title}}</button>
           </div>
-        </NuxtLink>
+        </div>
+
       </div>
   </section>
   <AppFooter/>
@@ -430,7 +441,7 @@ import CardModal from '~/components/CardModal.vue';
     position: relative;
   }
   .card-item{
-    width: 356px;
+    max-width: 356px;
     height: 582px;
     display: flex;
     flex-direction: column;
@@ -449,7 +460,7 @@ import CardModal from '~/components/CardModal.vue';
 
   }
   .card-photo{
-    width: 356px;
+    max-width: 356px;
     height: 475px;
   }
 
@@ -539,7 +550,7 @@ import CardModal from '~/components/CardModal.vue';
     align-items: center;
   }
   .filterButtonActive{
-    background-color: rgba(221, 58, 26, 1);
+    background-color: rgba(221, 58, 26, 1) !important;
   }
   .opennedFilter{
     height: 415px;
@@ -650,5 +661,12 @@ import CardModal from '~/components/CardModal.vue';
     width: 1000vw;
     height: 100%;
     background-color: rgba(23, 7, 7, 0.35);
+  }
+  @media (max-width: 1440px) {
+    .catalog-cards-container{
+    }
+  }
+  @media (max-width: 1024px) {
+    
   }
 </style>
