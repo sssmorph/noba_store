@@ -96,7 +96,7 @@
       <div class="sub-header__button-container">
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
-          <img src="/assets/image/shirt.svg">          
+          <img src="/assets/image/shirt.png">          
         </NuxtLink>
         <v-btn
         variant="flat"

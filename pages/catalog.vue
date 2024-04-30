@@ -110,10 +110,13 @@ import CardModal from '~/components/CardModal.vue';
       </div>
     </div>
     <h1 class="catalog-title">Одежда</h1>
-    <div class="filter-container" >
+    <div class="filter-container" 
+    :class="{filterPadding: filterIsActive}"
+    >
       <div class="d-flex flex-row align-center filter-button-container">
         <v-btn
         :class="{filterButtonActive: filterIsActive}"
+        class="filterButton"
         variant="flat"
         size="34"
         color="rgba(23, 7, 7, 1)"
@@ -136,8 +139,16 @@ import CardModal from '~/components/CardModal.vue';
         >
         </v-text-field>
       </v-responsive>
+      <v-btn class="search-mobile"
+      variant="flat"
+      color="rgba(166, 163, 163, 1)"
+      size="38"
+      rounded="0">
+          <img src="/assets/image/search-btn-mobile.svg" alt="">
+      </v-btn>
       <v-btn 
       :class="{hidden: !filterIsActive}"
+      class="close-mobile"
       @click="toggleFilter"
       variant="flat"
       color="rgba(23, 7, 7, 1)"
@@ -147,92 +158,136 @@ import CardModal from '~/components/CardModal.vue';
         <img src="/assets/image/white-arrow.svg" alt="" class="button-arrow-filter">
       </v-btn>
     </div>
-    <div :class="{opennedFilter: filterIsActive, hidden: !filterIsActive}" class="filter-box">
-      <div class="filter-item">
-        <span class="filter-item__title">Категория</span>
-        <ul class="filter-item__list">
-          <li 
-          v-for="(category, index) in categories"
-          :key="index"
-          >
-            <span class="filter-item__text">{{category}}</span>
-          </li>
-        </ul>
+    <div :class="{opennedFilter: filterIsActive, hidden: !filterIsActive}" class="filter-box__container">
+      <!-- открытый фильтр -->
+      <div class="filter-item filter-item__mobile">
+        <span class="filter-item__title">Цена</span>
+        <v-range-slider
+        max-width="190"
+        track-size="2"
+        track-color="rgba(166, 163, 163, 1)"
+        track-fill-color="rgba(221, 58, 26, 1)"
+        thumb-color="rgba(221, 58, 26, 1)"
+        rounded="0"
+        thumb-size="12"
+        strict="true"
+        thumb-label="always"
+        step="1"
+        v-model="prices"
+        min="0"
+        max="10000"
+        >
+        </v-range-slider>
       </div>
-      <div class="filter-item__container">
+      <div class="filter-box">
         <div class="filter-item">
-          <span class="filter-item__title">Пол</span>
+          <span class="filter-item__title">Категория</span>
           <ul class="filter-item__list">
-            <li
-            v-for="(gender, index) in genders"
+            <li 
+            v-for="(category, index) in categories"
             :key="index"
             >
-              <span>{{gender}}</span>
+              <span class="filter-item__text">{{category}}</span>
             </li>
           </ul>
         </div>
-        <div class="filter-item">
-          <span class="filter-item__title">Размер</span>
-          <div class="filter-item__button-container">
-            <v-btn
-            variant="outlined"
-            color="rgba(23, 7, 7, 1)"
-            rounded="0"
-            size="34"
-            v-for="(size, index) in filterSizes"
-            :key="index"
-            class="filter-size-button"
-            >
-              <span class="filter-size-button__text">{{size}}</span>
-            </v-btn>
+        <div class="filter-item__container">
+          <div class="filter-item">
+            <span class="filter-item__title">Пол</span>
+            <ul class="filter-item__list">
+              <li
+              v-for="(gender, index) in genders"
+              :key="index"
+              >
+                <span>{{gender}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="filter-item">
+            <span class="filter-item__title">Размер</span>
+            <div class="filter-item__button-container">
+              <v-btn
+              variant="outlined"
+              color="rgba(23, 7, 7, 1)"
+              rounded="0"
+              size="34"
+              v-for="(size, index) in filterSizes"
+              :key="index"
+              class="filter-size-button"
+              >
+                <span class="filter-size-button__text">{{size}}</span>
+              </v-btn>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="filter-item__container">
-        <div class="filter-item">
-          <span class="filter-item__title">Цена</span>
-          <v-range-slider
-          max-width="190"
-          track-size="2"
-          track-color="rgba(166, 163, 163, 1)"
-          track-fill-color="rgba(221, 58, 26, 1)"
-          thumb-color="rgba(221, 58, 26, 1)"
-          rounded="0"
-          thumb-size="12"
-          strict="true"
-          thumb-label="always"
-          step="1"
-          v-model="prices"
-          min="0"
-          max="10000"
-          >
-          </v-range-slider>
+        <!-- слайдер + radio -->
+        <div class="filter-item__container radio-slider">
+          <div class="filter-item">
+            <span class="filter-item__title">Цена</span>
+            <v-range-slider
+            max-width="190"
+            track-size="2"
+            track-color="rgba(166, 163, 163, 1)"
+            track-fill-color="rgba(221, 58, 26, 1)"
+            thumb-color="rgba(221, 58, 26, 1)"
+            rounded="0"
+            thumb-size="12"
+            strict="true"
+            thumb-label="always"
+            step="1"
+            v-model="prices"
+            min="0"
+            max="10000"
+            >
+            </v-range-slider>
+          </div>
+          <div class="filter-item">
+            <span class="filter-item__title">Упорядочить по</span>
+            <v-radio-group>
+              <v-radio label="Цена по возрастанию" value="Цена по возрастанию"></v-radio>
+              <v-radio label="Цена по убыванию" value="Цена по убыванию"></v-radio>
+            </v-radio-group>
+          </div>
         </div>
-        <div class="filter-item">
-          <span class="filter-item__title">Упорядочить по</span>
-          <v-radio-group>
-            <v-radio label="Цена по возрастанию" value="Цена по возрастанию"></v-radio>
-            <v-radio label="Цена по убыванию" value="Цена по убыванию"></v-radio>
-          </v-radio-group>
-        </div>
-      </div>
-      <v-responsive max-width="390" class="search-box-container"
-      style="margin-top:12px;"
-      >
-        <v-text-field class="search-box"
-        clearable label="Поиск" 
-        variant="underlined"
-        append-inner-icon="mdi-magnify"
-        base-color="rgba(23, 7, 7, 1)"
-        color="rgba(23, 7, 7, 1)"
+
+        <v-responsive max-width="390" class="search-box-container filter-search"
+        style="margin-top:12px;"
         >
-        </v-text-field>
-      </v-responsive>
-      
+          <v-text-field class="search-box"
+          clearable label="Поиск" 
+          variant="underlined"
+          append-inner-icon="mdi-magnify"
+          base-color="rgba(23, 7, 7, 1)"
+          color="rgba(23, 7, 7, 1)"
+          >
+          </v-text-field>
+        </v-responsive>
+      </div>
+      <div class="filter-item radio-container__mobile">
+        <span class="filter-item__title">Упорядочить по</span>
+        <v-radio-group>
+          <v-radio label="Цена по возрастанию" value="Цена по возрастанию"></v-radio>
+          <v-radio label="Цена по убыванию" value="Цена по убыванию"></v-radio>
+        </v-radio-group>
+      </div>
+      <v-btn
+      variant="outlined"
+      width="157"
+      height="38"
+      rounded="0"
+      color="rgba(221, 58, 26, 1)"
+      class="show-button-container"
+      >
+        <span class="show-button-text">Показать</span>
+        <img src="/assets/image/filter-show-arrow.svg" alt=""/>
+      </v-btn>
+      <!--  -->
     </div>
-      <div class="catalog-cards-container ">
+      <div class="catalog-cards-container " >
         <div class="dark-background" :class="{hidden: !filterIsActive}"></div>
-        <div  class="card-item">
+
+
+        <div  class="card-item" v-for="n of 10" :virtualIndex="n" :key="n">
           <NuxtLink to="/card">
             <img src="/assets/image/card-image.png" class="card-photo">            
           </NuxtLink>
@@ -269,10 +324,14 @@ import CardModal from '~/components/CardModal.vue';
   <AppFooter/>
 </template>
 
+
+
+
 <style lang="scss" scoped>
  *{
   transition: 0.5s all ease-in-out;
  }
+
   .catalog-container{
     max-width: 1440px;
     margin: auto;
@@ -441,26 +500,28 @@ import CardModal from '~/components/CardModal.vue';
     position: relative;
   }
   .card-item{
-    max-width: 356px;
+    max-width: calc(25% - 4px);
     height: 582px;
     display: flex;
     flex-direction: column;
     gap: 16px; 
     position:relative;
+    flex: 0 0 25%;
   }
-  .card-item:hover{
-    height: 609px;
-    .card-photo{
-      height: 502px;
+  @media (hover: hover) {
+    .card-item:hover{
+      height: 609px;
+      .card-photo{
+        height: 502px;
+      }
+      .size-container{
+        display: flex;
+        opacity: 1;
+      }
     }
-    .size-container{
-      display: flex;
-      opacity: 1;
-    }
-
   }
   .card-photo{
-    max-width: 356px;
+    max-width: 100%;
     height: 475px;
   }
 
@@ -468,7 +529,8 @@ import CardModal from '~/components/CardModal.vue';
     border-top: 1.5px solid rgba(221, 58, 26, 1);
     margin-left: auto;
     margin-right: auto;
-    width: 335px;
+    width: 100%;
+    max-width: 335px;
     padding-top: 13px;
     padding-bottom: 12px;
   }
@@ -539,12 +601,9 @@ import CardModal from '~/components/CardModal.vue';
     letter-spacing: 0.02em;
     text-align: left;
     color: rgba(255, 252, 251, 1);
-
     background-color: rgba(23, 7, 7, 1);
-
     width: 28px;
     height: 28px;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -552,6 +611,7 @@ import CardModal from '~/components/CardModal.vue';
   .filterButtonActive{
     background-color: rgba(221, 58, 26, 1) !important;
   }
+
   .opennedFilter{
     height: 415px;
     padding: 0 118px 90px 79px;
@@ -567,6 +627,9 @@ import CardModal from '~/components/CardModal.vue';
     transform: rotate(270deg);
   }
   .hidden{
+    display: none !important;
+  }
+  .hiddenSearch{
     display: none !important;
   }
   .filter-item{
@@ -659,14 +722,178 @@ import CardModal from '~/components/CardModal.vue';
     top: 0;
     left: -50vw;
     width: 1000vw;
-    height: 100%;
+    height: calc(100% + 100px);
     background-color: rgba(23, 7, 7, 0.35);
+  }
+  .filterPadding{
+    padding-right: 40px;
+  }
+  .search-mobile{
+    display: none;
+    img{
+      width: 22px;
+      height: 22px;
+    }
+  }
+  .close-mobile{
+    display: block;
+  }
+  .filter-box__container{
+    display: flex;
+    flex-direction: column;
+  }
+  .filter-item__mobile{
+    display: none;
+  }
+  .radio-container__mobile{
+    display: none;
+  }
+  .show-button-container{
+    display: none;
   }
   @media (max-width: 1440px) {
     .catalog-cards-container{
+      padding: 15px;
     }
   }
-  @media (max-width: 1024px) {
-    
+  @media (max-width: 1200px) {
+    .card-item{
+      max-width: 33.33%;
+      flex: 0 0 33%;
+    }
+    .card-photo{
+      width: 100%;
+    }
+    .filter-box{
+      gap: 50px;
+    }
+  }
+  @media (max-width: 1030px) {
+    .catalog-title{
+      margin-top: 28px;
+      margin-bottom: 34px;
+      transform: none;
+    }
+    .filterButton{
+      width: 38px !important;
+      height: 38px !important;
+
+    }
+    .card-item{
+      max-width: calc(50% - 3px);
+      flex: 0 0 50%;
+    }
+    .opennedFilter{
+      padding-right: 40px;
+    }
+    .filter-search{
+      display: none;
+    }
+    .search-mobile{
+      display: block;
+    }
+    .close-mobile{
+      display: none;
+    }
+    .search-box-container{
+      display: none;
+    }
+  }
+  @media (max-width: 650px) {
+    .catalog-title{
+      margin-left: 15px;
+      font-size: 36px;
+      line-height: 120%;
+    }
+    .filter-box{
+      gap:60px;
+    }
+    .filter-item__container{
+      gap:56px;
+    }
+    .filter-item{
+      gap:32px;
+    }
+    .filter-item__list{
+      gap:12px;
+    }
+    .radio-container__mobile{
+      display: flex;
+      margin-top: 56px;
+    }
+    .radio-slider{
+      display: none;
+    }
+    .filter-item__button-container{
+      max-width: 157px;
+    }
+    .filter-size-button{
+      width: 49px !important;
+      height: 49px !important;
+    }
+    .filter-title{
+      margin-left: 11px;
+      font-size: 18px;
+      line-height: 160%;
+    }
+    .catalog-cards-container{
+      flex-direction: column;
+      align-content: center;
+    }
+    .card-item{
+      max-width: 400px;
+      max-height: 597;
+      flex: 0 0 1;
+    }
+    .card-photo{
+      width: 400px;
+      height: 534px;
+    }
+    .to-basket__button{
+      margin: 0;
+      width: 103px !important;
+    }
+    .card-item-bottom{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 9px;
+      gap: 10px;
+      max-width: 388px;
+    }
+    .card-item-bottom__header{
+      display: flex;
+      justify-content: space-between;
+      width: 275px;
+    }
+    .filter-container{
+      margin-bottom: 30px;
+      padding: 0 15px;
+    }
+    .opennedFilter{
+      padding: 12px 15px 35px 15px;
+      height: 813px;
+    }
+    .filter-item__mobile{
+      display: flex;
+      margin-bottom: 15px;
+    }
+    .show-button-container{
+      display: flex;
+      margin-left: auto;
+      margin-top: 18px;
+    }
+    .show-button-text{
+      color: rgba(23, 7, 7, 1);
+      font-family: Manrope;
+      font-size: 18px;
+      line-height: 160%;
+      text-transform: lowercase;
+      margin-right: 20px;
+    }
+    .show-button-text::first-letter{
+      text-transform: uppercase;
+    }
   }
 </style>
