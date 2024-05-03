@@ -124,8 +124,9 @@
         :modules="modules"
         :breakpoints="{
           '100':{
-            slidesPerView:1
+            slidesPerView:1,
           },
+
           '1200':{
             slidesPerView:2,
           },
