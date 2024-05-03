@@ -262,10 +262,22 @@ import CardModal from '~/components/CardModal.vue';
           </div>
           <div class="filter-item">
             <span class="filter-item__title">Упорядочить по</span>
-            <v-radio-group>
-              <v-radio label="Цена по возрастанию" value="Цена по возрастанию"></v-radio>
-              <v-radio label="Цена по убыванию" value="Цена по убыванию"></v-radio>
-            </v-radio-group>
+            <div class="radio-button-container d-flex flex-column ga-2">
+
+              <div class="">
+                <input id="radio1" type="radio" name="radio" class="hidden" checked />
+                <label for="radio1" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+                <div class="radio-button__square"></div>
+                Цена по возрастанию</label>
+              </div>
+    
+              <div class="">
+                <input id="radio2" type="radio" name="radio" class="hidden" />
+                <label for="radio2" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+                <div class="radio-button__square "></div>
+                Цена по убыванию</label>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -284,10 +296,22 @@ import CardModal from '~/components/CardModal.vue';
       </div>
       <div class="filter-item radio-container__mobile">
         <span class="filter-item__title">Упорядочить по</span>
-        <v-radio-group>
-          <v-radio label="Цена по возрастанию" value="Цена по возрастанию"></v-radio>
-          <v-radio label="Цена по убыванию" value="Цена по убыванию"></v-radio>
-        </v-radio-group>
+        <div class="radio-button-container d-flex flex-column ga-2">
+
+          <div class="">
+            <input id="radio1" type="radio" name="radio" class="hidden" checked />
+            <label for="radio1" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+            <div class="radio-button__square"></div>
+            Цена по возрастанию</label>
+          </div>
+
+          <div class="">
+            <input id="radio2" type="radio" name="radio" class="hidden" />
+            <label for="radio2" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+            <div class="radio-button__square "></div>
+            Цена по убыванию</label>
+          </div>
+        </div>
       </div>
       <v-btn
       variant="outlined"
@@ -776,6 +800,26 @@ import CardModal from '~/components/CardModal.vue';
   .button-text__collection__mobile::first-letter{
     text-transform: uppercase !important;
   }
+
+  .radio-button__square{
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    background-image: url(/assets/image/empty_check.svg);
+  }
+
+  @media(hover: hover){
+    input[type="radio"] + label div:hover,
+    input[type="radio"] + label:hover div{
+      transform: scale(1.2);
+      transition: all ease-in-out 0.2s;    
+    } 
+  }
+  input[type="radio"]:checked + label div {
+    background-image: url(/assets/image/check_box.svg);
+    transition: all ease-in-out 0.2s;
+  }
+
   @media (max-width: 1440px) {
     .catalog-cards-container{
       padding: 15px;
@@ -841,6 +885,7 @@ import CardModal from '~/components/CardModal.vue';
     }
     .filter-box{
       gap:60px;
+      padding: 0 27px;
     }
     .filter-item__container{
       gap:56px;
@@ -854,6 +899,7 @@ import CardModal from '~/components/CardModal.vue';
     .radio-container__mobile{
       display: flex;
       margin-top: 56px;
+      padding: 0 27px;
     }
     .radio-slider{
       display: none;

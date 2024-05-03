@@ -1,14 +1,5 @@
-<script>
-  export default {
-    head() {
-      return {
-        script: [
-
-          { src: 'assets/scripts/index.js' }
-        ],
-      }
-    }
-  }
+<script setup>
+import index from '../plugins/index.js';
 </script>
 
 <template>
