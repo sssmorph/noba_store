@@ -819,7 +819,9 @@ import CardModal from '~/components/CardModal.vue';
     background-image: url(/assets/image/check_box.svg);
     transition: all ease-in-out 0.2s;
   }
-
+  .button-text__collection__mobile{
+    display: none;
+  }
   @media (max-width: 1440px) {
     .catalog-cards-container{
       padding: 15px;

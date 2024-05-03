@@ -1,5 +1,5 @@
 <script setup>
-import index from '../plugins/index.js';
+
 </script>
 
 <template>
@@ -247,9 +247,12 @@ import index from '../plugins/index.js';
         <div class="bg_blok_white"></div>
         <div class="run_line">
           <hr class="horizon_line_red">
-              <div class='marquee' style='overflow:hidden'>
+              <NuxtMarquee
+              autoFill='True'
+              speed="300"
+               class='marquee' style='overflow:hidden'>
                 <h2 class="texst_like_h1 run_line_text run_line_1">БОНУСЫ <span class="italik_text">БОНУСЫ</span> БОНУСЫ <span class="italik_text">БОНУСЫ</span></h2>
-              </div>
+              </NuxtMarquee>
           <hr class="horizon_line_red">
         </div>
       </section>
@@ -331,9 +334,12 @@ import index from '../plugins/index.js';
         <div class="we_near__bg_gray"></div>
         <div class="run_line">
           <hr class="horizon_line_red">
-          <div class='marquee' style='overflow:hidden'>
+          <NuxtMarquee 
+          autoFill='True'
+          speed="300"
+          class='marquee' style='overflow:hidden'>
             <h2 class="texst_like_h1 run_line_text">BE REAL <span class="italik_text">BE REAL</span> BE REAL <span class="italik_text">BE REAL</span></h2>
-          </div>
+          </NuxtMarquee>
           <hr class="horizon_line_red">
         </div>
       </section>
