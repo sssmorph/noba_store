@@ -64,7 +64,7 @@ import CardModal from '~/components/CardModal.vue';
           {{ item.title }}
         </template>
       </v-breadcrumbs>
-      <div class="timer-container">
+      <div class="timer-container timer-container__hidden">
         <span class="timer-title">До старта продаж осталось</span>
         <div class="timer d-flex flex-row ">
           <div class="timer__item">
@@ -83,6 +83,7 @@ import CardModal from '~/components/CardModal.vue';
       </div>
       <div class="buttons-container">
         <v-btn
+        class="button-preorder"
         variant="flat"
         width="233"
         height="34"
@@ -96,6 +97,7 @@ import CardModal from '~/components/CardModal.vue';
         
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
+          <span class="button-text__collection button-text__collection__mobile">Еще коллекции</span>
           <img src="/assets/image/shirt.png">          
         </NuxtLink>
         <v-btn
@@ -107,6 +109,23 @@ import CardModal from '~/components/CardModal.vue';
         >
           <img src="/assets/image/cart-black.svg" alt="">
         </v-btn>
+      </div>
+    </div>
+    <div class="timer-container timer-container__mobile">
+      <span class="timer-title">До старта продаж осталось</span>
+      <div class="timer d-flex flex-row ">
+        <div class="timer__item">
+          <div class="timer__box">35</div>
+          <span class="timer__text">дней</span>
+        </div>
+        <div class="timer__item">
+          <div class="timer__box">16</div>
+          <span class="timer__text">часов</span>
+        </div>
+        <div class="timer__item">
+          <div class="timer__box timer__box-minute">28</div>
+          <span class="timer__text">минут</span>
+        </div>
       </div>
     </div>
     <h1 class="catalog-title">Одежда</h1>
@@ -751,6 +770,12 @@ import CardModal from '~/components/CardModal.vue';
   .show-button-container{
     display: none;
   }
+  .timer-container__mobile{
+    display: none;
+  }
+  .button-text__collection__mobile::first-letter{
+    text-transform: uppercase !important;
+  }
   @media (max-width: 1440px) {
     .catalog-cards-container{
       padding: 15px;
@@ -769,6 +794,15 @@ import CardModal from '~/components/CardModal.vue';
     }
   }
   @media (max-width: 1030px) {
+    .timer-container__hidden{
+      display: none;
+    }
+    .timer-container__mobile{
+      display: flex;
+      margin-top: 25px;
+      justify-content: flex-end;
+      padding: 0 40px;  
+    }
     .catalog-title{
       margin-top: 28px;
       margin-bottom: 34px;
@@ -894,6 +928,36 @@ import CardModal from '~/components/CardModal.vue';
     }
     .show-button-text::first-letter{
       text-transform: uppercase;
+    }
+    .sub-header-container{
+      padding: 0 15px;
+    }
+    .timer-container__mobile{
+      padding: 0 15px;
+      gap: 15px;
+    }
+    .other-collection__link{
+      width: 184px;
+      height: 38px;
+      display: none; // нуужно для версии страницы без таймера
+      .button-text__collection{
+        display: none;
+      }
+      .button-text__collection__mobile{
+        display: block;
+      }
+      .button-text__collection__mobile::first-letter{
+        text-transform: uppercase !important;
+      }
+    }
+    .button-preorder{
+      width: 168px !important;
+      height: 38px !important;
+    }
+    .timer-title{
+      font-size: 22px;
+      line-height: 120%;
+      margin-top: 7px;
     }
   }
 </style>

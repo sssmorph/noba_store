@@ -96,9 +96,11 @@
       <div class="sub-header__button-container">
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
+          <span class="button-text__collection button-text__collection-mobile">Ещё коллекции</span>
           <img src="/assets/image/shirt.png">          
         </NuxtLink>
         <v-btn
+        class="sub-header__basket-button"
         variant="flat"
         size="34"
         color="rgba(221, 58, 26, 1)"
@@ -110,6 +112,8 @@
     </div>
     <div class="card-container">
       <div class="card__photos">
+        <h1 class="item-name item-name__mobile">Свитшот Freedom</h1>
+        <p class="item-article item-article__mobile">Арт.: 3265845</p>
         <swiper
         class="card-photo-slider"
         :spaceBetween="5"
@@ -118,6 +122,14 @@
         :loop="true"
         :thumbs="{swiper: thumbsSwiper}"
         :modules="modules"
+        :breakpoints="{
+          '100':{
+            slidesPerView:1
+          },
+          '1200':{
+            slidesPerView:2,
+          },
+        }"
         >
         <swiper-slide class="card-photo-slider__item">
           <img src="/assets/image/card-slider-1.jpg" />
@@ -139,12 +151,14 @@
         </swiper-slide>
       </swiper>
       <swiper
+        class="thumbSlider"
         :spaceBetween="5"
         :slidesPerView="4"
         :freeMode="true"
         :loop="true"
         :modules="modules"
         @swiper="setThumbsSwiper"
+        
       >
         <swiper-slide class="card-photo-slider__thumb">
           <img src="/assets/image/card-slider-1.jpg" />
@@ -250,7 +264,9 @@
         style="position: relative;"
         :loop="true"
         :slides-per-view="5"
+        :freeMode="true"
         :spaceBetween="44"
+        :autoHeight="true"
         :navigation="{
           prevEl: prev,
           nextEl: next,
@@ -259,8 +275,15 @@
           '100':{
             slidesPerView:2,
             spaceBetween: 28,
+            centeredSlides:false,
+            direction: 'vertical',
           },
-          '840':{
+          '600':{
+            direction: 'horizontal',
+            centeredSlides:true,
+            slidesPerView:2,
+          },
+          '850':{
             slidesPerView: 3,
             spaceBetween: 44,
           },
@@ -603,17 +626,235 @@
       object-fit: cover;
     }
   }
-  @media (max-width: 840px) {
-    .swiper-slide__item{
-      max-height: 597px !important;
+  .item-name__mobile{
+    display: none;
+  }
+  .item-article__mobile{
+    display: none;
+  }
+  .button-text__collection-mobile{
+    display: none;
+  }
+  @media (max-width: 1440px) {
+    .card__photos{
+      max-width: 750px;
     }
+  }
+  @media (max-width: 1200px){
+    .thumbSlider{
+      display: none;
+    }
+    .card-photo-slider__item{
+      max-width: 750px;
+      width: 100% !important;
+      img{
+        height: 614px;
+        width: 100%;
+        max-width: 424px;
+        margin: auto;
+      }
+    }
+    .card-photo-slider__thumb{
+      img{
+        height: 200px;
+      }
+    }
+    .card__photos{
+      height: 720px;
+      max-width: 600px;
+    }
+    .item-information__container{
+      margin-top: 25px;
+      gap: 12px;
+    }
+    .size-conditions{
+      margin-top: 34px;
+      flex-direction: column;
+      gap: 36px;
+    }
+    .divider{
+      margin-top: 24px;
+      margin-bottom: 7px;
+    }
+    .size-container{
+      gap: 18px;
+    }
+    .card-bottom{
+      gap: 15px;
+    }
+    .card-container{
+      margin-top: 36px;
+    }
+    .card__photos{
+      height: 614px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .recomendation-container{
+      padding: 0 15px;
+    }
+    .card__photos{
+      max-width: 400px;
+    }
+  }
+  @media (max-width: 950px) {
+    .card-container{
+      flex-direction: column;
+      gap: 32px;
+    }
+    .card__description{
+      max-width: 100%;
+      width: 100%;
+      .item-description{
+        width: 100%;
+        max-width: 100%;
+      }
+      .item-name{
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+    .card__photos{
+      height: auto;
+      max-width: 100%;
+      width: 100%;
+    }
+    .item-name{
+      display: none;
+    }
+    .item-article{
+      display: none;
+    }
+    .item-name__mobile{
+      display: block;
+      max-width: 100%;
+      width: 100%;
+    }
+    .item-article__mobile{
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 24px; 
+    }
+    .card-photo-slider__item{
+      max-width: 100%;
+      width: 100%;
+      margin-right: 0 !important;
+    }
+    .item-description{
+      margin-top: 0;
+    }
+    .card-photo-slider{
+      margin-bottom: 0 !important;
+    }
+  }
+  @media (max-width: 840px) {
     .slider__card-item{
-      width: 400px !important;
-      height: 597px !important;
+      max-width: 400px;
+      width: 100%;
+      height: 597px; 
     }
     .card-item__photo{
-      width: 400px;
+      max-width: 100%;
+      width: 100%;
       height: 534px;
+    }
+    .card-item__bottom{
+      margin-top: 18px;
+      margin-left:0;
+      margin-right:0;
+      padding-top: 13px;
+    }
+  }
+  @media (max-width: 600px) {
+    .swiper-slide__item{
+      max-height: 597px !important;
+      height: 597px !important;
+    }
+    .swiper-slide{
+      display: flex;
+      justify-content: center;
+    }
+    .recomendation-slider__buttons-container{
+      display: none;
+    }
+    .recomendation-container{
+      padding: 0 15px;
+    }
+    .recomendation-title{
+      font-size: 24px;
+      line-height: 160%;
+      margin:0;
+    }
+    .recomendation-slider{
+      margin-top: 25px;
+      max-height: 1222px;
+    }
+    .card-page-container{
+      padding-top: 15px;
+    }
+    .sub-header__basket-button{
+      width: 38px !important;
+      height: 38px !important;
+    }
+    .other-collection__link{
+      width: 184px;
+      height: 38px;
+    }
+    .button-text__collection{
+      display: none;
+      margin-right: 11px;
+    }
+    .button-text__collection-mobile{
+      display: block;
+    }
+    .sub-header-container{
+      padding: 0 15px;
+    }
+    .card-container{
+      padding: 0 15px;
+      margin-bottom: 54px;
+    }
+    .item-name__mobile{
+      font-size: 36px;
+      line-height: 120%;
+    }
+    .item-article__mobile{
+      font-size: 14px;
+      line-height: 120%;
+    }
+    .item-description{
+      font-size: 14px;
+      line-height: 120%;
+    }
+    .information-title{
+      font-size: 14px;
+    }
+    .information-description{
+      font-size: 14px;
+    }
+    .item-information{
+      gap: 8px;
+    }
+    .size-title{
+      font-size: 14px;
+    }
+    .size-button{
+      width: 49px;
+      height: 49px;
+      font-size: 18px;
+    }
+    .item-price{
+      font-size: 38px;
+      line-height:160%;
+    }
+    .to-basket__button{
+      width: 157px !important;
+      height: 38px !important;
+    }
+    .to-basket{
+      font-size: 18px;
+      margin-right: 16px;
+      line-height: 160%;
     }
   }
 </style>
