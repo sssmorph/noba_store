@@ -9,11 +9,17 @@
   import 'swiper/css/thumbs';
 
   export default {
+    
     components: {
     Swiper,
     SwiperSlide,
   },
   setup() {
+    const cartStore = useModal();
+
+    const openCart = () =>{
+        cartStore.openCartModal()
+    }
     const thumbsSwiper = ref(null);
 
     const setThumbsSwiper = (swiper) => {
@@ -27,6 +33,8 @@
       setThumbsSwiper,
       prev,
       next,
+      cartStore,
+      openCart
     };
   },
     data: () => ({
@@ -90,6 +98,7 @@
 
 <template>
   <AppHeaderBig/>
+  <CardModal/>
   <section class="card-page-container">
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
@@ -122,6 +131,7 @@
         size="34"
         color="rgba(221, 58, 26, 1)"
         rounded="0"
+        @click="openCart"
         >
         <img src="/assets/image/cart-black.svg" style="pointer-events: none;">
         </v-btn>        

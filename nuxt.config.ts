@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     },
     'nuxt-swiper',
     "nuxt-marquee",
+    '@pinia/nuxt',
     //...
   ],
   vite: {

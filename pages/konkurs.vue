@@ -3,62 +3,31 @@
   let burgerIsOpen = ref(false);
   const isElementActive = ref([false, false, false, false, false, false]);
   let isAccOpen = ref([false, false, false, false, false]);
+  const modalStore = useModal();
 
-const handleScroll = () => {
-  const scrollPositions = [1380, 1780, 2180, 2780, 3280, 3780];
-  const windowScrollY = window.scrollY;
-  for (let i = 0; i < scrollPositions.length; i++) {
-    if (windowScrollY > scrollPositions[i]) {
-      isElementActive.value[i] = true;
-    } else {
-      isElementActive.value[i] = false;
-    }
+  const openModal = () =>{
+    modalStore.openFeedback();
   }
-};
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
-});
-
+  const handleScroll = () => {
+    const scrollPositions = [1380, 1780, 2180, 2780, 3280, 3780];
+    const windowScrollY = window.scrollY;
+    for (let i = 0; i < scrollPositions.length; i++) {
+      if (windowScrollY > scrollPositions[i]) {
+        isElementActive.value[i] = true;
+      } else {
+        isElementActive.value[i] = false;
+      }
+    }
+  };
+  onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+  });
 
 </script>
 
 <template>
-
-    <div class="modal modal_active" id="modal-1" v-if="modalIsActive">
-      <div class="modal__content">
-        <div class="modal__close-button"  @click="modalIsActive = false"></div>
-        <div class="modal__wrapper">
-          <div class="modal__top_line">
-            <div class="contact_form__input__wrapper">
-              <input name="name" type="text" class="contact-form__input contact-form__input_name" placeholder="ИМЯ">
-              <div class="contact-form__error contact-form__error_name"></div>
-            </div>
-            <div class="contact_form__input__wrapper">
-              <input name="tel" type="tel" class="contact-form__input contact-form__input_tel" onkeypress='validate(event)' placeholder="НОМЕР" value="+7">
-              <div class="contact-form__error contact-form__error_tel"></div>
-            </div>
-          </div>
-          <div class="contact_form__input__wrapper">
-            <input name="comment" type="comment" class="contact-form__input contact-form__input_comment" placeholder="КОМАНТАРИЙ">
-            <div class="contact-form__error contact-form__error_comment"></div>
-          </div>
-          <h3 class="contact_form__input__wrapper">Расскажите о себе (сфера деятельности, охват аудитории)</h3>
-          <div class="contact_form__input__wrapper">
-            <input name="about" type="about" class="contact-form__input contact-form__input_about" >
-            <div class="contact-form__error contact-form__error_about"></div>
-          </div>
-          <div class="modal__bottom_line">
-            <div class="CAPTCHA">CAPTCHA</div>
-            <button class="btn_take_part">
-              <h4>Отправить</h4>
-              <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
-            </button>
-          </div>
-          <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на <span>обработку персональных данных</span></h4>
-        </div>
-      </div>
-    </div>
+    <FeedbackModal/>
     <header class="header">
       <div class="red_line"></div>
       <div class="wrapper">
@@ -109,7 +78,7 @@ onMounted(() => {
                 <p>Используй свою платформу и влияние, чтобы продать как можно больше вещей. Вовлекай подписчиков, получай прибыль и признание аудитории на каждом этапе конкурса.</p>
               </div>
               <div class="hero__blok__bottom__btn">
-                <button id="callback-button" class="btn_take_part" @click="modalIsActive = true">
+                <button id="callback-button" class="btn_take_part" @click="openModal">
                   <h4>Участвовать</h4>
                   <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
                 </button>
@@ -269,10 +238,9 @@ onMounted(() => {
         <div class="run_line">
           <hr class="horizon_line_red">
               <NuxtMarquee
-              autoFill='True'
               speed="300"
                class='marquee' style='overflow:hidden'>
-                <h2 class="texst_like_h1 run_line_text run_line_1">БОНУСЫ <span class="italik_text">БОНУСЫ</span> БОНУСЫ <span class="italik_text">БОНУСЫ</span></h2>
+                <h2 class="texst_like_h1 run_line_text run_line_1 mr-3">БОНУСЫ <span class="italik_text"> БОНУСЫ </span> БОНУСЫ <span class="italik_text"> БОНУСЫ </span> БОНУСЫ <span class="italik_text"> БОНУСЫ </span> </h2>
               </NuxtMarquee>
           <hr class="horizon_line_red">
         </div>
@@ -330,7 +298,7 @@ onMounted(() => {
           </div>
           <div class="bonus__container__bottom">
             <img src="assets/image/arrow_bonus.svg" alt="arrow bonus">
-            <div class="btn_take_part get-modal_1"  @click="modalIsActive = true">
+            <div class="btn_take_part get-modal_1"  @click="openModal">
               <h4>Участвовать</h4>
               <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
             </div>
@@ -361,7 +329,7 @@ onMounted(() => {
           autoFill='True'
           speed="300"
           class='marquee' style='overflow:hidden'>
-            <h2 class="texst_like_h1 run_line_text">BE REAL <span class="italik_text">BE REAL</span> BE REAL <span class="italik_text">BE REAL</span></h2>
+            <h2 class="texst_like_h1 run_line_text mr-3" >BE REAL <span class="italik_text">BE REAL</span> BE REAL <span class="italik_text">BE REAL</span></h2>
           </NuxtMarquee>
           <hr class="horizon_line_red">
         </div>
@@ -495,7 +463,7 @@ onMounted(() => {
           <h2>BE REAL</h2>
           <div class="winner_bottom__block">
             <img class="winner_bottom__img" src="assets/image/heart-white.svg" alt="heart">
-            <div class="winner_bottom__btn btn_take_part get-modal_1"  @click="modalIsActive = true">
+            <div class="winner_bottom__btn btn_take_part get-modal_1"  @click="openModal">
               <h4>Участвовать</h4>
               <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
             </div>

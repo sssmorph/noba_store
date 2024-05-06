@@ -1,5 +1,4 @@
 <script>
-import CardModal from '~/components/CardModal.vue';
 
   export default {
     data: () => ({
@@ -61,7 +60,7 @@ import CardModal from '~/components/CardModal.vue';
 
 <template>
   <AppHeaderBig/>
-  
+  <CardModal/>
   <section class="catalog-container">
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"

@@ -2,7 +2,11 @@
 
     let isActive = ref(false);
     const toggleHeader = () => { return isActive.value  = !isActive.value};
-    const output = () => { console.log(isActive.value)}
+    const cartStore = useModal();
+
+    const openCart = () =>{
+        cartStore.openCartModal()
+    }
 </script>
 
 <template>
@@ -36,7 +40,8 @@
                             variant="flat"
                             size="73"
                             color="rgba(221, 58, 26, 1)"
-                            rounded="0">
+                            rounded="0"
+                            @click="openCart">
                                 <img src="/assets/image/bi_cart.svg" alt="">
                         </v-btn>
                     </div>

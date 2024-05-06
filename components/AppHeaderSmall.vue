@@ -1,4 +1,8 @@
-<script lang="ts">
+<script setup>
+    const cartStore = useModal();
+    const openCart = () =>{
+        cartStore.openCartModal()
+    }
 
 </script>
 
@@ -12,7 +16,8 @@
             size="34"
             color="rgba(255, 252, 251, 1)"
             base-color="rgba(255, 252, 251, 1)"
-            rounded="0">
+            rounded="0"
+            @click="openCart">
                 <img src="/assets/image/to-basket-black.svg" alt="" class="header-button"/>
               </v-btn>
         </div>
