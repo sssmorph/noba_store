@@ -47,6 +47,12 @@
           href: 'card'
         }
       ],
+      itemsMobile: [{
+        title: '< TravelMax',
+        disabled: false,
+        href: "catalog"
+      }],
+      
       sizes:[
         {
           title: "XS"
@@ -88,7 +94,18 @@
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
       divider="|"
-      color="rgba(166, 163, 163, 1)">
+      color="rgba(166, 163, 163, 1)"
+      class="breadcrumbs"
+      >
+        <template v-slot:title="{ item }">
+          {{ item.title }}
+        </template>
+      </v-breadcrumbs>
+      <v-breadcrumbs :items="itemsMobile"
+      divider="|"
+      color="rgba(166, 163, 163, 1)"
+      class="breadcrumbs__mobile"
+      >
         <template v-slot:title="{ item }">
           {{ item.title }}
         </template>
@@ -636,6 +653,9 @@
   .button-text__collection-mobile{
     display: none;
   }
+  .breadcrumbs__mobile{
+    display: none;
+  }
   @media (max-width: 1440px) {
     .card__photos{
       max-width: 750px;
@@ -767,6 +787,12 @@
     }
   }
   @media (max-width: 600px) {
+    .breadcrumbs{
+      display: none;
+    }
+    .breadcrumbs__mobile{
+      display: block;
+    }
     .swiper-slide__item{
       max-height: 597px !important;
       height: 597px !important;

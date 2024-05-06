@@ -15,6 +15,13 @@ import CardModal from '~/components/CardModal.vue';
           href: 'catalog',
         },
       ],
+      itemsMobile: [
+        {
+          title: "< Все коллекции",
+          disabled: false,
+          href: '/'
+        }
+      ],
       sizes:[
         {
           title: "M"
@@ -59,7 +66,19 @@ import CardModal from '~/components/CardModal.vue';
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
       divider="|"
-      color="rgba(166, 163, 163, 1)">
+      color="rgba(166, 163, 163, 1)"
+      class="breadcrumbs"
+      >
+        <template v-slot:title="{ item }">
+          {{ item.title }}
+        </template>
+      </v-breadcrumbs>
+
+      <v-breadcrumbs :items="itemsMobile"
+      divider="|"
+      color="rgba(166, 163, 163, 1)"
+      class="breadcrumbs__mobile"
+      >
         <template v-slot:title="{ item }">
           {{ item.title }}
         </template>
@@ -800,13 +819,16 @@ import CardModal from '~/components/CardModal.vue';
   .button-text__collection__mobile::first-letter{
     text-transform: uppercase !important;
   }
-
+  .breadcrumbs__mobile{
+    display: none;
+  }
   .radio-button__square{
     margin-right: 8px;
     width: 20px;
     height: 20px;
     background-image: url(/assets/image/empty_check.svg);
   }
+  
 
   @media(hover: hover){
     input[type="radio"] + label div:hover,
@@ -1006,6 +1028,12 @@ import CardModal from '~/components/CardModal.vue';
       font-size: 22px;
       line-height: 120%;
       margin-top: 7px;
+    }
+    .breadcrumbs{
+      display: none;
+    }
+    .breadcrumbs__mobile{
+      display: block;
     }
   }
 </style>
