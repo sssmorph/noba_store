@@ -144,9 +144,67 @@
                 </v-btn>
             </NuxtLink>
             <img src="/assets/image/bereal-inf-konkurs.svg" class="konkurs-be-real">
-        </div>
-
+            <div class="konkurs-title-container">
+                <h2 class="t-w swis konkurs-title">Конкурс для блогеров</h2>
+                <div class="konkurs-line"></div>
+            </div>
+            <div class="konkurs-information-container">
+                <p class="t-w manrope normal-benefit konkurs-information-text"><span class="swis big-benefit">Создай </span>лимитированную коллекцию одежды.</p>
+                <p class="t-w manrope normal-benefit konkurs-information-text"><span class="swis big-benefit ">Продай </span>одежды больше всех остальных участников.</p>
+                <p class="t-w manrope normal-benefit konkurs-information-text"><span class="big-benefit t-w swis">Выиграй </span>до 100 000 000 рублей и другие ценные призы.</p>
+            </div>
+        </div>  
     </section>
+    <section class="wrapper partners-block">
+        <h2 class="swis t-b partners-title">Партнёры</h2>
+        <div class="parnters-container">
+            <div class="partner-item">
+                <img src="/assets/image/partner1.png" alt="">
+                <div class="partner-item__information-container">
+                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
+                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
+                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
+
+                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
+
+                </div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-item__information-container">
+                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
+                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
+                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
+
+                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
+
+                </div>
+                <img src="/assets/image/partner2.png" alt="">
+            </div>
+            <div class="partner-item">
+                <img src="/assets/image/partner1.png" alt="">
+                <div class="partner-item__information-container">
+                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
+                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
+                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
+
+                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
+
+                </div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-item__information-container">
+                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
+                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
+                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
+
+                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
+
+                </div>
+                <img src="/assets/image/partner2.png" alt="">
+            </div>
+        </div>
+    </section>
+    <InfoFooter/>
 </template>
 
 <style lang="scss" scoped>
@@ -488,4 +546,84 @@
         bottom:0;
         right: 223px;
     }
+    .konkurs-title-container{
+        padding-top:88px;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+    }
+    .konkurs-title{
+        font-weight: 700;
+        font-size: 64px;
+        line-height: 120%;
+        margin-right: 7px;
+    }
+    .konkurs-line{
+        width:290px;
+        border-bottom: 1px dashed rgba(255, 252, 251, 1);
+        translate: 44px;
+    }
+    .konkurs-information-container{
+        margin-top:90px;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        margin-right: 161px;
+        margin-left: auto;
+        max-width: 515px;
+        gap:62px;
+
+    }
+    .konkurs-information-text{
+        text-align: left;
+        width: 100%;
+    }
+    .partners-block{
+        padding:56px 0 0 0;
+        
+    }
+    .partners-title{
+        font-size: 64px;
+        line-height: 120%;
+        font-weight: 700;
+        margin-bottom: 50px;
+        margin-left: 44px;
+    }
+    .partners-container{
+        display: flex;
+        flex-direction: column;
+    }
+    .partner-item:nth-child(odd){
+        display: flex;
+        justify-content: flex-start;
+        .partner-item__information-container{
+            padding-left: 66px;
+        }
+    }
+    .partner-item:nth-child(even){
+        display: flex;
+        justify-content: flex-end;
+        .partner-item__information-container{
+            padding-right: 66px;
+        }
+    }
+    .partner-item__information-container{
+        padding-top: 53px;
+    }
+    .partner-item-title{
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 120%;
+        max-width: 514px;
+        margin-bottom: 37px;
+    }
+    .partner-item-text{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: 0.02rem;
+        margin-top: 25px;
+        max-width: 579px;
+    }
+
 </style>
