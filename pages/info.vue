@@ -5,6 +5,10 @@
 <template>
     <section class="header-section">
         <div class="wrapper header-block">
+            <div class="burger-menu">
+                <span class="line1"></span>
+                <span class="line2"></span>
+              </div>
             <nav class="header-navigation">
                 <div class="header-contacts">
                     <span class="header-link swis t-w">mvmax1000@yandex.ru</span>
@@ -80,7 +84,7 @@
                     <p class="normal-benefit t-w manrope">Мы создаём спортивную экипировку из <span class="big-benefit t-w swis">материалов, специально разработанных</span> для активных занятий спортом.</p>
                 </div>
                 <div class="benefit-information-item">
-                    <p class="normal-benefit t-w manrope">Изделия создаются по <span class="big-benefit t-r swis">индивидуальным параметрам </span><span class="big-benefit t-w swis">каждого спортсмена </span>и тренера, для чего производятся замеры по 12 размерным признакам.</p>
+                    <p class="normal-benefit t-w manrope">Изделия создаются по <span class="big-benefit t-r swis">индивидуальным параметрам </span><span class="big-benefit t-w swis uniq-sportsmen">каждого спортсмена </span>и тренера, для чего производятся замеры по 12 размерным признакам.</p>
                 </div>
                 <div class="benefit-information-item">
                     <p class="normal-benefit t-w manrope">Даем <span class="big-benefit swis t-w">гарантию</span> на наши изделия.</p>
@@ -340,7 +344,6 @@
         border-left: dashed 1px rgba(23, 7, 7, 1);
         transform: translateY(86px);
         height: 620px;
-        max-width: 774px;
         
     }
     .about-us-title{
@@ -404,6 +407,9 @@
         position: absolute;
         left: 0;
         top: -90px;
+        max-height: 105px;
+        object-fit: cover;
+        height: 100%;
     }
     .our-benefit__title-container{
         display: flex;
@@ -625,5 +631,220 @@
         margin-top: 25px;
         max-width: 579px;
     }
+    
+    .burger-menu {
+        position: absolute;
+        top: 26px;
+        right: 20px;
+        width: 40px;
+        height: 12px;
+        border-radius: 18px;
+        display: none;
+        gap: 8px;
 
+    }
+    .burger-menu span {
+        width: 40px;
+        height: 2px;
+        transition: 0.3s ease;
+        transform-origin: center;
+        background-color: rgba(255, 252, 251, 1);
+
+    }
+  
+  .open .line1 {
+    transform: rotate(45deg) translateY(3px) translateX(4px);
+  }
+  
+  .open .line2 {
+    transform: rotate(-45deg) translateY(-3px) translateX(4px);
+  }
+    @media (max-width: 1335px) {
+        .about-us-information{
+            transform: translateY(57px);
+        }
+        .about-us__red-line{
+            top: 57px;
+        }
+        .about-us-title{
+            max-width: 550px;
+        }
+        .about-us-text{
+            max-width: 550px;
+        }
+        .about-us-margin__top{
+            margin-top:25px;    
+        }
+        .awards-container{
+            margin-top:15px;
+            max-width: 550px;
+        }
+        .award-text{
+            max-width: 250px;
+        }
+        .sales-count{
+            max-width: 550px;
+        }
+    }
+    @media (max-width: 1200px) {
+        .about-us-information{
+            padding: 11px 0 15px 25px;
+        }
+        .about-us-block{
+            background-size: 35%;
+        }
+        .our-benefit__title-container{
+            flex-direction: column;
+            gap: 12px
+        }
+        .our-benefit-line{
+            max-width: 570px;
+        }
+    }
+    @media (max-width: 1024px) {
+        .header-text-container{
+            margin-top: 100px;
+
+        }
+        .about-us-information{
+            height: auto;
+        }
+        .about-us-block{
+            background: none;
+            height: 781px;
+            padding-bottom: 120px;
+
+        }
+        .about-us-text{
+            max-width: 100%;
+        }
+        .awards-container{
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .sales-count{
+            text-align: left;
+        }
+        .award-image{
+            width: 124px;
+            height: 103px;
+        }
+        .award-text{
+            margin-right: 15px;
+        }
+        .our-benefit{
+            background-size: cover;
+        }
+    }
+    @media (max-width: 860px) {
+        .header-text-container{
+            margin-left: 26px;
+            margin-top: 120px;
+        }
+        .header-title{
+            font-size: 48px;
+            line-height: 120%;
+        }
+        .header-text{
+            font-size: 14px;
+            line-height: 160%;
+        }
+        .header-contacts{
+            gap: 20px;
+        }
+        .header-links{
+            gap: 20px;
+        }
+        .burger-menu{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .our-benefit__title-container{
+            margin-top:70px;
+        }
+        .benefit-information-container{
+            margin-top: 36px;
+            gap: 20px;
+        }
+    }
+    @media (max-width:680px) {
+        .about-us-block{
+            padding: 0 20px;
+            padding-bottom: 120px;
+        }
+        .about-us__red-line{
+            left: 20px;
+        }
+        .about-us-title{
+            font-size:26px;
+        }
+        .about-us-text{
+            font-size:14px;
+        }
+        .sales-count{
+            font-size: 48px;
+            margin-bottom: 14px;
+            margin-top: 15px;
+        }
+        .award-text{
+            max-width: 208px;
+            font-size: 14px;
+        }
+        .about-us-margin__top{
+            margin-top: 20px;
+        }
+        .our-benefit{
+            padding-left: 46px;
+            padding-right: 20px;
+        }
+        .our-benefit-title{
+            font-size: 48px;
+            
+        }
+        .our-benefit-line{
+            max-width: 430px;
+        }
+        .big-benefit{
+            font-size: 26px;
+        }
+        .normal-benefit{
+            font-size: 14px;
+        }
+        .uniq-sportsmen{
+            font-size: 14px;
+            font-family: manrope;
+            
+        }
+    }
+    @media (max-width: 750px) {
+        .header-text-container{
+            margin-top: 164px;
+        }
+        .header-block{
+            padding: 0 20px;
+            padding-top: 1px;
+        }
+        .header-navigation{
+            display: none;
+        }
+        .header__social-media{
+            flex-direction: row;
+            top: 20px;
+            max-width: 119px;
+            height: 25px;
+            gap: 20px;
+        }
+        .header-section{
+            height: 700px;
+        }
+        .dotted-line{
+            display: none;
+        }
+        .submit-request-button{
+            right: -60px;
+        }
+    }
 </style>
