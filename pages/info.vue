@@ -134,6 +134,7 @@
     </section>
     <section class="konkurs-section">
         <div class="wrapper konkurs-block">
+            <img src="/assets/image/konkurs-back-mobile.png" alt="" class="konkurs-photo__mobile">
             <NuxtLink to="konkurs">
                 <v-btn
                 variant="flat"
@@ -161,9 +162,9 @@
     </section>
     <section class="wrapper partners-block">
         <h2 class="swis t-b partners-title">Партнёры</h2>
-        <div class="parnters-container">
+        <div class="partners-container">
             <div class="partner-item">
-                <img src="/assets/image/partner1.png" alt="">
+                <img src="/assets/image/partner1.png" alt="" class="partner-photo">
                 <div class="partner-item__information-container">
                     <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
                     <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
@@ -182,10 +183,10 @@
                     <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
 
                 </div>
-                <img src="/assets/image/partner2.png" alt="">
+                <img src="/assets/image/partner2.png" alt="" class="partner-photo">
             </div>
             <div class="partner-item">
-                <img src="/assets/image/partner1.png" alt="">
+                <img src="/assets/image/partner1.png" alt="" class="partner-photo">
                 <div class="partner-item__information-container">
                     <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
                     <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
@@ -204,7 +205,7 @@
                     <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
 
                 </div>
-                <img src="/assets/image/partner2.png" alt="">
+                <img src="/assets/image/partner2.png" alt="" class="partner-photo">
             </div>
         </div>
     </section>
@@ -659,6 +660,17 @@
   .open .line2 {
     transform: rotate(-45deg) translateY(-3px) translateX(4px);
   }
+  .konkurs-photo__mobile{
+    display: none;
+  }
+    @media (max-width: 1400px) {
+        .portfolio-card-item__small{
+            display: none;
+        }
+        .portfolio-card-item{
+            max-width: 400px;
+        }
+    }
     @media (max-width: 1335px) {
         .about-us-information{
             transform: translateY(57px);
@@ -700,6 +712,48 @@
         .our-benefit-line{
             max-width: 570px;
         }
+        .partner-item{
+            flex-direction: column;
+            align-items: center;
+        }
+        .partners-container{
+            display: flex;
+            gap: 32px;
+            margin-bottom: 56px;
+        }
+        .partner-photo{
+            margin-bottom: 32px;
+        }
+        .partner-item:nth-child(even){
+            flex-direction: column-reverse;
+        }
+        .partner-item__information-container{
+            padding: 0 20px !important;
+        }
+        .partner-item__information-container:nth-child(even){
+            padding: 0;
+        }
+        .partner-item__information-container:nth-child(odd){
+            padding: 0;
+        }
+        .portfolio-block{
+            height: 852px;
+        }
+        .portfolio-card-item{
+            padding-top:150px;
+        }
+        .portfolio-title{
+            padding-top: 56px;
+            max-width: 100%;
+        }
+        .more-work-button{
+            right: -69px;
+            left: auto;
+        }
+        .portfolio-card-item__bottom{
+            height: 129px;
+        }
+
     }
     @media (max-width: 1024px) {
         .header-text-container{
@@ -736,6 +790,23 @@
         .our-benefit{
             background-size: cover;
         }
+        .konkurs-be-real{
+            max-width: 305px;
+            max-height: 68px;
+            left: 0;
+            bottom: 73px;
+        }
+
+        .portfolio-block{
+            padding-left: 0;
+        }
+        .be-real-portfolio{
+            display: none;
+        }
+        .portfolio-title{
+            left: 20px;
+        }
+
     }
     @media (max-width: 860px) {
         .header-text-container{
@@ -768,6 +839,33 @@
         .benefit-information-container{
             margin-top: 36px;
             gap: 20px;
+        }
+        .partner-photo{
+
+            max-height: 310px;
+        }
+        .konkurs-block{
+            background-image: none;
+            height: 658px;
+        }
+        .konkurs-photo__mobile{
+            display: block;
+            width: 100vw;
+            height: 188px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-bottom: 1px rgba(255, 252, 251, 1) dashed;
+        }
+        .konkurs-line{
+            display: none;
+        }
+        .konkurs-title{
+            z-index: 10;
+        }
+        .konkurs-title-container{
+            padding-top: 56px;
+            align-items: start;
         }
     }
     @media (max-width:680px) {
@@ -817,6 +915,62 @@
             font-size: 14px;
             font-family: manrope;
             
+        }
+        .partners-title{
+            margin-bottom: 32px;
+            margin-left: 20px;
+            font-size: 48px;
+        }
+        .partner-item-title{
+            max-width: 100%;
+            font-size: 26px;
+            margin-bottom: 32px;
+        }
+        .partner-item-text{
+            max-width: 100%;
+            font-size: 14px;
+        }
+        .konkurs-block{
+            padding: 0 20px;
+        }
+        .konkurs-information-container{
+            gap: 24px;
+            margin-left: 26px;
+            margin-right: 0;
+            margin-top: 72px;
+        }
+        .konkurs-title{
+            font-size: 48px;
+            height: 116px;
+        }
+        .more-konkurs-button{
+            right: -68.5px;
+        }
+
+        .portfolio-card-item{
+            display: none;
+        }
+        .portfolio-card-item:nth-child(1){
+            display: block;
+            max-width: 450px;
+        }
+        .portfolio-card-item__bottom{
+            gap: 28px;
+            justify-content: flex-start;
+            padding: 16px 20px 39px;
+            
+        }
+        .portfolio-block{
+            justify-content: center;
+        }
+        .portfolio-title{
+            font-size: 48px;
+        }
+        .portfolio-card__name{
+            font-size: 16px;
+        }
+        .portfolio-card__count{
+            font-size:14px;
         }
     }
     @media (max-width: 750px) {

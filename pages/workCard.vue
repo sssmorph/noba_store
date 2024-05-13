@@ -295,4 +295,145 @@ h2{
 .send-request-line{
     margin-left: 28px;
 }
+@media (max-width: 1400px) {
+    .right-content{
+        padding-left: 26px;
+    }
+    .review-block__right{
+        padding-left:32px;
+    }
+    .portfolio-card-item__small{
+        display: none;
+    }
+    .portfolio-card-item{
+        max-width: 400px;
+    }
+}
+@media (max-width: 1300px) {
+    .review-block__left{
+        padding-right: 24px;
+        padding-top: 42px;
+    }
+    .review-block__right{
+        padding-top: 44px;
+    }
+    .right-content{
+        gap: 20px;
+    }
+}
+@media (max-width: 1200px) {
+    .review-block{
+        flex-direction: column;
+        height: auto;
+    }
+    .review-block__right{
+        padding-bottom: 56px;
+        padding-left: 44px;
+    }
+    .review-block__left{
+        max-width: 100%;
+        width: 100%;
+        height: 839px;
+        padding-top: 56px;
+    }
+    .review-be-real__small{
+        top: 117px;
+        width: 233px;
+        height: 53px;
+    }
+    .review-be-real__big{
+        bottom: 57px;
+        width: 306px;
+        height: 70px;
+    }
+    .review-title{
+        margin-bottom: 36px;
+    }
+    .portfolio-block{
+        height: 910px;
+    }
+    .portfolio-card-item{
+        padding-top:208px;
+    }
+    .portfolio-image{
+        padding-top: 0px;
+        margin-top:56px;
+        max-width: 377px;
+        width: 100%;
+        max-height: 114px;
+        left: 20px;
+    }
+    .more-work-button{
+        right: -69px;
+        left: auto;
+    }
+    .portfolio-card-item__bottom{
+        height: 129px;
+    }
+}
+@media (max-width: 1024px) {
+    .portfolio-block{
+        padding-left: 0;
+    }
+    .be-real-portfolio{
+        display: none;
+    }
+    .portfolio-card-container{
+        padding-left: 0;
+    }
+}
+    @media (max-width: 680px) {
+
+        .review-text{
+            font-size: 14px;
+        }
+        .review-block__left{
+            padding-right: 20px;
+        }
+        .send-request{
+            right: -69px;
+        }
+        .review-block__right{
+            padding-top: 56px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .right-content{
+            padding-top: 7px;
+            padding-bottom: 8px;
+            gap: 16px;
+        }
+        .review-right-title{
+            font-size: 26px;
+        }
+        .review-right-text{
+            font-size: 14px;
+        }
+        .portfolio-card-item{
+            display: none;
+        }
+        .portfolio-card-item:nth-child(1){
+            display: block;
+            max-width: 450px;
+        }
+        .portfolio-card-item__bottom{
+            gap: 28px;
+            justify-content: flex-start;
+            padding: 16px 20px 39px;
+            
+        }
+        .portfolio-block{
+            justify-content: center;
+        }
+        .portfolio-title{
+            font-size: 48px;
+        }
+        .portfolio-card__name{
+            font-size: 16px;
+        }
+        .portfolio-card__count{
+            font-size:14px;
+        }
+    }
+
 </style>

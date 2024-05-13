@@ -11,9 +11,9 @@
     <footer>
         <div class="wrapper">
             <div class="logo-copy">
-                <img src="/assets/image/logo-white.png" alt="">
+                <img src="/assets/image/logo-white.png" alt="" class="logo-img">
                 <div class="copyright-container">
-                    <img src="/assets/image/copyright.svg" alt="">
+                    <img src="/assets/image/copyright.svg" alt="" class="copyright-img">
                     <span class="t-w manrope copyright">Все права защищены</span>
                 </div>
             </div>
@@ -22,20 +22,22 @@
                     <NuxtLink :to="link.url" class="t-w swis footer-link" v-for="link in links" :key="link">{{ link.name }}</NuxtLink>
 
                 </div>
-                <div class="social-media">
-                    <a href="" class="social-media__item">
-                        <img src="/assets/image/tiktok-info.svg" alt="" class="social-media__image">
-                    </a>
-                    <a href="" class="social-media__item">
-                        <img src="/assets/image/telegram-info.svg" alt="" class="social-media__image">
-                    </a>
-                    <a href="" class="social-media__item">
-                        <img src="/assets/image/youtube-info.svg" alt="" class="social-media__image">
-                    </a>
-                </div>
-                <div class="contacts-container">
-                    <span class="swis t-w contact text-right">8 (925) 892-75-75</span>
-                    <span class="swis t-w contact text-right">mvmax1000@yandex.ru</span>
+                <div class="social-contacts">
+                    <div class="social-media">
+                        <a href="" class="social-media__item">
+                            <img src="/assets/image/tiktok-info.svg" alt="" class="social-media__image">
+                        </a>
+                        <a href="" class="social-media__item">
+                            <img src="/assets/image/telegram-info.svg" alt="" class="social-media__image">
+                        </a>
+                        <a href="" class="social-media__item">
+                            <img src="/assets/image/youtube-info.svg" alt="" class="social-media__image">
+                        </a>
+                    </div>
+                    <div class="contacts-container">
+                        <span class="swis t-w contact text-right">8 (925) 892-75-75</span>
+                        <span class="swis t-w contact text-right">mvmax1000@yandex.ru</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,5 +110,77 @@
     .footer-right-container{
         display: flex;
         gap: 65px;
+    }
+    .social-contacts{
+        display: flex;
+        gap: 65px;
+    }
+
+    @media (max-width: 1200px) {
+        .wrapper{
+            padding: 24px 20px;
+            
+        }
+        .social-contacts{
+            gap: 0;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: end;
+        }
+        .contacts-container{
+            margin-top: 0;
+        }
+        .footer-right-container{
+            gap: 25px;
+        }
+        .links-container{
+            gap: 12px 30px;
+            width: 280px;
+        }
+    }
+    @media (max-width: 860px) {
+        .wrapper{
+            position: relative;
+        }
+        footer{
+            height: 358px;
+        }
+        .footer-right-container{
+            position: absolute;
+            max-width: 390px;
+            height: 180px;
+            top: 94px;  
+            gap: 105px ;
+            justify-content: space-between;
+        }
+        .social-contacts{
+            gap: 92px;
+        }
+        .links-container{
+            width: 125px;
+            gap: 20px;
+        }
+        .social-media{
+            margin-top: 0;
+        }
+        .logo-img{
+            width: 234px;
+            height: 22px;
+        }
+        .copyright{
+            font-size: 12px;
+        }
+        .copyright-img{
+            width: 16px;
+            height: 16px;
+        }
+        .contacts-container{
+            gap: 20px;
+        }
+    }
+    @media (max-width: 429px) {
+        .footer-right-container{
+            gap: 50px;
+        }
     }
 </style>
