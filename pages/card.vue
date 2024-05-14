@@ -25,14 +25,14 @@
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
-    const prev = ref(null);
-    const next = ref(null);
+    const recomendationPrev = ref(null);
+    const recomendationNext = ref(null);
     return {
       modules: [FreeMode, Navigation, Thumbs],
       thumbsSwiper,
       setThumbsSwiper,
-      prev,
-      next,
+      recomendationPrev,
+      recomendationNext,
       cartStore,
       openCart
     };
@@ -268,16 +268,17 @@
       </div>
       <div class="recomendation-slider__buttons-container">
         <v-btn
-        ref="prev"
+        ref="recomendationPrev"
         variant="flat"
         color="rgba(23, 7, 7, 1)"
         size="34"
         rounded="0"
+
         >
           <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
         </v-btn>
         <v-btn
-        ref="next"
+        ref="recomendationNext"
         variant="flat"
         color="rgba(23, 7, 7, 1)"
         size="34"
@@ -296,8 +297,8 @@
         :spaceBetween="44"
         :autoHeight="true"
         :navigation="{
-          prevEl: prev,
-          nextEl: next,
+          prevEl: recomendationPrev,
+          nextEl: recomendationNext,
         }"
         :breakpoints="{
           '100':{

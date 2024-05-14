@@ -66,9 +66,7 @@
         align-items: center;
         gap:10px;
     }
-    .copyright{
 
-    }
     .t-w{
         color: rgba(255, 252, 251, 1);
     }

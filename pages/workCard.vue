@@ -219,9 +219,6 @@ h2{
     padding: 0;
     display: flex;
 }
-.review-section{
-
-}
 .review-block__left{
     max-width: 623px;
     padding: 0 44px;
