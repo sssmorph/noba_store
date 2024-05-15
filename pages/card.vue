@@ -667,6 +667,28 @@
   .breadcrumbs__mobile{
     display: none;
   }
+  :global(.swiper-button-prev){
+    width: 34px;
+    height: 34px;
+    background-image: url(/assets/image/arrow-prev.svg);
+  }
+  :global(.swiper-button-prev::after){
+    width: 34px;
+    height: 34px;
+    content: none;
+
+  }
+  :global(.swiper-button-next){
+    width: 34px;
+    height: 34px;
+    background-image: url(/assets/image/arrow-next.svg);
+  }
+  :global(.swiper-button-next::after){
+    width: 34px;
+    height: 34px;
+    content: none;
+  }
+
   @media (max-width: 1440px) {
     .card__photos{
       max-width: 750px;

@@ -1,13 +1,19 @@
 <script setup>
     let burgerIsActive = ref(false);
+    const modalStore = useModal();
     const toggleBurger = () =>{
         
         burgerIsActive.value = !burgerIsActive.value;
         console.log(burgerIsActive.value);
     };
+
+    const openModal = () =>{
+    modalStore.openFeedback();
+    }
 </script>
 
 <template>
+    <FeedbackModal/>
     <section class="header-section">
         <div class="burger-menu-container" :class="{hidden: !burgerIsActive}">
             <div class="burger-menu-border">
@@ -63,6 +69,7 @@
             height="40"
             rounded="0"
             class="submit-request-button"
+            @click="openModal"
             >
                 <span class="button__text t-w swis">ОСТАВИТЬ ЗАЯВКУ</span>
                 <span class="button__line"></span>

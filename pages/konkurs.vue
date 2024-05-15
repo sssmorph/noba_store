@@ -19,6 +19,20 @@
       }
     }
   };
+
+  const closeAccordion = (accIndex, accValue) => {
+    if (accValue) {
+      isAccOpen.value.forEach(function(element, index, array){
+        if(index == accIndex){
+          isAccOpen.value[index] = true;
+        }
+        else{
+          isAccOpen.value[index] = false;
+        }
+      })
+    }
+  };
+
   onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
@@ -251,7 +265,7 @@
             <div class="bonus__container__top">
               <div class="bonus__container__top__list">
                 <hr class="accordion_line">
-                <button class="accordion" :class="{active: isAccOpen[0]}" @click="isAccOpen[0] = !isAccOpen[0]">
+                <button class="accordion" :class="{active: isAccOpen[0]}" @click="isAccOpen[0] = !isAccOpen[0]; closeAccordion(0, isAccOpen[0] )">
                   <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
                   <h4><span class="mobile_off">Автоматическое</span> участие в битве за миллиард</h4>
                   <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
@@ -259,7 +273,7 @@
                   <p class="panel" :class="{panelIsActive: isAccOpen[0]}">Твои подписчики так же смогут получить ценные подарки, например, MackBook, Premium аккаунт в Telegram, путешествие на Мальдивы, а ты — благодарность от них за качественную повседневную одежду по доступным ценам.</p>
                 <hr class="accordion_line">
                 
-                <button class="accordion" :class="{active: isAccOpen[1]}" @click="isAccOpen[1] = !isAccOpen[1]">
+                <button class="accordion" :class="{active: isAccOpen[1]}" @click="isAccOpen[1] = !isAccOpen[1]; closeAccordion(1, isAccOpen[1])">
                   <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
                   <h4>прибыль с продаж <span class="mobile_off">своей</span> коллекции</h4>
                   <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
@@ -267,7 +281,7 @@
                   <p class="panel" :class="{panelIsActive: isAccOpen[1]}">Твои подписчики так же смогут получить ценные подарки, например, MackBook, Premium аккаунт в Telegram, путешествие на Мальдивы, а ты — благодарность от них за качественную повседневную одежду по доступным ценам.</p>
                 <hr class="accordion_line">
                 
-                <button class="accordion" :class="{active: isAccOpen[2]}" @click="isAccOpen[2] = !isAccOpen[2]">
+                <button class="accordion" :class="{active: isAccOpen[2]}" @click="isAccOpen[2] = !isAccOpen[2]; closeAccordion(2, isAccOpen[2])">
                   <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
                   <h4>Приток новой аудитории</h4>
                   <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
@@ -275,7 +289,7 @@
                   <p class="panel" :class="{panelIsActive: isAccOpen[2]}">Твои подписчики так же смогут получить ценные подарки, например, MackBook, Premium аккаунт в Telegram, путешествие на Мальдивы, а ты — благодарность от них за качественную повседневную одежду по доступным ценам.</p>
                 <hr class="accordion_line">
                 
-                <button class="accordion" :class="{active: isAccOpen[3]}" @click="isAccOpen[3] = !isAccOpen[3]">
+                <button class="accordion" :class="{active: isAccOpen[3]}" @click="isAccOpen[3] = !isAccOpen[3]; closeAccordion(3, isAccOpen[3])">
                   <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
                   <h4>Коллекция качественной одежды</h4>
                   <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
@@ -283,7 +297,7 @@
                   <p class="panel" :class="{panelIsActive: isAccOpen[3]}">Твои подписчики так же смогут получить ценные подарки, например, MackBook, Premium аккаунт в Telegram, путешествие на Мальдивы, а ты — благодарность от них за качественную повседневную одежду по доступным ценам.</p>
                 <hr class="accordion_line">
                 
-                <button class="accordion" :class="{active: isAccOpen[4]}" @click="isAccOpen[4] = !isAccOpen[4]">
+                <button class="accordion" :class="{active: isAccOpen[4]}" @click="isAccOpen[4] = !isAccOpen[4]; closeAccordion(4, isAccOpen[4])">
                   <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
                   <h4>Подарки для подписчиков</h4>
                   <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">

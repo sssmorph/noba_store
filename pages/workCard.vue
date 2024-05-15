@@ -1,13 +1,17 @@
 <script setup>
+    const modalStore = useModal();
 
+    const openModal = () =>{
+        modalStore.openFeedback();
+    }
 </script>
 
 <template>
+    <FeedbackModal/>
     <InfoHeader/>
     <section class="wrapper portfolio-block">
         <img src="/assets/image/CardClothes.png" class="portfolio-image" alt="">
         <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio">
-        <NuxtLink to="portfolio">
             <v-btn
             variant="flat"
             color="rgba(221, 58, 26, 1)"
@@ -15,11 +19,11 @@
             height="40"
             rounded="0"
             class="more-work-button"
+            @click="openModal"
             >
                 <span class="button__text t-w swis">ХОЧУ ТАКЖЕ</span>
                 <span class="button__line more-work"></span>
             </v-btn>
-        </NuxtLink>
         <div class="portfolio-card-container">
             <div class="portfolio-card-item">
                 <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
@@ -53,6 +57,7 @@
                 height="40"
                 rounded="0"
                 class="send-request"
+                @click="openModal"
                 >
                     <span class="button__text t-w swis">ОСТАВИТЬ ЗАЯВКУ</span>
                     <span class="button__line send-request-line"></span>

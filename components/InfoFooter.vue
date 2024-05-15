@@ -3,8 +3,12 @@
         {url: "portfolio",name: "Портфолио"},
         {url: "/", name: "Интернет-магазин"},
         {url: "konkurs", name: "Конкурс"},
-        {url: "info", name: "О компании"},
-        {url: "#", name: "Связаться с нами"}]
+        {url: "info", name: "О компании"},]
+        const modalStore = useModal();
+
+    const openModal = () =>{
+        modalStore.openFeedback();
+    }
 </script>
 
 <template>
@@ -20,7 +24,7 @@
             <div class="footer-right-container">
                 <div class="links-container">
                     <NuxtLink :to="link.url" class="t-w swis footer-link" v-for="link in links" :key="link">{{ link.name }}</NuxtLink>
-
+                    <span @click="openModal" class="t-w swis footer-link cursor-pointer">Связаться с нами</span>
                 </div>
                 <div class="social-contacts">
                     <div class="social-media">

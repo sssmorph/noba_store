@@ -1,25 +1,37 @@
 <script setup>
-    import { reactive } from 'vue';
+    const modalStore = useModal();
 
-const links = reactive([
-    { url: '/#', text: 'Обмен и возврат' },
-    { url: '/#', text: 'Доставка' },
-    { url: '/#', text: 'Оплата' },
-    { url: '/#', text: 'Связаться с нами' },
-    { url: '/info', text: 'О компании' },
-    { url: '/#', text: 'Политика конфиденциальности' },
-]);
+    const openModal = () =>{
+        modalStore.openFeedback();
+    }
 
 </script>
 
 <template>
+    <FeedbackModal/>
     <footer>
         <div class="footer-wrapper">
             <div class="link-container">
                 <ul class="link-list">
-                    <li v-for="(link, index) in links" :key="index" class="footer-link">
-                        <NuxtLink  :to="link.url" class="underline-hover-effect">{{ link.text }}</NuxtLink >
+                    <li class="footer-link">
+                        <NuxtLink  to="#" class="underline-hover-effect">Обмен и возврат</NuxtLink >
                     </li>
+                    <li class="footer-link">
+                        <NuxtLink  to="#" class="underline-hover-effect">Доставка</NuxtLink >
+                    </li>
+                    <li class="footer-link">
+                        <NuxtLink  to="#" class="underline-hover-effect">Оплата</NuxtLink >
+                    </li>
+                    <li class="footer-link">
+                        <span class="underline-hover-effect cursor-pointer" @click="openModal">Связаться с нами</span >
+                    </li>
+                    <li class="footer-link">
+                        <NuxtLink  to="/info" class="underline-hover-effect">О компании</NuxtLink >
+                    </li>
+                    <li class="footer-link">
+                        <NuxtLink  to="#" class="underline-hover-effect">Политика конфиденциальности</NuxtLink >
+                    </li>
+
                 </ul>
             </div>
             <v-responsive max-width="424" class="search-box-container">
