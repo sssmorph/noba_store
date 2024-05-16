@@ -3,7 +3,7 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 export default defineNuxtConfig({
-  //...
+
   devtools: { enabled: true },
   build: {
     transpile: ['vuetify'],
@@ -15,7 +15,9 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
-    'nuxt-swiper'
+    'nuxt-swiper',
+    "nuxt-marquee",
+    '@pinia/nuxt',
     //...
   ],
   vite: {
@@ -28,8 +30,7 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/reset.css',
     '@/public/fonts/main.css',
-  ],
-  
+  ],  
 })
 
 

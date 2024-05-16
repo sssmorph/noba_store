@@ -1,4 +1,8 @@
-<script lang="ts">
+<script setup>
+    const cartStore = useModal();
+    const openCart = () =>{
+        cartStore.openCartModal()
+    }
 
 </script>
 
@@ -12,8 +16,9 @@
             size="34"
             color="rgba(255, 252, 251, 1)"
             base-color="rgba(255, 252, 251, 1)"
-            rounded="0">
-                <v-icon icon="mdi-cart-outline"></v-icon>
+            rounded="0"
+            @click="openCart">
+                <img src="/assets/image/to-basket-black.svg" alt="" class="header-button"/>
               </v-btn>
         </div>
     </header>
@@ -39,6 +44,10 @@
         font-size: 36px;
         line-height: 160%;
         color: rgba(255, 252, 251, 1);
+    }
+    .header-button{
+        width: 20px;
+        height: 20px;
     }
     @media (max-width: 1024px) {
         header{

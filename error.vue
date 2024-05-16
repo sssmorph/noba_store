@@ -9,12 +9,13 @@ export default {
 
 <template>
   <AppHeaderBig/>
-  <section class="error-page d-flex flex-row justify-space-between ga-16">
+  <section class="error-page">
+    <p class="error-message__mobile">Кажется, здесь одежды нет</p>
     <div class="error-box">
         <img src="/public/image/error-image.png" alt="">
         <span class="error-code">{{error.statusCode}}</span>
     </div>
-    <div class="error-information d-flex flex-column">
+    <div class="error-information">
         <p class="error-message">Кажется, здесь одежды нет</p>
         <div class="arrow-container">
             <p class="arrow-text">Зато есть там</p>
@@ -24,7 +25,7 @@ export default {
 
 
         <NuxtLink to="/" class="go-home-button d-flex flex-row justify-space-between align-center">Каталог
-            <v-icon icon="mdi-text-box-outline"></v-icon>
+            <img src="/assets/image/error-text.svg" alt="">
         </NuxtLink>
         <p class="error-description">Возможно, страница была удалена или вовсе не существовала.</p>
     </div>
@@ -32,13 +33,13 @@ export default {
   <AppFooter/>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
     .arrow-container{
         position: relative;
     }
     .error-arrow{
         position: absolute;
-        left: 25%;
+        left: 135px;
         top: 80%;
     }
     .go-home-button{
@@ -84,9 +85,16 @@ export default {
         margin:50px auto;
         max-width: 1440px;
         padding: 0 145px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 80px;
     }
     .error-information{
         z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
     .error-message{
         font-family: Manrope;
@@ -114,7 +122,87 @@ export default {
         letter-spacing: 0.02rem;
         text-align: left;
         color: rgba(166, 163, 163, 1);
-        margin-top: 153px;
+        margin-top: auto;
 
+    }
+    .error-message__mobile{
+        display: none;
+    }
+    @media (max-width: 1250px) {
+        .error-page{
+            flex-direction: column;
+            gap: 0;
+        }
+        .error-box{
+            display: flex;
+            justify-content: center;
+        }
+        .error-description{
+            margin-top: 45px;
+        }
+        .error-message{
+            margin-top: 0;
+            display: none;
+        }
+        .error-message__mobile{
+            display: block;
+            font-family: Manrope;
+            font-size: 36px;
+            font-weight: 500;
+            line-height: 120%;
+            text-align: left;
+            word-wrap: break-word;
+            margin-top: 15px;
+            margin-bottom: 45px;
+        }
+        .arrow-text{
+            margin-left: auto;
+            margin-right: 225px;
+            max-width: 115px;
+        }
+        .error-arrow{
+            left: auto;
+            right: 170px;
+        }
+        .go-home-button{
+            margin-right: 0;
+            margin-left: auto;
+            img{
+                margin-left: 30px;
+            }
+        }
+    }
+    @media (max-width: 870px) {
+        .error-page{
+            padding: 25px 15px;
+        }
+        .error-description{
+            font-size: 14px;
+            line-height: 22.4px;
+        }
+        .go-home-button{
+            width: 157px !important;
+            height: 38px !important;
+            padding: 5px 25px;
+            font-size: 18px;
+            line-height: 28.8px;
+        }
+        .arrow-text{
+            margin-right: 215px;
+        }
+        .error-arrow{
+            left: auto;
+            right: 155px;
+        }
+        .error-box{
+            img{
+                width: 400px;
+                height: 400px;
+            }
+        }
+        .error-code{
+            font-size: 100px;
+            letter-spacing: 85px;
+        }
     }
 </style>

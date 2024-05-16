@@ -2,7 +2,11 @@
 
     let isActive = ref(false);
     const toggleHeader = () => { return isActive.value  = !isActive.value};
-    const output = () => { console.log(isActive.value)}
+    const cartStore = useModal();
+
+    const openCart = () =>{
+        cartStore.openCartModal()
+    }
 </script>
 
 <template>
@@ -32,13 +36,13 @@
                         </div>
                         <v-btn  
                             :class="{hidden: !isActive}"
+                            class="cart-button"
                             variant="flat"
                             size="73"
                             color="rgba(221, 58, 26, 1)"
-                            rounded="0">
-                                <v-icon icon="mdi-cart-outline"
-                                    color="rgba(0, 0, 0, 1)"
-                                    size="38"></v-icon>
+                            rounded="0"
+                            @click="openCart">
+                                <img src="/assets/image/bi_cart.svg" alt="">
                         </v-btn>
                     </div>
                 </div>
@@ -90,7 +94,7 @@
         background-color: rgba(221, 58, 26, 1) !important;
     }
     .header-container{
-        width: 1440px;
+        max-width: 1440px;
         margin: auto;
         display: flex;
         flex-direction: row;
@@ -237,9 +241,9 @@
         display: none;
     }
     .blogerText{
-        width: 470px;
+        width: calc(100% - 72px);
         position: absolute;
-        left: 42px;
+        left: 32px;
         top: 179px;
 
         padding: 4px 10px;
@@ -252,5 +256,128 @@
         text-align: left;
         color: rgba(255, 252, 251, 1);
         background-color: black;
+    }
+    @media (max-width: 1440px) {
+        .blogerText{
+            font-size: 15px;
+            line-height: 160%;
+        }
+    }
+    @media (max-width: 1350px) {
+        .blogerText{
+            line-height: 150%;
+        }
+    }
+    @media (max-width: 1200px) {
+        .bloger-main-information{
+            flex: 0 0 50%;
+
+        }        
+        .bloger-addictional-information{
+            flex: 0 0 50%;
+        }
+    }
+    @media (max-width: 1024px) {
+        .bloger-main-information{
+            flex: none;
+        }        
+        .bloger-addictional-information{
+            flex: none;
+        }
+        header{
+            height: 440px;
+        }
+        .header-container{
+            flex-direction: column;
+        }
+        .bloger-photo{
+            width: 100%;
+        }
+        .bigphoto{
+            height: 220px;
+        }
+        .mainInfoContainerBig{
+            height: 170px;
+        }
+        .cart-button{
+            display: none;
+        }
+        .blogerAddInfo{
+            height: 483px;
+        }
+        .headerBig{
+            height: 703px;
+        }
+    }
+    @media (max-width: 650px) {
+        header{
+            height: 328px;
+        }
+        .headerBig{
+            height: 671px;
+        }
+        .bigphoto{
+            height: 188px;
+        }
+        .main-information-container{
+            height: 158px;
+            padding: 15px;
+            width: calc(100% - 30px);
+        }
+        .bloger-addictional-information{
+            padding: 15px;
+            height: 140px;
+        }
+        .bloger-avatar{
+            width: 103px;
+            height: 103px;
+        }
+        .main-information-top{
+            gap:12px;
+        }
+        .bloger-nick-name{
+            font-size: 36px;
+            line-height: 160%;
+        }
+        .subscribers{
+            font-size: 36px;
+            line-height: 160%;
+        }
+        .bloger-header{
+            max-height: 103px;
+        }
+        .bloger-photo{
+            height: 188px;
+        }
+        .social-media-link{
+            width: 31px;
+            height: 31px;
+        }
+        .bloger-name{
+            font-size: 26px;
+            line-height: 160%;
+        }
+        .bloger-description{
+            font-size: 16px;
+            line-height: 160%;
+        }
+        .header-button{
+            width: 49px !important;
+            height: 49px !important;
+        }
+        .header-button__photo{
+            width: 30px;
+            height: 25px;
+        }
+        .blogerAddInfo{
+            height: 483px;
+        }
+        .blogerText{
+            width: calc(100% - 30px);
+            left: 15px;
+            top: 147px;
+            font-size: 14px;
+            line-height: 160%;
+        }
     }
 </style>

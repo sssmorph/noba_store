@@ -1,0 +1,286 @@
+.hero {
+  position: relative;
+  padding-top: 290px;
+  
+  @include min-content-width {
+    padding-top: 260px;
+  }
+
+  @include media-tablet {
+    padding-top: 220px;
+  }
+}
+
+.video {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+
+  @include mobile-width {
+    width: 100%;
+  }
+}
+
+.hero__blok__bottom {
+  display: flex;
+  padding-bottom: 130px;
+
+  p {
+    margin-top: 48px;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 35.2px;
+    letter-spacing: 0.04em;
+
+    @include media-tablet {
+      font-size: 14px;
+      line-height: 22.4px;
+      letter-spacing: 0.04em;
+      margin-bottom: 44px;
+    }
+  }  
+  
+  @include media-tablet {
+    padding-bottom: 30px;
+  }
+}
+
+.hero__blok__bottom__info {
+  width: 90%;
+  margin: 59px auto 0;
+  display: flex;
+  justify-content: space-around;
+
+  @include media-tablet {
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+  }
+}
+
+.hero__blok__bottom__info__text {
+  width: 100%;
+  margin-left: 8%;
+
+  @include media-tablet {
+    width: 90%;
+    margin-left: 0;
+  }
+}
+
+.hero__blok__bottom__title {
+  margin-left: 53px;
+
+    @include media-tablet {
+      font-size: 24px;
+      line-height: 28.8px;
+    }
+}
+
+.hero__blok__bottom__subtitle {
+  margin-top: 46px;
+
+@include media-tablet {
+  margin-top: 24px;
+}
+
+  h3 {
+    font-size: 32px;
+
+    @include media-tablet {
+      font-size: 20px;
+      line-height: 32px;
+    }
+  }
+}
+
+.hero__blok__bottom__btn {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.btn_take_part {
+  width: 261px;
+  height: 60px;
+  background: $color_red;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 51px;
+  cursor: pointer;
+  transition: .3s;
+
+  img {
+    transition: .3s;
+  }
+
+&:hover {
+  scale: 1.02;
+  img {
+    transform: rotate(45deg);
+  }
+}
+
+  @include min-content-width {
+    width: 221px;
+    height: 55px; 
+    gap: 45px;
+  }
+  @include mobile-width {
+    width: 160px;
+    height: 40px;
+    gap: 29px; 
+  }
+
+  h4 {
+    @include min-content-width {
+      font-size: 18px;
+    }
+    @include media-tablet {
+      font-size: 14px;
+    }
+  }
+}
+
+.btn_arrow {
+  width: 18px;
+  height: 18px;
+
+  @include media-tablet {
+    width: 12px;
+    height: 12px; 
+  }
+}
+
+.description__arrow {
+  position: absolute;
+  right: 37px;
+  bottom: 62px;
+  z-index: -1;
+
+  @include media-tablet {
+    width: 50%;
+    bottom: 10px;
+  }
+}
+
+.backgraund_blok {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  z-index: -2;
+}
+
+.hero_title {
+  position: absolute;
+  top: 90px;
+  right:  calc(50% - 380px);
+
+  font-size: 140px;
+  font-weight: 400;
+  line-height: 168px;
+  text-align: left;
+
+  @include min-content-width {
+    top: 70px;
+    right: calc(50% - 326px);
+    font-size: 120px;
+  }
+  
+  @include media-tablet {
+    font-size: 80px;
+    line-height: 60px;
+    right: calc(50% - 216px);
+    top: 100px;
+  }
+}
+
+.hero__img__hat {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+
+  @include min-content-width  {
+    // scale: 0.9;
+    width:  25%;
+  }
+}
+
+.hero__img__arrow {
+  display: block;
+  position: absolute;
+  margin-top: 35px;
+  right:  calc(50% - 130px);
+
+  @include media-tablet {
+    max-width: 30%;
+  }
+}
+
+.hero_bg_grey, .hero_bg_grey_mobile {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  z-index: -3;
+}
+
+.hero_bg_grey {
+  @include media-tablet {
+    display: none;
+  }
+}
+
+.hero_bg_grey_mobile {
+  display: none;
+
+  @include media-tablet {
+    display: block;
+  }
+}
+
+.hero__be_real {
+  position: absolute;
+  font-size: 160px;
+  font-weight: 700;
+  line-height: 256px;
+  bottom: 25%;
+
+  -webkit-text-stroke: 1px $color_grey_light; /* Параметры контура */
+  color: transparent;
+
+  &.grey {
+    @include min-content-width {
+      display: none;
+    }
+  }
+  
+  &.white {
+    bottom: 35%;
+    -webkit-text-stroke: 1px white; /* Параметры контура */
+    transform: rotate(270deg);
+    right: -210px;
+
+    @include media-tablet {
+      transform: rotate(90deg);
+      font-size: 90px;
+      right: -117px;
+    }
+  }
+}
+  
+.backgraund_grey_blok {
+  height: 357px;
+  width: 100vw;
+  background: $color_grey_light;
+}
+
+.bg_hero_top {
+  width: 60vw;
+  height: 440px;
+}

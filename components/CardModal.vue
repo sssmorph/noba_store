@@ -1,25 +1,32 @@
 <script>
+
 export default {
-    setup() {
-        return{
-            productValue: ref(1),
-            showModal: ref(false),
-        }    
-    },
-    methods: {
-    increment() {
-      this.productValue++
-    },
-    decrement(){
-        if(this.productValue >= 2){
-            this.productValue--
-        }
-    },
-    closePopup(){
-        this.showModal = !this.showModal
-    },
-  },
-    
+  setup() {
+    const cartStore = useModal()
+    const productValue = ref(1)
+
+    const increment = () => {
+      productValue.value++
+    }
+
+    const decrement = () => {
+      if (productValue.value >= 2) {
+        productValue.value--;
+      }
+    }
+
+    const closePopup = () => {
+      cartStore.closeCartModal()
+    }
+
+    return {
+      productValue,
+      showModal: computed(() => cartStore.cartIsOpen),
+      increment,
+      decrement,
+      closePopup
+    }
+  }
 }
 </script>
 
@@ -255,9 +262,6 @@ export default {
         display: flex;
         justify-content: flex-end;
         margin-block: 44px;
-    }
-    .to-order-button{
-
     }
     .to-order-text{
         text-transform: lowercase;

@@ -82,6 +82,7 @@
 
     </div>
   </section>
+  <AppFooter/>
 </template>
   
 <style scoped lang="scss">

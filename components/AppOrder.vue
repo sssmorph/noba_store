@@ -401,7 +401,9 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
             line-height: 160%;
             margin-right: 28px;
         }
-
+        .personal-data__container{
+            margin-right: auto;
+        }
     }
     @media (max-width: 700px) {
         .order-container{
