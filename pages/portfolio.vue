@@ -6,7 +6,7 @@
     <InfoHeader/>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Повседневная одежда</h2>
-        <NuxtLink to="portfolio">
+        <NuxtLink to="workCard">
             <v-btn
             variant="flat"
             color="rgba(221, 58, 26, 1)"
@@ -45,7 +45,7 @@
     </section>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Мерч</h2>
-        <NuxtLink to="portfolio">
+        <NuxtLink to="workCard">
             <v-btn
             variant="flat"
             color="rgba(221, 58, 26, 1)"
@@ -84,7 +84,7 @@
     </section>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Спортивная одежда</h2>
-        <NuxtLink to="portfolio">
+        <NuxtLink to="workCard">
             <v-btn
             variant="flat"
             color="rgba(221, 58, 26, 1)"

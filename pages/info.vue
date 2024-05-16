@@ -1,4 +1,11 @@
 <script setup>
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import 'swiper/css';
+    import 'swiper/css/pagination';
+    import 'swiper/css/navigation';
+    import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+    const modules = ref([Autoplay, Pagination, Navigation]);
     let burgerIsActive = ref(false);
     const modalStore = useModal();
     const toggleBurger = () =>{
@@ -10,11 +17,16 @@
     const openModal = () =>{
     modalStore.openFeedback();
     }
+
 </script>
 
 <template>
     <FeedbackModal/>
     <section class="header-section">
+        <div class="burger-menu" @click="toggleBurger">
+            <span class="line1" :class="{open1: burgerIsActive}"></span>
+            <span class="line2" :class="{open2: burgerIsActive}"></span>
+          </div>
         <div class="burger-menu-container" :class="{hidden: !burgerIsActive}">
             <div class="burger-menu-border">
                 <div class="burger-links">
@@ -29,10 +41,26 @@
             </div>
         </div>
         <div class="wrapper header-block">
-            <div class="burger-menu" @click="toggleBurger">
-                <span class="line1" :class="{open1: burgerIsActive}"></span>
-                <span class="line2" :class="{open2: burgerIsActive}"></span>
-              </div>
+            <swiper class="header-slider MySwiper"
+            :centeredSlides="true "
+            :autoplay="true"
+            :pagination="{
+                clickable: true,
+              }"
+            :crossFade="true"
+            :modules="modules"
+            >
+                <swiper-slide class="header-slider__item">
+                    <img src="/assets/image/info-back1.png" alt="">
+                </swiper-slide>
+                <swiper-slide class="header-slider__item">
+                    <img src="/assets/image/info-back1.png" alt="">
+                </swiper-slide>
+                <swiper-slide class="header-slider__item">
+                    <img src="/assets/image/info-back1.png" alt="">
+                </swiper-slide>
+            </swiper>
+
             <nav class="header-navigation">
                 <div class="header-contacts">
                     <span class="header-link swis t-w">mvmax1000@yandex.ru</span>
@@ -75,6 +103,7 @@
                 <span class="button__line"></span>
             </v-btn>
         </div>
+
     </section>
     
         <section class="wrapper about-us-block">
@@ -264,6 +293,27 @@
         background-color: rgba(23, 7, 7, 0.5);
         height: 740px;
         position: relative;
+        
+    }
+    .header-slider{
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        top:0;
+        left: 0;
+        z-index: -1;
+        max-width: 1440px;
+        width: 100%;
+        height: 740px;
+    }
+    .header-slider__item{
+        width: auto !important;
+        max-width: 100%;
+        height: 740px;
+        img{
+            object-fit: cover;
+            height: 100%;
+        }
     }
     .wrapper{
         max-width: 1440px;
@@ -285,7 +335,6 @@
         padding-top: 1px;
         height: 100%;
         width: 100%;
-        background-image: url(/assets/image/info-back1.png);
         position: relative;
     }
     .header-link{
@@ -1061,6 +1110,12 @@
         }
         .submit-request-button{
             right: -60px;
+        }
+        .header-slider{
+            height: 700px;
+        }
+        .header-slider__item{
+            height: 700px;
         }
     }
 </style>

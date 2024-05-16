@@ -51,7 +51,6 @@
       this.images.currentImage = this.images.defaultCartImage;
     },
     toggleFilter(){
-      console.log(this.filterIsActive)
        return this.filterIsActive = !this.filterIsActive
     }
   }
@@ -207,10 +206,10 @@
         thumb-color="rgba(221, 58, 26, 1)"
         rounded="0"
         thumb-size="12"
-        strict="true"
         thumb-label="always"
         step="1"
         v-model="prices"
+        strict
         min="0"
         max="10000"
         >

@@ -5,8 +5,8 @@
   import { ref } from 'vue';
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import 'swiper/css/free-mode';
-  import 'swiper/css/navigation';
   import 'swiper/css/thumbs';
+  
 
   export default {
     
@@ -18,7 +18,7 @@
     const cartStore = useModal();
 
     const openCart = () =>{
-        cartStore.openCartModal()
+      cartStore.openCartModal()
     }
     const thumbsSwiper = ref(null);
 
@@ -28,7 +28,7 @@
     const recomendationPrev = ref(null);
     const recomendationNext = ref(null);
     return {
-      modules: [FreeMode, Navigation, Thumbs],
+      modules: ref([FreeMode, Navigation, Thumbs]),
       thumbsSwiper,
       setThumbsSwiper,
       recomendationPrev,
@@ -149,13 +149,16 @@
         :loop="true"
         :thumbs="{swiper: thumbsSwiper}"
         :modules="modules"
+        
         :breakpoints="{
           '100':{
             slidesPerView:1,
+            centeredSlides:true
           },
 
           '1200':{
             slidesPerView:2,
+            centeredSlides:false
           },
         }"
         >
@@ -273,6 +276,7 @@
         color="rgba(23, 7, 7, 1)"
         size="34"
         rounded="0"
+        class="recomendationPrev"
 
         >
           <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
@@ -283,22 +287,22 @@
         color="rgba(23, 7, 7, 1)"
         size="34"
         rounded="0"
+        class="recomendationNext"
         >
           <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
         </v-btn>
       </div>
-      <div class="recomendation-slider">
 
         <Swiper
         style="position: relative;"
+        class="recomendation-slider"
         :loop="true"
         :slides-per-view="5"
-        :freeMode="true"
         :spaceBetween="44"
-        :autoHeight="true"
+        :modules="modules"
         :navigation="{
-          prevEl: recomendationPrev,
-          nextEl: recomendationNext,
+          nextEl: '.recomendationNext',
+          prevEl: '.recomendationPrev',
         }"
         :breakpoints="{
           '100':{
@@ -306,6 +310,7 @@
             spaceBetween: 28,
             centeredSlides:false,
             direction: 'vertical',
+            
           },
           '600':{
             direction: 'horizontal',
@@ -318,15 +323,12 @@
           },
           '1100': {
             slidesPerView: 4,
-            spaceBetween: 44,
           },
           '1440': {
             slidesPerView: 5,
-            spaceBetween: 44,
           },
         }"
         >
-        
           <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n"
           class="swiper-slide__item"
           >
@@ -341,8 +343,8 @@
               </div>
             </div>
           </swiper-slide>
+
         </Swiper>
-      </div>
     </div>
 
   </section>
