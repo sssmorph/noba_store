@@ -49,6 +49,12 @@
 </template>
 
 <style lang="scss" scoped>
+    .swis{
+        font-family: Swis721CnBTRusbyme-Roman;
+    }
+    .manrope{
+        font-family: manrope;
+    }
     footer{
         background-color: rgba(23, 7, 7, 1);
         height: 140px;

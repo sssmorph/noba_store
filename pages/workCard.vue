@@ -24,26 +24,57 @@
                 <span class="button__text t-w swis">ХОЧУ ТАКЖЕ</span>
                 <span class="button__line more-work"></span>
             </v-btn>
-        <div class="portfolio-card-container">
-            <div class="portfolio-card-item">
+        <Swiper class="portfolio-card-container"
+        :loop="true"
+        :slidesPerView="2"
+        :freeMode="true"
+        :breakpoints="{
+            '100':{
+                slidesPerView: 1,
+            },
+            '680':{
+                slidesPerView: 2,
+            }
+
+        }"
+        >
+            <swiper-slide class="portfolio-card-item">
                 <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item card-bg-gray">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
                 <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item__small card-bg-red">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
                 <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom__mobile">
+                <div class="portfolio-card-item__bottom">
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-        </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item">
+                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
+                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
+                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+        </Swiper>
     </section>
     <section class="review-section">
         <div class="wrapper review-block">
@@ -152,6 +183,7 @@ h2{
     padding-top: 126px;
     position: absolute;
     left: 30px;
+    z-index: 4;
 }
 .be-real-portfolio{
     position: absolute;
@@ -164,24 +196,30 @@ h2{
     bottom:88.5px;
     left: 182px;
     padding: 0;
+    z-index: 5;
 }
 .portfolio-card-container{
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow: hidden;
     height: 100%;
-    padding-left: 129px;
+    width: 1074px;
+    margin-right: 0 !important;
+
 }
 
 .portfolio-card-item{
     max-width: 451px;
     padding-top:50px;
+    width: 451px;
 }
 .portfolio-card-item__small{
     max-width: 173px;
     padding-top:50px;
 }
 .portfolio-card-item__photo{
-    width:100%;
+    width:451px;
     height: 573px;
 }
 .portfolio-card-item__bottom{
@@ -190,6 +228,7 @@ h2{
     flex-direction: column;
     justify-content: flex-end;
     height: 141px;
+    width: 451px;
 }
 .portfolio-card-item__bottom__mobile{
     padding: 25px 10px 18px 16px;
@@ -310,6 +349,13 @@ h2{
     .portfolio-card-item{
         max-width: 400px;
     }
+    .portfolio-card-container{
+        width: 902px;
+
+    }
+    .portfolio-card-item__bottom{
+        width: 400px;
+    }
 }
 @media (max-width: 1300px) {
     .review-block__left{
@@ -412,17 +458,14 @@ h2{
             font-size: 14px;
         }
         .portfolio-card-item{
-            display: none;
-        }
-        .portfolio-card-item:nth-child(1){
-            display: block;
             max-width: 450px;
         }
         .portfolio-card-item__bottom{
             gap: 28px;
             justify-content: flex-start;
             padding: 16px 20px 39px;
-            
+            max-width: 450px;
+            width: 100%;
         }
         .portfolio-block{
             justify-content: center;

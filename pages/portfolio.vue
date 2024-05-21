@@ -19,29 +19,63 @@
                 <span class="button__line more-work"></span>
             </v-btn>
         </NuxtLink>
-        <div class="portfolio-card-container">
-            <div class="portfolio-card-item">
+        <Swiper
+        :loop="true"
+        :slidesPerView="2"
+        :freeMode="true"
+        :breakpoints="{
+            '100':{
+                slidesPerView: 1,
+            },
+            '680':{
+                slidesPerView: 2,
+            }
+
+        }"
+        class="portfolio-card-container">
+            <swiper-slide class="portfolio-card-item">
                 <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item card-bg-gray">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
                 <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item__small card-bg-red">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
                 <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom__mobile">
-                    <p class="t-b swis portfolio-card__name__mobile">Фитнес-клуб “Глобал Фитнес”</p>
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-        </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item">
+                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
+                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
+                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+        </Swiper>
     </section>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Мерч</h2>
@@ -58,29 +92,63 @@
                 <span class="button__line more-work"></span>
             </v-btn>
         </NuxtLink>
-        <div class="portfolio-card-container">
-            <div class="portfolio-card-item">
+        <Swiper
+        :loop="true"
+        :slidesPerView="2"
+        :freeMode="true"
+        :breakpoints="{
+            '100':{
+                slidesPerView: 1,
+            },
+            '680':{
+                slidesPerView: 2,
+            }
+
+        }"
+        class="portfolio-card-container">
+            <swiper-slide class="portfolio-card-item">
                 <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item card-bg-gray">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
                 <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item__small card-bg-red">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
                 <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom__mobile">
-                    <p class="t-b swis portfolio-card__name__mobile">Фитнес-клуб “Глобал Фитнес”</p>
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-        </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item">
+                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
+                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
+                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+        </Swiper>
     </section>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Спортивная одежда</h2>
@@ -97,29 +165,63 @@
                 <span class="button__line more-work"></span>
             </v-btn>
         </NuxtLink>
-        <div class="portfolio-card-container border-0">
-            <div class="portfolio-card-item">
+        <Swiper
+        :loop="true"
+        :slidesPerView="2"
+        :freeMode="true"
+        :breakpoints="{
+            '100':{
+                slidesPerView: 1,
+            },
+            '680':{
+                slidesPerView: 2,
+            }
+
+        }"
+        class="portfolio-card-container border-0">
+            <swiper-slide class="portfolio-card-item">
                 <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item card-bg-gray">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
                 <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item__small card-bg-red">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
                 <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom__mobile">
-                    <p class="t-b swis portfolio-card__name__mobile">Фитнес-клуб “Глобал Фитнес”</p>
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-        </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item">
+                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
+                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
+                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">01</p>
+                </div>
+            </swiper-slide>
+        </Swiper>
     </section>
     <InfoFooter/>
 </template>
@@ -180,6 +282,7 @@
         padding-top: 126px;
         position: absolute;
         left: 44px;
+        z-index: 5;
     }
     .be-real-portfolio{
         position: absolute;
@@ -191,25 +294,31 @@
         position: absolute;
         bottom:88.5px;
         left: 182px;
+        z-index: 5;
     }
     .portfolio-card-container{
         display: flex;
-        justify-content: flex-end;
+        flex-direction: row;
+        justify-content: flex-start;
         height: 100%;
+        width: 1074px;
         padding-left: 129px;
         border-bottom: 1px dashed rgba(23, 7, 7, 1);
+        margin-right: 0 !important;
+        overflow: hidden;
     }
 
     .portfolio-card-item{
         max-width: 451px;
         padding-top:50px;
+        width: 451px;
     }
     .portfolio-card-item__small{
         max-width: 173px;
         padding-top:50px;
     }
     .portfolio-card-item__photo{
-        width:100%;
+        width:451px;
         height: 573px;
     }
     .portfolio-card-item__bottom{
@@ -218,6 +327,7 @@
         flex-direction: column;
         justify-content: space-between;
         height: 141px;
+        width: 451px;
     }
     .portfolio-card-item__bottom__mobile{
         padding: 25px 10px 18px 16px;
@@ -258,6 +368,12 @@
         .portfolio-card-item{
             max-width: 400px;
         }
+        .portfolio-card-container{
+            width: 902px;
+        }
+        .portfolio-card-item__bottom{
+            width: 400px;
+        }
     }
     @media (max-width: 1200px) {
         .portfolio-block{
@@ -294,17 +410,14 @@
     }
     @media (max-width: 680px) {
         .portfolio-card-item{
-            display: none;
-        }
-        .portfolio-card-item:nth-child(1){
-            display: block;
             max-width: 450px;
         }
         .portfolio-card-item__bottom{
             gap: 28px;
             justify-content: flex-start;
             padding: 16px 20px 39px;
-            
+            max-width: 450px;
+            width: 100%;
         }
         .portfolio-block{
             justify-content: center;

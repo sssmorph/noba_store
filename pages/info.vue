@@ -17,7 +17,12 @@
     const openModal = () =>{
     modalStore.openFeedback();
     }
-
+    const pagination = {
+        clickable: true,
+        renderBullet: function (index, className) {
+            return '<span class="' + className + '">' + (index + 1) + '</span>';
+    },
+    }
 </script>
 
 <template>
@@ -44,11 +49,10 @@
             <swiper class="header-slider MySwiper"
             :centeredSlides="true "
             :autoplay="true"
-            :pagination="{
-                clickable: true,
-              }"
+            :pagination="pagination"
             :crossFade="true"
             :modules="modules"
+            
             >
                 <swiper-slide class="header-slider__item">
                     <img src="/assets/image/info-back1.png" alt="">
@@ -162,29 +166,63 @@
                 <span class="button__line more-work"></span>
             </v-btn>
         </NuxtLink>
-        <div class="portfolio-card-container">
-            <div class="portfolio-card-item">
+        <Swiper class="portfolio-card-container"
+
+        :freeMode="true"
+        :scrollbar="true"
+        :breakpoints="{
+            '100':{
+                slidesPerView: 1,
+            },
+            '680':{
+                slidesPerView: 2,
+
+            }
+        }"
+        >
+            <swiper-slide class="portfolio-card-item">
                 <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item card-bg-gray">
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
                 <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">02</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
+                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">03</p>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item">
+                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
-            </div>
-            <div class="portfolio-card-item__small card-bg-red">
-                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom__mobile">
-                    <p class="t-b swis portfolio-card__name__mobile">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">01</p>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-gray">
+                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">02</p>
                 </div>
-            </div>
-        </div>
+            </swiper-slide>
+            <swiper-slide class="portfolio-card-item card-bg-red">
+                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
+                <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
+                    <p class="t-b manrope portfolio-card__count">03</p>
+                </div>
+            </swiper-slide>
+        </Swiper>
     </section>
     <section class="konkurs-section">
         <div class="wrapper konkurs-block">
@@ -539,6 +577,7 @@
         padding-top: 126px;
         position: absolute;
         left: 44px;
+        z-index: 5;
     }
     .be-real-portfolio{
         position: absolute;
@@ -550,14 +589,23 @@
         position: absolute;
         bottom:88.5px;
         left: 182px;
+        z-index: 5;
     }
     .portfolio-card-container{
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         height: 100%;
+        width: 1074px;
+        flex-direction: row;
+        overflow:hidden;
+        margin-right: 0 !important;
+    }
+    .portfolio-card-container::-webkit-scrollbar{
+        
     }
     .portfolio-card-item{
         max-width: 451px;
+        width: 451px;
         padding-top:50px;
     }
     .portfolio-card-item__small{
@@ -565,7 +613,7 @@
         padding-top:50px;
     }
     .portfolio-card-item__photo{
-        width:100%;
+        width:451px;
         height: 573px;
     }
     .portfolio-card-item__bottom{
@@ -574,6 +622,7 @@
         flex-direction: column;
         justify-content: space-between;
         height: 141px;
+        width: 451px;
     }
     .portfolio-card-item__bottom__mobile{
         padding: 25px 10px 18px 16px;
@@ -773,12 +822,29 @@
     flex-direction: column;
     gap: 18px;
   }
+  :global(.swiper-pagination-bullet-active){
+    background-color: rgba(221, 58, 26, 1) !important;
+  }
+  :global(.swiper-pagination-bullet){
+    background-color: rgba(255, 252, 251, 1);
+    opacity: 1 !important; 
+    margin-right: 65px !important; 
+  }
+  :global(.swiper-pagination){
+    bottom: 49px !important;
+  }
     @media (max-width: 1400px) {
         .portfolio-card-item__small{
             display: none;
         }
         .portfolio-card-item{
             max-width: 400px;
+        }
+        .portfolio-card-container{
+            width: 902px;
+        }
+        .portfolio-card-item__bottom{
+            width: 400px;
         }
     }
     @media (max-width: 1335px) {
@@ -859,6 +925,7 @@
         .more-work-button{
             right: -69px;
             left: auto;
+            z-index: 5;
         }
         .portfolio-card-item__bottom{
             height: 129px;
@@ -1051,18 +1118,15 @@
         .more-konkurs-button{
             right: -68.5px;
         }
-
         .portfolio-card-item{
-            display: none;
-        }
-        .portfolio-card-item:nth-child(1){
-            display: block;
             max-width: 450px;
         }
         .portfolio-card-item__bottom{
             gap: 28px;
             justify-content: flex-start;
             padding: 16px 20px 39px;
+            max-width: 450px;
+            width: 100%;
             
         }
         .portfolio-block{
