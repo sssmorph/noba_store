@@ -160,5 +160,16 @@
         .footer-link{
             height: 24px;
         }
+        .footer-wrapper{
+            align-items: start;
+        }
+      }
+      @media (max-width: 420px) {
+        .link-list{
+            gap: 4px;
+        }
+        .footer-wrapper{
+            padding: 23px 10px;
+        }
       }
 </style>

@@ -76,7 +76,9 @@
         align-items: center;
         gap:10px;
     }
-
+    .copyright{
+        font-size: 12px;
+    }
     .t-w{
         color: rgba(255, 252, 251, 1);
     }
@@ -175,9 +177,6 @@
             width: 234px;
             height: 22px;
         }
-        .copyright{
-            font-size: 12px;
-        }
         .copyright-img{
             width: 16px;
             height: 16px;
@@ -191,4 +190,10 @@
             gap: 50px;
         }
     }
+    @media (max-width: 390px) {
+        .footer-right-container{
+            gap: 25px;
+        }
+    }
+
 </style>

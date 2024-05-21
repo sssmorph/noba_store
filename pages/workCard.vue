@@ -441,6 +441,9 @@ h2{
         .send-request{
             right: -69px;
         }
+        .review-title{
+            font-size: 48px;
+        }
         .review-block__right{
             padding-top: 56px;
             padding-left: 20px;
@@ -480,5 +483,13 @@ h2{
             font-size:14px;
         }
     }
-
+    @media (max-width: 400px) {
+        .review-block__left{
+            padding-left: 20px;
+            padding-top: 30px;
+        }
+        .review-text{
+            margin-top: 20px;
+        }
+    }
 </style>

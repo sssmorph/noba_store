@@ -186,7 +186,7 @@
         max-height: 136px;
     }
     .main-information-container{
-        width: calc(100% - (40px + 44px));
+        width: calc(100%);
         height: 150px;
         padding: 30px 44px 20px 40px;
         z-index: 2;
@@ -199,7 +199,7 @@
 
     }
     .mainInfoContainerBig{
-        height: 510px;
+        height: 560px;
 
     }
     .main-information-top{
@@ -378,6 +378,17 @@
             top: 147px;
             font-size: 14px;
             line-height: 160%;
+        }
+    }
+    @media (max-width: 400px) {
+        .blogerText{
+            top: 120px;
+        }
+        .blogerAddInfo{
+            height: 512px;
+        }
+        .headerBig{
+            height: 700px;
         }
     }
 </style>

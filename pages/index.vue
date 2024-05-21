@@ -291,5 +291,10 @@
       height: 260px;
     }
   }
+  @media (max-width:430px) {
+    .bloger-card{
+      flex: 0 0 100%;
+    }
+  }
 </style>
 

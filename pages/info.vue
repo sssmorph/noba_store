@@ -77,7 +77,7 @@
                 </div>
             </nav>
             <div class="header-text-container">
-                <h2 class="header-title manrope t-w">Создаём качественную одежду</h2>
+                <h2 class="header-title swis t-w">Создаём качественную одежду</h2>
                 <div class="text-line-container">
                     <p class="header-text manrope t-g">NOBAREY — это новый уровень российского производителя спортивной и стрит одежды. Технологии, опережающие время. Инновационные материалы. Безупречность исполнения и влекущий дизайн.</p>
                     <div class="dotted-line"></div>
@@ -167,7 +167,8 @@
             </v-btn>
         </NuxtLink>
         <Swiper class="portfolio-card-container"
-
+        :loop="true"
+        :slidesPerView="2"
         :freeMode="true"
         :scrollbar="true"
         :breakpoints="{
@@ -178,6 +179,7 @@
                 slidesPerView: 2,
 
             }
+
         }"
         >
             <swiper-slide class="portfolio-card-item">
@@ -398,7 +400,7 @@
         font-size: 64px;
         font-weight: 700;
         line-height: 120%;
-
+        letter-spacing: 0.05rem;
     }
     .header-text{
         margin-top: 22px;
@@ -475,7 +477,7 @@
         line-height: 160%;
     }
     .awards-container{
-        max-width: 710px;
+        max-width: 706px;
         width:100%;
         display: flex;
         justify-content: space-between;
@@ -488,10 +490,10 @@
     }
     .sales-count{
         text-align: end;
-        margin-bottom: 18px;
+        margin-bottom: 22px;
         font-size: 64px;
         font-weight: 700;
-        line-height: 120%;
+        line-height: 110%;
         width:100%;
         max-width: 710px;
     }
@@ -524,6 +526,7 @@
         max-height: 105px;
         object-fit: cover;
         height: 100%;
+        width: 100%;
     }
     .our-benefit__title-container{
         display: flex;
@@ -588,7 +591,7 @@
         rotate: 270deg;
         position: absolute;
         bottom:88.5px;
-        left: 182px;
+        left: 174px;
         z-index: 5;
     }
     .portfolio-card-container{
@@ -599,9 +602,6 @@
         flex-direction: row;
         overflow:hidden;
         margin-right: 0 !important;
-    }
-    .portfolio-card-container::-webkit-scrollbar{
-        
     }
     .portfolio-card-item{
         max-width: 451px;
@@ -671,6 +671,7 @@
         right: -44.5px;
         rotate: 270deg;
         bottom: 88.5px;
+        z-index: 1;
     }
     .konkurs-be-real{
         position: absolute;
@@ -1180,6 +1181,32 @@
         }
         .header-slider__item{
             height: 700px;
+        }
+        @media (max-width: 390px) {
+            .about-us-information{
+                transform: translateY(30px);
+                padding-bottom: 10px;
+            }
+            .about-us__red-line{
+                transform: translateY(-28px);
+            }
+            .our-benefit__title-container{
+                margin-top: 35px;
+            }
+            .our-benefit__title-container{
+                gap: 10px;
+            }
+            .benefit-information-container{
+                gap: 15px;
+            }
+            .our-benefit{
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            .portfolio-title{
+                padding-top: 30px;
+                
+            }
         }
     }
 </style>

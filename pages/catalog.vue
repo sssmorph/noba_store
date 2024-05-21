@@ -944,8 +944,9 @@
     }
     .card-item{
       max-width: 400px;
-      max-height: 597;
-      flex: 0 0 1;
+      max-height: 597px;
+      flex: 0 0 100%;
+      width: 100%;
     }
     .card-photo{
       width: 400px;

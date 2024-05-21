@@ -404,4 +404,12 @@ export default {
             width: 100%;
         }
     }
+    @media (max-width: 400px) {
+        .product-information{
+            gap: 15px;
+        }
+        .popup-cart-bottom{
+            flex-direction: column-reverse;
+        }
+    }
 </style>

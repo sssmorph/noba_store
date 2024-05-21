@@ -957,5 +957,8 @@
       margin-right: 16px;
       line-height: 160%;
     }
+    .sub-header__button-container{
+      gap: 5px;
+    }
   }
 </style>
