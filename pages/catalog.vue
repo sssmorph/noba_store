@@ -41,7 +41,8 @@
       categories: ["Худи","Свитшоты","Брюки","Костюмы", "Лонгсливы", "Юбки", "Футболки", "Рубашки", "Верхняя одежда"],
       genders:["Женщины", "Мужчины", "Унисекс"],
       filterSizes: ["XS", "S", "M", "L", "XL"],
-      prices: [0,10000]
+      prices: [0,10000],
+
     }),
     methods: {
     changeImage() {
@@ -54,6 +55,7 @@
        return this.filterIsActive = !this.filterIsActive
     }
   }
+  
   }
 </script>
 
@@ -81,23 +83,7 @@
           {{ item.title }}
         </template>
       </v-breadcrumbs>
-      <div class="timer-container timer-container__hidden">
-        <span class="timer-title">До старта продаж осталось</span>
-        <div class="timer d-flex flex-row ">
-          <div class="timer__item">
-            <div class="timer__box">35</div>
-            <span class="timer__text">дней</span>
-          </div>
-          <div class="timer__item">
-            <div class="timer__box">16</div>
-            <span class="timer__text">часов</span>
-          </div>
-          <div class="timer__item">
-            <div class="timer__box timer__box-minute">28</div>
-            <span class="timer__text">минут</span>
-          </div>
-        </div>
-      </div>
+      <CatalogTimer class="timer-container__hidden"/>
       <div class="buttons-container">
         <v-btn
         class="button-preorder"
@@ -128,23 +114,7 @@
         </v-btn>
       </div>
     </div>
-    <div class="timer-container timer-container__mobile">
-      <span class="timer-title">До старта продаж осталось</span>
-      <div class="timer d-flex flex-row ">
-        <div class="timer__item">
-          <div class="timer__box">35</div>
-          <span class="timer__text">дней</span>
-        </div>
-        <div class="timer__item">
-          <div class="timer__box">16</div>
-          <span class="timer__text">часов</span>
-        </div>
-        <div class="timer__item">
-          <div class="timer__box timer__box-minute">28</div>
-          <span class="timer__text">минут</span>
-        </div>
-      </div>
-    </div>
+    <CatalogTimer class="timer-container__mobile"/>
     <h1 class="catalog-title">Одежда</h1>
     <div class="filter-container" 
     :class="{filterPadding: filterIsActive}"
@@ -384,9 +354,6 @@
   <AppFooter/>
 </template>
 
-
-
-
 <style lang="scss" scoped>
  *{
   transition: 0.5s all ease-in-out;
@@ -556,7 +523,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 25px 5px;
+    gap: 35px 5px;
     position: relative;
   }
   .card-item{
@@ -570,9 +537,12 @@
   }
   @media (hover: hover) {
     .card-item:hover{
-      height: 609px;
+      scale: 1.02;
+      top: 0;
+      left: 0;
       .card-photo{
         height: 502px;
+        width: 376px;
       }
       .size-container{
         display: flex;
@@ -583,6 +553,7 @@
   .card-photo{
     max-width: 100%;
     height: 475px;
+    object-fit: cover;
   }
 
   .card-item-bottom{

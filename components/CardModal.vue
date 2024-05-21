@@ -31,97 +31,97 @@ export default {
 </script>
 
 <template>
-    <transition name="nested" :duration="550">
-        <section class="popup-container" v-if="showModal">
-            <div class="popup-background" @click="closePopup"></div>
-            <div class="popup-cart-container">
-                <div class="popup-cart">
-                    <v-btn
-                    class="close-popup"
-                    size="34"
-                    variant="flat"
-                    color="rgba(23, 7, 7, 1)"
-                    rounded="0"
-                    @click="closePopup"
-                    >
-                    <img src="/assets/image/white-arrow.svg" style="pointer-events:none;">
-
-                    </v-btn>
-                    <div class="product-in-cart">
-                        <img src="/assets/image/card-image.png" class="product-photo">
-                        <div class="product-information-container">
-                            <span class="product-name">Свитшот Freedom</span>
-                            <div class="product-information">
-                                <div class="product product-size">
-                                    <span class="product-title">Размер</span>
-                                    <span class="product-value">XXL</span>
-                                </div>
-                                <div class="product product-count">
-                                    <span class="product-title">Количество</span>
-                                    <div class="value-container">
-                                        <button class="product-value" @click="decrement">-</button>
-                                        <span class="product-value">{{productValue}}</span>
-                                        <button class="product-value" @click="increment">+</button>
-                                    </div>
-    
-                                </div>
-                                <div class="product product-price">
-                                    <span class="product-title">Цена</span>
-                                    <span class="product-value">4500₽</span>
-                                </div>
-                                <div class="product product-total-price">
-                                    <span class="product-title">Стоимость</span>
-                                    <span class="product-value">9000₽</span>
-                                </div>
-                            </div>
-                            <div class="mobile-product-price">
-                                <span class="product-title-bold">Стоимость</span>
-                                <span class="product-value-bold">9000₽</span>
-                            </div>
-                        </div>
+        <section class="popup-container" >
+            <div class="popup-background" @click="closePopup" v-if="showModal"></div>
+            <transition name="fade" >
+                <div class="popup-cart-container" v-if="showModal">
+                    <div class="popup-cart">
                         <v-btn
-                        class="cross-button"
-                        variant="plain"
-                        size="31"
-                        rounded="0"
-                        >
-                            <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
-                        </v-btn>
-                    </div>
-                    <div class="popup-cart-bottom">
-                        <v-responsive max-width="307" class="search-box-container">
-                            <v-text-field class="promo-code-box"
-                            clearable label="Промо-код" 
-                            variant="underlined"
-                            append-inner-icon="mdi-chevron-right"
-                            base-color="rgba(23, 7, 7, 1)"
-                            color="rgba(23, 7, 7, 1)"
-                            >
-                            </v-text-field>
-                        </v-responsive>
-                        <div class="price-container">
-                            <span class="without-sale">13500 ₽</span>
-                            <span class="current-price">12000 ₽</span>
-                        </div>
-                    </div>
-                    <div class="to-order-container">
-                        <v-btn
-                        class="to-order-button"
+                        class="close-popup"
+                        size="34"
                         variant="flat"
-                        width="307"
-                        height="52px"
-                        color="rgba(221, 58, 26, 1)"
+                        color="rgba(23, 7, 7, 1)"
                         rounded="0"
+                        @click="closePopup"
                         >
-                        <span class="to-order-text">Перейти к оформлению</span>
-                        <img src="/assets/image/text-box-white.svg" alt="">
-                        </v-btn>
-                    </div>
+                        <img src="/assets/image/white-arrow.svg" style="pointer-events:none;">
 
+                        </v-btn>
+                        <div class="product-in-cart">
+                            <img src="/assets/image/card-image.png" class="product-photo">
+                            <div class="product-information-container">
+                                <span class="product-name">Свитшот Freedom</span>
+                                <div class="product-information">
+                                    <div class="product product-size">
+                                        <span class="product-title">Размер</span>
+                                        <span class="product-value">XXL</span>
+                                    </div>
+                                    <div class="product product-count">
+                                        <span class="product-title">Количество</span>
+                                        <div class="value-container">
+                                            <button class="product-value" @click="decrement">-</button>
+                                            <span class="product-value">{{productValue}}</span>
+                                            <button class="product-value" @click="increment">+</button>
+                                        </div>
+        
+                                    </div>
+                                    <div class="product product-price">
+                                        <span class="product-title">Цена</span>
+                                        <span class="product-value">4500₽</span>
+                                    </div>
+                                    <div class="product product-total-price">
+                                        <span class="product-title">Стоимость</span>
+                                        <span class="product-value">9000₽</span>
+                                    </div>
+                                </div>
+                                <div class="mobile-product-price">
+                                    <span class="product-title-bold">Стоимость</span>
+                                    <span class="product-value-bold">9000₽</span>
+                                </div>
+                            </div>
+                            <v-btn
+                            class="cross-button"
+                            variant="plain"
+                            size="31"
+                            rounded="0"
+                            >
+                                <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
+                            </v-btn>
+                        </div>
+                        <div class="popup-cart-bottom">
+                            <v-responsive max-width="307" class="search-box-container">
+                                <v-text-field class="promo-code-box"
+                                clearable label="Промо-код" 
+                                variant="underlined"
+                                append-inner-icon="mdi-chevron-right"
+                                base-color="rgba(23, 7, 7, 1)"
+                                color="rgba(23, 7, 7, 1)"
+                                >
+                                </v-text-field>
+                            </v-responsive>
+                            <div class="price-container">
+                                <span class="without-sale">13500 ₽</span>
+                                <span class="current-price">12000 ₽</span>
+                            </div>
+                        </div>
+                        <div class="to-order-container">
+                            <v-btn
+                            class="to-order-button"
+                            variant="flat"
+                            width="307"
+                            height="52px"
+                            color="rgba(221, 58, 26, 1)"
+                            rounded="0"
+                            >
+                            <span class="to-order-text">Перейти к оформлению</span>
+                            <img src="/assets/image/text-box-white.svg" alt="">
+                            </v-btn>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            </transition>
         </section>
-    </transition>
 </template>
 
 <style lang="scss" scoped>
@@ -144,6 +144,7 @@ export default {
         top: 0;
         right: 0;
         z-index: 5;
+        
     }  
     .popup-cart{
         background-color: rgba(255, 252, 251, 1);
@@ -282,33 +283,26 @@ export default {
         flex-direction: row;
         gap:10px;
     }
-    .nested-enter-active, .nested-leave-active {
-        transition: all 0.5s ease-in-out;
-    }
-    .nested-leave-active {
-      transition-delay: 0.2s;
-    }
-    .nested-enter-from,
-    .nested-leave-to {
-      transform: translateY(-1000px);
-      opacity: 0;
-    }
-    .nested-enter-active .popup-cart-container,
-    .nested-leave-active .popup-cart-container { 
-      transition: all 0.5s ease-in-out;
-    }
-    .nested-enter-active .popup-cart-container {
-        transition-delay: 0.2s;
-    }
-    .nested-enter-from .popup-cart-container,
-    .nested-leave-to .popup-cart-container {
-      transform: translateX(1000px);
-
-      opacity: 0;
-    }
     .mobile-product-price{
         display: none;
     }
+
+    .fade-enter-from{
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    .fade-enter-active {
+        transition: all .5s ease;
+      }
+    .fade-leave-active {
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+      }
+      .fade-enter, .fade-leave-to
+      /* .slide-fade-leave-active below version 2.1.8 */ {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+
     @media (max-width:1400px) {
         .popup-cart-container{
             width: 70%;

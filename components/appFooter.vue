@@ -51,11 +51,16 @@
                     <img src="/assets/image/search-btn-mobile.svg" alt="">
                 </v-btn>
             </v-responsive>
+
         </div>
     </footer>
 </template>
 
 <style scoped>
+    .mobile-search-bar{
+        position: absolute;
+        right: 49px;
+    }
     .footer-wrapper{
         max-width: 1440px;
         margin: auto;
@@ -64,6 +69,7 @@
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+        position: relative;
     }
     .search-mobile{
         display: none;

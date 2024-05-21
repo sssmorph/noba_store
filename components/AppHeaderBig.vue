@@ -56,14 +56,15 @@
                 <p :class="{blogerText: isActive, hidden: !isActive}" >Максим — популярный блогер-путешественник, который объехал более 50 стран мира и делится своими впечатлениями и советами с подписчиками. В его блоге "TravelMax" вы найдете увлекательные истории о самых необычных и красивых уголках планеты, рекомендации по планированию путешествий и эксклюзивные фото- и видеоматериалы. Алексей увлеченно исследует разные культуры и традиции, делая свои путешествия не только приятными, но и образовательными для своей аудитории.</p>
 
                 <div class="buttons-container">
-                    <v-btn  class="header-button"
-                    variant="flat"
-                    size="73"
-                    color="rgba(23, 7, 7, 1)"
-                    rounded="0">
-                        <img class="header-button__photo" src="/assets/image/burger-lines.svg" alt="">
-                    </v-btn>
-
+                    <NuxtLink to="/">
+                        <v-btn  class="header-button"
+                        variant="flat"
+                        size="73"
+                        color="rgba(23, 7, 7, 1)"
+                        rounded="0">
+                            <img class="header-button__photo" src="/assets/image/burger-lines.svg" alt="">
+                        </v-btn>
+                    </NuxtLink>
                     <v-btn  class="header-button"
                     variant="flat"
                     size="73"
