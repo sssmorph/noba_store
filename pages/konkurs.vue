@@ -1,5 +1,4 @@
 <script setup>
-  let modalIsActive = ref(false);
   let burgerIsOpen = ref(false);
   const isElementActive = ref([false, false, false, false, false, false]);
   let isAccOpen = ref([false, false, false, false, false]);

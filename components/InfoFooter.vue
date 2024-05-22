@@ -4,10 +4,10 @@
         {url: "/", name: "Интернет-магазин"},
         {url: "konkurs", name: "Конкурс"},
         {url: "info", name: "О компании"},]
-        const modalStore = useModal();
 
-    const openModal = () =>{
-        modalStore.openFeedback();
+    const modalStore = useModal();
+    const openModal = () => {
+        modalStore.openInfoFeedBack();
     }
 </script>
 

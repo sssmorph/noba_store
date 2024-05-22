@@ -4,6 +4,7 @@
 
 <template>
     <InfoHeader/>
+    <InfoFeedBackModal/>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Повседневная одежда</h2>
         <NuxtLink to="workCard">
@@ -320,6 +321,7 @@
     .portfolio-card-item__photo{
         width:451px;
         height: 573px;
+        object-fit: cover;
     }
     .portfolio-card-item__bottom{
         padding: 18px 24px;

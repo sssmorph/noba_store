@@ -53,7 +53,8 @@
     },
     toggleFilter(){
        return this.filterIsActive = !this.filterIsActive
-    }
+    },
+
   }
   
   }
@@ -62,6 +63,7 @@
 <template>
   <AppHeaderBig/>
   <CardModal/>
+  <InfoFeedBackModal/>
   <section class="catalog-container">
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
@@ -314,9 +316,7 @@
       <!--  -->
     </div>
       <div class="catalog-cards-container " >
-        <div class="dark-background" :class="{hidden: !filterIsActive}"></div>
-
-
+        <div class="dark-background" :class="{hidden: !filterIsActive}" @click="filterIsActive = false"></div>
         <div  class="card-item" v-for="n of 10" :virtualIndex="n" :key="n">
           <NuxtLink to="/card">
             <img src="/assets/image/card-image.png" class="card-photo">            

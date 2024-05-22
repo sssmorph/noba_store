@@ -5,6 +5,7 @@
 <template>
   <AppHeaderSmall/>
   <CardModal/>
+  <InfoFeedBackModal/>
   <section class="wrapper-container">
       <span class="background-text">BE REAL</span>
       <img src="../assets/image/heart.svg" class="background-image">

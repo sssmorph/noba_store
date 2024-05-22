@@ -15,20 +15,24 @@
               <div class="contact_form__input__wrapper">
                 <input name="name" type="text" class="contact-form__input contact-form__input_name" placeholder="ИМЯ">
                 <div class="contact-form__error contact-form__error_name"></div>
-              </div>
+                <div class="input-border"></div>
+              </div> 
               <div class="contact_form__input__wrapper">
                 <input name="tel" type="tel" class="contact-form__input contact-form__input_tel" onkeypress='validate(event)' placeholder="НОМЕР" value="+7">
                 <div class="contact-form__error contact-form__error_tel"></div>
+                <div class="input-border"></div>
               </div>
             </div>
-            <div class="contact_form__input__wrapper">
-              <input name="comment" type="comment" class="contact-form__input contact-form__input_comment" placeholder="КОМАНТАРИЙ">
+            <div class="contact_form__input__wrapper comment-input">
+              <textarea name="comment" type="comment" class="contact-form__input contact-form__input_comment" placeholder="КОММЕНТАРИЙ"></textarea>
               <div class="contact-form__error contact-form__error_comment"></div>
+              <div class="input-border"></div>
             </div>
-            <h3 class="contact_form__input__wrapper">Расскажите о себе (сфера деятельности, охват аудитории)</h3>
-            <div class="contact_form__input__wrapper">
-              <input name="about" type="about" class="contact-form__input contact-form__input_about" >
+
+            <div class="contact_form__input__wrapper about-input">
+              <textarea name="about" type="about" class="contact-form__input contact-form__input_about" placeholder="Расскажите о себе (сфера деятельности, охват аудитории)"></textarea>
               <div class="contact-form__error contact-form__error_about"></div>
+              <div class="input-border"></div>
             </div>
             <div class="modal__bottom_line">
               <div class="CAPTCHA">CAPTCHA</div>
@@ -46,4 +50,63 @@
 <style lang="scss">
 @import "/assets/css/index.scss";
 
+.contact-form__input{
+  padding: 8px 12px 0 12px;
+}
+.contact_form__input__wrapper{
+  margin-bottom: 36px;
+}
+.modal__bottom_line{
+  margin-top: 6px;
+}
+.contact-form__input_about{
+  height: 81px;
+}
+.about-input{
+  height: 92px;
+}
+.contact-form__input_about{
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 160%;
+  font-family: "Swis721 Cn RM";
+}
+.comment-input{
+  height: 46px;
+}
+.contact-form__input_comment{
+  height: 35px;
+}
+@media (max-width: 560px) {
+  .modal__bottom_line{
+    margin-bottom: 24px;
+    height: 40px;
+    margin-top: 54px
+  }
+  .CAPTCHA{
+    width: 156px;
+    height: 40px;
+  }
+  .about-input{
+    height: 138px;
+  }
+  .contact-form__input_about{
+    height: 127px;  
+  }
+  .contact_form__input__wrapper{
+    margin-bottom: 16px;
+  }
+  .comment-input{
+    height: 92px;
+  }
+  .contact-form__input_comment{
+    height: 81px;
+  }
+}
+@media (max-width: 400px) {
+    .modal__content{
+      max-width: 350px;
+      padding: 56px 10px;
+    }
+}
 </style>

@@ -8,9 +8,8 @@
   background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   overflow-y: scroll;
-  padding: 60px 15px;
 }
  
 .modal__content {
@@ -20,6 +19,11 @@
   background: #000000;
   color: white;
   position: relative;
+  @include mobile-width {
+    padding: 56px 26px;
+    max-width: 390px;
+    height: 650px;
+  }
 }
  
 .modal__close-button {
@@ -68,9 +72,8 @@
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   overflow-y: scroll;
-  padding: 60px 15px;
 }
  
 .modal_active {
@@ -92,6 +95,10 @@
     font-weight: 400;
     line-height: 28.8px;
     text-align: left;
+    @include mobile-width{
+      height: auto;
+      margin-bottom: 45px;
+    }
   }
 }
 
@@ -114,6 +121,7 @@
     height: 1px;
     width: auto;
     background-color: white;
+    border-bottom: 1px solid #fff;
     }
   }
 }
@@ -122,6 +130,10 @@
   display: flex;
   justify-content: space-between;
   gap: 55px;
+  @include mobile-width{
+    flex-direction: column;
+    gap:0;
+  }
 }
 
 .contact-form__input {
@@ -141,17 +153,15 @@
   width: 100%;
   height: 46px;
   margin-bottom: 24px;
-  
-  &::after:not(h3) {
-    margin-top: 10px;
-    content: '';
-    display: block;
-    height: 1px;
-    width: 100%;
-    background-color: white;
+  @include mobile-width {
+    margin-bottom: 16px;
   }
 }
-
+.input-border{
+  margin-top: 10px;
+  border-bottom: 1px solid white;
+  width: 100%;
+}
 input {
   font-size: 18px;
   line-height: 28.8px;
@@ -170,6 +180,9 @@ input {
 
   @include media-tablet {
     gap: 20px;
+  }
+  @include mobile-width{
+    margin-top: 40px;
   }
 }
 
@@ -196,6 +209,10 @@ input {
 	&:hover {
 		opacity: 1;
 	}
+  @include mobile-width{
+    right: 26px;
+    top: 24px;
+  }
 }
 
 .modal__close-button::before,

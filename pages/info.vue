@@ -9,16 +9,17 @@
     import 'swiper/css/thumbs';
     const modules = ref([Autoplay, Pagination, Navigation]);
     let burgerIsActive = ref(false);
-    const modalStore = useModal();
+
     const toggleBurger = () =>{
-        
         burgerIsActive.value = !burgerIsActive.value;
         console.log(burgerIsActive.value);
     };
 
-    const openModal = () =>{
-    modalStore.openFeedback();
+    const modalStore = useModal();
+    const openModal = () => {
+        modalStore.openInfoFeedBack();
     }
+
     const pagination = {
         clickable: true,
         renderBullet: function (index, className) {
@@ -28,7 +29,7 @@
 </script>
 
 <template>
-    <FeedbackModal/>
+    <InfoFeedBackModal/>
     <section class="header-section">
         <div class="burger-menu" @click="toggleBurger">
             <span class="line1" :class="{open1: burgerIsActive}"></span>
@@ -618,6 +619,7 @@
     .portfolio-card-item__photo{
         width:451px;
         height: 573px;
+        object-fit: cover;
     }
     .portfolio-card-item__bottom{
         padding: 18px 24px;

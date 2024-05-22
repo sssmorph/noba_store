@@ -1,13 +1,12 @@
 <script setup>
     const modalStore = useModal();
-
-    const openModal = () =>{
-        modalStore.openFeedback();
+    const openModal = () => {
+        modalStore.openInfoFeedBack();
     }
 </script>
 
 <template>
-    <FeedbackModal/>
+    <InfoFeedBackModal/>
     <InfoHeader/>
     <section class="wrapper portfolio-block">
         <img src="/assets/image/CardClothes.png" class="portfolio-image" alt="">
@@ -221,6 +220,7 @@ h2{
 .portfolio-card-item__photo{
     width:451px;
     height: 573px;
+    object-fit: cover;
 }
 .portfolio-card-item__bottom{
     padding: 18px 24px;

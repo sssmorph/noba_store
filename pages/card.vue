@@ -98,6 +98,7 @@
 
 <template>
   <AppHeaderBig/>
+  <InfoFeedBackModal/>
   <CardModal/>
   <section class="card-page-container">
     <div class="sub-header-container">

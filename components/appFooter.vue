@@ -2,13 +2,12 @@
     const modalStore = useModal();
 
     const openModal = () =>{
-        modalStore.openFeedback();
+        modalStore.openInfoFeedBack();
     }
 
 </script>
 
 <template>
-    <FeedbackModal/>
     <footer>
         <div class="footer-wrapper">
             <div class="link-container">
