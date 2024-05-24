@@ -147,13 +147,6 @@
         >
         </v-text-field>
       </v-responsive>
-      <v-btn class="search-mobile"
-      variant="flat"
-      color="rgba(166, 163, 163, 1)"
-      size="38"
-      rounded="0">
-          <img src="/assets/image/search-btn-mobile.svg" alt="">
-      </v-btn>
       <v-btn 
       :class="{hidden: !filterIsActive}"
       class="close-mobile"
@@ -302,6 +295,18 @@
           </div>
         </div>
       </div>
+      <v-responsive max-width="100%" class="search-box-container filter-search mobile-search"
+      style="margin-top:12px;"
+      >
+        <v-text-field class="search-box"
+        clearable label="Поиск" 
+        variant="underlined"
+        append-inner-icon="mdi-magnify"
+        base-color="rgba(23, 7, 7, 1)"
+        color="rgba(23, 7, 7, 1)"
+        >
+        </v-text-field>
+      </v-responsive>
       <v-btn
       variant="outlined"
       width="157"
@@ -752,7 +757,7 @@
     z-index: 10;
     top: 0;
     left: -50vw;
-    width: 1000vw;
+    max-width: 1000vw;
     height: calc(100% + 100px);
     background-color: rgba(23, 7, 7, 0.35);
   }
@@ -797,7 +802,10 @@
     height: 20px;
     background-image: url(/assets/image/empty_check.svg);
   }
-  
+  .radio-button__square:checked{
+    background-image: url(/assets/image/check_box.svg);
+    transition: all ease-in-out 0.2s;
+  }
 
   @media(hover: hover){
     input[type="radio"] + label div:hover,
@@ -811,6 +819,9 @@
     transition: all ease-in-out 0.2s;
   }
   .button-text__collection__mobile{
+    display: none;
+  }
+  .mobile-search{
     display: none;
   }
   @media (max-width: 1440px) {
@@ -868,6 +879,15 @@
     }
     .search-box-container{
       display: none;
+    }
+  }
+  @media (max-width: 1024px) {
+    .mobile-search{
+      display: flex;
+      margin-top: 10px
+    }
+    .opennedFilter{
+      height: 490px;
     }
   }
   @media (max-width: 650px) {
@@ -947,7 +967,7 @@
     }
     .opennedFilter{
       padding: 12px 15px 35px 15px;
-      height: 813px;
+      height: 835px;
     }
     .filter-item__mobile{
       display: flex;
@@ -1006,4 +1026,10 @@
       display: block;
     }
   }
+  @media (max-width: 430px) {
+    .opennedFilter{
+      height: 865px;
+    }
+  }
+
 </style>

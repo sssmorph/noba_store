@@ -98,6 +98,20 @@
     border-bottom: 1px solid rgba(221, 58, 26, 1);
     margin-left: 74px;
   }
+  @media (max-width: 1650px) {
+    @media (hover: hover) {
+      .bloger-card:hover {
+        height: 246px;
+        z-index: 2;
+        .bloger-card__photo{
+          transform: translateX(37.5px);
+          filter: grayscale(100%);
+          scale: 1;
+        }
+      }
+    
+    }
+  }
   @media (max-width: 1024px) {
     .bloger-card{
       flex: 0 0 calc(49% - 4px);
@@ -164,6 +178,19 @@
     }
     .bloger-card__photo{
       transform: translateX(15px);
+    }
+    @media (hover: hover) {
+      .bloger-card:hover {
+        height: 246px;
+        z-index: 2;
+        .bloger-card__photo{
+          transform: translateX(15px);
+          filter: grayscale(100%);
+          scale: 1;
+          height: 246px;
+        }
+      }
+    
     }
   }
   @media (max-width: 640px) {

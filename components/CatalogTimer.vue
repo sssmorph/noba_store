@@ -1,5 +1,5 @@
 <script setup>
-   const targetTime = new Date("2024, 7, 2").getTime();
+   const targetTime = new Date("2024-07-02").getTime();
    const currentTime = ref(new Date().getTime());
    const timeRemaining = ref(targetTime - currentTime.value);
    
@@ -36,15 +36,15 @@
         <span class="timer-title">До старта продаж осталось</span>
         <div class="timer d-flex flex-row ">
           <div class="timer__item">
-            <div class="timer__box">{{formatedDays}}</div>
+            <div class="timer__box">{{formatedDays.toString()}}</div>
             <span class="timer__text">дней</span>
           </div>
           <div class="timer__item">
-            <div class="timer__box">{{formatedHours % 24}}</div>
+            <div class="timer__box">{{(formatedHours % 24).toString()}}</div>
             <span class="timer__text">часов</span>
           </div>
           <div class="timer__item">
-            <div class="timer__box timer__box-minute">{{formatedMinutes % 60}}</div>
+            <div class="timer__box timer__box-minute">{{(formatedMinutes % 60).toString()}}</div>
             <span class="timer__text">минут</span>
           </div>
         </div>

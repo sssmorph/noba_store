@@ -11,7 +11,7 @@
     <header class="">
         <div class="header-wrapper d-flex flex-row justify-space-between align-center">
             <nuxt-link to="/" class="home-link">Другие коллекции</nuxt-link>
-            <v-btn  
+            <!-- <v-btn  
             variant="flat"
             size="34"
             color="rgba(255, 252, 251, 1)"
@@ -19,7 +19,7 @@
             rounded="0"
             @click="openCart">
                 <img src="/assets/image/to-basket-black.svg" alt="" class="header-button"/>
-              </v-btn>
+              </v-btn> -->
         </div>
     </header>
 </template>

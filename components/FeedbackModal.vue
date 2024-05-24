@@ -8,6 +8,7 @@
 
 <template>
     <div class="modal modal_active" id="modal-1" v-if="modalIsActive">
+        <div class="modal-background" @click="closeModal"></div>
         <div class="modal__content">
           <div class="modal__close-button" @click="closeModal"></div>
           <div class="modal__wrapper">
@@ -49,7 +50,18 @@
 
 <style lang="scss">
 @import "/assets/css/index.scss";
-
+.modal-background{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.modal__content{
+  z-index: 10;
+}
 .contact-form__input{
   padding: 8px 12px 0 12px;
 }

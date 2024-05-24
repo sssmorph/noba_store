@@ -187,7 +187,7 @@
         max-height: 136px;
     }
     .main-information-container{
-        width: calc(100%);
+        width: calc(100% - 84px);
         height: 150px;
         padding: 30px 44px 20px 40px;
         z-index: 2;
@@ -200,7 +200,7 @@
 
     }
     .mainInfoContainerBig{
-        height: 560px;
+        height: 510px;
 
     }
     .main-information-top{

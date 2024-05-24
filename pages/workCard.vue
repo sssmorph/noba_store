@@ -1,4 +1,12 @@
 <script setup>
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import 'swiper/css';
+    import 'swiper/css/pagination';
+    import 'swiper/css/navigation';
+    import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+    import { ref } from 'vue';
+    import 'swiper/css/free-mode';
+    import 'swiper/css/thumbs';
     const modalStore = useModal();
     const openModal = () => {
         modalStore.openInfoFeedBack();
@@ -27,6 +35,8 @@
         :loop="true"
         :slidesPerView="2"
         :freeMode="true"
+        :navigation="true"
+        :modules="modules"
         :breakpoints="{
             '100':{
                 slidesPerView: 1,
@@ -130,6 +140,32 @@
 </template>
 
 <style lang="scss" scoped>
+.portfolio-card-container{
+    :global(.swiper-button-prev){
+        width: 34px;
+        height: 34px;
+        background-image: url(/assets/image/arrow-prev.svg);
+        rotate: 360deg;
+      }
+      :global(.swiper-button-prev::after){
+        width: 34px;
+        height: 34px;
+        content: none;
+  
+      }
+      :global(.swiper-button-next){
+        width: 34px;
+        height: 34px;
+        background-image: url(/assets/image/arrow-next.svg);
+        rotate: 360deg;
+        right: 10px !important;
+      }
+      :global(.swiper-button-next::after){
+        width: 34px;
+        height: 34px;
+        content: none;
+      }
+  }
 .button__line{
     border-left: dashed 1px rgba(255, 252, 251, 1);
     height: 40px;
