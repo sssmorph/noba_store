@@ -63,7 +63,7 @@
     .footer-wrapper{
         max-width: 1440px;
         margin: auto;
-        padding: 23px 15px;
+        padding: 23px 40px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -169,6 +169,12 @@
             align-items: start;
         }
       }
+      @media (max-width: 640px) {
+        .footer-wrapper{
+            padding: 23px 15px;
+        }
+      }
+
       @media (max-width: 420px) {
         .link-list{
             gap: 4px;

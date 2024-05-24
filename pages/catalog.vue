@@ -890,7 +890,7 @@
       height: 490px;
     }
   }
-  @media (max-width: 650px) {
+  @media (max-width: 640px) {
     .catalog-title{
       margin-left: 15px;
       font-size: 36px;

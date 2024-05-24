@@ -310,7 +310,7 @@
             height: 703px;
         }
     }
-    @media (max-width: 650px) {
+    @media (max-width: 640px) {
         header{
             height: 328px;
         }

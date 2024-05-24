@@ -786,9 +786,7 @@
   }
 
   @media (max-width: 1024px) {
-    .recomendation-container{
-      padding: 0 15px;
-    }
+
     .card__photos{
       max-width: 400px;
     }
@@ -861,6 +859,18 @@
       padding-top: 13px;
     }
   }
+  @media (max-width: 640px) {
+    .recomendation-container{
+      padding: 0 15px;
+    }
+    .card-container{
+      padding: 0 15px;
+      margin-bottom: 54px;
+    }
+    .sub-header-container{
+      padding: 0 15px;
+    }
+  }
   @media (max-width: 600px) {
     .breadcrumbs{
       display: none;
@@ -909,13 +919,8 @@
     .button-text__collection-mobile{
       display: block;
     }
-    .sub-header-container{
-      padding: 0 15px;
-    }
-    .card-container{
-      padding: 0 15px;
-      margin-bottom: 54px;
-    }
+
+
     .item-name__mobile{
       font-size: 36px;
       line-height: 120%;

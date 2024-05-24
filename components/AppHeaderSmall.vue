@@ -56,10 +56,17 @@
         .home-link{
             font-size: 26px;
         }
+        .header-wrapper{
+            padding: 8px 40px;
+        }
     }
     @media (max-width: 768px) {
         .header-wrapper{
             max-width: 1440px;
+        }
+    }
+    @media (max-width: 640px) {
+        .header-wrapper{
             padding: 7px 15px;
         }
     }

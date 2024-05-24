@@ -12,7 +12,7 @@
     class="media-start"
     variant="flat"
     rounded="0"
-    width="900"
+    width="810"
     height="130"
     color="rgba(221, 58, 26, 1)"
     >
@@ -50,7 +50,7 @@
     class="factory"
     variant="flat"
     rounded="0"
-    width="1300"
+    width="1260"
     height="130"
     color="rgba(221, 58, 26, 1)"
     >
@@ -94,6 +94,7 @@
     background-size: cover;
     position: relative;
     height: 1440px;
+    padding: 0 40px;
   }
 
   .text-noba{
@@ -108,12 +109,13 @@
     bottom: 250px;
     left:0;
     padding: 0 50px;
+    text-align: left;
   }
   .factory{
     position: absolute;
     bottom: 250px;
     left: 0;
-    padding: 0 50px;
+    padding: 0 40px;
   }
   .media-start-text{
     font-size: 104px;
@@ -169,6 +171,7 @@
     background-size: cover;
     position: relative;
     height: 1440px;
+    padding: 0 40px;
   }
   @media (max-width: 1300px) {
     .factory{
@@ -214,7 +217,7 @@
       letter-spacing: 0.6rem;
     }
     .factory{
-      width: 750px !important;
+      width: 730px !important;
       height: 110px !important;
     }
     .factory-text{
@@ -230,6 +233,9 @@
     .wrapper-container{
       padding: 75px 40px 0 40px;
       margin-bottom: 130px;
+    }
+    .bloger-container{
+      justify-content: center;
     }
     .background-image{
       width: 334px;
@@ -253,19 +259,22 @@
     }
     .noba-factory{
       height: 430px;
+      padding: 0 15px;
     }
     .noba-media-start{
       height: 430px;
-
+      padding: 0 15px;
     }
     .text-noba{
       font-size: 72px;
       top: 0;
+      left: 15px
     }
     .media-start{
       width: 300px !important;
       height: 75px !important;
-      bottom: 100px
+      bottom: 100px;
+      padding:0 15px;
     }
 
     .media-start-text{

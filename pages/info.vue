@@ -1072,108 +1072,6 @@
             align-items: start;
         }
     }
-    @media (max-width:680px) {
-        .about-us-block{
-            padding: 0 20px;
-            padding-bottom: 120px;
-        }
-        .about-us__red-line{
-            left: 20px;
-        }
-        .about-us-title{
-            font-size:26px;
-        }
-        .about-us-text{
-            font-size:14px;
-        }
-        .sales-count{
-            font-size: 48px;
-            margin-bottom: 14px;
-            margin-top: 15px;
-        }
-        .award-text{
-            max-width: 208px;
-            font-size: 14px;
-        }
-        .about-us-margin__top{
-            margin-top: 20px;
-        }
-        .our-benefit{
-            padding-left: 46px;
-            padding-right: 20px;
-        }
-        .our-benefit-title{
-            font-size: 48px;
-            
-        }
-        .our-benefit-line{
-            max-width: 430px;
-        }
-        .big-benefit{
-            font-size: 26px;
-        }
-        .normal-benefit{
-            font-size: 14px;
-        }
-        .uniq-sportsmen{
-            font-size: 14px;
-            font-family: manrope;
-            
-        }
-        .partners-title{
-            margin-bottom: 32px;
-            margin-left: 20px;
-            font-size: 48px;
-        }
-        .partner-item-title{
-            max-width: 100%;
-            font-size: 26px;
-            margin-bottom: 32px;
-        }
-        .partner-item-text{
-            max-width: 100%;
-            font-size: 14px;
-        }
-        .konkurs-block{
-            padding: 0 20px;
-        }
-        .konkurs-information-container{
-            gap: 24px;
-            margin-left: 26px;
-            margin-right: 0;
-            margin-top: 72px;
-        }
-        .konkurs-title{
-            font-size: 48px;
-            height: 116px;
-        }
-        .more-konkurs-button{
-            right: -68.5px;
-        }
-        .portfolio-card-item{
-            max-width: 450px;
-        }
-        .portfolio-card-item__bottom{
-            gap: 28px;
-            justify-content: flex-start;
-            padding: 16px 20px 39px;
-            max-width: 450px;
-            width: 100%;
-            
-        }
-        .portfolio-block{
-            justify-content: center;
-        }
-        .portfolio-title{
-            font-size: 48px;
-        }
-        .portfolio-card__name{
-            font-size: 16px;
-        }
-        .portfolio-card__count{
-            font-size:14px;
-        }
-    }
     @media (max-width: 750px) {
         .burger-menu{
             display: flex;
@@ -1212,6 +1110,109 @@
         }
         .header-slider__item{
             height: 700px;
+        }
+    
+        @media (max-width:680px) {
+            .about-us-block{
+                padding: 0 20px;
+                padding-bottom: 120px;
+            }
+            .about-us__red-line{
+                left: 20px;
+            }
+            .about-us-title{
+                font-size:26px;
+            }
+            .about-us-text{
+                font-size:14px;
+            }
+            .sales-count{
+                font-size: 48px;
+                margin-bottom: 14px;
+                margin-top: 15px;
+            }
+            .award-text{
+                max-width: 208px;
+                font-size: 14px;
+            }
+            .about-us-margin__top{
+                margin-top: 20px;
+            }
+            .our-benefit{
+                padding-left: 46px;
+                padding-right: 20px;
+            }
+            .our-benefit-title{
+                font-size: 48px;
+                
+            }
+            .our-benefit-line{
+                max-width: 430px;
+            }
+            .big-benefit{
+                font-size: 26px;
+            }
+            .normal-benefit{
+                font-size: 14px;
+            }
+            .uniq-sportsmen{
+                font-size: 14px;
+                font-family: manrope;
+                
+            }
+            .partners-title{
+                margin-bottom: 32px;
+                margin-left: 20px;
+                font-size: 48px;
+            }
+            .partner-item-title{
+                max-width: 100%;
+                font-size: 26px;
+                margin-bottom: 32px;
+            }
+            .partner-item-text{
+                max-width: 100%;
+                font-size: 14px;
+            }
+            .konkurs-block{
+                padding: 0 20px;
+            }
+            .konkurs-information-container{
+                gap: 24px;
+                margin-left: 26px;
+                margin-right: 0;
+                margin-top: 72px;
+            }
+            .konkurs-title{
+                font-size: 48px;
+                height: 116px;
+            }
+            .more-konkurs-button{
+                right: -68.5px;
+            }
+            .portfolio-card-item{
+                max-width: 450px;
+            }
+            .portfolio-card-item__bottom{
+                gap: 28px;
+                justify-content: flex-start;
+                padding: 16px 20px 39px;
+                max-width: 450px;
+                width: 100%;
+                
+            }
+            .portfolio-block{
+                justify-content: center;
+            }
+            .portfolio-title{
+                font-size: 48px;
+            }
+            .portfolio-card__name{
+                font-size: 16px;
+            }
+            .portfolio-card__count{
+                font-size:14px;
+            }
         }
         @media (max-width: 390px) {
             .about-us-information{
