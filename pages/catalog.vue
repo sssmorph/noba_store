@@ -24,7 +24,7 @@
       sizes:[
         {
           title: "M",
-          sizeSelected: true
+          sizeSelected: false
         },
         {
           title: "L",
@@ -53,16 +53,16 @@
         { categoryName: "Верхняя одежда", categorySelected: false }
       ],
       genders:[
-        { gender: "Женщины", genderSelected: false }, 
-        { gender: "Мужчины", genderSelected: true }, 
-        { gender: "Унисекс", genderSelected: false }
+        { categoryName: "Женщины", categorySelected: false }, 
+        { categoryName: "Мужчины", categorySelected: false }, 
+        { categoryName: "Унисекс", categorySelected: false }
       ],
       filterSizes: [
-        { size: "XS", sizeSelected: false }, 
-        { size: "S", sizeSelected: false }, 
-        { size: "M", sizeSelected: false }, 
-        { size: "L", sizeSelected: false }, 
-        { size: "XL", sizeSelected: false }
+        { categoryName: "XS", categorySelected: false }, 
+        { categoryName: "S", categorySelected: false }, 
+        { categoryName: "M", categorySelected: false }, 
+        { categoryName: "L", categorySelected: false }, 
+        { categoryName: "XL", categorySelected: false }
       ],
       prices: [0,10000],
 
@@ -77,8 +77,23 @@
     toggleFilter(){
        return this.filterIsActive = !this.filterIsActive
     },
-    selectCategory(){
-      console.log(" отработано")
+    selectCategory(category, name){
+      category.forEach(function(element){
+        if(element.categoryName == name){
+          element.categorySelected = true;
+        }else{
+          element.categorySelected = false;
+        }
+      })
+    },
+    selectSize(sizes, sizeName){
+      sizes.forEach(function(element){
+        if(element.title == sizeName){
+          element.sizeSelected = true;
+        }else{
+          element.sizeSelected = false;
+        }
+      })
     }
   }
   
@@ -213,7 +228,11 @@
             v-for="(item, index) in categories"
             :key="index"
             >
-              <span class="filter-item__text cursor-pointer" :class="{categorySelected: item.categorySelected}">{{item.categoryName}}</span>
+              <span class="filter-item__text cursor-pointer" 
+              @click="selectCategory(categories, item.categoryName)" 
+              :class="{categorySelected: item.categorySelected}">
+                {{item.categoryName}}
+              </span>
             </li>
           </ul>
         </div>
@@ -225,7 +244,10 @@
               v-for="(item, index) in genders"
               :key="index"
               >
-                <span class="cursor-pointer" :class="{categorySelected: item.genderSelected}">{{item.gender}}</span>
+                <span class="filter-item__text cursor-pointer" 
+                :class="{categorySelected: item.categorySelected}"
+                @click="selectCategory(genders, item.categoryName)" 
+                >{{item.categoryName}}</span>
               </li>
             </ul>
           </div>
@@ -240,9 +262,12 @@
               v-for="(item, index) in filterSizes"
               :key="index"
               class="filter-size-button"
-              :class="{selectedSize: item.sizeSelected}"
+              :class="{selectedSize: item.categorySelected}"
               >
-                <span class="filter-size-button__text" :class="{categorySelected: item.sizeSelected}">{{item.size}}</span>
+                <span class="filter-size-button__text" 
+                @click="selectCategory(filterSizes, item.categoryName)"
+                :class="{categorySelected: item.categorySelected}">
+                {{item.categoryName}}</span>
               </v-btn>
             </div>
           </div>
@@ -259,7 +284,7 @@
             thumb-color="rgba(221, 58, 26, 1)"
             rounded="0"
             thumb-size="12"
-            strict="true"
+            strict
             thumb-label="always"
             step="1"
             v-model="prices"
@@ -352,7 +377,7 @@
           <NuxtLink to="/card">
             <img src="/assets/image/card-image.png" class="card-photo">            
           </NuxtLink>
-          <NuxtLink to="/card" class="card-item-bottom">w
+          <NuxtLink to="/card" class="card-item-bottom">
             <div class="card-item-bottom__header">
               <span class="item-name">Свитшот Freedom</span>
               <span class="item-price">4500 ₽</span>      
@@ -376,7 +401,9 @@
             <button
             v-for="(size, index) in sizes"
             :key="index"
-            class="size-button" :class="{cardSizeButton: size.sizeSelected}">{{size.title}}</button>
+            class="size-button" :class="{cardSizeButton: size.sizeSelected}"
+            @click="selectSize(sizes, size.title)"
+            >{{size.title}}</button>
           </div>
         </div>
 
@@ -387,7 +414,7 @@
 
 <style lang="scss" scoped>
  *{
-  transition: 0.5s all ease-in-out;
+  transition: 0.2s all ease-in-out;
  }
 
   .catalog-container{

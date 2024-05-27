@@ -25,6 +25,15 @@
     const setThumbsSwiper = (swiper) => {
       thumbsSwiper.value = swiper;
     };
+    const selectSize = (sizes, sizeName) => {
+      sizes.forEach(function(element){
+        if(element.title == sizeName){
+          element.sizeSelected = true;
+        }else{
+          element.sizeSelected = false;
+        }
+      });
+    };
     const recomendationPrev = ref(null);
     const recomendationNext = ref(null);
     return {
@@ -34,7 +43,8 @@
       recomendationPrev,
       recomendationNext,
       cartStore,
-      openCart
+      openCart,
+      selectSize
     };
   },
     data: () => ({
@@ -63,19 +73,24 @@
       
       sizes:[
         {
-          title: "XS"
+          title: "XS",
+          sizeSelected: false,
         },
         {
-          title: "S"
+          title: "S",
+          sizeSelected: false,
         },
         {
-          title: "M"
+          title: "M",
+          sizeSelected: false,
         },
         {
-          title: "L"
+          title: "L",
+          sizeSelected: false,
         },
         {
-          title: "XL"
+          title: "XL",
+          sizeSelected: false,
         }
       ],
       compositions:[
@@ -234,7 +249,10 @@
               <button 
               v-for="(size, index) in sizes"
               :key="index"
-              class="size-button">{{size.title}}</button>
+              class="size-button"
+              :class="{selectedButton: size.sizeSelected}"
+              @click="selectSize(sizes, size.title)"
+              >{{size.title}}</button>
             </div>
           </div>
           <div class="composition-container">
@@ -711,7 +729,10 @@
       rotate: 90deg;
     }
   }
-
+  .selectedButton{
+    color: rgba(221, 58, 26, 1);
+    border: 1.5px rgba(221, 58, 26, 1) solid !important;
+  }
   @media (max-width: 1440px) {
     .card__photos{
       max-width: 750px;

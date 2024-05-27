@@ -1,4 +1,5 @@
 <script setup>
+  import { vMaska } from "maska"
  const modalStore = useModal();
  const closeModal = () => {
     modalStore.closeInfoFeedBack();
@@ -17,7 +18,7 @@
                     <div class="input-border"></div>
                 </div> 
                 <div class="contact_form__input__wrapper">
-                    <input name="tel" type="tel" class="contact-form__input contact-form__input_tel input-padding" placeholder="НОМЕР" value="+7 (   )">
+                    <input name="tel" type="tel" class="contact-form__input contact-form__input_tel input-padding" placeholder="НОМЕР" value="+7"  v-maska data-maska="+7(###)-###-##-##">
                     <div class="input-border"></div>
                   </div>
             </div>
