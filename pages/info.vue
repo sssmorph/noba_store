@@ -766,7 +766,7 @@
     .burger-menu {
         position: absolute;
         top: 26px;
-        right: 20px;
+        right: 44px;
         width: 40px;
         height: 12px;
         border-radius: 18px;
@@ -936,7 +936,7 @@
             flex-direction: column-reverse;
         }
         .partner-item__information-container{
-            padding: 0 20px !important;
+            padding: 0 40px !important;
         }
         .partner-item__information-container:nth-child(even){
             padding: 0;
@@ -1012,9 +1012,7 @@
         .be-real-portfolio{
             display: none;
         }
-        .portfolio-title{
-            left: 20px;
-        }
+
 
     }
     @media (max-width: 860px) {
@@ -1082,10 +1080,7 @@
         .header-text-container{
             margin-top: 164px;
         }
-        .header-block{
-            padding: 0 20px;
-            padding-top: 1px;
-        }
+
         .header-navigation{
             display: none;
         }
@@ -1102,9 +1097,7 @@
         .dotted-line{
             display: none;
         }
-        .submit-request-button{
-            right: -60px;
-        }
+
         .header-slider{
             height: 700px;
         }
@@ -1114,12 +1107,10 @@
     
         @media (max-width:680px) {
             .about-us-block{
-                padding: 0 20px;
+                
                 padding-bottom: 120px;
             }
-            .about-us__red-line{
-                left: 20px;
-            }
+
             .about-us-title{
                 font-size:26px;
             }
@@ -1138,13 +1129,9 @@
             .about-us-margin__top{
                 margin-top: 20px;
             }
-            .our-benefit{
-                padding-left: 46px;
-                padding-right: 20px;
-            }
+
             .our-benefit-title{
                 font-size: 48px;
-                
             }
             .our-benefit-line{
                 max-width: 430px;
@@ -1162,7 +1149,7 @@
             }
             .partners-title{
                 margin-bottom: 32px;
-                margin-left: 20px;
+                
                 font-size: 48px;
             }
             .partner-item-title{
@@ -1174,9 +1161,7 @@
                 max-width: 100%;
                 font-size: 14px;
             }
-            .konkurs-block{
-                padding: 0 20px;
-            }
+
             .konkurs-information-container{
                 gap: 24px;
                 margin-left: 26px;
@@ -1187,9 +1172,7 @@
                 font-size: 48px;
                 height: 116px;
             }
-            .more-konkurs-button{
-                right: -68.5px;
-            }
+
             .portfolio-card-item{
                 max-width: 450px;
             }
@@ -1212,6 +1195,43 @@
             }
             .portfolio-card__count{
                 font-size:14px;
+            }
+        }
+        @media (max-width: 640px){
+            .partner-item__information-container{
+                padding: 0 20px !important;
+            }
+            .partners-title{
+                margin-left: 20px;
+            }
+            .portfolio-title{
+                left: 20px;
+            }
+            .about-us__red-line{
+                left: 20px;
+            }
+            .about-us-block{
+                padding: 0 20px;
+            }
+            .header-block{
+                padding: 0 20px;
+                padding-top: 1px;
+            }
+            .burger-menu{
+                right: 20px;
+            }
+            .our-benefit{
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .konkurs-block{
+                padding: 0 20px;
+            }
+            .more-konkurs-button{
+                right: -68.5px;
+            }
+            .submit-request-button{
+                right: -60px;
             }
         }
         @media (max-width: 390px) {

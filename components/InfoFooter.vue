@@ -127,10 +127,7 @@
     }
 
     @media (max-width: 1200px) {
-        .wrapper{
-            padding: 24px 20px;
-            
-        }
+
         .social-contacts{
             gap: 0;
             flex-direction: column;
@@ -183,6 +180,12 @@
         }
         .contacts-container{
             gap: 20px;
+        }
+    }
+    @media (max-width: 640px) {
+        .wrapper{
+            padding: 24px 20px;
+            
         }
     }
     @media (max-width: 429px) {

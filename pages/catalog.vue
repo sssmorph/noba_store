@@ -23,13 +23,16 @@
       ],
       sizes:[
         {
-          title: "M"
+          title: "M",
+          sizeSelected: true
         },
         {
-          title: "L"
+          title: "L",
+          sizeSelected: false
         },
         {
-          title: "XL"
+          title: "XL",
+          sizeSelected: false
         }
       ],
       images:{
@@ -38,9 +41,29 @@
         currentImage:  "image/to-basket-black.svg"
       },
       filterIsActive: ref(false),
-      categories: ["Худи","Свитшоты","Брюки","Костюмы", "Лонгсливы", "Юбки", "Футболки", "Рубашки", "Верхняя одежда"],
-      genders:["Женщины", "Мужчины", "Унисекс"],
-      filterSizes: ["XS", "S", "M", "L", "XL"],
+      categories: [
+        { categoryName: "Худи", categorySelected: false },
+        { categoryName: "Свитшоты", categorySelected: false },
+        { categoryName: "Брюки", categorySelected: false },
+        { categoryName: "Костюмы", categorySelected: false },
+        { categoryName: "Лонгсливы", categorySelected: false },
+        { categoryName: "Юбки", categorySelected: false },
+        { categoryName: "Футболки", categorySelected: false },
+        { categoryName: "Рубашки", categorySelected: false },
+        { categoryName: "Верхняя одежда", categorySelected: false }
+      ],
+      genders:[
+        { gender: "Женщины", genderSelected: false }, 
+        { gender: "Мужчины", genderSelected: true }, 
+        { gender: "Унисекс", genderSelected: false }
+      ],
+      filterSizes: [
+        { size: "XS", sizeSelected: false }, 
+        { size: "S", sizeSelected: false }, 
+        { size: "M", sizeSelected: false }, 
+        { size: "L", sizeSelected: false }, 
+        { size: "XL", sizeSelected: false }
+      ],
       prices: [0,10000],
 
     }),
@@ -54,7 +77,9 @@
     toggleFilter(){
        return this.filterIsActive = !this.filterIsActive
     },
-
+    selectCategory(){
+      console.log(" отработано")
+    }
   }
   
   }
@@ -185,10 +210,10 @@
           <span class="filter-item__title">Категория</span>
           <ul class="filter-item__list">
             <li 
-            v-for="(category, index) in categories"
+            v-for="(item, index) in categories"
             :key="index"
             >
-              <span class="filter-item__text">{{category}}</span>
+              <span class="filter-item__text cursor-pointer" :class="{categorySelected: item.categorySelected}">{{item.categoryName}}</span>
             </li>
           </ul>
         </div>
@@ -197,10 +222,10 @@
             <span class="filter-item__title">Пол</span>
             <ul class="filter-item__list">
               <li
-              v-for="(gender, index) in genders"
+              v-for="(item, index) in genders"
               :key="index"
               >
-                <span>{{gender}}</span>
+                <span class="cursor-pointer" :class="{categorySelected: item.genderSelected}">{{item.gender}}</span>
               </li>
             </ul>
           </div>
@@ -212,11 +237,12 @@
               color="rgba(23, 7, 7, 1)"
               rounded="0"
               size="34"
-              v-for="(size, index) in filterSizes"
+              v-for="(item, index) in filterSizes"
               :key="index"
               class="filter-size-button"
+              :class="{selectedSize: item.sizeSelected}"
               >
-                <span class="filter-size-button__text">{{size}}</span>
+                <span class="filter-size-button__text" :class="{categorySelected: item.sizeSelected}">{{item.size}}</span>
               </v-btn>
             </div>
           </div>
@@ -326,7 +352,7 @@
           <NuxtLink to="/card">
             <img src="/assets/image/card-image.png" class="card-photo">            
           </NuxtLink>
-          <NuxtLink to="/card" class="card-item-bottom">
+          <NuxtLink to="/card" class="card-item-bottom">w
             <div class="card-item-bottom__header">
               <span class="item-name">Свитшот Freedom</span>
               <span class="item-price">4500 ₽</span>      
@@ -350,7 +376,7 @@
             <button
             v-for="(size, index) in sizes"
             :key="index"
-            class="size-button">{{size.title}}</button>
+            class="size-button" :class="{cardSizeButton: size.sizeSelected}">{{size.title}}</button>
           </div>
         </div>
 
@@ -625,9 +651,10 @@
     justify-content: center;
     position: absolute;
     top: 454px;
-    left: 138px;
     display: none;
     opacity: 0;
+    left: 0;
+    right: 0;
   }
   .size-button{
     font-family: Manrope;
@@ -806,7 +833,15 @@
     background-image: url(/assets/image/check_box.svg);
     transition: all ease-in-out 0.2s;
   }
-
+  .categorySelected{
+    color: rgba(221, 58, 26, 1);
+  }
+  .selectedSize{
+    border: rgba(221, 58, 26, 1) 1.5px solid;
+  }
+  .cardSizeButton{
+    background-color: rgba(221, 58, 26, 1);
+  }
   @media(hover: hover){
     input[type="radio"] + label div:hover,
     input[type="radio"] + label:hover div{
@@ -864,6 +899,14 @@
     .card-item{
       max-width: calc(50% - 3px);
       flex: 0 0 50%;
+    }
+    @media(hover: hover){
+      .card-item:hover{
+        .card-photo{
+          width: 100%;
+        }
+
+      }
     }
     .opennedFilter{
       padding-right: 40px;

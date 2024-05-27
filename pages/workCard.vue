@@ -445,7 +445,7 @@ h2{
         max-width: 377px;
         width: 100%;
         max-height: 114px;
-        left: 20px;
+
     }
     .more-work-button{
         right: -69px;
@@ -471,20 +471,14 @@ h2{
         .review-text{
             font-size: 14px;
         }
-        .review-block__left{
-            padding-right: 20px;
-        }
+
         .send-request{
             right: -69px;
         }
         .review-title{
             font-size: 48px;
         }
-        .review-block__right{
-            padding-top: 56px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
+
         .right-content{
             padding-top: 7px;
             padding-bottom: 8px;
@@ -517,6 +511,19 @@ h2{
         }
         .portfolio-card__count{
             font-size:14px;
+        }
+    }
+    @media (max-width: 640px) {
+        .portfolio-image{
+            left: 20px;
+        }
+        .review-block__right{
+            padding-top: 56px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .review-block__left{
+            padding-right: 20px;
         }
     }
     @media (max-width: 400px) {

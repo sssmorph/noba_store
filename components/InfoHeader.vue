@@ -95,15 +95,14 @@
     }
     .burger-menu {
         position: absolute;
-        top: 26px;
-        right: 20px;
         width: 40px;
         height: 12px;
         border-radius: 18px;
         display: none;
         gap: 8px;
         z-index: 10;
-
+        top: 34px;
+        right: 44px
     }
     .burger-menu span {
         width: 40px;
@@ -159,12 +158,7 @@
     gap: 18px;
   }
     @media (max-width: 860px) {
-        .wrapper{
-            padding: 20px;
-        }
-        header{
-            height: 65px;
-        }
+
         .header-contacts{
             display: none;
         }
@@ -179,6 +173,19 @@
         }
         .header__social-media{
             display: flex;
+        }
+    }
+    @media (max-width: 640px) {
+        .burger-menu{
+            top: 26px;
+            right: 20px;
+        }
+        .wrapper{
+            padding: 20px;
+        }
+        
+        header{
+            height: 65px;
         }
     }
 </style>
