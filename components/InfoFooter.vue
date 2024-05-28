@@ -56,7 +56,7 @@
         font-family: manrope;
     }
     footer{
-        background-color: rgba(23, 7, 7, 1);
+        background-color: rgba(1, 1, 1, 1);
         height: 140px;
     }
     .wrapper{

@@ -515,7 +515,7 @@
 
     }
     .our-benefit-section{
-        background-color: rgba(23, 7, 7, 1);
+        background-color: rgba(1, 1, 1, 1);
     }
     .our-benefit{
         position: relative;
@@ -658,7 +658,7 @@
         font-size: 12px;
     }
     .konkurs-section{
-        background-color: rgba(23, 7, 7, 1);
+        background-color: rgba(1, 1, 1, 1);
     }
     .konkurs-block{
         height: 742px;

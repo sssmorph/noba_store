@@ -52,7 +52,14 @@
 
 <style lang="scss" scoped>
 @import "/assets/css/index.scss";
-
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:active
+    {
+    -webkit-text-fill-color: white !important;
+    -webkit-background-clip: text;
+    }
     .modal-container{
         display: flex;
         justify-content: center;
@@ -103,9 +110,10 @@
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-
     }
-    
+    .contact-form__input_name{
+        text-transform: none;
+      }
     .comment-input{
         height: 138px;
         margin-bottom: 48px;
@@ -116,7 +124,6 @@
         color: white;
         font-family: "Swis721 Cn RM";
         font-weight: 400;
-        text-transform: uppercase;
         height: 130px;
     }
     .modal-bottom{

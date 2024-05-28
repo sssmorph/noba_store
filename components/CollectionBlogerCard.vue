@@ -201,6 +201,15 @@
       width: 400px;
       height: 260px;
     }
+    @media (hover: hover) {
+      .bloger-card:hover {
+        height: 260px;
+        .bloger-card__photo{
+          height: 260px;
+        }
+      }
+    
+    }
   }
   @media (max-width:430px) {
     .bloger-card{

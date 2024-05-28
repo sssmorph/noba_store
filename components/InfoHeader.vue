@@ -56,7 +56,7 @@
 <style lang="scss" scoped>
     
     header{
-        background-color: rgba(23, 7, 7, 1);
+        background-color: rgba(1, 1, 1, 1);
         height: 80px;
     }
     .wrapper{

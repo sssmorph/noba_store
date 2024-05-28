@@ -886,6 +886,20 @@
   .mobile-search{
     display: none;
   }
+  @media (max-width: 1650px) {
+      .card-item:hover{
+        scale: none;
+        .card-photo{
+          height: 475px;
+          width: 100%;
+        }
+        .size-container{
+          display: flex;
+          opacity: 1;
+          top: 430px
+        }
+      }
+    }
   @media (max-width: 1440px) {
     .catalog-cards-container{
       padding: 15px;
@@ -929,10 +943,10 @@
     }
     @media(hover: hover){
       .card-item:hover{
+        height: 582px;
         .card-photo{
-          width: 100%;
+          height: 475px;
         }
-
       }
     }
     .opennedFilter{
@@ -1094,6 +1108,18 @@
     }
     .breadcrumbs__mobile{
       display: block;
+    }
+    .card-item:hover{
+      scale: none;
+      .card-photo{
+        height: 534px;
+        width: 100%;
+      }
+      .size-container{
+        display: flex;
+        opacity: 1;
+        top: 480px
+      }
     }
   }
   @media (max-width: 430px) {

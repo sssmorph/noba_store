@@ -21,7 +21,7 @@
                 <div class="input-border"></div>
               </div> 
               <div class="contact_form__input__wrapper">
-                <input name="tel" type="tel" class="contact-form__input contact-form__input_tel" onkeypress='validate(event)' placeholder="НОМЕР" value="+7" v-maska data-maska="+7(###)-###-##-##">
+                <input name="tel" type="tel" class="contact-form__input contact-form__input_tel" placeholder="НОМЕР" value="+7" v-maska data-maska="+7(###)-###-##-##">
                 <div class="contact-form__error contact-form__error_tel"></div>
                 <div class="input-border"></div>
               </div>
@@ -52,6 +52,14 @@
 
 <style lang="scss">
 @import "/assets/css/index.scss";
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active
+{
+  -webkit-text-fill-color: white !important;
+  -webkit-background-clip: text;
+}
 .modal-background{
   width: 100vw;
   height: 100vh;
@@ -79,8 +87,10 @@
 .about-input{
   height: 92px;
 }
+.contact-form__input_name{
+  text-transform: none;
+}
 .contact-form__input_about{
-  text-transform: uppercase;
   font-size: 18px;
   line-height: 160%;
   font-family: "Swis721 Cn RM";

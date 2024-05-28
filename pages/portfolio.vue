@@ -7,6 +7,7 @@
     import { ref } from 'vue';
     import 'swiper/css/free-mode';
     import 'swiper/css/thumbs';
+    const modules = ref([Autoplay, Pagination, Navigation]);
 </script>
 
 <template>
