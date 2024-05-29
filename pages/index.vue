@@ -17,7 +17,7 @@
         height="130"
         color="rgba(221, 58, 26, 1)"
         >
-          <span class="swis t-w media-start-text">MEDIA START</span>
+          <span class="t-w media-start-text">MEDIA START</span>
         </v-btn>
     </NuxtLink>
     </div>
@@ -29,7 +29,7 @@
     autoFill
     speed="300"
     class='marquee' style='overflow:hidden'>
-      <h2 class="texst_like_h1 run_line_text mr-3 t-r swis" >КОЛЛЕКЦИИ УЧАСТНИКОВ <span class="italik_text">КОЛЛЕКЦИИ УЧАСТНИКОВ</span> КОЛЛЕКЦИИ УЧАСТНИКОВ <span class="italik_text">КОЛЛЕКЦИИ УЧАСТНИКОВ</span></h2>
+      <h2 class="texst_like_h1 run_line_text mr-3 t-r" >КОЛЛЕКЦИИ УЧАСТНИКОВ <span class="italik_text">КОЛЛЕКЦИИ УЧАСТНИКОВ</span> КОЛЛЕКЦИИ УЧАСТНИКОВ <span class="italik_text">КОЛЛЕКЦИИ УЧАСТНИКОВ</span></h2>
     </NuxtMarquee>
     <hr class="horizon_line_red">
   </div>
@@ -56,7 +56,7 @@
         class="factory"
         variant="flat"
         rounded="0"
-        width="1260"
+        width="1360"
         height="130"
         color="rgba(221, 58, 26, 1)"
         >
@@ -150,10 +150,11 @@
     padding: 0 40px;
   }
   .media-start-text{
-    font-size: 104px;
+    font-size: 88px;
     font-weight: 700;
-    letter-spacing: 1rem;
     line-height: 85%;
+    font-family: 'Swis721 Hv Ha'; 
+    letter-spacing: -0.02rem;
   }
   .factory-before{
     width: 100vw;
@@ -200,9 +201,11 @@
     width: 100%
   }
   .factory-text{
-    font-size: 104px;
+    font-size: 88px;
     font-weight: 700;
     line-height: 85%;
+    font-family: 'Swis721 Hv Ha'; 
+    letter-spacing: -0.02rem;
   }
   .noba-factory{
     background-size: cover;
@@ -222,7 +225,7 @@
       width: 1050px !important;
     }
     .factory-text{
-      font-size: 85px;
+      font-size: 68px;
     }
   }
   @media (max-width: 1200px) {
@@ -264,14 +267,13 @@
     }
     .media-start-text{
       font-size: 56px;
-      letter-spacing: 0.6rem;
     }
     .factory{
       width: 730px !important;
       height: 110px !important;
     }
     .factory-text{
-      font-size: 56px;
+      font-size: 44px;
     }
 }
   @media (max-width: 868px) {
@@ -306,6 +308,17 @@
 
   }
   @media (max-width: 640px) {
+    .run_line{
+      bottom: 48px;
+    }
+    .run_line_text{
+      font-size: 42px;
+      line-height: 105%;
+    }
+    .italik_text{
+      font-size: 42px;
+      line-height: 105%;
+    }
     .wrapper-container{
       padding: 40px 15px 0 15px;
       margin-bottom: 130px;
@@ -339,15 +352,15 @@
     }
     .factory{
       width: 410px !important;
+      height: 100px !important;
     }
     .factory-text{
-      font-size: 44px;
+      font-size: 36px;
     }
 }
 @media (max-width: 430px) {
   .factory{
     width: 360px !important;
-    height: 120px !important;
   }
   .factory-text{
     font-size: 36px;

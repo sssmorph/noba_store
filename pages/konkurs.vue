@@ -9,12 +9,23 @@
   }
   const handleScroll = () => {
     const scrollPositions = [1380, 1780, 2180, 2780, 3280, 3780];
+    const scrollPositionsMobile = [880, 1280, 1780, 2080, 2580, 2980];
     const windowScrollY = window.scrollY;
-    for (let i = 0; i < scrollPositions.length; i++) {
-      if (windowScrollY > scrollPositions[i]) {
-        isElementActive.value[i] = true;
-      } else {
-        isElementActive.value[i] = false;
+    if(document.documentElement.clientWidth >= 853){
+      for (let i = 0; i < scrollPositions.length; i++) {
+        if (windowScrollY > scrollPositions[i]) {
+          isElementActive.value[i] = true;
+        } else {
+          isElementActive.value[i] = false;
+        }
+      }
+    }else{
+      for (let i = 0; i < scrollPositionsMobile.length; i++) {
+        if (windowScrollY > scrollPositionsMobile[i]) {
+          isElementActive.value[i] = true;
+        } else {
+          isElementActive.value[i] = false;
+        }
       }
     }
   };
@@ -80,7 +91,9 @@
     <main>
       <section class="hero">
         <div class="wrapper">
-          <img class="video" src="assets/image/video.png" alt="video">
+          <video class="video" poster="assets/image/video.png" alt="video" controls>
+            <source src="/assets/video/TG.mp4" type="video/mp4" />
+          </video>
           <div class="hero__blok__bottom">
             <div class="hero__blok__bottom__info">
               <div class="hero__blok__bottom__info__text">
@@ -88,7 +101,7 @@
                 <div class="hero__blok__bottom__subtitle">
                   <h3><span class="bold_text red_text">Создай</span> лимитированную коллекцию одежды и <span class="bold_text">выиграй</span> до <span class="bold_text red_text">100.000.000</span> рублей</h3>
                 </div>
-                <p>Используй свою платформу и влияние, чтобы продать как можно больше вещей. Вовлекай подписчиков, получай прибыль и признание аудитории на каждом этапе конкурса.</p>
+                <p class="hero__blok__last">Используй свою платформу и влияние, чтобы продать как можно больше вещей. Вовлекай подписчиков, получай прибыль и признание аудитории на каждом этапе конкурса.</p>
               </div>
               <div class="hero__blok__bottom__btn">
                 <button id="callback-button" class="btn_take_part" @click="openModal">

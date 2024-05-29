@@ -55,6 +55,7 @@
     width: 80%;
     height: 100%;
     flex-direction: column;
+    margin-top: 30px;
   }
 }
 
@@ -101,7 +102,12 @@
   align-items: flex-end;
   margin-bottom: 20px;
 }
-
+.hero__blok__last{
+  @include media-tablet{
+    margin-bottom: 22px !important;
+    margin-top: 22px !important;
+  }
+}
 .btn_take_part {
   width: 261px;
   height: 60px;
@@ -179,8 +185,8 @@
 .hero_title {
   position: absolute;
   top: 90px;
-  right:  calc(50% - 380px);
-
+  right:  calc(50% - 490px);
+  font-family: 'Swis721 Hv Ha'; 
   font-size: 140px;
   font-weight: 400;
   line-height: 168px;
@@ -193,9 +199,9 @@
   }
   
   @include media-tablet {
-    font-size: 80px;
+    font-size: 50px;
     line-height: 60px;
-    right: calc(50% - 216px);
+    right: calc(50% - 175px);
     top: 100px;
   }
 }

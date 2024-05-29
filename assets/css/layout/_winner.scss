@@ -198,7 +198,13 @@ line-height: 57.6px;
 
 .winner_bottom__block {
   display: flex;
+  flex-direction: row;
   justify-content: space-evenly
+}
+@include media-content{
+  .winner_bottom__block{
+    flex-direction: column;
+  }
 }
 
 .winner_bottom__btn {
