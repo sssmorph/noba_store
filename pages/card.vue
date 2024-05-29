@@ -160,7 +160,10 @@
         <swiper
         class="card-photo-slider"
         :spaceBetween="5"
-        :navigation="true"
+        :navigation="{
+          nextEl: '.cardNext',
+          prevEl: '.cardPrev',
+        }"
         :slidesPerView="2"
         :loop="true"
         :thumbs="{swiper: thumbsSwiper}"
@@ -196,6 +199,29 @@
         <swiper-slide class="card-photo-slider__item">
           <img src="/assets/image/card-slider-3.jpg" />
         </swiper-slide>
+        <div class="card-navigation-container">
+            <v-btn
+            ref="cardPrev"
+            variant="flat"
+            color="rgba(23, 7, 7, 1)"
+            size="34"
+            rounded="0"
+            class="recomendationPrev cardPrev"
+    
+            >
+              <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+            </v-btn>
+            <v-btn
+            ref="cardNext"
+            variant="flat"
+            color="rgba(23, 7, 7, 1)"
+            size="34"
+            rounded="0"
+            class="recomendationNext cardNext"
+            >
+              <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+            </v-btn>
+        </div>
       </swiper>
       <swiper
         class="thumbSlider"
@@ -733,12 +759,36 @@
     color: rgba(221, 58, 26, 1);
     border: 1.5px rgba(221, 58, 26, 1) solid !important;
   }
+  .card-navigation-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+  }
+  .cardPrev{
+    rotate: 90deg;
+  }
+  .cardNext{
+    rotate: 90deg;
+  }
   @media (max-width: 1440px) {
     .card__photos{
       max-width: 750px;
     }
   }
   @media (max-width: 1200px){
+    .card-navigation-container{
+      flex-direction: row;
+    }
+    .cardPrev{
+      rotate: 0deg;
+    }
+    .cardNext{
+      rotate: 0deg;
+    }
     .thumbSlider{
       display: none;
     }

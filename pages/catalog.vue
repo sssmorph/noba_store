@@ -263,9 +263,10 @@
               :key="index"
               class="filter-size-button"
               :class="{selectedSize: item.categorySelected}"
+              @click="selectCategory(filterSizes, item.categoryName)"
               >
                 <span class="filter-size-button__text" 
-                @click="selectCategory(filterSizes, item.categoryName)"
+                
                 :class="{categorySelected: item.categorySelected}">
                 {{item.categoryName}}</span>
               </v-btn>
@@ -760,6 +761,14 @@
     flex-direction: row;
     gap: 105px;
   }
+  .filter-size-button{
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(23, 7, 7, 1);
+  }
   .filter-size-button__text{
     font-family: Manrope;
     font-size: 16px;
@@ -811,7 +820,8 @@
     z-index: 10;
     top: 0;
     left: -50vw;
-    max-width: 1000vw;
+
+    width: 200vw;
     height: calc(100% + 100px);
     background-color: rgba(23, 7, 7, 0.35);
   }
@@ -864,7 +874,7 @@
     color: rgba(221, 58, 26, 1);
   }
   .selectedSize{
-    border: rgba(221, 58, 26, 1) 1.5px solid;
+    border: rgba(221, 58, 26, 1) 2px solid;
   }
   .cardSizeButton{
     background-color: rgba(221, 58, 26, 1);

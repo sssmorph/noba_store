@@ -8,6 +8,8 @@
     import 'swiper/css/free-mode';
     import 'swiper/css/thumbs';
     const modules = ref([Autoplay, Pagination, Navigation]);
+    const recomendationPrev = ref(null);
+    const recomendationNext = ref(null);
 </script>
 
 <template>
@@ -33,7 +35,10 @@
         :loop="true"
         :slidesPerView="2"
         :freeMode="true"
-        :navigation="true"
+        :navigation="{
+            nextEl: '.cardNext',
+            prevEl: '.cardPrev',
+        }"
         :modules="modules"
         :breakpoints="{
             '100':{
@@ -87,6 +92,31 @@
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
             </swiper-slide>
+            <div class="card-navigation-container prevContainer">
+                <v-btn
+                ref="cardPrev"
+                variant="flat"
+                color="rgba(23, 7, 7, 1)"
+                size="34"
+                rounded="0"
+                class="recomendationPrev cardPrev"
+        
+                >
+                  <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+                </v-btn>
+            </div>
+            <div class="card-navigation-container nextContainer">
+                <v-btn
+                ref="cardNext"
+                variant="flat"
+                color="rgba(23, 7, 7, 1)"
+                size="34"
+                rounded="0"
+                class="recomendationNext cardNext"
+                >
+                  <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+                </v-btn>
+            </div>
         </Swiper>
     </section>
     <section class="wrapper portfolio-block">
@@ -344,7 +374,7 @@
         justify-content: flex-start;
         height: 100%;
         width: 1074px;
-        padding-left: 129px;
+
         border-bottom: 1px dashed rgba(23, 7, 7, 1);
         margin-right: 0 !important;
         overflow: hidden;
@@ -404,6 +434,21 @@
         padding: 0;
         left: 45%;
     }
+    .card-navigation-container{
+        position: absolute;
+        bottom: 50%;
+        right: 0;
+        z-index: 10;
+      }
+      .cardPrev{
+        rotate: 180deg;
+      }
+      .prevContainer{
+        left: 10px;
+      }
+      .nextContainer{
+        right: 10px;
+      }
     @media (max-width: 1400px) {
         .portfolio-card-item__small{
             display: none;
