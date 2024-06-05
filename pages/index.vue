@@ -26,7 +26,7 @@
   <div class="run_line">
     <hr class="horizon_line_red">
     <NuxtMarquee 
-    autoFill
+    autoFill:true
     speed="300"
     class='marquee' style='overflow:hidden'>
       <h2 class="texst_like_h1 run_line_text mr-3 t-r" >КОЛЛЕКЦИИ УЧАСТНИКОВ <span class="italik_text">КОЛЛЕКЦИИ УЧАСТНИКОВ</span> КОЛЛЕКЦИИ УЧАСТНИКОВ <span class="italik_text">КОЛЛЕКЦИИ УЧАСТНИКОВ</span></h2>
@@ -99,7 +99,7 @@
     gap:4px;
   }
   .bloger-section{
-    background-color: rgba(23, 7, 7, 1);
+    background-color: rgba(1, 1, 1, 1);
     padding-bottom: 100px;
   }
   .noba-media-start{

@@ -36,6 +36,8 @@
     };
     const recomendationPrev = ref(null);
     const recomendationNext = ref(null);
+    const cardPrev = ref(null);
+    const cardNext = ref(null);
     return {
       modules: ref([FreeMode, Navigation, Thumbs]),
       thumbsSwiper,
@@ -206,7 +208,7 @@
             color="rgba(23, 7, 7, 1)"
             size="34"
             rounded="0"
-            class="recomendationPrev cardPrev"
+            class="cardPrev"
     
             >
               <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
@@ -217,7 +219,7 @@
             color="rgba(23, 7, 7, 1)"
             size="34"
             rounded="0"
-            class="recomendationNext cardNext"
+            class=" cardNext"
             >
               <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
             </v-btn>

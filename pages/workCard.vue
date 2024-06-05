@@ -22,18 +22,13 @@
     <section class="wrapper portfolio-block">
         <img src="/assets/image/CardClothes.png" class="portfolio-image" alt="">
         <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio">
-            <v-btn
-            variant="flat"
-            color="rgba(221, 58, 26, 1)"
-            width="217"
-            height="40"
-            rounded="0"
+            <button
             class="more-work-button"
             @click="openModal"
             >
                 <span class="button__text t-w swis">ХОЧУ ТАКЖЕ</span>
                 <span class="button__line more-work"></span>
-            </v-btn>
+            </button>
         <Swiper class="portfolio-card-container"
         :loop="true"
         :slidesPerView="2"
@@ -121,18 +116,13 @@
             <div class="review-block__left">
                 <img src="/assets/image/review-bereal.png" alt="" class="review-be-real__small">
                 <img src="/assets/image/review-bereal-b.png" alt="" class="review-be-real__big">
-                <v-btn
-                variant="flat"
-                color="rgba(221, 58, 26, 1)"
-                width="217"
-                height="40"
-                rounded="0"
+                <button
                 class="send-request"
                 @click="openModal"
                 >
                     <span class="button__text t-w swis">ОСТАВИТЬ ЗАЯВКУ</span>
                     <span class="button__line send-request-line"></span>
-                </v-btn>                
+                </button>                
                 <h2 class="t-w swis review-title">Отзыв</h2>
                 <img src="/assets/image/partner-dots.svg" alt="">
                 <p class="t-w manrope review-text">Сотрудничество с вашей командой по созданию новой коллекции одежды для "Московского спорта" превзошло все наши ожидания. Начиная с идеи и концепции, ваша команда профессионалов демонстрировала высокий уровень креативности и понимания наших потребностей.</p>
@@ -201,7 +191,8 @@
     border-left: dashed 1px rgba(255, 252, 251, 1);
     height: 40px;
     width: 1px;
-    margin-left: 55px;
+    margin-left: 46px;
+    margin-right: 12px;
 }
 .button__text{
     font-size: 18px;
@@ -263,6 +254,12 @@ h2{
     left: 182px;
     padding: 0;
     z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 217px;
+    height: 40px;
+    background-color: rgba(221, 58, 26, 1);
 }
 .portfolio-card-container{
     display: flex;
@@ -366,6 +363,12 @@ h2{
     position: absolute;
     bottom:88.5px;
     right: -24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 217px;
+    height: 40px;
+    background-color: rgba(221, 58, 26, 1);
 }
 .review-block__right{
     padding: 84px 44px 0 64px;
@@ -402,6 +405,7 @@ h2{
 }
 .send-request-line{
     margin-left: 28px;
+    margin-right: 12px;
 }
 .card-navigation-container{
     position: absolute;

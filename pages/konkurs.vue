@@ -9,7 +9,7 @@
   }
   const handleScroll = () => {
     const scrollPositions = [1380, 1780, 2180, 2780, 3280, 3780];
-    const scrollPositionsMobile = [880, 1280, 1780, 2080, 2580, 2980];
+    const scrollPositionsMobile = [680, 1080, 1480, 1800, 2280, 2680];
     const windowScrollY = window.scrollY;
     if(document.documentElement.clientWidth >= 853){
       for (let i = 0; i < scrollPositions.length; i++) {
@@ -42,7 +42,24 @@
       })
     }
   };
+  const showControl = ref(true);
+const video = ref(null);
 
+const togglePlayPause = () => {
+  if (video.value.paused) {
+    video.value.play();
+  } else {
+    video.value.pause();
+  }
+};
+
+const onPlay = () => {
+  showControl.value = false;
+};
+
+const onPause = () => {
+  showControl.value = true;
+};
   onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
@@ -91,9 +108,26 @@
     <main>
       <section class="hero">
         <div class="wrapper">
-          <video class="video" poster="assets/image/video.png" alt="video" controls>
-            <source src="/assets/video/TG.mp4" type="video/mp4" />
-          </video>
+          <div class="video-container">
+            <video 
+            class="video" 
+            poster="assets/image/video.png" 
+            alt="video" 
+            controls 
+            @click="playVideo"
+            ref="video"
+            @play="onPlay"
+            @pause="onPause"
+            >
+              <source src="/assets/video/TG.mp4" type="video/mp4" />
+            </video>
+            <div class="control-container"
+            v-show="showControl"
+            @click="togglePlayPause"
+            >
+              <img src="/assets/image/play.svg" alt="play" class="play-button"/>
+            </div>
+          </div>
           <div class="hero__blok__bottom">
             <div class="hero__blok__bottom__info">
               <div class="hero__blok__bottom__info__text">
@@ -265,6 +299,7 @@
           <hr class="horizon_line_red">
               <NuxtMarquee
               speed="300"
+              autoFill
                class='marquee' style='overflow:hidden'>
                 <h2 class="texst_like_h1 run_line_text run_line_1 mr-3">БОНУСЫ <span class="italik_text"> БОНУСЫ </span> БОНУСЫ <span class="italik_text"> БОНУСЫ </span> БОНУСЫ <span class="italik_text"> БОНУСЫ </span> </h2>
               </NuxtMarquee>
@@ -352,7 +387,7 @@
         <div class="run_line">
           <hr class="horizon_line_red">
           <NuxtMarquee 
-          autoFill='True'
+          autoFill
           speed="300"
           class='marquee' style='overflow:hidden'>
             <h2 class="texst_like_h1 run_line_text mr-3" >BE REAL <span class="italik_text">BE REAL</span> BE REAL <span class="italik_text">BE REAL</span></h2>
@@ -415,5 +450,30 @@
 .panelIsActive{
   max-height: none;
   margin-bottom: 20px;
+}
+.video-container{
+  position: relative;
+}
+.play-button{
+  height: 100px;
+  width: 100px;
+  fill: #fff;
+}
+.control-container{
+  position: absolute;
+  z-index: 100;
+  width: 100px;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+}
+@media(max-width: 768){
+  .control-container{
+    top: calc(45% - 50px)
+  }
+}
+@media(max-width: 480px){
+  .control-container{
+    top: calc(40% - 50px)
+  }
 }
 </style>

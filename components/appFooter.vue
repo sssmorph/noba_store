@@ -1,14 +1,30 @@
 <script setup>
     const modalStore = useModal();
-
+    let searchBoxIsActive = ref(false);
     const openModal = () =>{
         modalStore.openInfoFeedBack();
     }
-
+    const toggleSearch = () => {
+        searchBoxIsActive.value = !searchBoxIsActive.value;
+    };
 </script>
 
 <template>
     <footer>
+        <div class="search-bar__mobile"
+        :class="{mobileSearchActive: searchBoxIsActive}">
+            <v-responsive max-width="100%" class="search-box-container__mobile">
+                <v-text-field class="search-box__mobile"
+                clearable label="Поиск" 
+                variant="underlined"
+                append-inner-icon="mdi-magnify"
+                base-color="rgba(23, 7, 7, 1)"
+                color="rgba(23, 7, 7, 1)"
+                >
+                </v-text-field>
+
+            </v-responsive>
+        </div>
         <div class="footer-wrapper">
             <div class="link-container">
                 <ul class="link-list">
@@ -46,12 +62,14 @@
                 variant="flat"
                 color="rgba(166, 163, 163, 1)"
                 size="49"
-                rounded="0">
+                rounded="0"
+                @click="toggleSearch()">
                     <img src="/assets/image/search-btn-mobile.svg" alt="">
                 </v-btn>
             </v-responsive>
 
         </div>
+
     </footer>
 </template>
 
@@ -129,6 +147,10 @@
       .underline-hover-effect:hover::before {
         width: 100%;
       }
+      .search-bar__mobile{
+        display: none;
+        padding: 15px;
+      }
       @media (max-width: 1200px) {
         .search-box-container{
             max-width: 300px !important;
@@ -153,6 +175,9 @@
         .search-box{
             display: none;
         }
+        .mobileSearchActive{
+            display: block;
+        }
       }
       @media (max-width: 680px) {
         footer{
@@ -167,6 +192,10 @@
         }
         .footer-wrapper{
             align-items: start;
+        }
+        .underline-hover-effect{
+            padding-left: 0;
+            padding-right: 0;
         }
       }
       @media (max-width: 640px) {

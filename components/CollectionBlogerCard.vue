@@ -1,8 +1,4 @@
 <script setup>
-
- const showSearch = () => {
-
- };
 </script>
 
 <template>
@@ -98,7 +94,7 @@
     border-bottom: 1px solid rgba(221, 58, 26, 1);
     margin-left: 74px;
   }
-  @media (max-width: 1650px) {
+  @media (max-width: 1200px) {
     @media (hover: hover) {
       .bloger-card:hover {
         height: 246px;
@@ -109,7 +105,6 @@
           scale: 1;
         }
       }
-    
     }
   }
   @media (max-width: 1024px) {

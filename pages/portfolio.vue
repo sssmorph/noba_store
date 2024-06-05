@@ -18,17 +18,12 @@
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Повседневная одежда</h2>
         <NuxtLink to="workCard">
-            <v-btn
-            variant="flat"
-            color="rgba(221, 58, 26, 1)"
-            width="217"
-            height="40"
-            rounded="0"
+            <button
             class="more-work-button"
             >
                 <span class="button__text t-w swis">ПОДРОБНЕЕ</span>
                 <span class="button__line more-work"></span>
-            </v-btn>
+        </button>
         </NuxtLink>
         <Swiper
         class="portfolio-card-container"
@@ -304,6 +299,7 @@
         height: 40px;
         width: 1px;
         margin-left: 55px;
+        margin-right: 12px;
     }
     .button__text{
         font-size: 18px;
@@ -367,6 +363,12 @@
         bottom:88.5px;
         left: 182px;
         z-index: 5;
+        background-color: rgba(221, 58, 26, 1);
+        width: 217px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
     .portfolio-card-container{
         display: flex;

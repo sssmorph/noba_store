@@ -100,18 +100,13 @@
                     <img src="/assets/image/youtube-info.svg" alt="" class="social-media__image">
                 </a>
             </div>
-            <v-btn
-            variant="flat"
-            color="rgba(221, 58, 26, 1)"
-            width="200"
-            height="40"
-            rounded="0"
-            class="submit-request-button"
+            <button
             @click="openModal"
+            class="submit-request-button"
             >
                 <span class="button__text t-w swis">ОСТАВИТЬ ЗАЯВКУ</span>
                 <span class="button__line"></span>
-            </v-btn>
+            </button>
         </div>
 
     </section>
@@ -132,7 +127,8 @@
         </section>
     <section class="our-benefit-section">
         <div class="wrapper our-benefit">
-            <img src="/assets/image/be-real-info.png" alt="" class="be-real">
+            <img src="/assets/image/be-real-info.png" alt="" class="be-real"/>
+            <img src="/assets/image/be-real-mobile.svg" class="be-real__mobile" />
             <div class="our-benefit__title-container">
                 <h2 class="our-benefit-title t-w swis">Почему выбирают нас</h2>
                 <div class="our-benefit-line"></div>
@@ -160,17 +156,12 @@
         <h2 class="portfolio-title t-b swis">Наше портфолио</h2>
         <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio">
         <NuxtLink to="portfolio">
-            <v-btn
-            variant="flat"
-            color="rgba(221, 58, 26, 1)"
-            width="217"
-            height="40"
-            rounded="0"
+            <button
             class="more-work-button"
             >
                 <span class="button__text t-w swis">БОЛЬШЕ РАБОТ</span>
                 <span class="button__line more-work"></span>
-            </v-btn>
+            </button>
         </NuxtLink>
         <Swiper class="portfolio-card-container"
         :loop="true"
@@ -265,17 +256,12 @@
         <div class="wrapper konkurs-block">
             <img src="/assets/image/konkurs-back-mobile.png" alt="" class="konkurs-photo__mobile">
             <NuxtLink to="konkurs">
-                <v-btn
-                variant="flat"
-                color="rgba(221, 58, 26, 1)"
-                width="217"
-                height="40"
-                rounded="0"
+                <button
                 class="more-konkurs-button"
                 >
                     <span class="button__text t-w swis">УЗНАТЬ ПОДРОБНОСТИ</span>
                     <span class="button__line more-konkurs"></span>
-                </v-btn>
+            </button>
             </NuxtLink>
             <img src="/assets/image/bereal-inf-konkurs.svg" class="konkurs-be-real">
             <div class="konkurs-title-container">
@@ -468,6 +454,12 @@
         position: absolute;
         bottom: 80px;
         right: -36px;
+        background-color: rgba(221, 58, 26, 1);
+        width: 200px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
     .button__text{
         font-size: 18px;
@@ -479,6 +471,7 @@
         height: 40px;
         width: 1px;
         margin-left: 22px;
+        margin-right: 12px;
     }
     .about-us-block{
         background-image: url(/assets/image/aboutus-back.png);
@@ -563,6 +556,26 @@
         height: 100%;
         width: 100%;
     }
+    @media (max-width: 480px) {
+        .be-real{
+            display: none;
+        }
+    }
+    .be-real__mobile{
+        display: none;
+    }
+    @media(max-width: 480px){
+        .be-real__mobile{
+            position: absolute;
+            top:-67px;
+            left: 0;
+            overflow:visible;
+            width: 100vw;
+            max-height: 98px;
+            height: 100%;
+            display: block;
+        }   
+    }
     .our-benefit__title-container{
         display: flex;
         margin-top: 90px;
@@ -628,6 +641,12 @@
         bottom:88.5px;
         left: 174px;
         z-index: 5;
+        width: 217px;
+        height: 40px;
+        background-color: rgba(221, 58, 26, 1);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
     .portfolio-card-container{
         display: flex;
@@ -701,6 +720,7 @@
     }
     .more-konkurs{
         margin-left: 12px;
+        margin-right: 12px;
     }
     .more-konkurs-button{
         position: absolute;
@@ -708,6 +728,12 @@
         rotate: 270deg;
         bottom: 88.5px;
         z-index: 1;
+        background-color: rgba(221, 58, 26, 1);
+        width: 217px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
     .konkurs-be-real{
         position: absolute;
