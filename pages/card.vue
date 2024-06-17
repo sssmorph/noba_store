@@ -1,4 +1,4 @@
-<script>
+<script setup>
   import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/navigation';
@@ -8,115 +8,101 @@
   import 'swiper/css/thumbs';
   
 
-  export default {
-    
-    components: {
-    Swiper,
-    SwiperSlide,
-  },
-  setup() {
-    const cartStore = useModal();
+const cartStore = useModal();
 
-    const openCart = () =>{
-      cartStore.openCartModal()
-    }
-    const thumbsSwiper = ref(null);
+const openCart = () => {
+  cartStore.openCartModal();
+};
 
-    const setThumbsSwiper = (swiper) => {
-      thumbsSwiper.value = swiper;
-    };
-    const selectSize = (sizes, sizeName) => {
-      sizes.forEach(function(element){
-        if(element.title == sizeName){
-          element.sizeSelected = true;
-        }else{
-          element.sizeSelected = false;
-        }
-      });
-    };
-    const recomendationPrev = ref(null);
-    const recomendationNext = ref(null);
-    const cardPrev = ref(null);
-    const cardNext = ref(null);
-    return {
-      modules: ref([FreeMode, Navigation, Thumbs]),
-      thumbsSwiper,
-      setThumbsSwiper,
-      recomendationPrev,
-      recomendationNext,
-      cartStore,
-      openCart,
-      selectSize
-    };
+const thumbsSwiper = ref(null);
+const setThumbsSwiper = (swiper) => {
+  thumbsSwiper.value = swiper;
+};
+
+const selectSize = (sizes, sizeName) => {
+  sizes.forEach((element) => {
+    element.sizeSelected = element.title === sizeName;
+  });
+};
+
+
+
+const recomendationPrev = ref(null);
+const recomendationNext = ref(null);
+const cardPrev = ref(null);
+const cardNext = ref(null);
+
+const modules = ref([FreeMode, Navigation, Thumbs]);
+
+const items = ref([
+  {
+    title: 'Главная',
+    disabled: false,
+    href: '/',
   },
-    data: () => ({
-      items: [
-        {
-          title: 'Главная',
-          disabled: false,
-          href: '/',
-        },
-        {
-          title: 'Каталог',
-          disabled: false,
-          href: 'catalog',
-        },
-        {
-          title: 'Свитшот Freedom',
-          disabled: true,
-          href: 'card'
-        }
-      ],
-      itemsMobile: [{
-        title: '< TravelMax',
-        disabled: false,
-        href: "catalog"
-      }],
-      
-      sizes:[
-        {
-          title: "XS",
-          sizeSelected: false,
-        },
-        {
-          title: "S",
-          sizeSelected: false,
-        },
-        {
-          title: "M",
-          sizeSelected: false,
-        },
-        {
-          title: "L",
-          sizeSelected: false,
-        },
-        {
-          title: "XL",
-          sizeSelected: false,
-        }
-      ],
-      compositions:[
-        {
-          imagePath: "/image/clean_P.svg",
-        },
-        {
-          imagePath: "/image/wash_30.svg",
-        },
-        {
-          imagePath: "/image/iron_2.svg",
-        },
-        {
-          imagePath: "/image/dont_dry.svg",
-        },
-      ],
-    }),
-  }
+  {
+    title: 'Каталог',
+    disabled: false,
+    href: 'catalog',
+  },
+  {
+    title: 'Свитшот Freedom',
+    disabled: true,
+    href: 'card',
+  },
+]);
+
+const itemsMobile = ref([
+  {
+    title: '< TravelMax',
+    disabled: false,
+    href: 'catalog',
+  },
+]);
+
+const sizes = ref([
+  {
+    title: 'XS',
+    sizeSelected: false,
+  },
+  {
+    title: 'S',
+    sizeSelected: false,
+  },
+  {
+    title: 'M',
+    sizeSelected: true,
+  },
+  {
+    title: 'L',
+    sizeSelected: false,
+  },
+  {
+    title: 'XL',
+    sizeSelected: false,
+  },
+]);
+
+const compositions = ref([
+  {
+    imagePath: '/image/clean_P.svg',
+  },
+  {
+    imagePath: '/image/wash_30.svg',
+  },
+  {
+    imagePath: '/image/iron_2.svg',
+  },
+  {
+    imagePath: '/image/dont_dry.svg',
+  },
+]);
 </script>
 
 <template>
   <AppHeaderBig/>
   <InfoFeedBackModal/>
-  <CardModal/>
+  <CartModal/>
   <section class="card-page-container">
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
@@ -161,7 +147,7 @@
         <p class="item-article item-article__mobile">Арт.: 3265845</p>
         <swiper
         class="card-photo-slider"
-        :spaceBetween="5"
+
         :navigation="{
           nextEl: '.cardNext',
           prevEl: '.cardPrev',
@@ -179,6 +165,7 @@
 
           '1200':{
             slidesPerView:2,
+            spaceBetween: 5,
             centeredSlides:false
           },
         }"
@@ -353,14 +340,11 @@
         }"
         :breakpoints="{
           '100':{
-            slidesPerView:2,
+            slidesPerView:1,
             spaceBetween: 28,
             centeredSlides:false,
-            direction: 'vertical',
-            
           },
           '600':{
-            direction: 'horizontal',
             centeredSlides:true,
             slidesPerView:2,
           },

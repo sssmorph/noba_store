@@ -1,38 +1,76 @@
-<script>
+<script setup>
+import { useCartStore } from '@/stores/cart';
+    const cartStore = useCartStore();
+    const cartModalStore = useModal()
 
-export default {
-  setup() {
-    const cartStore = useModal()
-    const productValue = ref(1)
+    const product = ref([{
+        id: 1,
+        title: "Свитшот Freedom",
+        image: '/assets/image/card-image.png',
+        count: 1,
+        price: 1300,
+        category: '',
+        sex: '',
+        size:{
+            M: 'M',
+            L: 'L',
+            XL: 'XL',
+        }
+    },
+    {
+        id: 2,
+        title: "Свитшот Freedom",
+        image: '/assets/image/card-image.png',
+        count: 1,
+        price: 1300,
+        category: '',
+        sex: '',
+        size:{
+            M: 'M',
+            L: 'L',
+            XL: 'XL',
+        }
+    },
+    ])
 
-    const increment = () => {
-      productValue.value++
-    }
 
-    const decrement = () => {
-      if (productValue.value >= 2) {
-        productValue.value--;
+    const totalProductPrice = (item) => {
+      return (item.price * item.count).toFixed(2);
+    };
+    const totalCartPrice = computed(() => {
+        return product.value.reduce((total, item) => total + item.price * item.count, 0).toFixed(2);
+    });
+
+    const increment = (id) => {
+      const item = product.value.find(product => product.id === id);
+      if (item) {
+        item.count++;
       }
-    }
+    };
+
+    const decrement = (id) => {
+      const item = product.value.find(product => product.id === id);
+      if (item) {
+        if (item.count >= 2) {
+          item.count--;
+        } else {
+            removeProduct(id);
+        }
+      }
+    };
+    const removeProduct = (id) => {
+      product.value = product.value.filter(item => item.id !== id);
+    };
 
     const closePopup = () => {
-      cartStore.closeCartModal()
+      cartModalStore.closeCartModal()
     }
-
-    return {
-      productValue,
-      showModal: computed(() => cartStore.cartIsOpen),
-      increment,
-      decrement,
-      closePopup
-    }
-  }
-}
+    const showModal = computed(() => cartModalStore.cartIsOpen)
 </script>
 
 <template>
         <section class="popup-container" >
-            <div class="popup-background" @click="closePopup" v-if="showModal"></div>
+            <div v-if="showModal" class="popup-background" @click="closePopup"></div>
             <transition name="fade" >
                 <div class="popup-cart-container" v-if="showModal">
                     <div class="popup-cart">
@@ -47,47 +85,43 @@ export default {
                         <img src="/assets/image/white-arrow.svg" style="pointer-events:none;">
 
                         </v-btn>
-                        <div class="product-in-cart">
+
+                        <div v-for="item in product" :key="item.id" class="product-in-cart">
                             <img src="/assets/image/card-image.png" class="product-photo">
                             <div class="product-information-container">
-                                <span class="product-name">Свитшот Freedom</span>
-                                <div class="product-information">
-                                    <div class="product product-size">
-                                        <span class="product-title">Размер</span>
-                                        <span class="product-value">XXL</span>
-                                    </div>
-                                    <div class="product product-count">
-                                        <span class="product-title">Количество</span>
-                                        <div class="value-container">
-                                            <button class="product-value" @click="decrement">-</button>
-                                            <span class="product-value">{{productValue}}</span>
-                                            <button class="product-value" @click="increment">+</button>
-                                        </div>
-        
-                                    </div>
-                                    <div class="product product-price">
-                                        <span class="product-title">Цена</span>
-                                        <span class="product-value">4500₽</span>
-                                    </div>
-                                    <div class="product product-total-price">
-                                        <span class="product-title">Стоимость</span>
-                                        <span class="product-value">9000₽</span>
-                                    </div>
+                              <span class="product-name">{{ item.title }}</span>
+                              <div class="product-information">
+                                <div class="product product-size">
+                                  <span class="product-title">Размер</span>
+                                  <span class="product-value">{{ Object.values(item.size).join(', ') }}</span>
                                 </div>
-                                <div class="mobile-product-price">
-                                    <span class="product-title-bold">Стоимость</span>
-                                    <span class="product-value-bold">9000₽</span>
+                                <div class="product product-count">
+                                  <span class="product-title">Количество</span>
+                                  <div class="value-container">
+                                    <button class="product-value product-value__hover" @click="decrement(item.id)">-</button>
+                                    <span class="product-value ">{{ item.count }}</span>
+                                    <button class="product-value product-value__hover" @click="increment(item.id)">+</button>
+                                  </div>
                                 </div>
+                                <div class="product product-price">
+                                  <span class="product-title">Цена</span>
+                                  <span class="product-value">{{ item.price }}₽</span>
+                                </div>
+                                <div class="product product-total-price">
+                                  <span class="product-title">Стоимость</span>
+                                  <span class="product-value">{{ totalProductPrice(item) }}₽</span>
+                                </div>
+                              </div>
+                              <div class="mobile-product-price">
+                                <span class="product-title-bold">Стоимость</span>
+                                <span class="product-value-bold">{{ totalProductPrice(item) }}₽</span>
+                              </div>
                             </div>
-                            <v-btn
-                            class="cross-button"
-                            variant="plain"
-                            size="31"
-                            rounded="0"
-                            >
-                                <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
+                            <v-btn @click="removeProduct(item.id)" class="cross-button" variant="plain" size="31" rounded="0">
+                              <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
                             </v-btn>
-                        </div>
+                          </div>
+
                         <div class="popup-cart-bottom">
                             <v-responsive max-width="307" class="search-box-container">
                                 <v-text-field class="promo-code-box"
@@ -101,7 +135,7 @@ export default {
                             </v-responsive>
                             <div class="price-container">
                                 <span class="without-sale">13500 ₽</span>
-                                <span class="current-price">12000 ₽</span>
+                                <span class="current-price">{{totalCartPrice}} ₽</span>
                             </div>
                         </div>
                         <div class="to-order-container">
@@ -124,7 +158,17 @@ export default {
         </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped>  
+    option{
+        text-align: center;
+    }
+    .product-value__hover{
+        transition: all ease-in-out 0.2s;
+    }
+    .product-value__hover:hover{
+        transition: all ease-in-out 0.2s;
+        scale: 1.5;
+    }
     .popup-container{
         z-index: 9999;
     }
@@ -219,6 +263,7 @@ export default {
         letter-spacing: -0.02em;
         text-align: left;
         color: rgba(23, 7, 7, 1);
+        font-variant-numeric: tabular-nums;
     }
     .cross-button{
         margin-top: 10px;

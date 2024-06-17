@@ -4,7 +4,7 @@
 
 <template>
   <AppHeaderSmall/>
-  <CardModal/>
+  <CartModal/>
   <InfoFeedBackModal/>
   <section class="noba-media-container">
     <div class="wrapper noba-media-start">

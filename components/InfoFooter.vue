@@ -104,6 +104,18 @@
         max-width: 105px;
         margin-top: 2px;
     }
+    .social-media__item{
+        img{
+            transition: all ease-in-out 0.2s;            
+        }
+
+    }
+    .social-media__item:hover{
+        img{
+            transition: all ease-in-out 0.2s;
+            scale: 1.2;
+        }
+    }
     .links-container{
         display: flex;
         flex-direction: column;

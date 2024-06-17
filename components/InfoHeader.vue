@@ -102,7 +102,8 @@
         gap: 8px;
         z-index: 10;
         top: 34px;
-        right: 44px
+        right: 44px;
+        z-index: 15;
     }
     .burger-menu span {
         width: 40px;
@@ -131,7 +132,7 @@
   }
   .burger-menu-container{
     transition: all ease-in-out 0.3s;
-    z-index: 5;
+    z-index: 15;
     position:absolute;
     top:0;
     right: 0;

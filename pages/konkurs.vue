@@ -1,12 +1,15 @@
 <script setup>
-  let burgerIsOpen = ref(false);
+  const burgerIsOpen = ref(false);
   const isElementActive = ref([false, false, false, false, false, false]);
-  let isAccOpen = ref([false, false, false, false, false]);
-  const modalStore = useModal();
+  const isAccOpen = ref([false, false, false, false, false]);
+  const {openFeedback} = useModal();
 
   const openModal = () =>{
-    modalStore.openFeedback();
+    openFeedback();
   }
+
+
+
   const handleScroll = () => {
     const scrollPositions = [1380, 1780, 2180, 2780, 3280, 3780];
     const scrollPositionsMobile = [680, 1080, 1480, 1800, 2280, 2680];
@@ -64,6 +67,9 @@ const onPause = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
   });
+  onUnmounted(()=>{
+    window.removeEventListener('scroll',handleScroll);
+  })
 
 </script>
 

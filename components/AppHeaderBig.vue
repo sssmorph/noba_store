@@ -83,6 +83,7 @@
 <style lang="scss" scoped>
     *{
         transition: all 0.5s ease-in-out;
+        box-sizing: inherit;
     }
     header{
         background-color: rgba(166, 163, 163, 1);
@@ -231,8 +232,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: all 0.2s ease-in-out;
         img{
             pointer-events: none;
+        }
+    }
+    .social-media-link:hover{
+        img{
+            scale: 1.2;
         }
     }
     .rotatedarrow{

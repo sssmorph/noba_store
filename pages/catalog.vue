@@ -1,108 +1,211 @@
-<script>
+<script setup>
+import { useCartStore } from '@/stores/cart';
+const cartStore = useCartStore();
+const products = ref([
+  {
+    id: 1,
+    title: 'Свитшот Freedom 1',
+    img: '',
+    count: 1,
+    price: 1500,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 2,
+    title: 'Свитшот Freedom 2',
+    img: '',
+    count: 1,
+    price: 1600,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 3,
+    title: 'Свитшот Freedom 3',
+    img: '',
+    count: 1,
+    price: 1700,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 4,
+    title: 'Свитшот Freedom 4',
+    img: '',
+    count: 1,
+    price: 1800,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 5,
+    title: 'Свитшот Freedom 5',
+    img: '',
+    count: 1,
+    price: 1900,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 6,
+    title: 'Свитшот Freedom 6',
+    img: '',
+    count: 1,
+    price: 2000,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 7,
+    title: 'Свитшот Freedom 7',
+    img: '',
+    count: 1,
+    price: 2100,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 8,
+    title: 'Свитшот Freedom 8',
+    img: '',
+    count: 1,
+    price: 2200,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 9,
+    title: 'Свитшот Freedom 9',
+    img: '',
+    count: 1,
+    price: 2300,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+  {
+    id: 10,
+    title: 'Свитшот Freedom 10',
+    img: '',
+    count: 1,
+    price: 2400,
+    categogy: '',
+    sex: 'male',
+    sizes: ["M", "L", "XL"],
+    size: 'M',
+  },
+]);
 
-  export default {
-    data: () => ({
-      items: [
-        {
-          title: 'Главная',
-          disabled: false,
-          href: '/',
-        },
-        {
-          title: 'Каталог',
-          disabled: true,
-          href: 'catalog',
-        },
-      ],
-      itemsMobile: [
-        {
-          title: "< Все коллекции",
-          disabled: false,
-          href: '/'
-        }
-      ],
-      sizes:[
-        {
-          title: "M",
-          sizeSelected: false
-        },
-        {
-          title: "L",
-          sizeSelected: false
-        },
-        {
-          title: "XL",
-          sizeSelected: false
-        }
-      ],
-      images:{
-        defaultCartImage: "image/to-basket-black.svg",
-        hoverCartImage: "image/to-basket-white.svg",
-        currentImage:  "image/to-basket-black.svg"
-      },
-      filterIsActive: ref(false),
-      categories: [
-        { categoryName: "Худи", categorySelected: false },
-        { categoryName: "Свитшоты", categorySelected: false },
-        { categoryName: "Брюки", categorySelected: false },
-        { categoryName: "Костюмы", categorySelected: false },
-        { categoryName: "Лонгсливы", categorySelected: false },
-        { categoryName: "Юбки", categorySelected: false },
-        { categoryName: "Футболки", categorySelected: false },
-        { categoryName: "Рубашки", categorySelected: false },
-        { categoryName: "Верхняя одежда", categorySelected: false }
-      ],
-      genders:[
-        { categoryName: "Женщины", categorySelected: false }, 
-        { categoryName: "Мужчины", categorySelected: false }, 
-        { categoryName: "Унисекс", categorySelected: false }
-      ],
-      filterSizes: [
-        { categoryName: "XS", categorySelected: false }, 
-        { categoryName: "S", categorySelected: false }, 
-        { categoryName: "M", categorySelected: false }, 
-        { categoryName: "L", categorySelected: false }, 
-        { categoryName: "XL", categorySelected: false }
-      ],
-      prices: [0,10000],
+const items = ref([
+  {
+    title: 'Главная',
+    disabled: false,
+    href: '/',
+  },
+  {
+    title: 'Каталог',
+    disabled: true,
+    href: 'catalog',
+  },
+]);
 
-    }),
-    methods: {
-    changeImage() {
-      this.images.currentImage = this.images.hoverCartImage;
-    },
-    restoreImage() {
-      this.images.currentImage = this.images.defaultCartImage;
-    },
-    toggleFilter(){
-       return this.filterIsActive = !this.filterIsActive
-    },
-    selectCategory(category, name){
-      category.forEach(function(element){
-        if(element.categoryName == name){
-          element.categorySelected = true;
-        }else{
-          element.categorySelected = false;
-        }
-      })
-    },
-    selectSize(sizes, sizeName){
-      sizes.forEach(function(element){
-        if(element.title == sizeName){
-          element.sizeSelected = true;
-        }else{
-          element.sizeSelected = false;
-        }
-      })
-    }
+const itemsMobile = ref([
+  {
+    title: "< Все коллекции",
+    disabled: false,
+    href: '/'
   }
-  
+]);
+
+const sizes = ref([
+  {
+    title: "M",
+    sizeSelected: false
+  },
+  {
+    title: "L",
+    sizeSelected: false
+  },
+  {
+    title: "XL",
+    sizeSelected: false
   }
+]);
+
+
+const filterIsActive = ref(false);
+
+const categories = ref([
+  { categoryName: "Худи", categorySelected: false },
+  { categoryName: "Свитшоты", categorySelected: false },
+  { categoryName: "Брюки", categorySelected: false },
+  { categoryName: "Костюмы", categorySelected: false },
+  { categoryName: "Лонгсливы", categorySelected: false },
+  { categoryName: "Юбки", categorySelected: false },
+  { categoryName: "Футболки", categorySelected: false },
+  { categoryName: "Рубашки", categorySelected: false },
+  { categoryName: "Верхняя одежда", categorySelected: false }
+]);
+
+const genders = ref([
+  { categoryName: "Женщины", categorySelected: false }, 
+  { categoryName: "Мужчины", categorySelected: false }, 
+  { categoryName: "Унисекс", categorySelected: false }
+]);
+
+const filterSizes = ref([
+  { categoryName: "XS", categorySelected: false }, 
+  { categoryName: "S", categorySelected: false }, 
+  { categoryName: "M", categorySelected: false }, 
+  { categoryName: "L", categorySelected: false }, 
+  { categoryName: "XL", categorySelected: false }
+]);
+
+const prices = ref([0, 10000]);
+
+const toggleFilter = () => {
+  filterIsActive.value = !filterIsActive.value;
+};
+
+const selectCategory = (category, name) => {
+  category.forEach(element => {
+    element.categorySelected = element.categoryName === name;
+  });
+};
+
+const selectSize = (sizes, sizeName) => {
+  sizes.forEach(element => {
+    element.sizeSelected = element.title === sizeName;
+  });
+};
+
+const addToCart = (product) => {
+  cartStore.addToCart(product);
+};
+
 </script>
 
 <template>
   <AppHeaderBig/>
-  <CardModal/>
+  <CartModal/>
   <InfoFeedBackModal/>
   <section class="catalog-container">
     <div class="sub-header-container">
@@ -374,29 +477,18 @@
     </div>
       <div class="catalog-cards-container " >
         <div class="dark-background" :class="{hidden: !filterIsActive}" @click="filterIsActive = false"></div>
-        <div  class="card-item" v-for="n of 10" :virtualIndex="n" :key="n">
+
+
+        <div v-for="product in products" :key="product.id" class="card-item">
           <NuxtLink to="/card">
-            <img src="/assets/image/card-image.png" class="card-photo">            
+            <img src="/assets/image/card-image.png" class="card-photo">
           </NuxtLink>
           <NuxtLink to="/card" class="card-item-bottom">
             <div class="card-item-bottom__header">
-              <span class="item-name">Свитшот Freedom</span>
-              <span class="item-price">4500 ₽</span>      
+              <span class="item-name">{{ product.title }}</span>
+              <span class="item-price">{{ product.price }}₽</span>
             </div>
-            <div class="to-basket-container">
-              <v-btn
-              @mouseover="changeImage" @mouseleave="restoreImage"
-              class="to-basket__button"
-              variant="outlined"
-              width="112"
-              height="28"
-              rounded="0"
-              color="rgba(221, 58, 26, 1)"
-              >
-                <span class="to-basket">В корзину</span>
-                <img :src="images.currentImage">
-              </v-btn>            
-            </div>
+
           </NuxtLink>
           <div class="size-container">
             <button
@@ -406,7 +498,22 @@
             @click="selectSize(sizes, size.title)"
             >{{size.title}}</button>
           </div>
+          <div class="to-basket-container">
+            <v-btn
+              class="to-basket__button"
+              variant="outlined"
+              width="112"
+              height="28"
+              rounded="0"
+              color="rgba(221, 58, 26, 1)"
+              @click="addToCart(product)"
+            >
+              <span class="to-basket">В корзину</span>
+              <img  class="to-basket__image">
+            </v-btn>
+          </div>
         </div>
+
 
       </div>
   </section>
@@ -607,6 +714,9 @@
         display: flex;
         opacity: 1;
       }
+      .to-basket-container{
+        bottom: -12px;
+      }
     }
   }
   .card-photo{
@@ -649,16 +759,25 @@
   .to-basket-container{
     display: flex;
     justify-content: flex-end;
+    position: absolute;
+    bottom: 0px;
+    right: 10.5px;
   }
-  .to-basket__button{
-    margin-top:18px;
+  .to-basket__image{
+    content: url("image/to-basket-black.svg");
+    width: 14px;
+    height: 13px;
   }
   .to-basket__button:hover{
     background-color: rgba(221, 58, 26, 1);
     .to-basket{
       color: rgba(255, 252, 251, 1);
     }
+    .to-basket__image{
+      content: url("image/to-basket-white.svg");
+    }
   }
+  
   .to-basket{
     font-family: Manrope;
     font-size: 12px;
@@ -767,7 +886,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid rgba(23, 7, 7, 1);
+    border: 1.5px solid rgba(23, 7, 7, 1);
   }
   .filter-size-button__text{
     font-family: Manrope;

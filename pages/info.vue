@@ -885,6 +885,17 @@
     flex-direction: column;
     gap: 18px;
   }
+  .social-media__item{
+    img{
+        transition: all ease-in-out 0.2s;            
+    }
+}
+.social-media__item:hover{
+    img{
+        transition: all ease-in-out 0.2s;
+        scale: 1.2;
+    }
+}
   :global(.swiper-pagination-bullet-active){
     background-color: rgba(221, 58, 26, 1) !important;
   }

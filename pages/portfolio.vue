@@ -133,7 +133,10 @@
         :loop="true"
         :slidesPerView="2"
         :freeMode="true"
-        :navigation="true"
+        :navigation="{
+            nextEl: '.cardNext',
+            prevEl: '.cardPrev',
+        }"
         :modules="modules"
         :breakpoints="{
             '100':{
@@ -187,6 +190,31 @@
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
             </swiper-slide>
+            <div class="card-navigation-container prevContainer">
+                <v-btn
+                ref="cardPrev"
+                variant="flat"
+                color="rgba(23, 7, 7, 1)"
+                size="34"
+                rounded="0"
+                class="recomendationPrev cardPrev"
+        
+                >
+                  <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+                </v-btn>
+            </div>
+            <div class="card-navigation-container nextContainer">
+                <v-btn
+                ref="cardNext"
+                variant="flat"
+                color="rgba(23, 7, 7, 1)"
+                size="34"
+                rounded="0"
+                class="recomendationNext cardNext"
+                >
+                  <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+                </v-btn>
+            </div>
         </Swiper>
     </section>
     <section class="wrapper portfolio-block">
@@ -208,7 +236,10 @@
         :loop="true"
         :slidesPerView="2"
         :freeMode="true"
-        :navigation="true"
+        :navigation="{
+            nextEl: '.cardNext',
+            prevEl: '.cardPrev',
+        }"
         :modules="modules"
         :breakpoints="{
             '100':{
@@ -262,6 +293,31 @@
                     <p class="t-b manrope portfolio-card__count">01</p>
                 </div>
             </swiper-slide>
+            <div class="card-navigation-container prevContainer">
+                <v-btn
+                ref="cardPrev"
+                variant="flat"
+                color="rgba(23, 7, 7, 1)"
+                size="34"
+                rounded="0"
+                class="recomendationPrev cardPrev"
+        
+                >
+                  <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+                </v-btn>
+            </div>
+            <div class="card-navigation-container nextContainer">
+                <v-btn
+                ref="cardNext"
+                variant="flat"
+                color="rgba(23, 7, 7, 1)"
+                size="34"
+                rounded="0"
+                class="recomendationNext cardNext"
+                >
+                  <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+                </v-btn>
+            </div>
         </Swiper>
     </section>
     <InfoFooter/>
