@@ -1,6 +1,7 @@
 <script setup>
-import { useCartStore } from '@/stores/cart';
-const cartStore = useCartStore();
+import { shopCart } from '~/stores/cart';
+const cart = shopCart();
+
 const products = ref([
   {
     id: 1,
@@ -46,74 +47,23 @@ const products = ref([
     sizes: ["M", "L", "XL"],
     size: 'M',
   },
-  {
-    id: 5,
-    title: 'Свитшот Freedom 5',
-    img: '',
-    count: 1,
-    price: 1900,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 6,
-    title: 'Свитшот Freedom 6',
-    img: '',
-    count: 1,
-    price: 2000,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 7,
-    title: 'Свитшот Freedom 7',
-    img: '',
-    count: 1,
-    price: 2100,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 8,
-    title: 'Свитшот Freedom 8',
-    img: '',
-    count: 1,
-    price: 2200,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 9,
-    title: 'Свитшот Freedom 9',
-    img: '',
-    count: 1,
-    price: 2300,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 10,
-    title: 'Свитшот Freedom 10',
-    img: '',
-    count: 1,
-    price: 2400,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
 ]);
 
+const sizes = ref([
+  {
+    title: "M",
+    sizeSelected: false
+  },
+  {
+    title: "L",
+    sizeSelected: false
+  },
+  {
+    title: "XL",
+    sizeSelected: false
+  }
+]);
+// бредкрамбсы
 const items = ref([
   {
     title: 'Главная',
@@ -135,22 +85,8 @@ const itemsMobile = ref([
   }
 ]);
 
-const sizes = ref([
-  {
-    title: "M",
-    sizeSelected: false
-  },
-  {
-    title: "L",
-    sizeSelected: false
-  },
-  {
-    title: "XL",
-    sizeSelected: false
-  }
-]);
 
-
+// филтры
 const filterIsActive = ref(false);
 
 const categories = ref([
@@ -191,16 +127,9 @@ const selectCategory = (category, name) => {
   });
 };
 
-const selectSize = (sizes, sizeName) => {
-  sizes.forEach(element => {
-    element.sizeSelected = element.title === sizeName;
-  });
-};
-
-const addToCart = (product) => {
-  cartStore.addToCart(product);
-};
-
+const addInCart = (product) =>{
+        cart.addToCart(product);
+  };
 </script>
 
 <template>
@@ -492,11 +421,10 @@ const addToCart = (product) => {
           </NuxtLink>
           <div class="size-container">
             <button
-            v-for="(size, index) in sizes"
-            :key="index"
-            class="size-button" :class="{cardSizeButton: size.sizeSelected}"
-            @click="selectSize(sizes, size.title)"
-            >{{size.title}}</button>
+            v-for="size in product.sizes" :key="size" :value="size"
+            class="size-button" :class="{cardSizeButton: size == product.size}"
+            @click="product.size = size"
+            >{{size}}</button>
           </div>
           <div class="to-basket-container">
             <v-btn
@@ -506,10 +434,10 @@ const addToCart = (product) => {
               height="28"
               rounded="0"
               color="rgba(221, 58, 26, 1)"
-              @click="addToCart(product)"
+              @click="addInCart(product)"
             >
               <span class="to-basket">В корзину</span>
-              <img  class="to-basket__image">
+              <img src="/assets/image/to-basket-black.svg" class="to-basket__image">
             </v-btn>
           </div>
         </div>

@@ -1,66 +1,60 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 
+export const shopCart = defineStore('cart',() => {
+  // data
+  const productInCart = ref([]);
+  
 
-export const useCartStore = defineStore('cart', () => {
-    const cart = ref([]);
-  
-    const saveCart = () => {
-      if (process.client) {
-        localStorage.setItem('cart', JSON.stringify(cart.value));
-      }
-    };
-  
-    const loadCart = () => {
-      if (process.client) {
-        const storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-          cart.value = JSON.parse(storedCart);
-        }
-      }
-    };
-  
-    const addToCart = (product) => {
-      const existingProduct = cart.value.find(item => item.id === product.id);
-      if (existingProduct) {
-        existingProduct.count += 1;
-      } else {
-        cart.value.push({ ...product, count: 1 });
-      }
-      saveCart();
-    };
-  
-    const removeFromCart = (productId) => {
-      const productIndex = cart.value.findIndex(item => item.id === productId);
-      if (productIndex !== -1) {
-        cart.value.splice(productIndex, 1);
-      }
-      saveCart();
-    };
-  
-    const updateCartItemCount = (productId, count) => {
-      const product = cart.value.find(item => item.id === productId);
-      if (product) {
-        product.count = count;
-        if (product.count <= 0) {
-          removeFromCart(productId);
-        } else {
-          saveCart();
-        }
-      }
-    };
-  
-    const clearCart = () => {
-      cart.value = [];
-      saveCart();
-    };
-  
-    loadCart();
-    return {
-        cart,
-        addToCart,
-        removeFromCart,
-        updateCartItemCount,
-        clearCart,
-      };
-  });
+  // methods
+  function clearCart(){
+    productInCart.value = [];
+    updateStorage();
+  }
+  function updateStorage(){
+    localStorage.setItem('cart', JSON.stringify(productInCart.value))
+  }
+  function getProductInCart(){
+    const storage = localStorage.getItem('cart')
+    productInCart.value = JSON.parse(storage)
+  }
+  function addToCart(product){
+    productInCart.value.push(product);
+    updateStorage();
+  }
+  // удаление по ID товара
+  function removeProduct(itemID){
+    productInCart.value = productInCart.value.filter((element) => element.id !== itemID);
+    updateStorage();
+  }
+  // переписать
+  function plusCount(itemID){
+    productInCart.value.count++;
+    updateStorage();
+  }
+  // переписать
+  function minusCount(itemID){
+    if(productInCart.value.count <= 1){
+      removeProduct(itemID);
+    }else{
+      productInCart.value.count--;
+      updateStorage();
+    }
+  }
+
+  function getCost(itemID){
+    console.log()
+  }
+  // returns
+  return {
+    productInCart,
+    clearCart,
+    updateStorage,
+    getProductInCart,
+    addToCart,
+    removeProduct,
+
+    plusCount,
+    minusCount,
+
+  }
+})

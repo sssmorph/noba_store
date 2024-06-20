@@ -1,69 +1,18 @@
 <script setup>
-import { useCartStore } from '@/stores/cart';
-    const cartStore = useCartStore();
-    const cartModalStore = useModal()
+    const cartModalStore = useModal();
+    const cart = shopCart();
 
-    const product = ref([{
-        id: 1,
-        title: "Свитшот Freedom",
-        image: '/assets/image/card-image.png',
-        count: 1,
-        price: 1300,
-        category: '',
-        sex: '',
-        size:{
-            M: 'M',
-            L: 'L',
-            XL: 'XL',
-        }
-    },
-    {
-        id: 2,
-        title: "Свитшот Freedom",
-        image: '/assets/image/card-image.png',
-        count: 1,
-        price: 1300,
-        category: '',
-        sex: '',
-        size:{
-            M: 'M',
-            L: 'L',
-            XL: 'XL',
-        }
-    },
-    ])
+    const product = ref(cart.productInCart);
 
-
-    const totalProductPrice = (item) => {
-      return (item.price * item.count).toFixed(2);
+    const placeOrder = () =>{
+        cart.clearCart();
+    }
+    const removeFromCart = (itemID) => {
+        cart.removeProduct(itemID);
+        product.value = cart.productInCart;
     };
-    const totalCartPrice = computed(() => {
-        return product.value.reduce((total, item) => total + item.price * item.count, 0).toFixed(2);
-    });
-
-    const increment = (id) => {
-      const item = product.value.find(product => product.id === id);
-      if (item) {
-        item.count++;
-      }
-    };
-
-    const decrement = (id) => {
-      const item = product.value.find(product => product.id === id);
-      if (item) {
-        if (item.count >= 2) {
-          item.count--;
-        } else {
-            removeProduct(id);
-        }
-      }
-    };
-    const removeProduct = (id) => {
-      product.value = product.value.filter(item => item.id !== id);
-    };
-
     const closePopup = () => {
-      cartModalStore.closeCartModal()
+      cartModalStore.closeCartModal();
     }
     const showModal = computed(() => cartModalStore.cartIsOpen)
 </script>
@@ -93,14 +42,20 @@ import { useCartStore } from '@/stores/cart';
                               <div class="product-information">
                                 <div class="product product-size">
                                   <span class="product-title">Размер</span>
-                                  <span class="product-value">{{ Object.values(item.size).join(', ') }}</span>
+                                  <div class="select-style">
+                                    <select name="" id="sizes" class="cursor-pointers" v-model="item.size">
+                                        <option v-for="size in item.sizes" :key="size" :value="size">{{size}}</option>
+                                    </select>
+                                  </div>
                                 </div>
                                 <div class="product product-count">
                                   <span class="product-title">Количество</span>
                                   <div class="value-container">
-                                    <button class="product-value product-value__hover" @click="decrement(item.id)">-</button>
+                                    <button class="product-value product-value__hover" >-</button>
                                     <span class="product-value ">{{ item.count }}</span>
-                                    <button class="product-value product-value__hover" @click="increment(item.id)">+</button>
+                                    <button class="product-value product-value__hover" 
+                                    
+                                    >+</button>
                                   </div>
                                 </div>
                                 <div class="product product-price">
@@ -109,15 +64,15 @@ import { useCartStore } from '@/stores/cart';
                                 </div>
                                 <div class="product product-total-price">
                                   <span class="product-title">Стоимость</span>
-                                  <span class="product-value">{{ totalProductPrice(item) }}₽</span>
+                                  <span class="product-value">{{ item.price * item.count }} ₽</span>
                                 </div>
                               </div>
                               <div class="mobile-product-price">
                                 <span class="product-title-bold">Стоимость</span>
-                                <span class="product-value-bold">{{ totalProductPrice(item) }}₽</span>
+                                <span class="product-value-bold">₽</span>
                               </div>
                             </div>
-                            <v-btn @click="removeProduct(item.id)" class="cross-button" variant="plain" size="31" rounded="0">
+                            <v-btn class="cross-button" variant="plain" size="31" rounded="0" @click="removeFromCart(item.id)">
                               <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
                             </v-btn>
                           </div>
@@ -135,7 +90,7 @@ import { useCartStore } from '@/stores/cart';
                             </v-responsive>
                             <div class="price-container">
                                 <span class="without-sale">13500 ₽</span>
-                                <span class="current-price">{{totalCartPrice}} ₽</span>
+                                <span class="current-price"> ₽</span>
                             </div>
                         </div>
                         <div class="to-order-container">
@@ -146,6 +101,7 @@ import { useCartStore } from '@/stores/cart';
                             height="52px"
                             color="rgba(221, 58, 26, 1)"
                             rounded="0"
+                            @click="placeOrder"
                             >
                             <span class="to-order-text">Перейти к оформлению</span>
                             <img src="/assets/image/text-box-white.svg" alt="">
@@ -159,6 +115,48 @@ import { useCartStore } from '@/stores/cart';
 </template>
 
 <style lang="scss" scoped>  
+    .select-style {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        border-radius: 3px;
+        overflow: visible;
+        background-color: #fff;
+
+        background:  url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+        cursor: pointer;
+    }
+    .select-style:after{
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        top: 9px;
+        right: 0;
+        border-top: 5px solid transparent;
+        border-left: 5px solid #fff;
+        border-right: 5px solid #fff;
+        background-color: rgb(23, 7, 7);
+    }
+    .select-style select {
+        position: relative;
+        z-index: 10;
+        padding: 5px 8px;
+        padding-right: 15px;
+        padding-top: 0;
+        border: none;
+        box-shadow: none;
+        color: rgb(23, 7, 7);
+        font-family: Manrope;
+        background-color: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+                appearance: none;
+    }
+    .select-style select:focus {
+        outline: none;
+    }
     option{
         text-align: center;
     }
