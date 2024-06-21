@@ -1,5 +1,7 @@
 <script setup>
   import { vMaska } from "maska"
+  import { useModal } from '../stores/modal';
+
  const modalStore = useModal();
  const closeModal = () => {
     modalStore.closeInfoFeedBack();

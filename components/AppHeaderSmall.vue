@@ -1,4 +1,6 @@
 <script setup>
+  import { useModal } from '../stores/modal';
+
     const cartStore = useModal();
     const openCart = () =>{
         cartStore.openCartModal()

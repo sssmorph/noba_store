@@ -82,7 +82,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                 <div class="third-page__bottom">
                     <div class="personal-data__container">
                         <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
-                        <NuxtLink to="#" class="personal-data__link">обработку персональных данных</NuxtLink>
+                        <NuxtLink to="/" class="personal-data__link">обработку персональных данных</NuxtLink>
                     </div>
                     <v-btn
                     class="d-flex flex-row purchase-button"

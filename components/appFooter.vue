@@ -1,4 +1,6 @@
 <script setup>
+  import { useModal } from '../stores/modal';
+
     const modalStore = useModal();
     let searchBoxIsActive = ref(false);
     const openModal = () =>{
@@ -29,13 +31,13 @@
             <div class="link-container">
                 <ul class="link-list">
                     <li class="footer-link">
-                        <NuxtLink  to="#" class="underline-hover-effect">Обмен и возврат</NuxtLink >
+                        <NuxtLink  to="/" class="underline-hover-effect">Обмен и возврат</NuxtLink >
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="#" class="underline-hover-effect">Доставка</NuxtLink >
+                        <NuxtLink  to="/" class="underline-hover-effect">Доставка</NuxtLink >
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="#" class="underline-hover-effect">Оплата</NuxtLink >
+                        <NuxtLink  to="/" class="underline-hover-effect">Оплата</NuxtLink >
                     </li>
                     <li class="footer-link">
                         <span class="underline-hover-effect cursor-pointer" @click="openModal">Связаться с нами</span >
@@ -44,7 +46,7 @@
                         <NuxtLink  to="/info" class="underline-hover-effect">О компании</NuxtLink >
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="#" class="underline-hover-effect">Политика конфиденциальности</NuxtLink >
+                        <NuxtLink  to="/" class="underline-hover-effect">Политика конфиденциальности</NuxtLink >
                     </li>
 
                 </ul>

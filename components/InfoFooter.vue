@@ -1,4 +1,6 @@
 <script setup>
+  import { useModal } from '../stores/modal';
+
     let links = [
         {url: "portfolio",name: "Портфолио"},
         {url: "/", name: "Интернет-магазин"},

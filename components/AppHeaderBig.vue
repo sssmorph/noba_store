@@ -1,4 +1,5 @@
 <script setup>
+    import { useModal } from '../stores/modal';
 
     let isActive = ref(false);
     const toggleHeader = () => { return isActive.value  = !isActive.value};

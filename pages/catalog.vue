@@ -1,5 +1,5 @@
 <script setup>
-import { shopCart } from '~/stores/cart';
+import { shopCart } from '../stores/cart';
 const cart = shopCart();
 
 const products = ref([
@@ -365,15 +365,15 @@ const selectCategory = (category, name) => {
         <div class="radio-button-container d-flex flex-column ga-2">
 
           <div class="">
-            <input id="radio1" type="radio" name="radio" class="hidden" checked />
-            <label for="radio1" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+            <input id="radio3" type="radio" name="radio" class="hidden" checked />
+            <label for="radio3" class="cursor-pointer d-flex flex-row align-center filter-item__text">
             <div class="radio-button__square"></div>
             Цена по возрастанию</label>
           </div>
 
           <div class="">
-            <input id="radio2" type="radio" name="radio" class="hidden" />
-            <label for="radio2" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+            <input id="radio4" type="radio" name="radio" class="hidden" />
+            <label for="radio4" class="cursor-pointer d-flex flex-row align-center filter-item__text">
             <div class="radio-button__square "></div>
             Цена по убыванию</label>
           </div>
@@ -421,10 +421,10 @@ const selectCategory = (category, name) => {
           </NuxtLink>
           <div class="size-container">
             <button
-            v-for="size in product.sizes" :key="size" :value="size"
-            class="size-button" :class="{cardSizeButton: size == product.size}"
-            @click="product.size = size"
-            >{{size}}</button>
+            v-for="currentSize in product.sizes" :key="currentSize" :value="currentSize"
+            class="size-button" :class="{cardSizeButton: currentSize == product.size}"
+            @click="product.size = currentSize"
+            >{{currentSize}}</button>
           </div>
           <div class="to-basket-container">
             <v-btn
@@ -437,7 +437,7 @@ const selectCategory = (category, name) => {
               @click="addInCart(product)"
             >
               <span class="to-basket">В корзину</span>
-              <img src="../assets/image/to-basket-black.svg" class="to-basket__image">
+              <div class="to-basket__image"></div>
             </v-btn>
           </div>
         </div>
@@ -694,6 +694,7 @@ const selectCategory = (category, name) => {
   .to-basket__image{
     width: 14px;
     height: 13px;
+    background-image: url(/assets/image/to-basket-black.svg);
   }
   .to-basket__button:hover{
     background-color: rgba(221, 58, 26, 1);

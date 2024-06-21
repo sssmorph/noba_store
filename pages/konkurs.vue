@@ -86,14 +86,14 @@ const onPause = () => {
           </ul>
         </nav>
         <div class="header__socail">
-          <a href="#" class="socail_icon tiktok"><img src="/assets/image/tiktok.svg" alt="social img"></a>
-          <a href="#" class="socail_icon tg"><img src="/assets/image/TG.svg" alt="social img"></a>
-          <a href="#" class="socail_icon youtube"><img src="/assets/image/YouTube.svg" alt="social img"></a>
+          <a href="/" class="socail_icon tiktok"><img src="/assets/image/tiktok.svg" alt="social img"></a>
+          <a href="/" class="socail_icon tg"><img src="/assets/image/TG.svg" alt="social img"></a>
+          <a href="/" class="socail_icon youtube"><img src="/assets/image/YouTube.svg" alt="social img"></a>
         </div> 
         <div class="header__socail_mobile">
-          <a href="#" class="socail_icon tiktok"><img src="/assets/image/tiktok_W.svg" alt="social img"></a>
-          <a href="#" class="socail_icon tg"><img src="/assets/image/TG_W.svg" alt="social img"></a>
-          <a href="#" class="socail_icon youtube"><img src="/assets/image/YouTube_W.svg" alt="social img"></a>
+          <a href="/" class="socail_icon tiktok"><img src="/assets/image/tiktok_W.svg" alt="social img"></a>
+          <a href="/" class="socail_icon tg"><img src="/assets/image/TG_W.svg" alt="social img"></a>
+          <a href="/" class="socail_icon youtube"><img src="/assets/image/YouTube_W.svg" alt="social img"></a>
         </div> 
           <button id="nav-toggle" class="nav-toggle" :class="{opened: burgerIsOpen}" @click="burgerIsOpen = !burgerIsOpen">
             <span class="bar-top"></span>

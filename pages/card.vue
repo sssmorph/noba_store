@@ -1,11 +1,11 @@
 <script setup>
   import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
-  import 'swiper/css';
   import 'swiper/css/navigation';
   import { ref } from 'vue';
-  import { Swiper, SwiperSlide } from 'swiper/vue';
   import 'swiper/css/free-mode';
   import 'swiper/css/thumbs';
+  import { useModal } from '../stores/modal';
+  import { shopCart } from '../stores/cart';
   
 
 const cartStore = useModal();
