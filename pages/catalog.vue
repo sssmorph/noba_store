@@ -127,8 +127,8 @@ const selectCategory = (category, name) => {
   });
 };
 
-const addInCart = (product) =>{
-        cart.addToCart(product);
+  const addInCart = (product) =>{
+    cart.addToCart(product);
   };
 </script>
 
@@ -410,7 +410,7 @@ const addInCart = (product) =>{
 
         <div v-for="product in products" :key="product.id" class="card-item">
           <NuxtLink to="/card">
-            <img src="/assets/image/card-image.png" class="card-photo">
+            <img src="../assets/image/card-image.png" class="card-photo">
           </NuxtLink>
           <NuxtLink to="/card" class="card-item-bottom">
             <div class="card-item-bottom__header">
@@ -437,7 +437,7 @@ const addInCart = (product) =>{
               @click="addInCart(product)"
             >
               <span class="to-basket">В корзину</span>
-              <img src="/assets/image/to-basket-black.svg" class="to-basket__image">
+              <img src="../assets/image/to-basket-black.svg" class="to-basket__image">
             </v-btn>
           </div>
         </div>
@@ -692,7 +692,6 @@ const addInCart = (product) =>{
     right: 10.5px;
   }
   .to-basket__image{
-    content: url("image/to-basket-black.svg");
     width: 14px;
     height: 13px;
   }
@@ -702,7 +701,7 @@ const addInCart = (product) =>{
       color: rgba(255, 252, 251, 1);
     }
     .to-basket__image{
-      content: url("image/to-basket-white.svg");
+      background-image: url(/assets/image/to-basket-white.svg);
     }
   }
   

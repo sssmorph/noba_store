@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   build: {
     transpile: ['vuetify'],
+    
   },
   modules: [
     (_options, nuxt) => {
@@ -26,6 +27,10 @@ export default defineNuxtConfig({
         transformAssetUrls,
       },
     },
+    build: {
+      cssCodeSplit: true,
+      
+   },
   },
   css: [
     '@/assets/css/reset.css',

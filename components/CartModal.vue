@@ -1,20 +1,40 @@
 <script setup>
+    import { shopCart } from '~/stores/cart';
     const cartModalStore = useModal();
     const cart = shopCart();
 
-    const product = ref(cart.productInCart);
-
+    const product = computed(() => cart.productInCart)
+    cart.getProductInCart();
     const placeOrder = () =>{
         cart.clearCart();
     }
     const removeFromCart = (itemID) => {
         cart.removeProduct(itemID);
-        product.value = cart.productInCart;
+    };
+    const plusCartCount = (itemID) => {
+        const index = cart.productInCart.findIndex(el => el.id === itemID)
+        cart.productInCart[index].count++
+        cart.updateStorage();
+    }
+    const minusCartCount = (itemID) => {
+        
+        const index = cart.productInCart.findIndex(el => el.id === itemID);
+        if(cart.productInCart[index].count <= 1){
+            cart.removeProduct(itemID);
+        } else{
+            cart.productInCart[index].count--;
+            cart.updateStorage();
+        }
+    };
+    const updateSize = () => {
+        cart.productInCart = product.value;
+        cart.updateStorage();
     };
     const closePopup = () => {
       cartModalStore.closeCartModal();
     }
-    const showModal = computed(() => cartModalStore.cartIsOpen)
+    const showModal = computed(() => cartModalStore.cartIsOpen);
+
 </script>
 
 <template>
@@ -43,7 +63,7 @@
                                 <div class="product product-size">
                                   <span class="product-title">Размер</span>
                                   <div class="select-style">
-                                    <select name="" id="sizes" class="cursor-pointers" v-model="item.size">
+                                    <select name="" id="sizes" class="cursor-pointers" v-model="item.size" @change="updateSize()">
                                         <option v-for="size in item.sizes" :key="size" :value="size">{{size}}</option>
                                     </select>
                                   </div>
@@ -51,10 +71,12 @@
                                 <div class="product product-count">
                                   <span class="product-title">Количество</span>
                                   <div class="value-container">
-                                    <button class="product-value product-value__hover" >-</button>
+                                    <button class="product-value product-value__hover" 
+                                    @click="minusCartCount(item.id)"
+                                    >-</button>
                                     <span class="product-value ">{{ item.count }}</span>
                                     <button class="product-value product-value__hover" 
-                                    
+                                    @click="plusCartCount(item.id)"
                                     >+</button>
                                   </div>
                                 </div>
@@ -90,7 +112,7 @@
                             </v-responsive>
                             <div class="price-container">
                                 <span class="without-sale">13500 ₽</span>
-                                <span class="current-price"> ₽</span>
+                                <span class="current-price">{{ cart.totalCartPrice }} ₽</span>
                             </div>
                         </div>
                         <div class="to-order-container">
