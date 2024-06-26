@@ -1,134 +1,141 @@
 <script setup>
-import { shopCart } from '../stores/cart';
-const cart = shopCart();
+  import { shopCart } from '../stores/cart';
+  const cart = shopCart();
 
-const products = ref([
-  {
-    id: 1,
-    title: 'Свитшот Freedom 1',
-    img: '',
-    count: 1,
-    price: 1500,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 2,
-    title: 'Свитшот Freedom 2',
-    img: '',
-    count: 1,
-    price: 1600,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 3,
-    title: 'Свитшот Freedom 3',
-    img: '',
-    count: 1,
-    price: 1700,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-  {
-    id: 4,
-    title: 'Свитшот Freedom 4',
-    img: '',
-    count: 1,
-    price: 1800,
-    categogy: '',
-    sex: 'male',
-    sizes: ["M", "L", "XL"],
-    size: 'M',
-  },
-]);
+  const products = ref([
+    {
+      id: 1,
+      title: 'Свитшот Freedom 1',
+      img: '',
+      count: 1,
+      price: 1500,
+      categogy: 'hoodies',
+      sex: 'male',
+      sizes: ["M", "L", "XL"],
+      size: 'M',
+    },
+    {
+      id: 2,
+      title: 'Свитшот Freedom 2',
+      img: 'skirt',
+      count: 1,
+      price: 1600,
+      categogy: '',
+      sex: 'female',
+      sizes: ["M", "L", "XL"],
+      size: 'M',
+    },
+    {
+      id: 3,
+      title: 'Свитшот Freedom 3',
+      img: '',
+      count: 1,
+      price: 1700,
+      categogy: 'shirt',
+      sex: 'male',
+      sizes: ["M", "L", "XL"],
+      size: 'M',
+    },
+    {
+      id: 4,
+      title: 'Свитшот Freedom 4',
+      img: '',
+      count: 1,
+      price: 1800,
+      categogy: 'longsleeve',
+      sex: 'female',
+      sizes: ["M", "L", "XL"],
+      size: 'M',
+    },
+  ]);
 
-const sizes = ref([
-  {
-    title: "M",
-    sizeSelected: false
-  },
-  {
-    title: "L",
-    sizeSelected: false
-  },
-  {
-    title: "XL",
-    sizeSelected: false
-  }
-]);
-// бредкрамбсы
-const items = ref([
-  {
-    title: 'Главная',
-    disabled: false,
-    href: '/',
-  },
-  {
-    title: 'Каталог',
-    disabled: true,
-    href: 'catalog',
-  },
-]);
+  const sizes = ref([
+    {
+      title: "M",
+      sizeSelected: false
+    },
+    {
+      title: "L",
+      sizeSelected: false
+    },
+    {
+      title: "XL",
+      sizeSelected: false
+    }
+  ]);
+  // бредкрамбсы
+  const items = ref([
+    {
+      title: 'Главная',
+      disabled: false,
+      href: '/',
+    },
+    {
+      title: 'Каталог',
+      disabled: true,
+      href: 'catalog',
+    },
+  ]);
 
-const itemsMobile = ref([
-  {
-    title: "< Все коллекции",
-    disabled: false,
-    href: '/'
-  }
-]);
+  const itemsMobile = ref([
+    {
+      title: "< Все коллекции",
+      disabled: false,
+      href: '/'
+    }
+  ]);
 
 
-// филтры
-const filterIsActive = ref(false);
+  // филтры
+  const filterIsActive = ref(false);
 
-const categories = ref([
-  { categoryName: "Худи", categorySelected: false },
-  { categoryName: "Свитшоты", categorySelected: false },
-  { categoryName: "Брюки", categorySelected: false },
-  { categoryName: "Костюмы", categorySelected: false },
-  { categoryName: "Лонгсливы", categorySelected: false },
-  { categoryName: "Юбки", categorySelected: false },
-  { categoryName: "Футболки", categorySelected: false },
-  { categoryName: "Рубашки", categorySelected: false },
-  { categoryName: "Верхняя одежда", categorySelected: false }
-]);
+  const categories = ref([
+    { categoryName: "Худи", categorySelected: false },
+    { categoryName: "Свитшоты", categorySelected: false },
+    { categoryName: "Брюки", categorySelected: false },
+    { categoryName: "Костюмы", categorySelected: false },
+    { categoryName: "Лонгсливы", categorySelected: false },
+    { categoryName: "Юбки", categorySelected: false },
+    { categoryName: "Футболки", categorySelected: false },
+    { categoryName: "Рубашки", categorySelected: false },
+    { categoryName: "Верхняя одежда", categorySelected: false }
+  ]);
 
-const genders = ref([
-  { categoryName: "Женщины", categorySelected: false }, 
-  { categoryName: "Мужчины", categorySelected: false }, 
-  { categoryName: "Унисекс", categorySelected: false }
-]);
+  const genders = ref([
+    { categoryName: "Женщины", categorySelected: false }, 
+    { categoryName: "Мужчины", categorySelected: false }, 
+    { categoryName: "Унисекс", categorySelected: false }
+  ]);
 
-const filterSizes = ref([
-  { categoryName: "XS", categorySelected: false }, 
-  { categoryName: "S", categorySelected: false }, 
-  { categoryName: "M", categorySelected: false }, 
-  { categoryName: "L", categorySelected: false }, 
-  { categoryName: "XL", categorySelected: false }
-]);
+  const filterSizes = ref([
+    { categoryName: "XS", categorySelected: false }, 
+    { categoryName: "S", categorySelected: false }, 
+    { categoryName: "M", categorySelected: false }, 
+    { categoryName: "L", categorySelected: false }, 
+    { categoryName: "XL", categorySelected: false }
+  ]);
 
-const prices = ref([0, 10000]);
+  const prices = ref([0, 10000]);
 
-const toggleFilter = () => {
-  filterIsActive.value = !filterIsActive.value;
-};
+  const toggleFilter = () => {
+    filterIsActive.value = !filterIsActive.value;
+  };
 
-const selectCategory = (category, name) => {
-  category.forEach(element => {
-    element.categorySelected = element.categoryName === name;
-  });
-};
+  const selectCategory = (category, name) => {
+    category.forEach(element => {
+      element.categorySelected = element.categoryName === name;
+    });
+  };
 
-  const addInCart = (product) =>{
-    cart.addToCart(product);
+  const toggleCart = (product) => {
+    if (cart.checkInCart(product.id)) {
+      cart.removeProduct(product.id);
+    } else {
+      cart.addToCart(product);
+    }
+  };
+  const isInCart = (productId) => {
+    return cart.checkInCart(productId);
   };
 </script>
 
@@ -429,14 +436,18 @@ const selectCategory = (category, name) => {
           <div class="to-basket-container">
             <v-btn
               class="to-basket__button"
+              :class="{
+                'in-cart': isInCart(product.id),
+                'to-basket__button': !isInCart(product.id)
+              }"
               variant="outlined"
               width="112"
               height="28"
               rounded="0"
               color="rgba(221, 58, 26, 1)"
-              @click="addInCart(product)"
+              @click="toggleCart(product)"
             >
-              <span class="to-basket">В корзину</span>
+              <span class="to-basket">{{ isInCart(product.id) ? 'Удалить' : 'В корзину' }}</span>
               <div class="to-basket__image"></div>
             </v-btn>
           </div>
@@ -943,6 +954,13 @@ const selectCategory = (category, name) => {
   .mobile-search{
     display: none;
   }
+  .in-cart {
+    border: 1px solid black;
+    }
+    .in-cart:hover {
+      background-color: black;
+      color: white;
+    }
   @media (max-width: 1650px) {
       .card-item:hover{
         scale: none;
@@ -1030,6 +1048,12 @@ const selectCategory = (category, name) => {
     .opennedFilter{
       height: 490px;
     }
+    .card-item:hover{
+      scale: none;
+      .size-container{
+        display: none;
+      }
+    }
   }
   @media (max-width: 640px) {
     .catalog-title{
@@ -1080,9 +1104,18 @@ const selectCategory = (category, name) => {
       flex: 0 0 100%;
       width: 100%;
     }
+    .card-item:hover{
+      .to-basket-container{
+        bottom: 9px;
+      }
+    }
     .card-photo{
       width: 400px;
       height: 534px;
+    }
+    .to-basket-container{
+      bottom: 9px;
+      right: 6px;
     }
     .to-basket__button{
       margin: 0;
@@ -1100,7 +1133,9 @@ const selectCategory = (category, name) => {
     .card-item-bottom__header{
       display: flex;
       justify-content: space-between;
-      width: 275px;
+      width: calc(100% - 113px);
+      height: 28px;
+      align-items: center;
     }
     .filter-container{
       margin-bottom: 30px;
@@ -1171,11 +1206,6 @@ const selectCategory = (category, name) => {
       .card-photo{
         height: 534px;
         width: 100%;
-      }
-      .size-container{
-        display: flex;
-        opacity: 1;
-        top: 480px
       }
     }
   }

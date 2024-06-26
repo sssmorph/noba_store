@@ -7,96 +7,89 @@
   import { useModal } from '../stores/modal';
   import { shopCart } from '../stores/cart';
   
+  const thumbsSwiper = ref(null);
+  const recomendationPrev = ref(null);
+  const recomendationNext = ref(null);
+  const cardPrev = ref(null);
+  const cardNext = ref(null);
+  const modules = ref([FreeMode, Navigation, Thumbs]);
 
-const cartStore = useModal();
+  const cartStore = useModal();
+  const cart = shopCart();
+  const openCart = () => {
+    cartStore.openCartModal();
+  };
 
-const openCart = () => {
-  cartStore.openCartModal();
-};
+  const product = ref({
+        id: 1,
+        title: 'Свитшот Freedom 1',
+        img: '',
+        count: 1,
+        price: 1500,
+        categogy: '',
+        sex: 'male',
+        sizes: ["M", "L", "XL"],
+        size: 'M',
+      })
 
-const thumbsSwiper = ref(null);
-const setThumbsSwiper = (swiper) => {
-  thumbsSwiper.value = swiper;
-};
+  const setThumbsSwiper = (swiper) => {
+    thumbsSwiper.value = swiper;
+  };
 
-const selectSize = (sizes, sizeName) => {
-  sizes.forEach((element) => {
-    element.sizeSelected = element.title === sizeName;
-  });
-};
+  const items = ref([
+    {
+      title: 'Главная',
+      disabled: false,
+      href: '/',
+    },
+    {
+      title: 'Каталог',
+      disabled: false,
+      href: 'catalog',
+    },
+    {
+      title: 'Свитшот Freedom',
+      disabled: true,
+      href: 'card',
+    },
+  ]);
+
+  const itemsMobile = ref([
+    {
+      title: '< TravelMax',
+      disabled: false,
+      href: 'catalog',
+    },
+  ]);
+
+  const compositions = ref([
+    {
+      imagePath: '/image/clean_P.svg',
+    },
+    {
+      imagePath: '/image/wash_30.svg',
+    },
+    {
+      imagePath: '/image/iron_2.svg',
+    },
+    {
+      imagePath: '/image/dont_dry.svg',
+    },
+  ]);
 
 
 
-const recomendationPrev = ref(null);
-const recomendationNext = ref(null);
-const cardPrev = ref(null);
-const cardNext = ref(null);
+  const toggleCart = (product) => {
+    if (isInCart(product.id)) {
+      cart.removeProduct(product.id);
+    } else {
+      cart.addToCart(product);
+    }
+  };
 
-const modules = ref([FreeMode, Navigation, Thumbs]);
-
-const items = ref([
-  {
-    title: 'Главная',
-    disabled: false,
-    href: '/',
-  },
-  {
-    title: 'Каталог',
-    disabled: false,
-    href: 'catalog',
-  },
-  {
-    title: 'Свитшот Freedom',
-    disabled: true,
-    href: 'card',
-  },
-]);
-
-const itemsMobile = ref([
-  {
-    title: '< TravelMax',
-    disabled: false,
-    href: 'catalog',
-  },
-]);
-
-const sizes = ref([
-  {
-    title: 'XS',
-    sizeSelected: false,
-  },
-  {
-    title: 'S',
-    sizeSelected: false,
-  },
-  {
-    title: 'M',
-    sizeSelected: true,
-  },
-  {
-    title: 'L',
-    sizeSelected: false,
-  },
-  {
-    title: 'XL',
-    sizeSelected: false,
-  },
-]);
-
-const compositions = ref([
-  {
-    imagePath: '/image/clean_P.svg',
-  },
-  {
-    imagePath: '/image/wash_30.svg',
-  },
-  {
-    imagePath: '/image/iron_2.svg',
-  },
-  {
-    imagePath: '/image/dont_dry.svg',
-  },
-]);
+  const isInCart = (productId) => {
+    return cart.checkInCart(productId);
+  };
 </script>
 
 <template>
@@ -143,7 +136,7 @@ const compositions = ref([
     </div>
     <div class="card-container">
       <div class="card__photos">
-        <h1 class="item-name item-name__mobile">Свитшот Freedom</h1>
+        <h1 class="item-name item-name__mobile">{{product.title}}</h1>
         <p class="item-article item-article__mobile">Арт.: 3265845</p>
         <swiper
         class="card-photo-slider"
@@ -243,7 +236,7 @@ const compositions = ref([
       </swiper>
       </div>
       <div class="card__description">
-        <h1 class="item-name">Свитшот Freedom</h1>
+        <h1 class="item-name">{{ product.title }}</h1>
         <p class="item-article">Арт.: 3265845</p>
         <p class="item-description">Стильный и комфортный свитшот. Изготовлен из высококачественного материала, который обеспечивает мягкость и долговечность изделия. Эксклюзивный дизайн с символикой свободы. Подходит для повседневной носки, добавляя образу индивидуальности и выразительности.
         </p>
@@ -262,12 +255,12 @@ const compositions = ref([
             <span class="size-title">Выбрать размер</span>
             <div class="size-container__buttons">
               <button 
-              v-for="(size, index) in sizes"
+              v-for="(size, index) in product.sizes"
               :key="index"
               class="size-button"
-              :class="{selectedButton: size.sizeSelected}"
-              @click="selectSize(sizes, size.title)"
-              >{{size.title}}</button>
+              :class="{selectedButton: size == product.size}"
+              @click="product.size = size"
+              >{{size}}</button>
             </div>
           </div>
           <div class="composition-container">
@@ -283,16 +276,18 @@ const compositions = ref([
         </div>
         <div class="divider"></div>
         <div class="card-bottom">
-          <span class="item-price">4500 ₽</span>
+          <span class="item-price">{{ product.price }} ₽</span>
           <v-btn
           class="to-basket__button"
+          :class="{'in-cart': isInCart(product.id)}"
           variant="flat"
           width="190"
           height="52"
           rounded="0"
           color="rgba(221, 58, 26, 1)"
+          @click="toggleCart(product)"
           >
-            <span class="to-basket">В корзину</span>
+            <span class="to-basket">{{ isInCart(product.id) ? 'Удалить' : 'В корзину' }}</span>
             <img src="/assets/image/cart-white.svg" alt="">
           </v-btn>  
         </div>
@@ -710,7 +705,6 @@ const compositions = ref([
       width: 34px;
       height: 34px;
       content: none;
-
     }
     :global(.swiper-button-next){
       width: 34px;
@@ -759,6 +753,12 @@ const compositions = ref([
   }
   .cardNext{
     rotate: 90deg;
+  }
+  .recomendation-container{
+    position: relative;
+  }
+  .in-cart{
+    background-color: black !important;
   }
   @media (max-width: 1440px) {
     .card__photos{
@@ -944,7 +944,12 @@ const compositions = ref([
       justify-content: center;
     }
     .recomendation-slider__buttons-container{
-      display: none;
+      position: absolute;
+      z-index: 10;
+      top: 320px;
+      margin-right: 0;
+      justify-content: space-between;
+      width: calc(100vw - 30px);
     }
     .recomendation-container{
       padding: 0 15px;

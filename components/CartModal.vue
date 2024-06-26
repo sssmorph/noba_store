@@ -1,82 +1,48 @@
 <script setup>
-    // import { shopCart } from '/stores/cart';
-    // const cartModalStore = useModal();
-    // const cart = shopCart();
 
-    // const product = computed(() => cart.productInCart)
-    // cart.getProductInCart();
-    // const placeOrder = () =>{
-    //     cart.clearCart();
-    // }
-    // const removeFromCart = (itemID) => {
-    //     cart.removeProduct(itemID);
-    // };
-    // const plusCartCount = (itemID) => {
-    //     const index = cart.productInCart.findIndex(el => el.id === itemID)
-    //     cart.productInCart[index].count++
-    //     cart.updateStorage();
-    // }
-    // const minusCartCount = (itemID) => {
-        
-    //     const index = cart.productInCart.findIndex(el => el.id === itemID);
-    //     if(cart.productInCart[index].count <= 1){
-    //         cart.removeProduct(itemID);
-    //     } else{
-    //         cart.productInCart[index].count--;
-    //         cart.updateStorage();
-    //     }
-    // };
-    // const updateSize = () => {
-    //     cart.productInCart = product.value;
-    //     cart.updateStorage();
-    // };
-    // const closePopup = () => {
-    //   cartModalStore.closeCartModal();
-    // }
-    // const showModal = computed(() => cartModalStore.cartIsOpen);
 
-    import { useModal } from '../stores/modal'; // Убедитесь, что путь правильный
-import { shopCart } from '../stores/cart'; // Используем правильный импорт
-const cartModalStore = useModal();
-const cart = shopCart(); // Получаем доступ к store
+    import { useModal } from '../stores/modal'; 
+    import { shopCart } from '../stores/cart'; 
+    const cartModalStore = useModal();
+    const cart = shopCart();
 
-const product = computed(() => cart.productInCart);
-cart.getProductInCart();
+    const product = computed(() => cart.productInCart);
+    cart.getProductInCart();
 
-const placeOrder = () => {
-  cart.clearCart();
-};
+    const placeOrder = () => {
+    cart.clearCart();
+    };
 
-const removeFromCart = (itemID) => {
-  cart.removeProduct(itemID);
-};
-
-const plusCartCount = (itemID) => {
-  const index = cart.productInCart.findIndex(el => el.id === itemID);
-  cart.productInCart[index].count++;
-  cart.updateStorage();
-};
-
-const minusCartCount = (itemID) => {
-  const index = cart.productInCart.findIndex(el => el.id === itemID);
-  if (cart.productInCart[index].count <= 1) {
+    const removeFromCart = (itemID) => {
     cart.removeProduct(itemID);
-  } else {
-    cart.productInCart[index].count--;
+    };
+
+    const plusCartCount = (itemID) => {
+    const index = cart.productInCart.findIndex(el => el.id === itemID);
+    cart.productInCart[index].count++;
     cart.updateStorage();
-  }
-};
+    };
 
-const updateSize = () => {
-  cart.productInCart = product.value;
-  cart.updateStorage();
-};
+    const minusCartCount = (itemID) => {
+    const index = cart.productInCart.findIndex(el => el.id === itemID);
+    if (cart.productInCart[index].count <= 1) {
+        cart.removeProduct(itemID);
+    } else {
+        cart.productInCart[index].count--;
+        cart.updateStorage();
+    }
+    };
 
-const closePopup = () => {
-  cartModalStore.closeCartModal();
-};
+    const updateSize = () => {
+    cart.productInCart = product.value;
+    cart.updateStorage();
+    };
 
-const showModal = computed(() => cartModalStore.cartIsOpen);
+    const closePopup = () => {
+    cartModalStore.closeCartModal();
+    };
+
+    const showModal = computed(() => cartModalStore.cartIsOpen);
 
 </script>
 
@@ -259,6 +225,7 @@ const showModal = computed(() => cartModalStore.cartIsOpen);
         width: 100%;
         height: 100%;
         padding: 30px 40px;
+        overflow: scroll;
     }
     .close-popup{
         display: flex;
