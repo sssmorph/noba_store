@@ -1,9 +1,7 @@
 <script setup>
     let burgerIsActive = ref(false);
     const toggleBurger = () =>{
-        
         burgerIsActive.value = !burgerIsActive.value;
-        console.log(burgerIsActive.value);
     };
 </script>
 

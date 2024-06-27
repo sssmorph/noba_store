@@ -100,7 +100,7 @@
                               </div>
                               <div class="mobile-product-price">
                                 <span class="product-title-bold">Стоимость</span>
-                                <span class="product-value-bold">₽</span>
+                                <span class="product-value-bold">{{ item.price * item.count }} ₽</span>
                               </div>
                             </div>
                             <v-btn class="cross-button" variant="plain" size="31" rounded="0" @click="removeFromCart(item.id)">
@@ -132,7 +132,6 @@
                             height="52px"
                             color="rgba(221, 58, 26, 1)"
                             rounded="0"
-                            @click="placeOrder"
                             >
                             <span class="to-order-text">Перейти к оформлению</span>
                             <img src="/assets/image/text-box-white.svg" alt="">

@@ -8,8 +8,6 @@
     openFeedback();
   }
 
-
-
   const handleScroll = () => {
     const scrollPositions = [1380, 1780, 2180, 2780, 3280, 3780];
     const scrollPositionsMobile = [680, 1080, 1480, 1800, 2280, 2680];

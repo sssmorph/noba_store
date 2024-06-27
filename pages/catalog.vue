@@ -1,5 +1,7 @@
 <script setup>
   import { shopCart } from '../stores/cart';
+  import { shopFilter } from '../stores/catalogFilter';
+  const filter  = shopFilter();
   const cart = shopCart();
 
   const products = ref([
@@ -11,7 +13,7 @@
       price: 1500,
       categogy: 'hoodies',
       sex: 'male',
-      sizes: ["M", "L", "XL"],
+      sizes: ["S", "M", "L", "XL"],
       size: 'M',
     },
     {
@@ -19,7 +21,7 @@
       title: 'Свитшот Freedom 2',
       img: 'skirt',
       count: 1,
-      price: 1600,
+      price: 1800,
       categogy: '',
       sex: 'female',
       sizes: ["M", "L", "XL"],
@@ -30,7 +32,7 @@
       title: 'Свитшот Freedom 3',
       img: '',
       count: 1,
-      price: 1700,
+      price: 2000,
       categogy: 'shirt',
       sex: 'male',
       sizes: ["M", "L", "XL"],
@@ -41,28 +43,26 @@
       title: 'Свитшот Freedom 4',
       img: '',
       count: 1,
-      price: 1800,
+      price: 2200,
       categogy: 'longsleeve',
       sex: 'female',
       sizes: ["M", "L", "XL"],
       size: 'M',
     },
+    {
+      id: 5,
+      title: 'Свитшот Freedom 5',
+      img: '',
+      count: 1,
+      price: 2400,
+      categogy: 'longsleeve',
+      sex: 'unisex',
+      sizes: ["M", "L", "XL"],
+      size: 'M',
+    },
+    
   ]);
 
-  const sizes = ref([
-    {
-      title: "M",
-      sizeSelected: false
-    },
-    {
-      title: "L",
-      sizeSelected: false
-    },
-    {
-      title: "XL",
-      sizeSelected: false
-    }
-  ]);
   // бредкрамбсы
   const items = ref([
     {
@@ -90,32 +90,39 @@
   const filterIsActive = ref(false);
 
   const categories = ref([
-    { categoryName: "Худи", categorySelected: false },
-    { categoryName: "Свитшоты", categorySelected: false },
-    { categoryName: "Брюки", categorySelected: false },
-    { categoryName: "Костюмы", categorySelected: false },
-    { categoryName: "Лонгсливы", categorySelected: false },
-    { categoryName: "Юбки", categorySelected: false },
-    { categoryName: "Футболки", categorySelected: false },
-    { categoryName: "Рубашки", categorySelected: false },
-    { categoryName: "Верхняя одежда", categorySelected: false }
+    { categoryName: "Худи", categoryId: "hoodies", categorySelected: false },
+    { categoryName: "Свитшоты", categoryId: "sweatshirts", categorySelected: false },
+    { categoryName: "Брюки", categoryId: "trousers", categorySelected: false },
+    { categoryName: "Костюмы", categoryId: "costumes", categorySelected: false },
+    { categoryName: "Лонгсливы", categoryId: "longsleeves", categorySelected: false },
+    { categoryName: "Юбки", categoryId: "skirts", categorySelected: false },
+    { categoryName: "Футболки", categoryId: "t-shirts", categorySelected: false },
+    { categoryName: "Рубашки", categoryId: "shirts", categorySelected: false },
+    { categoryName: "Верхняя одежда", categoryId: "outerwear", categorySelected: false }
   ]);
-
   const genders = ref([
-    { categoryName: "Женщины", categorySelected: false }, 
-    { categoryName: "Мужчины", categorySelected: false }, 
-    { categoryName: "Унисекс", categorySelected: false }
+    { categoryName: "Женщины", categoryId: "female", categorySelected: false }, 
+    { categoryName: "Мужчины", categoryId: "male", categorySelected: false }, 
+    { categoryName: "Унисекс", categoryId: "unisex", categorySelected: false }
   ]);
-
   const filterSizes = ref([
-    { categoryName: "XS", categorySelected: false }, 
-    { categoryName: "S", categorySelected: false }, 
-    { categoryName: "M", categorySelected: false }, 
-    { categoryName: "L", categorySelected: false }, 
-    { categoryName: "XL", categorySelected: false }
+    { categoryName: "XS", categoryId: "XS", categorySelected: false }, 
+    { categoryName: "S", categoryId: "S", categorySelected: false }, 
+    { categoryName: "M", categoryId: "M", categorySelected: false }, 
+    { categoryName: "L", categoryId: "L", categorySelected: false }, 
+    { categoryName: "XL", categoryId: "XL", categorySelected: false }
   ]);
 
-  const prices = ref([0, 10000]);
+  const filterSearch =  ref("");
+  const selectedSort = ref("");
+
+  const minPrice = computed(() => {
+    return Math.min(...products.value.map(product => product.price));
+  });
+  const maxPrice = computed(() => {
+    return Math.max(...products.value.map(product => product.price));
+  });
+  const prices = ref([minPrice.value, maxPrice.value]);
 
   const toggleFilter = () => {
     filterIsActive.value = !filterIsActive.value;
@@ -137,6 +144,7 @@
   const isInCart = (productId) => {
     return cart.checkInCart(productId);
   };
+
 </script>
 
 <template>
@@ -223,6 +231,7 @@
         append-inner-icon="mdi-magnify"
         base-color="rgba(23, 7, 7, 1)"
         color="rgba(23, 7, 7, 1)"
+        v-model="filterSearch"
         >
         </v-text-field>
       </v-responsive>
@@ -252,10 +261,10 @@
         thumb-size="12"
         thumb-label="always"
         step="1"
-        v-model="prices"
         strict
-        min="0"
-        max="10000"
+        v-model="prices"
+        :min="minPrice"
+        :max="maxPrice"
         >
         </v-range-slider>
       </div>
@@ -305,7 +314,6 @@
               @click="selectCategory(filterSizes, item.categoryName)"
               >
                 <span class="filter-size-button__text" 
-                
                 :class="{categorySelected: item.categorySelected}">
                 {{item.categoryName}}</span>
               </v-btn>
@@ -328,8 +336,8 @@
             thumb-label="always"
             step="1"
             v-model="prices"
-            min="0"
-            max="10000"
+            :min="minPrice"
+            :max="maxPrice"
             >
             </v-range-slider>
           </div>
@@ -338,16 +346,34 @@
             <div class="radio-button-container d-flex flex-column ga-2">
 
               <div class="">
-                <input id="radio1" type="radio" name="radio" class="hidden" checked />
+                <input 
+                id="radio1" 
+                type="radio" 
+                name="radio" 
+                class="hidden" 
+                value="asc"
+                :v-model="selectedSort"
+                />
                 <label for="radio1" class="cursor-pointer d-flex flex-row align-center filter-item__text">
-                <div class="radio-button__square"></div>
+                <div 
+                class="radio-button__square"
+                ></div>
                 Цена по возрастанию</label>
               </div>
     
               <div class="">
-                <input id="radio2" type="radio" name="radio" class="hidden" />
+                <input 
+                id="radio2" 
+                type="radio" 
+                name="radio" 
+                class="hidden" 
+                value="desc"
+                :v-model="selectedSort"
+                />
                 <label for="radio2" class="cursor-pointer d-flex flex-row align-center filter-item__text">
-                <div class="radio-button__square "></div>
+                <div 
+                class="radio-button__square"
+                ></div>
                 Цена по убыванию</label>
               </div>
             </div>
@@ -363,6 +389,7 @@
           append-inner-icon="mdi-magnify"
           base-color="rgba(23, 7, 7, 1)"
           color="rgba(23, 7, 7, 1)"
+          v-model="filterSearch"
           >
           </v-text-field>
         </v-responsive>
@@ -372,16 +399,34 @@
         <div class="radio-button-container d-flex flex-column ga-2">
 
           <div class="">
-            <input id="radio3" type="radio" name="radio" class="hidden" checked />
+            <input 
+            id="radio3" 
+            type="radio" 
+            name="radio" 
+            class="hidden" 
+            value="asc"
+            :v-model="selectedSort"
+            />
             <label for="radio3" class="cursor-pointer d-flex flex-row align-center filter-item__text">
-            <div class="radio-button__square"></div>
+            <div 
+            class="radio-button__square"
+            ></div>
             Цена по возрастанию</label>
           </div>
 
           <div class="">
-            <input id="radio4" type="radio" name="radio" class="hidden" />
+            <input 
+            id="radio4" 
+            type="radio" 
+            name="radio" 
+            class="hidden" 
+            value="desc"
+            :v-model="selectedSort"
+            />
             <label for="radio4" class="cursor-pointer d-flex flex-row align-center filter-item__text">
-            <div class="radio-button__square "></div>
+            <div 
+            class="radio-button__square"
+            ></div>
             Цена по убыванию</label>
           </div>
         </div>
@@ -395,6 +440,7 @@
         append-inner-icon="mdi-magnify"
         base-color="rgba(23, 7, 7, 1)"
         color="rgba(23, 7, 7, 1)"
+        v-model="filterSearch"
         >
         </v-text-field>
       </v-responsive>
@@ -878,7 +924,7 @@
     z-index: 10;
     top: 0;
     left: -50vw;
-
+    overflow: hidden;
     width: 200vw;
     height: calc(100% + 100px);
     background-color: rgba(23, 7, 7, 0.35);

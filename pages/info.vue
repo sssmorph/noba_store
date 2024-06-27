@@ -14,7 +14,6 @@
 
     const toggleBurger = () =>{
         burgerIsActive.value = !burgerIsActive.value;
-        console.log(burgerIsActive.value);
     };
 
     const modalStore = useModal();
@@ -362,7 +361,6 @@
         margin-right: auto;
         top:0;
         left: 0;
-        z-index: -1;
         max-width: 1440px;
         width: 100%;
         height: 740px;
@@ -391,6 +389,8 @@
         width: 100%;
         align-items: flex-start;
         margin-top: 30px;
+        position: relative;
+        z-index: 1;
     }
     .header-block{
         padding-top: 1px;
@@ -415,6 +415,8 @@
     .header-text-container{
         margin-top: 214px;
         margin-left: 64px;
+        position: relative;
+        z-index: 1;
     }
     .header-title{
         text-transform: none;
@@ -448,6 +450,7 @@
         max-width: 27px;
         position: absolute;
         bottom: 65px;
+        z-index: 1;
     }
     .submit-request-button{
         transform: rotate(-90deg);
@@ -460,6 +463,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        z-index: 1;
     }
     .button__text{
         font-size: 18px;

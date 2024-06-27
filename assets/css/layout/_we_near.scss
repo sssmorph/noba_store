@@ -3,6 +3,7 @@
   height: 640px;
   margin-top: 125px;
   margin-bottom:  280px;
+  z-index: 1;
 
   @include mobile-width {
     margin-top: 50px;

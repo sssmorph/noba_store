@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   padding-top: 290px;
-  
+  z-index: 1;
   @include min-content-width {
     padding-top: 260px;
   }
