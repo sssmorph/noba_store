@@ -26,7 +26,7 @@
                     <div class="main-information-bottom__container">
                         <div class="main-information-bottom__social-media">
                             <NuxtLink to="https://www.youtube.com" target="blank" class="social-media-link">
-                                <img src="/assets/image/tiktok.svg" alt="">
+                                <img src="/assets/image/tiktok-dark.svg" alt="">
                             </NuxtLink>
                             <NuxtLink to="https://www.youtube.com" target="blank" class="social-media-link">
                                 <img src="/assets/image/telega.svg" alt="">

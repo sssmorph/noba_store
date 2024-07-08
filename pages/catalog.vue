@@ -2,7 +2,9 @@
   import { ref, computed} from 'vue'
   import { shopCart } from '../stores/cart';
   import { useCatalogFilter } from '../stores/catalogFilter';
-
+  import { useModal } from '../stores/modal'
+  
+  const cartStore = useModal(); 
   const filter  = useCatalogFilter();
   const cart = shopCart();
 
@@ -49,19 +51,17 @@
     }
   ]);
 
-
+  const openCart = () => {
+    cartStore.openCartModal();
+  }
   const filterIsActive = ref(false);
   const toggleFilter = () => {
     filterIsActive.value = !filterIsActive.value;
   };
   
-  const updateSearchQuery = (query) => {
-    filter.setSearchQuery(query);
-    searchQuery.value = query;
-  };
   const minPrice = computed(() => Math.min(...products.value.map(product => product.price)));
   const maxPrice = computed(() => Math.max(...products.value.map(product => product.price)));
-  const prices = ref([minPrice.value, maxPrice.value]);
+  const prices = ref([]);
 
   onMounted(() => {
 	filter.setMinPrice(minPrice.value);
@@ -156,8 +156,9 @@
         rounded="0"
         border="1.5px"
         color="rgba(221, 58, 26, 1)"
+        @click="openCart"
         >
-          <span class="button-text__preorder">Предзаказ</span>
+          <span class="button-text__preorder">Корзина</span>
           <img src="/assets/image/cart-white.svg">
         </v-btn>
         

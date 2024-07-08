@@ -1,6 +1,9 @@
 <script setup>
-  import { useModal } from '../stores/modal';
+    import { useContacts } from '../composables/useContacts';
+    import { useModal } from '../stores/modal';
 
+    const contacts = await useContacts();
+    const socialMedia = contacts['migx.mainsocial'];
     let links = [
         {url: "portfolio",name: "Портфолио"},
         {url: "/", name: "Интернет-магазин"},
@@ -11,6 +14,19 @@
     const openModal = () => {
         modalStore.openInfoFeedBack();
     }
+
+    const getImageSource = (social) => {
+        switch (social.trim().toLowerCase()) {
+            case 'youtube':
+            return '/_nuxt/assets/image/youtube-info.svg';
+            case 'telegram':
+            return '/_nuxt/assets/image/telegram-info.svg';
+            case 'tiktok':
+            return '/_nuxt/assets/image/tiktok-info.svg';
+            default:
+            return '';
+        }
+    };
 </script>
 
 <template>
@@ -30,19 +46,13 @@
                 </div>
                 <div class="social-contacts">
                     <div class="social-media">
-                        <a href="" class="social-media__item">
-                            <img src="/assets/image/tiktok-info.svg" alt="" class="social-media__image">
-                        </a>
-                        <a href="" class="social-media__item">
-                            <img src="/assets/image/telegram-info.svg" alt="" class="social-media__image">
-                        </a>
-                        <a href="" class="social-media__item">
-                            <img src="/assets/image/youtube-info.svg" alt="" class="social-media__image">
+                        <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="social-media__item">
+                            <img :src="getImageSource(social.social)" alt="" class="social-media__image">
                         </a>
                     </div>
                     <div class="contacts-container">
-                        <span class="swis t-w contact text-right">8 (925) 892-75-75</span>
-                        <span class="swis t-w contact text-right">mvmax1000@yandex.ru</span>
+                        <span class="swis t-w contact text-right">{{ contacts.phone }}</span>
+                        <span class="swis t-w contact text-right">{{ contacts.email }}</span>
                     </div>
                 </div>
             </div>

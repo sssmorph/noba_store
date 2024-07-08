@@ -1,20 +1,39 @@
 <script setup>
+  import { getBloger } from '../composables/getBlogerById'
+
+  const props = defineProps({
+    personId:{
+      type: Number,
+      required: true
+    }
+  })
+  const person = await getBloger(props.personId);
+  const blogerImage = 'http://api.noba.store/' + person.cover_img
+  // console.log(person['migx.social'])
+
+  const mainSocialMedia = computed(() => {
+    const mainSocial = person['migx.social'].find(socialMedia => socialMedia.main.includes('Да'))
+    if (mainSocial) {
+      return `/_nuxt/assets/image/${mainSocial.social.toLowerCase().trim()}.svg`
+    }
+    return null
+  })
 
 </script>
 
 <template>
     <NuxtLink to="/catalog" class="bloger-card">
-        <img src="/assets/image/bloger.png" class="bloger-card__photo">
+        <img :src="blogerImage" class="bloger-card__photo">
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
-          <img src="/assets/image/youtube.svg" alt="" class="description__social-media">
+          <img :src="mainSocialMedia" alt="" class="description__social-media">
 
           <div class="d-flex flex-column">
             <div class="description__header-container d-flex flex-row align-center justify-space-between">
-              <span class="description__title">Максим Иванов</span>
-              <span class="description__subscribers">275К</span>
+              <span class="description__title">{{person.pagetitle}}</span>
+              <span class="description__subscribers">{{ person.quantity }} </span>
             </div>
             <div class="description-container">
-              <p class="description__text">Путешественник, настоящий мастер слова и виртуоз в креативном написании... </p>
+              <p class="description__text">{{ person.info }}</p>
               <div class="description-text__border"></div>
             </div>
           </div>
@@ -89,6 +108,7 @@
     text-align: left;
     max-width: 210px;
     height: 51px;
+    overflow: hidden;
   }
   .description-text__border{
     max-width: 122px;

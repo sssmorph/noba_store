@@ -1,5 +1,10 @@
 <script setup>
-  
+  import { useBloggers } from '../composables/useBloggers';
+
+  const bloggers = await useBloggers();
+  useHead({
+    title: "Noba Store"
+  })
 </script>
 
 <template>
@@ -37,14 +42,11 @@
     <div class="wrapper-container">
       <img src="../assets/image/heart_red.svg" class="background-image">
       <div class="bloger-container d-flex flex-row flex-wrap">
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
-        <CollectionBlogerCard/>
+        <CollectionBlogerCard 
+        v-for="(blogger, index) in bloggers"
+        :key="index"
+        :personId="blogger.id"
+        />
       </div>
     </div>
   </section>

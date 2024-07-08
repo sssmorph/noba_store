@@ -1,5 +1,23 @@
 <script setup>
-    let burgerIsActive = ref(false);
+    import { useContacts } from '../composables/useContacts';
+
+    const contacts = await useContacts();
+    const socialMedia = contacts['migx.mainsocial'];
+
+    const getImageSource = (social) => {
+        switch (social.trim().toLowerCase()) {
+            case 'youtube':
+            return '/_nuxt/assets/image/youtube-info.svg';
+            case 'telegram':
+            return '/_nuxt/assets/image/telegram-info.svg';
+            case 'tiktok':
+            return '/_nuxt/assets/image/tiktok-info.svg';
+            default:
+            return '';
+        }
+    };
+
+    const burgerIsActive = ref(false);
     const toggleBurger = () =>{
         burgerIsActive.value = !burgerIsActive.value;
     };
@@ -16,30 +34,24 @@
                         <NuxtLink to="/konkurs" class="header-link swis t-w">Конкурс</NuxtLink>
                     </div>
                     <div class="burger-links">
-                        <span class="header-link swis t-w">mvmax1000@yandex.ru</span>
-                        <span class="header-link swis t-w">8 (925) 892-75-75</span>
+                        <span class="header-link swis t-w">{{ contacts.email }}</span>
+                        <span class="header-link swis t-w">{{ contacts.phone }}</span>
                     </div>
                 </div>
             </div>
             <nav class="header-navigation">
                 <div class="header__social-media">
-                    <a href="" class="social-media__item">
-                        <img src="/assets/image/tiktok-info.svg" alt="" class="social-media__image">
-                    </a>
-                    <a href="" class="social-media__item">
-                        <img src="/assets/image/telegram-info.svg" alt="" class="social-media__image">
-                    </a>
-                    <a href="" class="social-media__item">
-                        <img src="/assets/image/youtube-info.svg" alt="" class="social-media__image">
-                    </a>
+                        <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="social-media__item">
+                            <img :src="getImageSource(social.social)" alt="" class="social-media__image">
+                        </a>
                 </div>
                 <div class="burger-menu" @click="toggleBurger">
                     <span class="line1" :class="{open1: burgerIsActive}"></span>
                     <span class="line2" :class="{open2: burgerIsActive}"></span>
                   </div>
                 <div class="header-contacts">
-                    <span class="header-link swis t-w">mvmax1000@yandex.ru</span>
-                    <span class="header-link swis t-w">8 (925) 892-75-75</span>
+                    <span class="header-link swis t-w">{{ contacts.email }}</span>
+                    <span class="header-link swis t-w">{{ contacts.phone }}</span>
                 </div>
                 <div class="header-links">
                     <NuxtLink to="/portfolio" class="header-link swis t-w">Портфолио</NuxtLink>
