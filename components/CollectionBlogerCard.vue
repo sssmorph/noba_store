@@ -1,15 +1,19 @@
 <script setup>
-  import { getBloger } from '../composables/getBlogerById'
+  import { getBloger } from '../composables/getBlogerById';
+  import { useBlogerId } from '../stores/blogerCatalog';
+  import { useRouter } from 'vue-router';
 
+  const route = useRouter();
+  const blogerCatalog = useBlogerId();
   const props = defineProps({
     personId:{
       type: Number,
       required: true
     }
   })
+  const personId = ref(props.personId);
   const person = await getBloger(props.personId);
   const blogerImage = 'http://api.noba.store/' + person.cover_img
-  // console.log(person['migx.social'])
 
   const mainSocialMedia = computed(() => {
     const mainSocial = person['migx.social'].find(socialMedia => socialMedia.main.includes('Да'))
@@ -18,11 +22,15 @@
     }
     return null
   })
-
+  
+  const goToCatalogPage = () => {
+    blogerCatalog.setUserId(personId.value)    
+    route.push({ name: 'alias', params: { alias: person.alias }})
+  };
 </script>
 
 <template>
-    <NuxtLink to="/catalog" class="bloger-card">
+    <NuxtLink @click="goToCatalogPage()" class="bloger-card">
         <img :src="blogerImage" class="bloger-card__photo">
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
           <img :src="mainSocialMedia" alt="" class="description__social-media">

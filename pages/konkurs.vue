@@ -93,6 +93,7 @@ const onPlay = () => {
 const onPause = () => {
   showControl.value = true;
 };
+
   onMounted(() => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();

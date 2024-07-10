@@ -43,6 +43,7 @@
       <img src="../assets/image/heart_red.svg" class="background-image">
       <div class="bloger-container d-flex flex-row flex-wrap">
         <CollectionBlogerCard 
+        class="cursor-pointer"
         v-for="(blogger, index) in bloggers"
         :key="index"
         :personId="blogger.id"

@@ -8,7 +8,11 @@
     import 'swiper/css/free-mode';
     import 'swiper/css/thumbs';
     import { useContacts } from '../composables/useContacts';
+    import { useCorporateMain } from '~/composables/useCorporateMain';
+    import { usePartners } from '~/composables/usePartners';
 
+    const partners = await usePartners();
+    const corporate = await useCorporateMain();
     const contacts = await useContacts();
     const socialMedia = contacts['migx.mainsocial'];
     const modules = ref([Autoplay, Pagination, Navigation]);
@@ -16,6 +20,9 @@
     const cardNext = ref(null);
     let burgerIsActive = ref(false);
 
+    const portfolio = corporate.projects;
+    const sliderPhoto = corporate['migx.mainslider']
+    console.log(partners)
     const toggleBurger = () =>{
         burgerIsActive.value = !burgerIsActive.value;
     };
@@ -43,6 +50,9 @@
             return '';
         }
     };
+    useHead({
+        title: corporate.pagetitle
+    })
 </script>
 
 <template>
@@ -72,18 +82,10 @@
             :pagination="pagination"
             :crossFade="true"
             :modules="modules"
-            
             >
-                <swiper-slide class="header-slider__item">
-                    <img src="/assets/image/info-back1.png" alt="">
+                <swiper-slide v-for="slide in sliderPhoto" :key="slide.MIGX_id">
+                    <img :src="'http://api.noba.store/'+slide.image">
                 </swiper-slide>
-                <swiper-slide class="header-slider__item">
-                    <img src="/assets/image/info-back1.png" alt="">
-                </swiper-slide>
-                <swiper-slide class="header-slider__item">
-                    <img src="/assets/image/info-back1.png" alt="">
-                </swiper-slide>
-
             </swiper>
 
             <nav class="header-navigation">
@@ -100,7 +102,7 @@
             <div class="header-text-container">
                 <h2 class="header-title swis t-w">Создаём качественную одежду</h2>
                 <div class="text-line-container">
-                    <p class="header-text manrope t-g">NOBAREY — это новый уровень российского производителя спортивной и стрит одежды. Технологии, опережающие время. Инновационные материалы. Безупречность исполнения и влекущий дизайн.</p>
+                    <p class="header-text manrope t-g">{{ corporate.introtext }}</p>
                     <div class="dotted-line"></div>
                 </div>
             </div>
@@ -188,52 +190,21 @@
             '680':{
                 slidesPerView: 2,
 
+            },
+            '1000':{
+                slidePerView:3,
             }
-
         }"
+        v-if="portfolio.length > 1"
         >
-            <swiper-slide class="portfolio-card-item">
-                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
+            <swiper-slide v-for="(item, index) in portfolio" :key="item.id" class="portfolio-card-item">
+                <img :src="'http://api.noba.store/' + item.image" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">01</p>
+                  <p class="t-b swis portfolio-card__name">{{ item.pagetitle }}</p>
+                  <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
                 </div>
             </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-gray">
-                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">02</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-red">
-                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">03</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item">
-                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">01</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-gray">
-                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">02</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-red">
-                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">Фитнес-клуб “Глобал Фитнес”</p>
-                    <p class="t-b manrope portfolio-card__count">03</p>
-                </div>
-            </swiper-slide>
+
             <div class="card-navigation-container prevContainer">
                 <v-btn
                 ref="cardPrev"
@@ -242,7 +213,6 @@
                 size="34"
                 rounded="0"
                 class="recomendationPrev cardPrev"
-        
                 >
                   <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
                 </v-btn>
@@ -260,6 +230,11 @@
                 </v-btn>
             </div>
         </Swiper>
+        <p v-else>ЧТо-то пошло не так</p>
+        <div class="background-container">
+            <div class="card-bg-gray background-container__item"></div>
+            <div class="card-bg-red background-container__item-last"></div>
+        </div>
     </section>
     <section class="konkurs-section">
         <div class="wrapper konkurs-block">
@@ -715,7 +690,23 @@
     }
     .card-bg-red{
         background-color:rgba(221, 58, 26, 1);
-    }    
+    }
+    .background-container{
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+    }
+    .background-container__item{
+        width: 451px;
+        height: 100%;
+    }
+    .background-container__item-last{
+        width: 173px;
+        height: 100%;
+    }
     .portfolio-card__name__mobile{
         font-weight: 400;
         line-height: 120%;
@@ -1004,6 +995,9 @@
         }
     }
     @media (max-width: 1200px) {
+        .background-container{
+            display: none;
+        }
         .about-us-information{
             padding: 11px 0 15px 25px;
         }

@@ -1,39 +1,54 @@
 <script setup>
     import { useModal } from '../stores/modal';
-
-    let isActive = ref(false);
+    const props = defineProps({
+        bloger:{
+            type: Object,
+            required: true
+        }
+    })
+    const bloger = ref(props.bloger)
+    const mainImage = 'http://api.noba.store/' + bloger.value.cover_img;
+    const miniImage = 'http://api.noba.store/' + bloger.value.mini_img;
+    const isActive = ref(false);
     const toggleHeader = () => { return isActive.value  = !isActive.value};
     const cartStore = useModal();
-
     const openCart = () =>{
         cartStore.openCartModal()
     }
+    const socialMedia = bloger.value['migx.social']
+    const getImageSource = (social) => {
+        switch (social.trim().toLowerCase()) {
+            case 'youtube':
+            return '/_nuxt/assets/image/youtube.svg';
+            case 'telegram':
+            return '/_nuxt/assets/image/telega.svg';
+            case 'tiktok':
+            return '/_nuxt/assets/image/tiktok-dark.svg';
+            default:
+            return '';
+        }
+    };
 </script>
 
 <template>
     <header :class="{headerBig: isActive, colored: isActive}">
         <div class="header-container" :class="{headerBig: isActive, colored: isActive}">
             <div class="bloger-main-information">
-                <img src="/assets/image/bloger.png" alt="" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}">
+                <img :src="mainImage" alt="" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}">
                 <div class="main-information-container" :class="{mainInfoContainerBig: isActive}">
                     <div class="main-information-top">
-                        <img src="/assets/image/logo.png" class="bloger-avatar">
+                        <img :src="miniImage" class="bloger-avatar">
                         <div class="bloger-header">
-                            <span class="bloger-nick-name">TravelMax</span>
-                            <span class="subscribers">275K</span>
+                            <span class="bloger-nick-name">{{ bloger.name }}</span>
+                            <span class="subscribers">{{ bloger.quantity }}</span>
                         </div>
                     </div>
                     <div class="main-information-bottom__container">
                         <div class="main-information-bottom__social-media">
-                            <NuxtLink to="https://www.youtube.com" target="blank" class="social-media-link">
-                                <img src="/assets/image/tiktok-dark.svg" alt="">
-                            </NuxtLink>
-                            <NuxtLink to="https://www.youtube.com" target="blank" class="social-media-link">
-                                <img src="/assets/image/telega.svg" alt="">
-                            </NuxtLink>
-                            <NuxtLink to="https://www.youtube.com" target="blank" class="social-media-link">
-                                <img src="/assets/image/youtube.svg" alt="">
-                            </NuxtLink>
+                            <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="social-media-link" target="blank">
+                                <img :src="getImageSource(social.social)" >
+                            </a>
+                            
                         </div>
                         <v-btn  
                             :class="{hidden: !isActive}"
@@ -51,10 +66,10 @@
             </div>
             <div class="bloger-addictional-information" :class="{blogerAddInfo: isActive}">
                 <div class="informtaion-container">
-                    <h1 class="bloger-name">Максим Иванов</h1>
-                    <p class="bloger-description">Путешествия, география, культура и приключения</p>
+                    <h1 class="bloger-name">{{ bloger.pagetitle }}</h1>
+                    <p class="bloger-description">{{ bloger.introtext }}</p>
                 </div>
-                <p :class="{blogerText: isActive, hidden: !isActive}" >Максим — популярный блогер-путешественник, который объехал более 50 стран мира и делится своими впечатлениями и советами с подписчиками. В его блоге "TravelMax" вы найдете увлекательные истории о самых необычных и красивых уголках планеты, рекомендации по планированию путешествий и эксклюзивные фото- и видеоматериалы. Алексей увлеченно исследует разные культуры и традиции, делая свои путешествия не только приятными, но и образовательными для своей аудитории.</p>
+                <p :class="{blogerText: isActive, hidden: !isActive}" >{{ bloger.content }}</p>
 
                 <div class="buttons-container">
                     <NuxtLink to="/">

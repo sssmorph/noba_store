@@ -1,35 +1,34 @@
 <script setup>
-  import { ref, computed} from 'vue'
+  import { ref, computed} from 'vue';
   import { shopCart } from '../stores/cart';
   import { useCatalogFilter } from '../stores/catalogFilter';
-  import { useModal } from '../stores/modal'
-  
+  import { useModal } from '../stores/modal';
+  import { useRoute } from 'vue-router';
+  import { getBloger } from '../composables/getBlogerById';
+  import { useBloggers } from '../composables/useBloggers';
+
+  const router = useRoute();
   const cartStore = useModal(); 
   const filter  = useCatalogFilter();
   const cart = shopCart();
+  const blogers = await useBloggers();
+  const blogerId = blogers.find(bloger => bloger.alias === router.params.alias)?.id
+  const bloger = await getBloger(blogerId);
+  console.log(bloger);
 
   const products = ref([
-    { id: 1, title: 'Свитшот Freedom 1', count: 1, price: 1800, category: 'hoodies', sex: 'male', sizes: ["XS", "S", "M", "L", "XL"], size: 'M' },
-    { id: 2, title: 'Куртка Winter 1', count: 1, price: 3500, category: 'outerwear', sex: 'unisex', sizes: ["XS", "M", "L", "XL"], size: 'XL' },
-    { id: 3, title: 'Рубашка Formal 1', count: 1, price: 2500, category: 'shirts', sex: 'male', sizes: ["XS", "M", "L", "XL"], size: 'L' },
-    { id: 4, title: 'Футболка Casual 1', count: 1, price: 1200, category: 't-shirts', sex: 'male', sizes: ["XS", "S", "M", "L", "XL"], size: 'L' },
-    { id: 5, title: 'Юбка Summer 1', count: 1, price: 1700, category: 'skirts', sex: 'female', sizes: ["XS", "S", "M", "L"], size: 'M' },
-    { id: 6, title: 'Свитшот Freedom 2', count: 1, price: 2000, category: 'sweatshirts', sex: 'female', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 7, title: 'Свитшот Freedom 3', count: 1, price: 1500, category: 'trousers', sex: 'male', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 8, title: 'Свитшот Freedom 4', count: 1, price: 2400, category: 'costumes', sex: 'female', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 9, title: 'Свитшот Freedom 5', count: 1, price: 2200, category: 'longsleeves', sex: 'unisex', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 10, title: 'Свитшот Freedom 6', count: 1, price: 1800, category: 'hoodies', sex: 'male', sizes: ["XS", "S", "M", "L", "XL"], size: 'M' },
-    { id: 11, title: 'Свитшот Freedom 7', count: 1, price: 2000, category: 'sweatshirts', sex: 'female', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 12, title: 'Юбка Summer 2', count: 1, price: 1700, category: 'skirts', sex: 'female', sizes: ["XS", "S", "M", "L"], size: 'M' },
-    { id: 13, title: 'Футболка Casual 2', count: 1, price: 1200, category: 't-shirts', sex: 'male', sizes: ["XS", "S", "M", "L", "XL"], size: 'L' },
-    { id: 14, title: 'Рубашка Formal 2', count: 1, price: 2500, category: 'shirts', sex: 'male', sizes: ["XS", "M", "L", "XL"], size: 'L' },
-    { id: 15, title: 'Куртка Winter 2', count: 1, price: 3500, category: 'outerwear', sex: 'unisex', sizes: ["XS", "M", "L", "XL"], size: 'XL' },
-    { id: 16, title: 'Свитшот Freedom 8', count: 1, price: 1500, category: 'trousers', sex: 'male', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 17, title: 'Свитшот Freedom 9', count: 1, price: 2400, category: 'costumes', sex: 'female', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 18, title: 'Свитшот Freedom 10', count: 1, price: 2200, category: 'longsleeves', sex: 'unisex', sizes: ["XS", "M", "L", "XL"], size: 'M' },
-    { id: 19, title: 'Свитшот Freedom 11', count: 1, price: 1800, category: 'hoodies', sex: 'male', sizes: ["XS", "S", "M", "L", "XL"], size: 'M' },
-    { id: 20, title: 'Свитшот Freedom 12', count: 1, price: 2000, category: 'sweatshirts', sex: 'female', sizes: ["XS", "M", "L", "XL"], size: 'M' },
+    { id: 1, 
+      title: 'Свитшот Freedom 1', 
+      count: 1, 
+      price: 1800, 
+      category: 'hoodies', 
+      sex: 'male', 
+      sizes: ["XS", "S", "M", "L", "XL"], 
+      size: 'M' 
+    },
   ]);
+  const curproducts = ref(bloger.products);
+  console.log(curproducts.value)
   const items = ref([
     {
       title: 'Главная',
@@ -39,10 +38,9 @@
     {
       title: 'Каталог',
       disabled: true,
-      href: 'catalog',
+      href: router.params.alias,
     },
   ]);
-
   const itemsMobile = ref([
     {
       title: "< Все коллекции",
@@ -50,7 +48,6 @@
       href: '/'
     }
   ]);
-
   const openCart = () => {
     cartStore.openCartModal();
   }
@@ -58,57 +55,39 @@
   const toggleFilter = () => {
     filterIsActive.value = !filterIsActive.value;
   };
-  
   const minPrice = computed(() => Math.min(...products.value.map(product => product.price)));
   const maxPrice = computed(() => Math.max(...products.value.map(product => product.price)));
   const prices = ref([]);
 
-  onMounted(() => {
-	filter.setMinPrice(minPrice.value);
-	filter.setMaxPrice(maxPrice.value);
-	filter.setPriceRange([minPrice.value, maxPrice.value]);
-  });
-
   const searchQuery = ref(filter.filterSearch);
   const filteredProducts = computed(() => {
     let result = products.value;
-
     if (filter.categories.some(c => c.categorySelected)) {
       result = result.filter(product => filter.categories.find(c => c.categorySelected && c.categoryId === product.category));
     }
-
     if (filter.genders.some(g => g.categorySelected)) {
       result = result.filter(product => filter.genders.find(g => g.categorySelected && g.categoryId === product.sex));
     }
-
     if (filter.filterSizes.some(s => s.categorySelected)) {
       result = result.filter(product => filter.filterSizes.some(s => s.categorySelected && product.sizes.includes(s.categoryId)));
     }
-
     result = result.filter(product => product.price >= filter.prices[0] && product.price <= filter.prices[1]);
     if (searchQuery.value) {
       result = result.filter(product => product.title.toLowerCase().includes(searchQuery.value.toLowerCase()));
     }
-
-
     if (filter.selectedSort === 'asc') {
       result.sort((a, b) => a.price - b.price);
     } else if (filter.selectedSort === 'desc') {
       result.sort((a, b) => b.price - a.price);
     }
-
     return result;
   });
-
   const { categories, genders, filterSizes, filterSearch, selectedSort, selectCategory } = filter;
-  
   const updateSortOrder = (order) => {
     filter.selectedSort = order;
     localSortOrder.value = order;
   };
   const localSortOrder = ref(filter.selectedSort);
-
-
   const isInCart = (productId) => {
     return cart.checkInCart(productId);
   };
@@ -119,10 +98,19 @@
       cart.addToCart(productId);
     }
   };
+  onMounted(() => {
+	filter.setMinPrice(minPrice.value);
+	filter.setMaxPrice(maxPrice.value);
+	filter.setPriceRange([minPrice.value, maxPrice.value]);
+  });
+
+  useHead({
+    title: bloger.pagetitle
+  })
 </script>
 
 <template>
-  <AppHeaderBig/>
+  <AppHeaderBig :bloger="bloger"/>
   <CartModal/>
   <InfoFeedBackModal/>
   <section class="catalog-container">
