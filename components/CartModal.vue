@@ -10,38 +10,33 @@
     cart.getProductInCart();
 
     const placeOrder = () => {
-    cart.clearCart();
+        cart.clearCart();
     };
-
-    const removeFromCart = (itemID) => {
-    cart.removeProduct(itemID);
-    };
-
-    const plusCartCount = (itemID) => {
-    const index = cart.productInCart.findIndex(el => el.id === itemID);
-    cart.productInCart[index].count++;
-    cart.updateStorage();
-    };
-
-    const minusCartCount = (itemID) => {
-    const index = cart.productInCart.findIndex(el => el.id === itemID);
-    if (cart.productInCart[index].count <= 1) {
-        cart.removeProduct(itemID);
-    } else {
-        cart.productInCart[index].count--;
+    const removeFromCart = (index) => {
+        cart.removeProduct(index);
         cart.updateStorage();
+    };
+    const plusCartCount = (index) => {
+        if (index > -1 && index < cart.productInCart.length) {
+            cart.productInCart[index].count++;
+            cart.updateStorage();
+        }
     }
+    const minusCartCount = (index) => {
+        if (cart.productInCart[index].count <= 1) {
+            cart.removeProduct(index);
+        } else {
+            cart.productInCart[index].count--;
+            cart.updateStorage();
+        }
     };
-
-    const updateSize = () => {
-    cart.productInCart = product.value;
-    cart.updateStorage();
+    const updateSize = (index) => {
+        cart.productInCart[index].size = product.value[index].size;
+        cart.updateStorage();
     };
-
     const closePopup = () => {
     cartModalStore.closeCartModal();
     };
-
     const showModal = computed(() => cartModalStore.cartIsOpen);
 
 </script>
@@ -64,16 +59,16 @@
 
                         </v-btn>
 
-                        <div v-for="item in product" :key="item.id" class="product-in-cart">
-                            <img src="/assets/image/card-image.png" class="product-photo">
+                        <div v-for="(item, index) in product" :key="index" class="product-in-cart">
+                            <img :src="'http://api.noba.store' + item.image" class="product-photo">
                             <div class="product-information-container">
                               <span class="product-name">{{ item.title }}</span>
                               <div class="product-information">
                                 <div class="product product-size">
                                   <span class="product-title">Размер</span>
                                   <div class="select-style">
-                                    <select name="" id="sizes" class="cursor-pointers" v-model="item.size" @change="updateSize()">
-                                        <option v-for="size in item.sizes" :key="size" :value="size">{{size}}</option>
+                                    <select name="" id="sizes" class="cursor-pointers" @change="updateSize(index)">
+                                        <option v-for="size in item.sizes" :key="size" :value="size">{{ size }}</option>
                                     </select>
                                   </div>
                                 </div>
@@ -81,11 +76,11 @@
                                   <span class="product-title">Количество</span>
                                   <div class="value-container">
                                     <button class="product-value product-value__hover" 
-                                    @click="minusCartCount(item.id)"
+                                    @click="minusCartCount(index)"
                                     >-</button>
                                     <span class="product-value ">{{ item.count }}</span>
                                     <button class="product-value product-value__hover" 
-                                    @click="plusCartCount(item.id)"
+                                    @click="plusCartCount(index)"
                                     >+</button>
                                   </div>
                                 </div>
@@ -103,7 +98,7 @@
                                 <span class="product-value-bold">{{ item.price * item.count }} ₽</span>
                               </div>
                             </div>
-                            <v-btn class="cross-button" variant="plain" size="31" rounded="0" @click="removeFromCart(item.id)">
+                            <v-btn class="cross-button" variant="plain" size="31" rounded="0" @click="removeFromCart(index)">
                               <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
                             </v-btn>
                           </div>

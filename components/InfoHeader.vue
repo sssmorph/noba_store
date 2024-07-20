@@ -7,11 +7,11 @@
     const getImageSource = (social) => {
         switch (social.trim().toLowerCase()) {
             case 'youtube':
-            return '/_nuxt/assets/image/youtube-info.svg';
+            return 'http://api.noba.store/img/icons/youtube-info.svg';
             case 'telegram':
-            return '/_nuxt/assets/image/telegram-info.svg';
+            return 'http://api.noba.store/img/icons/telegram-info.svg';
             case 'tiktok':
-            return '/_nuxt/assets/image/tiktok-info.svg';
+            return 'http://api.noba.store/img/icons/tiktok-info.svg';
             default:
             return '';
         }

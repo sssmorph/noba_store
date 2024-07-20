@@ -1,11 +1,26 @@
 <script setup>
   import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
   import 'swiper/css/navigation';
-  import { ref } from 'vue';
+  import { ref, onBeforeMount } from 'vue';
   import 'swiper/css/free-mode';
   import 'swiper/css/thumbs';
-  import { useModal } from '../stores/modal';
-  import { shopCart } from '../stores/cart';
+  import { useModal } from '../../../stores/modal';
+  import { shopCart } from '../../../stores/cart';
+  import { useRoute } from 'vue-router'
+  import { getBloger } from '../../composables/getBlogerById';
+  import { useBloggers } from '../../composables/useBloggers';
+  import { getProduct } from '~/composables/getProduct';
+
+  const route = useRoute()
+
+  const blogers = await useBloggers();
+  const blogerId = blogers.find(bloger => bloger.alias === route.params.alias)?.id;
+  const bloger = await getBloger(blogerId);
+  const productId = bloger.products.find(product => product.alias  === route.params.card)?.id
+  const curProduct = await getProduct(productId);
+  
+  const recomendation = curProduct.recommendations;
+  const gallery = curProduct.gallery;
   
   const thumbsSwiper = ref(null);
   const recomendationPrev = ref(null);
@@ -21,15 +36,14 @@
   };
 
   const product = ref({
-        id: 1,
-        title: 'Свитшот Freedom 1',
-        img: '',
+        id: curProduct.id,
+        title: curProduct.pagetitle,
+        image: curProduct.image,
         count: 1,
-        price: 1500,
+        price: curProduct.price,
         categogy: '',
-        sex: 'male',
-        sizes: ["M", "L", "XL"],
-        size: 'M',
+        sizes: curProduct.size,
+        size: curProduct.size[0],
       })
 
   const setThumbsSwiper = (swiper) => {
@@ -45,7 +59,7 @@
     {
       title: 'Каталог',
       disabled: false,
-      href: 'catalog',
+      href: `${route.params.alias}`,
     },
     {
       title: 'Свитшот Freedom',
@@ -77,23 +91,17 @@
     },
   ]);
 
-
-
-  const toggleCart = (product) => {
-    if (isInCart(product.id)) {
-      cart.removeProduct(product.id);
-    } else {
-      cart.addToCart(product);
-    }
+  const toCart = (product) => {
+    cart.addToCart(product);
   };
 
-  const isInCart = (productId) => {
-    return cart.checkInCart(productId);
-  };
+  useHead({
+    title: curProduct.pagetitle
+  })
 </script>
 
 <template>
-  <AppHeaderBig/>
+  <AppHeaderBig :bloger="bloger"/>
   <InfoFeedBackModal/>
   <CartModal/>
   <section class="card-page-container">
@@ -136,7 +144,7 @@
     </div>
     <div class="card-container">
       <div class="card__photos">
-        <h1 class="item-name item-name__mobile">{{product.title}}</h1>
+        <h1 class="item-name item-name__mobile">{{ curProduct.pagetitle }}</h1>
         <p class="item-article item-article__mobile">Арт.: 3265845</p>
         <swiper
         class="card-photo-slider"
@@ -163,24 +171,10 @@
           },
         }"
         >
-        <swiper-slide class="card-photo-slider__item">
-          <img src="/assets/image/card-slider-1.jpg" />
+        <swiper-slide class="card-photo-slider__item" v-for="(image, index) in gallery" :key="index">
+          <img :src="'http://api.noba.store' + image.url" />
         </swiper-slide>
-        <swiper-slide class="card-photo-slider__item">
-          <img src="/assets/image/card-slider-2.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__item">
-          <img src="/assets/image/card-slider-3.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__item">
-          <img src="/assets/image/card-slider-1.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__item">
-          <img src="/assets/image/card-slider-2.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__item">
-          <img src="/assets/image/card-slider-3.jpg" />
-        </swiper-slide>
+
         <div class="card-navigation-container">
             <v-btn
             ref="cardPrev"
@@ -215,35 +209,19 @@
         @swiper="setThumbsSwiper"
         
       >
-        <swiper-slide class="card-photo-slider__thumb">
-          <img src="/assets/image/card-slider-1.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__thumb">
-          <img src="/assets/image/card-slider-2.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__thumb">
-          <img src="/assets/image/card-slider-3.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__thumb">
-          <img src="/assets/image/card-slider-1.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__thumb">
-          <img src="/assets/image/card-slider-2.jpg" />
-        </swiper-slide>
-        <swiper-slide class="card-photo-slider__thumb">
-          <img src="/assets/image/card-slider-3.jpg" />
+        <swiper-slide class="card-photo-slider__thumb" v-for="(image, index) in gallery" :key="index">
+          <img :src="'http://api.noba.store' + image.url" />
         </swiper-slide>
       </swiper>
       </div>
       <div class="card__description">
-        <h1 class="item-name">{{ product.title }}</h1>
+        <h1 class="item-name">{{ curProduct.pagetitle }}</h1>
         <p class="item-article">Арт.: 3265845</p>
-        <p class="item-description">Стильный и комфортный свитшот. Изготовлен из высококачественного материала, который обеспечивает мягкость и долговечность изделия. Эксклюзивный дизайн с символикой свободы. Подходит для повседневной носки, добавляя образу индивидуальности и выразительности.
-        </p>
+        <p class="item-description">{{ curProduct.content }}</p>
         <div class="item-information__container">
           <div class="item-information">
             <span class="information-title">Состав:</span>
-            <span class="information-description">100% хлопок</span>
+            <span class="information-description">{{ curProduct.compound}}</span>
           </div>
           <div class="item-information">
             <span class="information-title">Производство:</span>
@@ -276,18 +254,17 @@
         </div>
         <div class="divider"></div>
         <div class="card-bottom">
-          <span class="item-price">{{ product.price }} ₽</span>
+          <span class="item-price">{{ curProduct.price }} ₽</span>
           <v-btn
           class="to-basket__button"
-          :class="{'in-cart': isInCart(product.id)}"
           variant="flat"
           width="190"
           height="52"
           rounded="0"
           color="rgba(221, 58, 26, 1)"
-          @click="toggleCart(product)"
+          @click="toCart(product)"
           >
-            <span class="to-basket">{{ isInCart(product.id) ? 'Удалить' : 'В корзину' }}</span>
+            <span class="to-basket">В корзину</span>
             <img src="/assets/image/cart-white.svg" alt="">
           </v-btn>  
         </div>
@@ -355,15 +332,15 @@
           },
         }"
         >
-          <swiper-slide v-for="n of 10" :virtualIndex="n" :key="n"
+          <swiper-slide v-for="(product, index) in recomendation" :key="index"
           class="swiper-slide__item"
           >
             <div class="slider__card-item">
-              <img src="/assets/image/for-slider.jpg" class="card-item__photo">
+              <img :src="`http://api.noba.store` + product.image" class="card-item__photo">
               <div class="card-item__bottom">
-                <span class="card-item__bottom-title">Свитшот Noba</span>
+                <span class="card-item__bottom-title">{{ product.pagetitle }}</span>
                 <div class="card-item__bottom-price-container">
-                  <span class="card-item__bottom-price">{{n}}4500 ₽</span>
+                  <span class="card-item__bottom-price">{{ product.price }} ₽</span>
                   <button class="card-item__bottom-cart"><img src="/assets/image/cart-red-13.svg" alt=""></button>
                 </div>
               </div>

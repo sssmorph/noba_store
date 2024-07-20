@@ -19,11 +19,11 @@
   const getImageSource = (social) => {
         switch (social.trim().toLowerCase()) {
             case 'youtube':
-            return '/_nuxt/assets/image/YouTube.svg';
+            return 'http://api.noba.store/img/icons/YouTube.svg';
             case 'telegram':
-            return '/_nuxt/assets/image/TG.svg';
+            return 'http://api.noba.store/img/icons/TG.svg';
             case 'tiktok':
-            return '/_nuxt/assets/image/tiktok-dark.svg';
+            return 'http://api.noba.store/img/icons/tiktok-dark.svg';
             default:
             return '';
         }
@@ -31,11 +31,11 @@
   const getImageSourceMobile = (social) => {
     switch (social.trim().toLowerCase()){
       case 'youtube':
-        return '/_nuxt/assets/image/YouTube_W.svg';
+        return 'http://api.noba.store/img/icons/YouTube_W.svg';
       case 'telegram':
-        return '/_nuxt/assets/image/TG_W.svg';
+        return 'http://api.noba.store/img/icons/TG_W.svg';
       case 'tiktok':
-        return '/_nuxt/assets/image/tiktok_W.svg';
+        return 'http://api.noba.store/img/icons/tiktok_W.svg';
       default:
         return '';
     }

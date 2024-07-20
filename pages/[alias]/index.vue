@@ -1,116 +1,176 @@
 <script setup>
-  import { ref, computed} from 'vue';
-  import { shopCart } from '../stores/cart';
-  import { useCatalogFilter } from '../stores/catalogFilter';
-  import { useModal } from '../stores/modal';
-  import { useRoute } from 'vue-router';
-  import { getBloger } from '../composables/getBlogerById';
-  import { useBloggers } from '../composables/useBloggers';
+	import { ref, computed, onMounted } from 'vue';
+	import { shopCart } from '../../stores/cart';
+	import { useCatalogFilter } from '../../stores/catalogFilter';
+	import { useModal } from '../../stores/modal';
+	import { useRoute } from 'vue-router';
+	import { getBloger } from '../../composables/getBlogerById';
+	import { useBloggers } from '../../composables/useBloggers';
 
-  const router = useRoute();
-  const cartStore = useModal(); 
-  const filter  = useCatalogFilter();
-  const cart = shopCart();
-  const blogers = await useBloggers();
-  const blogerId = blogers.find(bloger => bloger.alias === router.params.alias)?.id
-  const bloger = await getBloger(blogerId);
-  console.log(bloger);
+	const router = useRoute();
+	const cartStore = useModal(); 
+	const filter  = useCatalogFilter();
+	const cart = shopCart();
 
-  const products = ref([
-    { id: 1, 
-      title: 'Свитшот Freedom 1', 
-      count: 1, 
-      price: 1800, 
-      category: 'hoodies', 
-      sex: 'male', 
-      sizes: ["XS", "S", "M", "L", "XL"], 
-      size: 'M' 
-    },
+	const blogers = ref([]);
+	const bloger = ref(null); 
+	const products = ref([]);
+	const bloggersData = await useBloggers();
+	blogers.value = bloggersData;
+	const blogerId = blogers.value.find(bloger => bloger.alias === router.params.alias)?.id;
+	const blogerData = await getBloger(blogerId);
+	bloger.value = blogerData;
+
+	const categories = bloger.value.category;
+  const currentCategories = ref(categories.map(category => {
+  return {
+    categoryName: category.pagetitle,
+    categoryId: category.id, 
+    categorySelected: false 
+    };
+  }));
+
+	const selectedSort = ref("");
+	const maxPrice = ref(Math.max(...products.value.map(product => product.price)));
+	const minPrice = ref(Math.min(...products.value.map(product => product.price)));
+	const prices = ref([]);
+	const genders = ref([
+      { categoryName: "Женщины", categoryId: "female", categorySelected: false }, 
+      { categoryName: "Мужчины", categoryId: "male", categorySelected: false }, 
+      { categoryName: "Унисекс", categoryId: "unisex", categorySelected: false }
+    ]);
+	const filterSizes = ref([
+      { categoryName: "XS", categoryId: "XS", categorySelected: false }, 
+      { categoryName: "S", categoryId: "S", categorySelected: false }, 
+      { categoryName: "M", categoryId: "M", categorySelected: false }, 
+      { categoryName: "L", categoryId: "L", categorySelected: false }, 
+      { categoryName: "XL", categoryId: "XL", categorySelected: false }
   ]);
-  const curproducts = ref(bloger.products);
-  console.log(curproducts.value)
-  const items = ref([
-    {
-      title: 'Главная',
-      disabled: false,
-      href: '/',
-    },
-    {
-      title: 'Каталог',
-      disabled: true,
-      href: router.params.alias,
-    },
-  ]);
-  const itemsMobile = ref([
-    {
-      title: "< Все коллекции",
-      disabled: false,
-      href: '/'
-    }
-  ]);
-  const openCart = () => {
-    cartStore.openCartModal();
-  }
-  const filterIsActive = ref(false);
-  const toggleFilter = () => {
-    filterIsActive.value = !filterIsActive.value;
-  };
-  const minPrice = computed(() => Math.min(...products.value.map(product => product.price)));
-  const maxPrice = computed(() => Math.max(...products.value.map(product => product.price)));
-  const prices = ref([]);
+  const searchQuery = ref();
 
-  const searchQuery = ref(filter.filterSearch);
-  const filteredProducts = computed(() => {
-    let result = products.value;
-    if (filter.categories.some(c => c.categorySelected)) {
-      result = result.filter(product => filter.categories.find(c => c.categorySelected && c.categoryId === product.category));
+  const filterProducts = computed(()=>{
+    let curentProd = ref(bloger.value.products)
+    
+    if(selectedSort.value === 'asc'){
+      curentProd.value.sort((a,b) => a.price - b.price)
+    }else if(selectedSort.value === 'desc'){
+      curentProd.value.sort((a,b ) => b.price - a.price)
     }
-    if (filter.genders.some(g => g.categorySelected)) {
-      result = result.filter(product => filter.genders.find(g => g.categorySelected && g.categoryId === product.sex));
+    if(searchQuery.value) {
+      curentProd.value = curentProd.value.filter(product => product.pagetitle.toLowerCase().includes(searchQuery.value.toLowerCase()));
     }
-    if (filter.filterSizes.some(s => s.categorySelected)) {
-      result = result.filter(product => filter.filterSizes.some(s => s.categorySelected && product.sizes.includes(s.categoryId)));
+    const selectedSizes = filterSizes.value.filter(size => size.categorySelected).map(size => size.categoryId);
+    if (selectedSizes.length > 0) {
+      curentProd.value = curentProd.value.filter(product => product.size.some(size => selectedSizes.includes(size)));
     }
-    result = result.filter(product => product.price >= filter.prices[0] && product.price <= filter.prices[1]);
-    if (searchQuery.value) {
-      result = result.filter(product => product.title.toLowerCase().includes(searchQuery.value.toLowerCase()));
-    }
-    if (filter.selectedSort === 'asc') {
-      result.sort((a, b) => a.price - b.price);
-    } else if (filter.selectedSort === 'desc') {
-      result.sort((a, b) => b.price - a.price);
-    }
-    return result;
-  });
-  const { categories, genders, filterSizes, filterSearch, selectedSort, selectCategory } = filter;
-  const updateSortOrder = (order) => {
-    filter.selectedSort = order;
-    localSortOrder.value = order;
-  };
-  const localSortOrder = ref(filter.selectedSort);
-  const isInCart = (productId) => {
-    return cart.checkInCart(productId);
-  };
-  const toggleCart = (productId) => {
-    if (isInCart(productId)) {
-      cart.removeFromCart(productId);
-    } else {
-      cart.addToCart(productId);
-    }
-  };
-  onMounted(() => {
-	filter.setMinPrice(minPrice.value);
-	filter.setMaxPrice(maxPrice.value);
-	filter.setPriceRange([minPrice.value, maxPrice.value]);
-  });
 
-  useHead({
-    title: bloger.pagetitle
+    const selectedGenders = genders.value
+    .filter(gender => gender.categorySelected)
+    .map(gender => gender.categoryId);
+
+    if (selectedGenders.length > 0) {
+      curentProd.value = curentProd.value.filter(product => {
+        if (selectedGenders.includes("unisex")) {
+          return product.gender === "Унисекс";
+        } else {
+          const genderMap = {
+            "female": "Женский",
+            "male": "Мужской"
+          };
+          return selectedGenders.some(gender => genderMap[gender] === product.gender);
+        }
+      });
+    }
+    
+    const selectedCategories = currentCategories.value
+    .filter(category => category.categorySelected)
+    .map(category => category.categoryId);
+
+    if (selectedCategories.length > 0) {
+      curentProd.value = curentProd.value.filter(product => 
+        selectedCategories.includes(product.parent)
+      );
+    }
+
+
+    return curentProd.value;
   })
+
+	const items = ref([
+	{
+		title: 'Главная',
+		disabled: false,
+		href: '/',
+	},
+	{
+		title: 'Каталог',
+		disabled: true,
+		href: `${router.params.alias}`,
+	},
+	]);
+	const itemsMobile = ref([
+	{
+		title: "< Все коллекции",
+		disabled: false,
+		href: '/'
+	}
+	]);
+
+	const openCart = () => {
+		cartStore.openCartModal();
+	}
+	const filterIsActive = ref(false);
+	const toggleFilter = () => {
+		filterIsActive.value = !filterIsActive.value;
+	};
+	
+	const selectCategory = (categoryArray, categoryId) => {
+      categoryArray.forEach(category => {
+        if (category.categoryId === categoryId) {
+          category.categorySelected = !category.categorySelected;
+        } else {
+          category.categorySelected = false;
+        }
+      });
+    };
+	const updateSortOrder = (order) => {
+		selectedSort.value = order
+	};
+	const toCart = (productId) => {
+		cart.addToCart(productId);
+	};
+
+	onMounted(async () => {
+		const bloggersData = await useBloggers();
+		blogers.value = bloggersData;
+		const blogerId = blogers.value.find(bloger => bloger.alias === router.params.alias)?.id;
+		const blogerData = await getBloger(blogerId);
+		bloger.value = blogerData;
+
+		if (bloger.value && bloger.value.products) {
+			products.value = bloger.value.products.map(curproduct => ({
+				id: curproduct.id,
+				title: curproduct.pagetitle,
+				alias: curproduct.alias,
+				sizes: curproduct.size,
+				size: curproduct.size[0],
+				count: 1,
+				price: curproduct.price,
+				sex: curproduct.gender,
+				category: bloger.value.categories ? bloger.value.categories.find(cat => cat.id === curproduct.parent) : null,
+				image: curproduct.image
+			}));
+		};
+	});
+
+	useHead({
+		title: bloger.value ? bloger.value.pagetitle : 'Каталог'
+	});
 </script>
 
 <template>
-  <AppHeaderBig :bloger="bloger"/>
+  
+  <AppHeaderBig v-if="bloger" :bloger="bloger"/>
   <CartModal/>
   <InfoFeedBackModal/>
   <section class="catalog-container">
@@ -179,7 +239,7 @@
         size="34"
         color="rgba(23, 7, 7, 1)"
         rounded="0"
-        @click="toggleFilter"
+        @click="toggleFilter()"
         >
           <img src="/assets/image/filter-button.svg" alt="">
         </v-btn>
@@ -189,7 +249,7 @@
       :class="{hidden: filterIsActive}"
       >
         <v-text-field class="search-box"
-        clearable label="Поиск" 
+        clearable label="Поиск по названию" 
         variant="underlined"
         append-inner-icon="mdi-magnify"
         base-color="rgba(23, 7, 7, 1)"
@@ -211,16 +271,15 @@
       </v-btn>
     </div>
     <div :class="{opennedFilter: filterIsActive, hidden: !filterIsActive}" class="filter-box__container">
-      <!-- открытый фильтр -->
   
       <div>
         <div class="filter-box">
           <div class="filter-item">
             <span class="filter-item__title">Категория</span>
             <ul class="filter-item__list">
-              <li v-for="(item, index) in categories" :key="index">
+              <li v-for="(item, index) in currentCategories" :key="index">
                 <span class="filter-item__text cursor-pointer" 
-                  @click="selectCategory(categories, item.categoryId)" 
+                  @click="selectCategory(currentCategories, item.categoryId)" 
                   :class="{ categorySelected: item.categorySelected }">
                   {{ item.categoryName }}
                 </span>
@@ -302,11 +361,12 @@
             </div>
           </div>
           <v-responsive max-width="390" class="search-box-container filter-search" style="margin-top: 12px;">
-            <v-text-field class="search-box" clearable label="Поиск" variant="underlined"
+            <v-text-field class="search-box" clearable label="Поиск по названию" variant="underlined"
               append-inner-icon="mdi-magnify"
               base-color="rgba(23, 7, 7, 1)"
               color="rgba(23, 7, 7, 1)"
-              v-model="searchQuery">
+              v-model="searchQuery"
+              >
             </v-text-field>
           </v-responsive>
         </div>
@@ -331,11 +391,12 @@
           </div>
         </div>
         <v-responsive max-width="100%" class="search-box-container filter-search mobile-search" style="margin-top: 12px;">
-          <v-text-field class="search-box" clearable label="Поиск" variant="underlined"
+          <v-text-field class="search-box" clearable label="Поиск по названию" variant="underlined"
             append-inner-icon="mdi-magnify"
             base-color="rgba(23, 7, 7, 1)"
             color="rgba(23, 7, 7, 1)"
-            v-model="searchQuery">
+            v-model="searchQuery"
+            >
           </v-text-field>
         </v-responsive>
     
@@ -345,51 +406,43 @@
         </v-btn>
       </div>
         </div>
-
-    
       <div class="catalog-cards-container " >
         <div class="dark-background" :class="{hidden: !filterIsActive}" @click="filterIsActive = false"></div>
 
-
-        <div v-for="product in filteredProducts" :key="product.id" class="card-item">
-          <NuxtLink to="/card">
-            <img src="../assets/image/card-image.png" class="card-photo">
+        
+        <div  v-for="product in filterProducts" :key="product.id" class="card-item">
+          <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
+            <img :src="`http://api.noba.store${product.image}`" class="card-photo">
           </NuxtLink>
-          <NuxtLink to="/card" class="card-item-bottom">
+          <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }">
             <div class="card-item-bottom__header">
-              <span class="item-name">{{ product.title }}</span>
+              <span class="item-name">{{ product.pagetitle }}</span>
               <span class="item-price">{{ product.price }}₽</span>
             </div>
 
           </NuxtLink>
           <div class="size-container">
             <button
-            v-for="currentSize in product.sizes" :key="currentSize" :value="currentSize"
-            class="size-button" :class="{cardSizeButton: currentSize == product.size}"
-            @click="product.size = currentSize"
+            v-for="currentSize in product.size" :key="currentSize" :value="currentSize"
+            class="size-button" :class="{cardSizeButton: currentSize == product.curSize}"
+            @click="product.curSize = currentSize"
             >{{currentSize}}</button>
           </div>
           <div class="to-basket-container">
             <v-btn
               class="to-basket__button"
-              :class="{
-                'in-cart': isInCart(product.id),
-                'to-basket__button': !isInCart(product.id)
-              }"
               variant="outlined"
               width="112"
               height="28"
               rounded="0"
               color="rgba(221, 58, 26, 1)"
-              @click="toggleCart(product)"
+              @click="toCart(product)"
             >
-              <span class="to-basket">{{ isInCart(product.id) ? 'Удалить' : 'В корзину' }}</span>
+              <span class="to-basket">В корзину</span>
               <div class="to-basket__image"></div>
             </v-btn>
           </div>
         </div>
-
-
       </div>
   </section>
   <AppFooter/>
@@ -399,7 +452,9 @@
  *{
   transition: 0.2s all ease-in-out;
  }
-
+ :global(.v-field__outline){
+  border-bottom: 2px black solid !important;
+ }
   .catalog-container{
     max-width: 1440px;
     margin: auto;
@@ -598,6 +653,7 @@
     max-width: 100%;
     height: 475px;
     object-fit: cover;
+    width: 100%;
   }
 
   .card-item-bottom{

@@ -30,10 +30,13 @@ export const shopCart = defineStore('cart',() => {
     updateStorage();
   }
   // удаление по ID товара
-  function removeProduct(itemID){
-    productInCart.value = productInCart.value.filter(element => element.id !== itemID)
-    updateStorage();
-  }
+
+  function removeProduct(index){
+    if (index > -1 && index < productInCart.value.length) {
+        productInCart.value.splice(index, 1);
+        updateStorage();
+    }
+}
   function checkInCart(itemID) {
     return productInCart.value.some(element => element.id === itemID);
   }

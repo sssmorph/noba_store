@@ -19,11 +19,11 @@
     const getImageSource = (social) => {
         switch (social.trim().toLowerCase()) {
             case 'youtube':
-            return '/_nuxt/assets/image/youtube.svg';
+            return 'http://api.noba.store/img/icons/youtube.svg';
             case 'telegram':
-            return '/_nuxt/assets/image/telega.svg';
+            return 'http://api.noba.store/img/icons/telega.svg';
             case 'tiktok':
-            return '/_nuxt/assets/image/tiktok-dark.svg';
+            return 'http://api.noba.store/img/icons/tiktok-dark.svg';
             default:
             return '';
         }
@@ -269,7 +269,8 @@
         position: absolute;
         left: 32px;
         top: 179px;
-
+        max-height: 265px;
+        overflow: hidden;
         padding: 4px 10px;
 
         font-family: Manrope;
