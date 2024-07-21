@@ -15,6 +15,8 @@
 	const blogers = ref([]);
 	const bloger = ref(null); 
 	const products = ref([]);
+
+
 	const bloggersData = await useBloggers();
 	blogers.value = bloggersData;
 	const blogerId = blogers.value.find(bloger => bloger.alias === router.params.alias)?.id;
@@ -29,15 +31,21 @@
     categorySelected: false 
     };
   }));
+  currentCategories.value.unshift({
+    categoryName: "Все категории",
+    categoryId: "all",
+    categorySelected: false 
+  });
 
 	const selectedSort = ref("");
-	const maxPrice = ref(Math.max(...products.value.map(product => product.price)));
-	const minPrice = ref(Math.min(...products.value.map(product => product.price)));
-	const prices = ref([]);
+	const maxPrice = ref(Math.max(...bloger.value.products.map(product => product.price)));
+	const minPrice = ref(Math.min(...bloger.value.products.map(product => product.price)));
+	const prices = ref([minPrice.value, maxPrice.value]);
 	const genders = ref([
+      { categoryName: "Все", categoryId: "all", categorySelected: false},
       { categoryName: "Женщины", categoryId: "female", categorySelected: false }, 
       { categoryName: "Мужчины", categoryId: "male", categorySelected: false }, 
-      { categoryName: "Унисекс", categoryId: "unisex", categorySelected: false }
+      { categoryName: "Унисекс", categoryId: "unisex", categorySelected: false },
     ]);
 	const filterSizes = ref([
       { categoryName: "XS", categoryId: "XS", categorySelected: false }, 
@@ -48,30 +56,38 @@
   ]);
   const searchQuery = ref();
 
-  const filterProducts = computed(()=>{
-    let curentProd = ref(bloger.value.products)
-    
-    if(selectedSort.value === 'asc'){
-      curentProd.value.sort((a,b) => a.price - b.price)
-    }else if(selectedSort.value === 'desc'){
-      curentProd.value.sort((a,b ) => b.price - a.price)
-    }
-    if(searchQuery.value) {
-      curentProd.value = curentProd.value.filter(product => product.pagetitle.toLowerCase().includes(searchQuery.value.toLowerCase()));
-    }
-    const selectedSizes = filterSizes.value.filter(size => size.categorySelected).map(size => size.categoryId);
-    if (selectedSizes.length > 0) {
-      curentProd.value = curentProd.value.filter(product => product.size.some(size => selectedSizes.includes(size)));
-    }
+  const filterProducts = computed(() => {
+    const curentProd = ref(bloger.value.products.slice());
 
+    if (searchQuery.value) {
+      curentProd.value = curentProd.value.filter(product => 
+        product.pagetitle.toLowerCase().includes(searchQuery.value.toLowerCase())
+      );
+    }
+    if(prices.value){
+      curentProd.value = curentProd.value.filter(product => 
+        product.price >= prices.value[0] && product.price <= prices.value[1]
+      );
+    }
+    const selectedSizes = filterSizes.value
+      .filter(size => size.categorySelected)
+      .map(size => size.categoryId);
+
+    if (selectedSizes.length > 0) {
+      curentProd.value = curentProd.value.filter(product => 
+        product.size.some(size => selectedSizes.includes(size))
+      );
+    }
     const selectedGenders = genders.value
-    .filter(gender => gender.categorySelected)
-    .map(gender => gender.categoryId);
+      .filter(gender => gender.categorySelected)
+      .map(gender => gender.categoryId);
 
     if (selectedGenders.length > 0) {
       curentProd.value = curentProd.value.filter(product => {
         if (selectedGenders.includes("unisex")) {
           return product.gender === "Унисекс";
+        } else if(selectedGenders.includes("all")){
+          return product
         } else {
           const genderMap = {
             "female": "Женский",
@@ -81,20 +97,27 @@
         }
       });
     }
-    
-    const selectedCategories = currentCategories.value
-    .filter(category => category.categorySelected)
-    .map(category => category.categoryId);
 
-    if (selectedCategories.length > 0) {
-      curentProd.value = curentProd.value.filter(product => 
-        selectedCategories.includes(product.parent)
-      );
+    const selectedCategories = currentCategories.value
+      .filter(category => category.categorySelected)
+      .map(category => category.categoryId);
+
+      if (selectedCategories.length > 0 && !selectedCategories.includes('all')) {
+        curentProd.value = curentProd.value.filter(product => 
+          selectedCategories.includes(product.parent)
+        );
+      }
+
+    let sortedProducts = curentProd.value.slice();
+    if (selectedSort.value === 'asc') {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (selectedSort.value === 'desc') {
+      sortedProducts.sort((a, b) => b.price - a.price);
     }
 
+    return sortedProducts;
+  });
 
-    return curentProd.value;
-  })
 
 	const items = ref([
 	{
@@ -206,7 +229,7 @@
         color="rgba(221, 58, 26, 1)"
         @click="openCart"
         >
-          <span class="button-text__preorder">Корзина</span>
+          <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` ( ${cart.productInCart.length} )`: '' }}</span>
           <img src="/assets/image/cart-white.svg">
         </v-btn>
         
@@ -322,7 +345,7 @@
           </div>
           <div class="filter-item__container radio-slider">
             <div class="filter-item">
-              <span class="filter-item__title">Цена</span>
+              <span class="filter-item__title" @click="console.log(prices)">Цена</span>
               <v-range-slider
                 max-width="190"
                 track-size="2"
@@ -342,6 +365,13 @@
             <div class="filter-item">
               <span class="filter-item__title">Упорядочить по</span>
               <div class="radio-button-container d-flex flex-column ga-2">
+                <div>
+                  <input id="radio5" type="radio" name="radio" class="hidden" value="default" :v-model="selectedSort" @change="updateSortOrder('default')"/>
+                  <label for="radio5" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+                    <div class="radio-button__square"></div>
+                    Цена по умолчанию
+                  </label>
+                </div>
                 <div>
                   <input id="radio1" type="radio" name="radio" class="hidden" value="asc" :v-model="selectedSort" @change="updateSortOrder('asc')"/>
                   <label for="radio1" class="cursor-pointer d-flex flex-row align-center filter-item__text">
@@ -374,13 +404,19 @@
           <span class="filter-item__title">Упорядочить по</span>
           <div class="radio-button-container d-flex flex-column ga-2">
             <div>
+              <input id="radio6" type="radio" name="radio" class="hidden" value="default" :v-model="selectedSort" @change="updateSortOrder('default')" />
+              <label for="radio6" class="cursor-pointer d-flex flex-row align-center filter-item__text">
+                <div class="radio-button__square"></div>
+                Цена по умолчанию
+              </label>
+            </div>
+            <div>
               <input id="radio3" type="radio" name="radio" class="hidden" value="asc" :v-model="selectedSort"  @change="updateSortOrder('asc')"/>
               <label for="radio3" class="cursor-pointer d-flex flex-row align-center filter-item__text">
                 <div class="radio-button__square"></div>
                 Цена по возрастанию
               </label>
             </div>
-    
             <div>
               <input id="radio4" type="radio" name="radio" class="hidden" value="desc" :v-model="selectedSort"  @change="updateSortOrder('desc')"/>
               <label for="radio4" class="cursor-pointer d-flex flex-row align-center filter-item__text">
@@ -955,7 +991,6 @@
     }
   @media (max-width: 1650px) {
       .card-item:hover{
-        scale: none;
         .card-photo{
           height: 475px;
           width: 100%;
@@ -1043,8 +1078,13 @@
     .card-item:hover{
       scale: none;
       .size-container{
-        display: none;
+        top: 475px;
       }
+    }
+    .size-container{
+      display: flex;
+      opacity: 1;
+      top: 430px;
     }
   }
   @media (max-width: 640px) {
@@ -1199,6 +1239,9 @@
         height: 534px;
         width: 100%;
       }
+    }
+    .size-container{
+      top: 475px;
     }
   }
   @media (max-width: 430px) {

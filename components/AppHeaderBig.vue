@@ -45,10 +45,9 @@
                     </div>
                     <div class="main-information-bottom__container">
                         <div class="main-information-bottom__social-media">
-                            <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="social-media-link" target="blank">
-                                <img :src="getImageSource(social.social)" >
+                            <a v-for="social in socialMedia" :key="social.MIGX_id" :href="`//${social.url}`" class="social-media-link" target="blank">
+                                <img :src="getImageSource(social.social)">
                             </a>
-                            
                         </div>
                         <v-btn  
                             :class="{hidden: !isActive}"
@@ -264,13 +263,29 @@
     .hidden{
         display: none;
     }
+    .blogerText::-webkit-scrollbar {
+        width: 20px;
+      }
+      .blogerText::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+      .blogerText::-webkit-scrollbar-thumb {
+        background-color: rgb(221, 58, 26);
+        border-radius: 20px;
+        border: 7px solid transparent;
+        background-clip: content-box;
+      }
+      
+      .blogerText::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(181, 51, 25);
+      }
     .blogerText{
         width: calc(100% - 72px);
         position: absolute;
         left: 32px;
         top: 179px;
         max-height: 265px;
-        overflow: hidden;
+        overflow-y: scroll;
         padding: 4px 10px;
 
         font-family: Manrope;

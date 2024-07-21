@@ -18,7 +18,8 @@
   const bloger = await getBloger(blogerId);
   const productId = bloger.products.find(product => product.alias  === route.params.card)?.id
   const curProduct = await getProduct(productId);
-  
+
+
   const recomendation = curProduct.recommendations;
   const gallery = curProduct.gallery;
   
@@ -57,12 +58,12 @@
       href: '/',
     },
     {
-      title: 'Каталог',
+      title: bloger.name,
       disabled: false,
-      href: `${route.params.alias}`,
+      href: `http://noba.store/${route.params.alias}`,
     },
     {
-      title: 'Свитшот Freedom',
+      title: product.value.title,
       disabled: true,
       href: 'card',
     },
@@ -70,7 +71,7 @@
 
   const itemsMobile = ref([
     {
-      title: '< TravelMax',
+      title: `< ${bloger.name}`,
       disabled: false,
       href: 'catalog',
     },
