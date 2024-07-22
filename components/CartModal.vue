@@ -67,7 +67,7 @@
                                 <div class="product product-size">
                                   <span class="product-title">Размер</span>
                                   <div class="select-style">
-                                    <select name="" id="sizes" class="cursor-pointers" @change="updateSize(index)">
+                                    <select name="" id="sizes" class="cursor-pointer" v-model="item.size" @change="updateSize(index)">
                                         <option v-for="size in item.sizes" :key="size" :value="size">{{ size }}</option>
                                     </select>
                                   </div>
@@ -115,7 +115,7 @@
                                 </v-text-field>
                             </v-responsive>
                             <div class="price-container">
-                                <span class="without-sale">13500 ₽</span>
+                                <span class="without-sale">{{ cart.totalCartPrice }} ₽</span>
                                 <span class="current-price">{{ cart.totalCartPrice }} ₽</span>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
         width: 100%;
         height: 100%;
         padding: 30px 40px;
-        overflow: scroll;
+        overflow-y: scroll;
     }
     .close-popup{
         display: flex;

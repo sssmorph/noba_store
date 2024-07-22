@@ -11,18 +11,20 @@
     import { useCorporateMain } from '~/composables/useCorporateMain';
     import { usePartners } from '~/composables/usePartners';
 
-    const partners = await usePartners();
+    const partnersData = await usePartners();
     const corporate = await useCorporateMain();
     const contacts = await useContacts();
     const socialMedia = contacts['migx.mainsocial'];
     const modules = ref([Autoplay, Pagination, Navigation]);
     const cardPrev = ref(null);
     const cardNext = ref(null);
-    let burgerIsActive = ref(false);
+    const burgerIsActive = ref(false);
+    
+    const partners = ref();
+    partners.value = partnersData.results;
 
     const portfolio = corporate.projects;
     const sliderPhoto = corporate['migx.mainslider']
-    console.log(partners)
     const toggleBurger = () =>{
         burgerIsActive.value = !burgerIsActive.value;
     };
@@ -107,7 +109,10 @@
                 </div>
             </div>
             <div class="header__social-media">
-                <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="social-media__item">
+                <a v-for="social in socialMedia" :key="social.MIGX_id" 
+                :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
+                target="_blank"
+                class="social-media__item">
                     <img :src="getImageSource(social.social)" alt="" class="social-media__image">
                 </a>
             </div>
@@ -262,49 +267,26 @@
     <section class="wrapper partners-block">
         <h2 class="swis t-b partners-title">Партнёры</h2>
         <div class="partners-container">
-            <div class="partner-item">
-                <img src="/assets/image/partner1.png" alt="" class="partner-photo">
-                <div class="partner-item__information-container">
-                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
-                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
-                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
-
-                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
-
+            <div v-for="(partner, index) in partners" :key="index">
+                <div class="partner-item" v-if="(index++) % 2 != 0">
+                    
+                    <img :src="'http://api.noba.store/' + partner.image" alt="" class="partner-photo">
+                    <div class="partner-item__information-container">
+                        <h2 class="swis t-b partner-item-title">{{ partner.pagetitle }}</h2>
+                        <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
+                        <p class="partner-item-text t-b manrope">{{ partner.content }}</p>
+                        
+                    </div>
                 </div>
-            </div>
-            <div class="partner-item">
-                <div class="partner-item__information-container">
-                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
-                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
-                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
+                <div class="partner-item" v-else>
+                    <div class="partner-item__information-container">
+                        <h2 class="swis t-b partner-item-title">{{ partner.pagetitle }}</h2>
+                        <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
+                        <p class="partner-item-text t-b manrope">{{ partner.content }}</p>
 
-                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
-
+                    </div>
+                    <img :src="'http://api.noba.store/' + partner.image" alt="" class="partner-photo">
                 </div>
-                <img src="/assets/image/partner2.png" alt="" class="partner-photo">
-            </div>
-            <div class="partner-item">
-                <img src="/assets/image/partner1.png" alt="" class="partner-photo">
-                <div class="partner-item__information-container">
-                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
-                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
-                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
-
-                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
-
-                </div>
-            </div>
-            <div class="partner-item">
-                <div class="partner-item__information-container">
-                    <h2 class="swis t-b partner-item-title">Союз смешанных боевых единоборств «ММА» России</h2>
-                    <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
-                    <p class="partner-item-text t-b manrope">Выражаю глубокую благодарность команде за высококачественную работу по созданию коллекции одежды для нашей компании. Каждый этап, от разработки дизайна до окончательного пошива, был выполнен оперативно и профессионально, с полным вниманием к деталям и соблюдением всех сроков.</p>
-
-                    <p class="partner-item-text t-b manrope">Мы получили уникальную и стильную коллекцию, которая отражает бренд нашей компании и будет оценена нашими клиентами. С уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды.</p>
-
-                </div>
-                <img src="/assets/image/partner2.png" alt="" class="partner-photo">
             </div>
         </div>
     </section>
@@ -791,6 +773,7 @@
     .partners-container{
         display: flex;
         flex-direction: column;
+        padding-bottom: 50px;
     }
     .partner-item:nth-child(odd){
         display: flex;
@@ -953,6 +936,11 @@
   .nextContainer{
     right: 10px;
   }
+  .partner-photo{
+    max-width: 650px;
+    max-height: 540px;
+    object-fit: contain;
+  }
     @media (max-width: 1400px) {
         .portfolio-card-item__small{
             display: none;
@@ -1028,6 +1016,7 @@
         }
         .partner-item__information-container{
             padding: 0 40px !important;
+            
         }
         .partner-item__information-container:nth-child(even){
             padding: 0;

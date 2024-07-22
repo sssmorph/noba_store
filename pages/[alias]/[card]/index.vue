@@ -20,7 +20,7 @@
   const curProduct = await getProduct(productId);
 
 
-  const recomendation = curProduct.recommendations;
+  const recomendation = ref(curProduct.recommendations);
   const gallery = curProduct.gallery;
   
   const thumbsSwiper = ref(null);
@@ -36,16 +36,6 @@
     cartStore.openCartModal();
   };
 
-  const product = ref({
-        id: curProduct.id,
-        title: curProduct.pagetitle,
-        image: curProduct.image,
-        count: 1,
-        price: curProduct.price,
-        categogy: '',
-        sizes: curProduct.size,
-        size: curProduct.size[0],
-      })
 
   const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
@@ -63,7 +53,7 @@
       href: `http://noba.store/${route.params.alias}`,
     },
     {
-      title: product.value.title,
+      title: curProduct.pagetitle,
       disabled: true,
       href: 'card',
     },
@@ -92,10 +82,31 @@
     },
   ]);
 
-  const toCart = (product) => {
-    cart.addToCart(product);
+  const toCart = () => {
+    let curentProduct = {
+      id: curProduct.id,
+      title: curProduct.pagetitle,
+      image: curProduct.image,
+      sizes: curProduct.size,
+      size: curProduct.selectedSize,
+      price: curProduct.price,
+      count: 1,
+    }
+    cart.addToCart(curentProduct);
   };
-
+  const recomendationToCart = (product) => {
+    let curentProduct = {
+      id: product.id,
+      title: product.pagetitle,
+      image: product.image,
+      sizes: product.size,
+      size: product.curSize,
+      price: product.price,
+      count: 1,
+    };
+    console.log(product);
+    cart.addToCart(curentProduct)
+  }
   useHead({
     title: curProduct.pagetitle
   })
@@ -132,21 +143,24 @@
           <img src="/assets/image/shirt.png">          
         </NuxtLink>
         <v-btn
-        class="sub-header__basket-button"
+        class="button-preorder"
         variant="flat"
-        size="34"
-        color="rgba(221, 58, 26, 1)"
+        width="233"
+        height="34"
         rounded="0"
+        border="1.5px"
+        color="rgba(221, 58, 26, 1)"
         @click="openCart"
         >
-        <img src="/assets/image/cart-black.svg" style="pointer-events: none;">
-        </v-btn>        
+          <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
+          <img src="/assets/image/cart-white.svg">
+        </v-btn>      
       </div>
     </div>
     <div class="card-container">
       <div class="card__photos">
         <h1 class="item-name item-name__mobile">{{ curProduct.pagetitle }}</h1>
-        <p class="item-article item-article__mobile">Арт.: 3265845</p>
+        <p class="item-article item-article__mobile">Арт.:{{ curProduct.article }}</p>
         <swiper
         class="card-photo-slider"
 
@@ -217,7 +231,7 @@
       </div>
       <div class="card__description">
         <h1 class="item-name">{{ curProduct.pagetitle }}</h1>
-        <p class="item-article">Арт.: 3265845</p>
+        <p class="item-article"> Арт.:{{ curProduct.article }}</p>
         <p class="item-description">{{ curProduct.content }}</p>
         <div class="item-information__container">
           <div class="item-information">
@@ -234,11 +248,11 @@
             <span class="size-title">Выбрать размер</span>
             <div class="size-container__buttons">
               <button 
-              v-for="(size, index) in product.sizes"
+              v-for="(size, index) in curProduct.size"
               :key="index"
               class="size-button"
-              :class="{selectedButton: size == product.size}"
-              @click="product.size = size"
+              :class="{selectedButton: size == curProduct.selectedSize}"
+              @click="curProduct.selectedSize = size"
               >{{size}}</button>
             </div>
           </div>
@@ -263,7 +277,7 @@
           height="52"
           rounded="0"
           color="rgba(221, 58, 26, 1)"
-          @click="toCart(product)"
+          @click="toCart()"
           >
             <span class="to-basket">В корзину</span>
             <img src="/assets/image/cart-white.svg" alt="">
@@ -284,7 +298,6 @@
         size="34"
         rounded="0"
         class="recomendationPrev"
-
         >
           <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
         </v-btn>
@@ -314,12 +327,12 @@
         :breakpoints="{
           '100':{
             slidesPerView:1,
-            spaceBetween: 28,
-            centeredSlides:false,
+            centeredSlides:true,
+            freeMode:true,
           },
           '600':{
-            centeredSlides:true,
             slidesPerView:2,
+            spaceBetween: 28,
           },
           '850':{
             slidesPerView: 3,
@@ -334,17 +347,38 @@
         }"
         >
           <swiper-slide v-for="(product, index) in recomendation" :key="index"
-          class="swiper-slide__item"
+          class="card-item"
           >
-            <div class="slider__card-item">
-              <img :src="`http://api.noba.store` + product.image" class="card-item__photo">
-              <div class="card-item__bottom">
-                <span class="card-item__bottom-title">{{ product.pagetitle }}</span>
-                <div class="card-item__bottom-price-container">
-                  <span class="card-item__bottom-price">{{ product.price }} ₽</span>
-                  <button class="card-item__bottom-cart"><img src="/assets/image/cart-red-13.svg" alt=""></button>
-                </div>
+            <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
+              <img :src="`http://api.noba.store${product.image}`" class="card-photo">
+            </NuxtLink>
+            <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }">
+              <div class="card-item-bottom__header">
+                <span class="item-name__rec">{{ product.pagetitle }}</span>
+                <span class="item-price__rec">{{ product.price }}₽</span>
               </div>
+  
+            </NuxtLink>
+            <div class="size-container__rec">
+              <button
+              v-for="currentSize in product.size" :key="currentSize" :value="currentSize"
+              class="size-button__rec" :class="{cardSizeButton: currentSize == product.curSize}"
+              @click="product.curSize = currentSize"
+              >{{currentSize}}</button>
+            </div>
+            <div class="to-basket-container">
+              <v-btn
+                class="to-basket__button__rec"
+                variant="outlined"
+                height="28"
+                width="128"
+                rounded="0"
+                color="rgba(221, 58, 26, 1)"
+                @click="recomendationToCart(product)"
+              >
+                <span class="to-basket__rec">В корзину</span>
+                <div class="to-basket__image__rec"></div>
+              </v-btn>
             </div>
           </swiper-slide>
 
@@ -356,6 +390,9 @@
 </template>
 
 <style lang="scss" scoped>
+  *{
+    transition: 0.2s all ease-in-out;
+  }
   .card-page-container{
     max-width: 1440px;
     margin: auto;
@@ -370,7 +407,7 @@
   }
   .sub-header__button-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     gap: 10px;
   }
   .other-collection__link{
@@ -496,21 +533,7 @@
     gap: 5px;
     justify-content: flex-start;
   }
-  .size-button{
-    font-family: Manrope;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 25.6px;
-    letter-spacing: 0.02em;
-    text-align: left;
-    border: 1.5px solid rgba(23, 7, 7, 1);
-    color: rgba(23, 7, 7, 1);
-    width: 34px;
-    height: 34px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   .composition-container{
     display: flex;
     flex-direction: column;
@@ -551,6 +574,15 @@
     color: rgba(23, 7,7,1);
 
   }
+  .item-price__rec{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    letter-spacing: -0.02em;
+    text-align: right;
+    color: rgba(23, 7, 7, 1);
+  }
   .to-basket__button{
 
     .to-basket{
@@ -567,6 +599,20 @@
     .to-basket::first-letter{
       text-transform: uppercase;
     }
+  }
+  .button-text__preorder{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    text-transform: lowercase;
+    color: rgba(255, 252, 251, 1);
+    margin-right: 15px;
+  }
+  .button-text__preorder:first-letter{
+    text-transform: uppercase;
   }
   .recomendation-title{
     font-family: Manrope;
@@ -609,6 +655,9 @@
     display: flex;
     flex-direction: row;
     gap: 9px;
+    position: absolute;
+    bottom: -2px;
+    right: 9px;
   }
   .card-item__bottom-price{
     font-family: Manrope;
@@ -713,6 +762,21 @@
       rotate: 90deg;
     }
   }
+  .size-button{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    border: 1.5px solid rgba(23, 7, 7, 1);
+    color: rgba(23, 7, 7, 1);
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .selectedButton{
     color: rgba(221, 58, 26, 1);
     border: 1.5px rgba(221, 58, 26, 1) solid !important;
@@ -738,12 +802,133 @@
   .in-cart{
     background-color: black !important;
   }
+  .card-item{
+    height: 582px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    position:relative;
+  }
+  .to-basket-container{
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0px;
+    right: 10.5px;
+  }
+  .to-basket__rec:first-letter{
+    text-transform: uppercase;
+  }
+  .to-basket__image__rec{
+    width: 14px;
+    height: 13px;
+    background-image: url(/assets/image/to-basket-black.svg);
+  }
+  .to-basket__button__rec:hover{
+    background-color: rgba(221, 58, 26, 1);
+    .to-basket__rec{
+      color: rgba(255, 252, 251, 1);
+    }
+    .to-basket__image__rec{
+      background-image: url(/assets/image/to-basket-white.svg);
+    }
+  }
+  @media (hover: hover) {
+    .card-item:hover{
+      top: 0;
+      left: 0;
+      .size-container__rec{
+        display: flex;
+        opacity: 1;
+      }
+    }
+  }
+  .card-photo{
+    max-width: 100%;
+    height: 475px;
+    object-fit: cover;
+    width: 100%;
+  }
+  .card-item-bottom{
+    border-top: 1.5px solid rgba(221, 58, 26, 1);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 335px;
+    padding-top: 13px;
+    padding-bottom: 12px;
+  }
+  .card-item-bottom__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .size-container__rec{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+    position: absolute;
+    top: 420px;
+    display: none;
+    opacity: 0;
+    left: 0;
+    right: 0;
+  }
+  .size-button__rec{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(255, 252, 251, 1);
+    background-color: rgba(23, 7, 7, 1);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .item-name__rec{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color:rgba(23, 7, 7, 1);
+  }
+  .to-basket__rec{
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 14.4px;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+    text-transform: lowercase;
+    margin-right: 10px;
+  }
+  .cardSizeButton{
+    background-color: rgba(221, 58, 26, 1);
+  }
+  @media (max-width: 1650px) {
+    .card-item:hover{
+      .size-container__rec{
+        display: flex;
+        opacity: 1;
+        top: 430px
+      }
+    }
+  }
   @media (max-width: 1440px) {
     .card__photos{
       max-width: 750px;
     }
   }
   @media (max-width: 1200px){
+    .card-photo{
+      width: 100%;
+    }
     .card-navigation-container{
       flex-direction: row;
     }
@@ -822,6 +1007,15 @@
 
   @media (max-width: 1024px) {
 
+    .card-item:hover{
+      scale: none;
+
+    }
+    .size-container__rec{
+      display: flex;
+      opacity: 1;
+      top: 430px;
+    }
     .card__photos{
       max-width: 400px;
     }
@@ -895,6 +1089,7 @@
     }
   }
   @media (max-width: 640px) {
+
     .recomendation-container{
       padding: 0 15px;
     }
@@ -904,6 +1099,42 @@
     }
     .sub-header-container{
       padding: 0 15px;
+    }
+    .card-item{
+      max-width: 400px;
+      max-height: 597px;
+      flex: 0 0 100%;
+      width: 100%;
+    }
+
+    .card-photo{
+      width: 100%;
+      height: 534px;
+    }
+    .to-basket-container{
+      bottom: 1px;
+      right: 6px;
+    }
+    .to-basket__button__rec{
+      margin: 0;
+      max-width: 94px !important;
+      padding: 0 3px;
+    }
+    .card-item-bottom{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 9px;
+      gap: 10px;
+      max-width: 388px;
+    }
+    .card-item-bottom__header{
+      display: flex;
+      justify-content: space-between;
+      width: calc(100% - 113px);
+      height: 28px;
+      align-items: center;
     }
   }
   @media (max-width: 600px) {
@@ -1007,4 +1238,28 @@
       gap: 5px;
     }
   }
+  :global(.v-field__outline){
+    border-bottom: 2px black solid !important;
+   }
+   :global(.v-breadcrumbs){ 
+      padding: 4px 0 !important;
+      font-family: Manrope !important;
+      font-weight: 300 !important;
+      font-size: 12px !important;
+      line-height: 120% !important;
+      height: 20px !important;
+    }
+    :global(.v-breadcrumbs-item){
+      padding: 0 !important;
+    }
+    :global(.v-breadcrumbs-divider){
+      color: rgba(166, 163, 163, 1) !important;
+      padding: 0 4px !important;
+    }
+    :global(.v-breadcrumbs-item--disabled){
+      .v-breadcrumbs-item--link{
+        color: rgba(23, 7, 7, 1) !important;
+        opacity: 1 !important;
+      }
+    }
 </style>

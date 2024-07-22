@@ -120,12 +120,16 @@ const onPause = () => {
         </nav>
         <div class="header__socail">
 
-          <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="socail_icon">
+          <a v-for="social in socialMedia" :key="social.MIGX_id" 
+          :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
+          class="socail_icon">
               <img :src="getImageSource(social.social)">
           </a>
         </div> 
         <div class="header__socail_mobile">
-          <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="socail_icon">
+          <a v-for="social in socialMedia" :key="social.MIGX_id" 
+          :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
+          class="socail_icon">
             <img :src="getImageSourceMobile(social.social)">
         </a>
         </div> 

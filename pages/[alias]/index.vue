@@ -34,7 +34,7 @@
   currentCategories.value.unshift({
     categoryName: "Все категории",
     categoryId: "all",
-    categorySelected: false 
+    categorySelected: true 
   });
 
 	const selectedSort = ref("");
@@ -42,7 +42,7 @@
 	const minPrice = ref(Math.min(...bloger.value.products.map(product => product.price)));
 	const prices = ref([minPrice.value, maxPrice.value]);
 	const genders = ref([
-      { categoryName: "Все", categoryId: "all", categorySelected: false},
+      { categoryName: "Все", categoryId: "all", categorySelected: true},
       { categoryName: "Женщины", categoryId: "female", categorySelected: false }, 
       { categoryName: "Мужчины", categoryId: "male", categorySelected: false }, 
       { categoryName: "Унисекс", categoryId: "unisex", categorySelected: false },
@@ -126,7 +126,7 @@
 		href: '/',
 	},
 	{
-		title: 'Каталог',
+		title: `${bloger.value.name}`,
 		disabled: true,
 		href: `${router.params.alias}`,
 	},
@@ -159,8 +159,17 @@
 	const updateSortOrder = (order) => {
 		selectedSort.value = order
 	};
-	const toCart = (productId) => {
-		cart.addToCart(productId);
+	const toCart = (product) => {
+    let curentProduct = {
+      id: product.id,
+      title: product.pagetitle,
+      image: product.image,
+      sizes: product.size,
+      size: product.curSize,
+      price: product.price,
+      count: 1,
+    }
+		cart.addToCart(curentProduct);
 	};
 
 	onMounted(async () => {
@@ -202,6 +211,12 @@
       divider="|"
       color="rgba(166, 163, 163, 1)"
       class="breadcrumbs"
+      style="padding: 4px 0;
+      font-family: Manrope;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 120%;
+      height: 20px;"
       >
         <template v-slot:title="{ item }">
           {{ item.title }}
@@ -229,7 +244,7 @@
         color="rgba(221, 58, 26, 1)"
         @click="openCart"
         >
-          <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` ( ${cart.productInCart.length} )`: '' }}</span>
+          <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
           <img src="/assets/image/cart-white.svg">
         </v-btn>
         
@@ -345,7 +360,7 @@
           </div>
           <div class="filter-item__container radio-slider">
             <div class="filter-item">
-              <span class="filter-item__title" @click="console.log(prices)">Цена</span>
+              <span class="filter-item__title">Цена</span>
               <v-range-slider
                 max-width="190"
                 track-size="2"
@@ -491,25 +506,13 @@
  :global(.v-field__outline){
   border-bottom: 2px black solid !important;
  }
-  .catalog-container{
-    max-width: 1440px;
-    margin: auto;
-    padding-top: 20px;
-    padding-bottom: 100px;
-  }
-  .sub-header-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 40px;
-  }
-  :global(.v-breadcrumbs){ 
+ :global(.v-breadcrumbs){ 
     padding: 4px 0 !important;
-    font-family: Manrope;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 120%;
-    height: 20px;
+    font-family: Manrope !important;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    line-height: 120% !important;
+    height: 20px !important;
   }
   :global(.v-breadcrumbs-item){
     padding: 0 !important;
@@ -524,6 +527,19 @@
       opacity: 1 !important;
     }
   }
+  .catalog-container{
+    max-width: 1440px;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 100px;
+  }
+  .sub-header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+
   .timer-container{
     display: flex;
     flex-direction: row;
@@ -672,6 +688,7 @@
       scale: 1.02;
       top: 0;
       left: 0;
+      transform: translateY(6px);
       .card-photo{
         height: 502px;
         width: 376px;
@@ -1077,6 +1094,10 @@
     }
     .card-item:hover{
       scale: none;
+      transform: translateY(0px);
+      .to-basket-container{
+        bottom: 0;
+      }
       .size-container{
         top: 475px;
       }
@@ -1086,6 +1107,7 @@
       opacity: 1;
       top: 430px;
     }
+
   }
   @media (max-width: 640px) {
     .catalog-title{
@@ -1249,5 +1271,28 @@
       height: 865px;
     }
   }
-
+  :global(.v-field__outline){
+    border-bottom: 2px black solid !important;
+   }
+   :global(.v-breadcrumbs){ 
+      padding: 4px 0 !important;
+      font-family: Manrope !important;
+      font-weight: 300 !important;
+      font-size: 12px !important;
+      line-height: 120% !important;
+      height: 20px !important;
+    }
+    :global(.v-breadcrumbs-item){
+      padding: 0 !important;
+    }
+    :global(.v-breadcrumbs-divider){
+      color: rgba(166, 163, 163, 1) !important;
+      padding: 0 4px !important;
+    }
+    :global(.v-breadcrumbs-item--disabled){
+      .v-breadcrumbs-item--link{
+        color: rgba(23, 7, 7, 1) !important;
+        opacity: 1 !important;
+      }
+    }
 </style>

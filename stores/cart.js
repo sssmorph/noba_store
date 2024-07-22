@@ -2,12 +2,11 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue';
 
 export const shopCart = defineStore('cart',() => {
-  // data
   const productInCart = ref([]);
   const totalCartPrice = computed(() => {
     return productInCart.value.reduce((total, item) => total + (item.price * item.count), 0);
   })
-  // methods
+
   function clearCart(){
     productInCart.value = [];
     updateStorage();
@@ -29,7 +28,6 @@ export const shopCart = defineStore('cart',() => {
     productInCart.value.push(product);
     updateStorage();
   }
-  // удаление по ID товара
 
   function removeProduct(index){
     if (index > -1 && index < productInCart.value.length) {
@@ -40,7 +38,7 @@ export const shopCart = defineStore('cart',() => {
   function checkInCart(itemID) {
     return productInCart.value.some(element => element.id === itemID);
   }
-  // returns
+
   return {
     productInCart,
     totalCartPrice,

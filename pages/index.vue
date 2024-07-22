@@ -2,6 +2,7 @@
   import { useBloggers } from '../composables/useBloggers';
 
   const bloggers = await useBloggers();
+  console.log(bloggers)
   useHead({
     title: "Noba Store"
   })
@@ -9,7 +10,6 @@
 
 <template>
   <AppHeaderSmall/>
-  <CartModal/>
   <InfoFeedBackModal/>
   <section class="noba-media-container">
     <div class="wrapper noba-media-start">

@@ -45,7 +45,12 @@
                     </div>
                     <div class="main-information-bottom__container">
                         <div class="main-information-bottom__social-media">
-                            <a v-for="social in socialMedia" :key="social.MIGX_id" :href="`//${social.url}`" class="social-media-link" target="blank">
+                            <a 
+                            v-for="social in socialMedia" :key="social.MIGX_id" 
+                            :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
+                            class="social-media-link" 
+                            target="_blank" 
+                            rel="noopener noreferrer">
                                 <img :src="getImageSource(social.social)">
                             </a>
                         </div>

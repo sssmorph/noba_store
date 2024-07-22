@@ -41,7 +41,11 @@
             </div>
             <nav class="header-navigation">
                 <div class="header__social-media">
-                        <a v-for="social in socialMedia" :key="social.MIGX_id" :href="social.url" class="social-media__item">
+                        <a v-for="social in socialMedia" :key="social.MIGX_id" 
+                        :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
+                        class="social-media__item"
+                        target="_blank"
+                        >
                             <img :src="getImageSource(social.social)" alt="" class="social-media__image">
                         </a>
                 </div>

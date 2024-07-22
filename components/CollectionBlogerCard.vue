@@ -14,11 +14,14 @@
   const blogerImage = 'http://api.noba.store/' + person.cover_img
 
   const mainSocialMedia = computed(() => {
-    const mainSocial = person['migx.social'].find(socialMedia => socialMedia.main.includes('Да'))
-    if (mainSocial) {
+    
+    if (person['migx.social']) {
+      const mainSocial = person['migx.social'].find(socialMedia => socialMedia.main.includes('Да'))
       return `http://api.noba.store/img/icons/${mainSocial.social.toLowerCase().trim()}.svg`
+    } else{
+      return ''
     }
-    return null
+
   })
 </script>
 
