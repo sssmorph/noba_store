@@ -16,7 +16,9 @@
   const blogers = await useBloggers();
   const blogerId = blogers.find(bloger => bloger.alias === route.params.alias)?.id;
   const bloger = await getBloger(blogerId);
-  const productId = bloger.products.find(product => product.alias  === route.params.card)?.id
+  const normalizedBloger = Array.isArray(bloger.products) ? bloger.products : Object.values(bloger.products);
+
+  const productId = normalizedBloger.find(product => product.alias  === route.params.card)?.id
   const curProduct = await getProduct(productId);
 
 
@@ -104,7 +106,7 @@
       price: product.price,
       count: 1,
     };
-    console.log(product);
+
     cart.addToCart(curentProduct)
   }
   useHead({
@@ -113,6 +115,7 @@
 </script>
 
 <template>
+  <AppOrder/>
   <AppHeaderBig :bloger="bloger"/>
   <InfoFeedBackModal/>
   <CartModal/>
@@ -232,7 +235,7 @@
       <div class="card__description">
         <h1 class="item-name">{{ curProduct.pagetitle }}</h1>
         <p class="item-article"> Арт.:{{ curProduct.article }}</p>
-        <p class="item-description">{{ curProduct.content }}</p>
+        <p class="item-description" >{{ curProduct.content }}</p>
         <div class="item-information__container">
           <div class="item-information">
             <span class="information-title">Состав:</span>

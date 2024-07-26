@@ -2,7 +2,6 @@
   import { useBloggers } from '../composables/useBloggers';
 
   const bloggers = await useBloggers();
-  console.log(bloggers)
   useHead({
     title: "Noba Store"
   })

@@ -22,7 +22,7 @@
     
     const partners = ref();
     partners.value = partnersData.results;
-
+    
     const portfolio = corporate.projects;
     const sliderPhoto = corporate['migx.mainslider']
     const toggleBurger = () =>{
@@ -203,11 +203,19 @@
         v-if="portfolio.length > 1"
         >
             <swiper-slide v-for="(item, index) in portfolio" :key="item.id" class="portfolio-card-item">
-                <img :src="'http://api.noba.store/' + item.image" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                  <p class="t-b swis portfolio-card__name">{{ item.pagetitle }}</p>
-                  <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
-                </div>
+                <NuxtLink :to="{ name: 'work', params: { work: item.alias }, query: {id: item.id} }">
+                    <img :src="'http://api.noba.store/' + item.image" class="portfolio-card-item__photo">
+                    <div class="portfolio-card-item__bottom">
+                    <p class="t-b swis portfolio-card__name">{{ item.pagetitle }}</p>
+                    <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
+                    </div>
+                    <button
+                    class="more-work-button more-work-button__item"
+                    >
+                        <span class="button__text t-w swis">ПОДРОБНЕЕ</span>
+                        <span class="button__line more-work"></span>
+                    </button>
+                </NuxtLink>
             </swiper-slide>
 
             <div class="card-navigation-container prevContainer">
@@ -274,7 +282,7 @@
                     <div class="partner-item__information-container">
                         <h2 class="swis t-b partner-item-title">{{ partner.pagetitle }}</h2>
                         <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
-                        <p class="partner-item-text t-b manrope">{{ partner.content }}</p>
+                        <p class="partner-item-text t-b manrope" v-html="partner.content"></p>
                         
                     </div>
                 </div>
@@ -282,7 +290,7 @@
                     <div class="partner-item__information-container">
                         <h2 class="swis t-b partner-item-title">{{ partner.pagetitle }}</h2>
                         <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots">
-                        <p class="partner-item-text t-b manrope">{{ partner.content }}</p>
+                        <p class="partner-item-text t-b manrope" v-html="partner.content"></p>
 
                     </div>
                     <img :src="'http://api.noba.store/' + partner.image" alt="" class="partner-photo">
@@ -940,6 +948,19 @@
     max-width: 650px;
     max-height: 540px;
     object-fit: contain;
+  }
+  .more-work-button__item{
+    left: auto;
+    right: -65px;
+    bottom: -130px;
+    transition: 0.2s ease-in-out all;
+    overflow: hidden;
+  }
+  .portfolio-card-item:hover{
+    transition: 0.2s ease-in-out all;
+    .more-work-button__item{
+        bottom: 88.5px
+    }
   }
     @media (max-width: 1400px) {
         .portfolio-card-item__small{

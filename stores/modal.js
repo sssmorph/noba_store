@@ -6,6 +6,7 @@ export const useModal = defineStore({
         cartIsOpen: false,
         feedbackIsOpen: false,
         infoFeedBackOpen: false,
+        appOrder: false,
     }),
     actions: {
         openCartModal(){
@@ -25,7 +26,14 @@ export const useModal = defineStore({
         },
         closeInfoFeedBack(){
             this.infoFeedBackOpen = false;
+        },
+        openAppOrder(){
+            this.appOrder = true;
+        },
+        closeAppOrder(){
+            this.appOrder = false;
         }
+
 
     }
 })

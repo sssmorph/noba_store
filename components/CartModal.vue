@@ -9,9 +9,7 @@
     const product = computed(() => cart.productInCart);
     cart.getProductInCart();
 
-    const placeOrder = () => {
-        cart.clearCart();
-    };
+
     const removeFromCart = (index) => {
         cart.removeProduct(index);
         cart.updateStorage();
@@ -39,6 +37,10 @@
     };
     const showModal = computed(() => cartModalStore.cartIsOpen);
 
+    const openAppOrder = () => {
+        cartModalStore.openAppOrder();
+        closePopup();
+    }
 </script>
 
 <template>
@@ -127,6 +129,7 @@
                             height="52px"
                             color="rgba(221, 58, 26, 1)"
                             rounded="0"
+                            @click="openAppOrder()"
                             >
                             <span class="to-order-text">Перейти к оформлению</span>
                             <img src="/assets/image/text-box-white.svg" alt="">

@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <AppHeaderBig/>
+  <AppHeaderSmall/>
   <section class="error-page">
     <p class="error-message__mobile">Кажется, здесь одежды нет</p>
     <div class="error-box">

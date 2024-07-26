@@ -2,7 +2,9 @@
   import { useBloggers } from '../composables/useBloggers';
   import { useKonkurs } from '../composables/useKonkurs';
   import { useContacts } from '../composables/useContacts';
-
+  import { getDocument } from '~/composables/getDocument';
+    
+  const konkursRule = await getDocument(38);
   const burgerIsOpen = ref(false);
   const isElementActive = ref([false, false, false, false, false, false]);
   const isAccOpen = ref([false, false, false, false, false]);
@@ -477,7 +479,7 @@ const onPause = () => {
         <img src="assets/image/NOBA_logo.svg" alt="NOBA logo">
         <div class="footer__right">
           <div class="footer__right_mobile_off"><h3>Не является публичной офертой</h3></div>
-          <div><h3>Правила проведения конкурса</h3></div>
+          <NuxtLink :to="{ name: 'document', params: { document: konkursRule.alias } }"><h3>Правила проведения конкурса</h3></NuxtLink>
         </div>
       </div>
     </div>

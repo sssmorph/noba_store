@@ -1,6 +1,9 @@
 <script setup>
   import { vMaska } from "maska"
   import { useModal } from '../stores/modal';
+  import { getDocument } from '~/composables/getDocument';
+
+  const privacy = await getDocument(37);
 
  const modalStore = useModal();
  const closeModal = () => {
@@ -44,7 +47,9 @@
                     </v-btn>
                 </div>
                 <div class="modal_warn-container">
-                    <h4 class="modal_warn">Нажимая на кнопку <span class="modal_warn__bold">Отправить</span>, вы даёте<span> согласие на обработку персональных данных</span></h4>
+                    <h4 class="modal_warn">Нажимая на кнопку <span class="modal_warn__bold">Отправить</span>, вы даёте
+                        <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">согласие на обработку персональных данных</NuxtLink >
+                    </h4>
                     <div class="modal_warn-line"></div>
                 </div>
             </div>

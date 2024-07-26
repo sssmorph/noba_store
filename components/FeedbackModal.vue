@@ -1,5 +1,7 @@
 <script setup>
   import { vMaska } from "maska"
+  import { getDocument } from '~/composables/getDocument';
+  const privacy = await getDocument(37);
 
     const modalStore = useModal();
     const closeModal = () =>{
@@ -44,7 +46,10 @@
                 <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
               </button>
             </div>
-            <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на <span>обработку персональных данных</span></h4>
+            <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на 
+              <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink >
+            </h4>
+            
           </div>
         </div>
       </div>
@@ -59,6 +64,9 @@ input:-webkit-autofill:active
 {
   -webkit-text-fill-color: white !important;
   -webkit-background-clip: text;
+}
+.personal-data__link{
+  text-decoration: underline;
 }
 .modal-background{
   width: 100vw;

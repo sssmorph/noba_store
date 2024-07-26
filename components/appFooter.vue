@@ -1,6 +1,11 @@
 <script setup>
   import { useModal } from '../stores/modal';
-
+    import { getDocument } from '~/composables/getDocument';
+    
+    const obmen = await getDocument(34);
+    const delivery = await getDocument(35);
+    const payment = await getDocument(36);
+    const privacy = await getDocument(37);
     const modalStore = useModal();
     let searchBoxIsActive = ref(false);
     const openModal = () =>{
@@ -31,13 +36,13 @@
             <div class="link-container">
                 <ul class="link-list">
                     <li class="footer-link">
-                        <NuxtLink  to="/" class="underline-hover-effect">Обмен и возврат</NuxtLink >
+                        <NuxtLink  :to="{ name: 'document', params: { document: obmen.alias } }" class="underline-hover-effect">Обмен и возврат</NuxtLink >
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="/" class="underline-hover-effect">Доставка</NuxtLink >
+                        <NuxtLink  :to="{ name: 'document', params: { document: delivery.alias } }" class="underline-hover-effect">Доставка</NuxtLink >
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="/" class="underline-hover-effect">Оплата</NuxtLink >
+                        <NuxtLink  :to="{ name: 'document', params: { document: payment.alias } }" class="underline-hover-effect">Оплата</NuxtLink >
                     </li>
                     <li class="footer-link">
                         <span class="underline-hover-effect cursor-pointer" @click="openModal">Связаться с нами</span >
@@ -46,7 +51,7 @@
                         <NuxtLink  to="/info" class="underline-hover-effect">О компании</NuxtLink >
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="/" class="underline-hover-effect">Политика конфиденциальности</NuxtLink >
+                        <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="underline-hover-effect">Политика конфиденциальности</NuxtLink >
                     </li>
 
                 </ul>

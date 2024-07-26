@@ -19,13 +19,22 @@
 
 	const bloggersData = await useBloggers();
 	blogers.value = bloggersData;
+  
 	const blogerId = blogers.value.find(bloger => bloger.alias === router.params.alias)?.id;
 	const blogerData = await getBloger(blogerId);
 	bloger.value = blogerData;
 
 	const categories = bloger.value.category;
-  const currentCategories = ref(categories.map(category => {
-  return {
+  
+  
+  // const normalizedCategories = Array.isArray(categories.value) ? categories.value : (categories.value ? Object.values(categories.value) : []);
+
+  const normalizedCategories = Array.isArray(categories?.value) 
+    ? categories.value 
+    : (categories?.value ? Object.values(categories.value) : []);
+
+  const currentCategories = ref(normalizedCategories.map(category => {
+    return {
     categoryName: category.pagetitle,
     categoryId: category.id, 
     categorySelected: false 
@@ -38,8 +47,21 @@
   });
 
 	const selectedSort = ref("");
-	const maxPrice = ref(Math.max(...bloger.value.products.map(product => product.price)));
-	const minPrice = ref(Math.min(...bloger.value.products.map(product => product.price)));
+
+  const productsArray = Array.isArray(bloger.value?.products) ? bloger.value.products : (bloger.value?.products ? Object.values(bloger.value.products) : []);  
+  // const maxPrice = ref(Math.max(...(Array.isArray(bloger.value.products) ? bloger.value.products : Object.values(bloger.value.products)).map(product => product.price)));
+  // const minPrice = ref(Math.min(...(Array.isArray(bloger.value.products) ? bloger.value.products : Object.values(bloger.value.products)).map(product => product.price)));
+
+
+  const maxPrice = ref(Math.max(...(Array.isArray(bloger?.value?.products) 
+    ? bloger.value.products 
+    : (bloger?.value?.products ? Object.values(bloger.value.products) : [])).map(product => product.price)));
+
+const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products) 
+    ? bloger.value.products 
+    : (bloger?.value?.products ? Object.values(bloger.value.products) : [])).map(product => product.price)));
+
+
 	const prices = ref([minPrice.value, maxPrice.value]);
 	const genders = ref([
       { categoryName: "Все", categoryId: "all", categorySelected: true},
@@ -57,7 +79,8 @@
   const searchQuery = ref();
 
   const filterProducts = computed(() => {
-    const curentProd = ref(bloger.value.products.slice());
+
+    const curentProd = ref(productsArray.slice());
 
     if (searchQuery.value) {
       curentProd.value = curentProd.value.filter(product => 
@@ -142,7 +165,8 @@
 	const openCart = () => {
 		cartStore.openCartModal();
 	}
-	const filterIsActive = ref(false);
+	
+  const filterIsActive = ref(false);
 	const toggleFilter = () => {
 		filterIsActive.value = !filterIsActive.value;
 	};
@@ -171,28 +195,14 @@
     }
 		cart.addToCart(curentProduct);
 	};
-
+  
 	onMounted(async () => {
 		const bloggersData = await useBloggers();
 		blogers.value = bloggersData;
 		const blogerId = blogers.value.find(bloger => bloger.alias === router.params.alias)?.id;
 		const blogerData = await getBloger(blogerId);
-		bloger.value = blogerData;
 
-		if (bloger.value && bloger.value.products) {
-			products.value = bloger.value.products.map(curproduct => ({
-				id: curproduct.id,
-				title: curproduct.pagetitle,
-				alias: curproduct.alias,
-				sizes: curproduct.size,
-				size: curproduct.size[0],
-				count: 1,
-				price: curproduct.price,
-				sex: curproduct.gender,
-				category: bloger.value.categories ? bloger.value.categories.find(cat => cat.id === curproduct.parent) : null,
-				image: curproduct.image
-			}));
-		};
+    bloger.value = blogerData;
 	});
 
 	useHead({
@@ -201,7 +211,7 @@
 </script>
 
 <template>
-  
+  <AppOrder/>
   <AppHeaderBig v-if="bloger" :bloger="bloger"/>
   <CartModal/>
   <InfoFeedBackModal/>

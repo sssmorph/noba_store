@@ -1,24 +1,67 @@
 <script setup>
+    import { useModal } from '../stores/modal'; 
+    import { useAppOrder } from '~/stores/appOrder';
+    import { getDocument } from '~/composables/getDocument';
 
-const orderItems = ref(["Контакты", "Адрес доставки", "Оплата"])
+    const appOrder = useAppOrder();
+    const privacy = await getDocument(37);
+
+    const fio = ref();
+    const phoneNumber = ref();
+    const mail = ref();
+    const postIndex = ref();
+    const city = ref();
+    const street = ref();
+    const build = ref();
+    const apartment = ref();
+
+    const cardNumber = ref();
+    const cardOwner = ref();
+    const cardData = ref();
+    const cardCode = ref();
+
+    const cartModalStore = useModal();
+    const closeAppOrder = ( ) => {
+        cartModalStore.closeAppOrder();
+        appOrder.resetStage();
+    };
+    const showModal = computed(() => cartModalStore.appOrder);
+    const toDeliveryAdress = () => {
+        appOrder.toSecondStage();
+    }
+    const toPayment = () => { 
+        appOrder.toFinalStage();
+    }
+    const purchase = () => {
+        appOrder.resetStage();
+    }
 </script>
 
 <template>
-    <section class="order-background">
+    <section class="order-background" v-if="showModal">
+        <div class="background" @click="closeAppOrder()"></div>
         <div class="order-container">
             <h1 class="order-title">Оформление заказа</h1>
             <div class="stepper-container">
                 <div class="stepper-line"></div>
-                <div class="stepper-line__fill first-line"></div>
-                <div class="stepper-line__fill second-line"></div>
+                <div class="first-line" :class="{ 'stepper-line__fill': (appOrder.orderStage[1].stageStatus ||  appOrder.orderStage[2].stageStatus)}"></div>
+                <div class="second-line" :class="{ 'stepper-line__fill': appOrder.orderStage[2].stageStatus }"></div>
                 <div class="thumb-square thumb-square-fill first-thumb"></div>
-                <div class="thumb-square second-thumb"></div>
-                <div class="thumb-square third-thumb"></div>
-                <span class="label first-label label-active">Контакты</span>
-                <span class="label second-label">Адрес доставки</span>
-                <span class="label third-label">Оплата</span>
+                <div class="thumb-square second-thumb" :class="{'thumb-square-fill': (appOrder.orderStage[1].stageStatus ||  appOrder.orderStage[2].stageStatus)}" ></div>
+                <div class="thumb-square third-thumb" :class="{'thumb-square-fill': appOrder.orderStage[2].stageStatus }"></div>
+                <span class="label first-label cursor-pointer" 
+                @click="appOrder.resetStage()" 
+                :class="{'label-active': appOrder.orderStage[0].stageStatus}"
+                >
+                Контакты</span>
+                <span class="label second-label cursor-pointer" 
+                @click="toDeliveryAdress()"
+                :class="{'label-active': appOrder.orderStage[1].stageStatus}">Адрес доставки</span>
+                <span class="label third-label cursor-pointer" 
+                @click="toPayment()"
+                :class="{'label-active': appOrder.orderStage[2].stageStatus}">Оплата</span>
             </div>
-            <div class="page first-page">
+            <div class="page first-page" :class="{'page-active': appOrder.orderStage[0].stageStatus}">
                 <div class="input-container input-container__big">
                     <input type="text" placeholder="ФИО">
                     <img src="/assets/image/validate-arrow.svg" alt="">
@@ -34,7 +77,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                     </div>
                 </div>
             </div>
-            <div class="page second-page ">
+            <div class="page second-page " :class="{'page-active': appOrder.orderStage[1].stageStatus}">
                 <div class="double-input-container">
                     <div class="input-container input-container__small">
                         <input type="text" placeholder="Индекс">
@@ -60,7 +103,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                     </div>
                 </div>
             </div>
-            <div class="page third-page page-active">
+            <div class="page third-page " :class="{'page-active': appOrder.orderStage[2].stageStatus}">
                 <div class="input-container input-container__big">
                     <input type="text" placeholder="Номер карты">
                     <img src="/assets/image/validate-arrow.svg" alt="">
@@ -82,7 +125,8 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                 <div class="third-page__bottom">
                     <div class="personal-data__container">
                         <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
-                        <NuxtLink to="/" class="personal-data__link">обработку персональных данных</NuxtLink>
+
+                        <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink >
                     </div>
                     <v-btn
                     class="d-flex flex-row purchase-button"
@@ -91,6 +135,7 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
                     rounded="0"
                     width="230"
                     height="52"
+                    @click="purchase()"
                     >
                     <span class="purchase-text">Оплатить</span>
                     <img src="/assets/image/purchase.svg" alt="" class="buy-button">
@@ -102,7 +147,22 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
             variant="flat"
             size="73"
             color="rgba(221, 58, 26, 1)"
-            rounded="0">
+            rounded="0"
+            @click="toDeliveryAdress()"
+            :class="{hidden: !appOrder.orderStage[0].stageStatus }"
+            >
+            <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button">
+            
+            </v-btn>
+            <v-btn
+            class="next-button"
+            variant="flat"
+            size="73"
+            color="rgba(221, 58, 26, 1)"
+            rounded="0"
+            @click="toPayment()"
+            :class="{hidden: !appOrder.orderStage[1].stageStatus }"
+            >
             <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button">
             </v-btn>
         </div>
@@ -110,6 +170,9 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
 </template>
 
 <style lang="scss" scoped>
+    .hidden{
+        display: none;
+    }
     .order-background{
         background-color: rgba(23, 7, 7, 0.35);
         position: fixed;
@@ -148,7 +211,6 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
         position: absolute;
         right: 120px;
         bottom: 85px;
-        display: none;
     }
     .stepper-container{
         position: relative;
@@ -314,6 +376,14 @@ const orderItems = ref(["Контакты", "Адрес доставки", "Оп
         justify-content: space-between;
         margin-top: 75px;
         width: 710px;
+    }
+    input{
+        width: 100%;
+    }
+    .background{
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
     }
     @media (max-width: 1200px) {
         .order-container{

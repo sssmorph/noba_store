@@ -32,14 +32,7 @@
     <section class="wrapper portfolio-block"
     v-for="(item, index) in portfolio" :key="index">
         <h2 class="portfolio-title t-b swis">{{ item.pagetitle }}</h2>
-        <NuxtLink to="workCard">
-            <button
-            class="more-work-button"
-            >
-                <span class="button__text t-w swis">ПОДРОБНЕЕ</span>
-                <span class="button__line more-work"></span>
-        </button>
-        </NuxtLink>
+
         <Swiper
         class="portfolio-card-container"
         :loop="true"
@@ -63,11 +56,19 @@
             <swiper-slide 
             v-for="(project, projectIndex) in item.projects" :key="projectIndex"
             class="portfolio-card-item">
-                <img :src="'http://api.noba.store/' + project.image" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b swis portfolio-card__name">{{ project.pagetitle }}</p>
-                    <p class="t-b manrope portfolio-card__count">{{ projectIndex }}</p>
-                </div>
+                <NuxtLink :to="{ name: 'work', params: { work: project.alias }, query: { id: project.id} }">
+                    <img :src="'http://api.noba.store/' + project.image" alt="" class="portfolio-card-item__photo">
+                    <div class="portfolio-card-item__bottom">
+                        <p class="t-b swis portfolio-card__name">{{ project.pagetitle }}</p>
+                        <p class="t-b manrope portfolio-card__count">{{ projectIndex  }}</p>
+                    </div>
+                    <button
+                    class="more-work-button more-work-button__item"
+                    >
+                        <span class="button__text t-w swis">ПОДРОБНЕЕ</span>
+                        <span class="button__line more-work"></span>
+                    </button>
+                </NuxtLink>
             </swiper-slide>
 
             <div class="card-navigation-container prevContainer">
@@ -303,6 +304,19 @@
       }
       .nextContainer{
         right: 10px;
+      }
+      .more-work-button__item{
+        left: auto;
+        right: -65px;
+        bottom: -130px;
+        transition: 0.2s ease-in-out all;
+        overflow: hidden;
+      }
+      .portfolio-card-item:hover{
+        transition: 0.2s ease-in-out all;
+        .more-work-button__item{
+            bottom: 88.5px
+        }
       }
     @media (max-width: 1400px) {
         .portfolio-card-item__small{

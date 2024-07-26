@@ -7,13 +7,30 @@
     import { ref } from 'vue';
     import 'swiper/css/free-mode';
     import 'swiper/css/thumbs';
+    import { useRoute } from 'vue-router';
+    import { getProjectById } from '~/composables/getProjectById';
+
+    const route = useRoute()
+    const slider = ref()
+    const project = ref()
+    // const projects = await getProjects();
+    // const projectId = projects.find(project => project.alias === route.params.workCard)?.id;
+    const projectData = await getProjectById(route.query.id);
+    project.value = projectData;
+    slider.value = projectData['migx.slider']    
+
     const modules = ref([Autoplay, Pagination, Navigation]);
     const modalStore = useModal();
     const cardPrev = ref(null);
     const cardNext = ref(null);
+
     const openModal = () => {
         modalStore.openInfoFeedBack();
     }
+
+    useHead({
+        
+    })
 </script>
 
 <template>
@@ -48,42 +65,16 @@
 
         }"
         >
-            <swiper-slide class="portfolio-card-item">
-                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
+            <swiper-slide class="portfolio-card-item" 
+                v-for="(image, index) in slider"
+                :key="index"
+            >
+                <img :src="'http://api.noba.store/' + image.image" alt="" class="portfolio-card-item__photo">
                 <div class="portfolio-card-item__bottom">
-                    <p class="t-b manrope portfolio-card__count">01</p>
+                    <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
                 </div>
             </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-gray">
-                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b manrope portfolio-card__count">01</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-red">
-                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b manrope portfolio-card__count">01</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item">
-                <img src="/assets/image/portfolio1.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b manrope portfolio-card__count">01</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-gray">
-                <img src="/assets/image/portfolio2.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b manrope portfolio-card__count">01</p>
-                </div>
-            </swiper-slide>
-            <swiper-slide class="portfolio-card-item card-bg-red">
-                <img src="/assets/image/portfolio3.jpg" alt="" class="portfolio-card-item__photo">
-                <div class="portfolio-card-item__bottom">
-                    <p class="t-b manrope portfolio-card__count">01</p>
-                </div>
-            </swiper-slide>
+
             <div class="card-navigation-container prevContainer">
                 <v-btn
                 ref="cardPrev"
@@ -123,35 +114,14 @@
                     <span class="button__text t-w swis">ОСТАВИТЬ ЗАЯВКУ</span>
                     <span class="button__line send-request-line"></span>
                 </button>                
-                <h2 class="t-w swis review-title">Отзыв</h2>
+                <h2 class="t-w swis review-title">{{ project.partner.pagetitle }}</h2>
                 <img src="/assets/image/partner-dots.svg" alt="">
-                <p class="t-w manrope review-text">Сотрудничество с вашей командой по созданию новой коллекции одежды для "Московского спорта" превзошло все наши ожидания. Начиная с идеи и концепции, ваша команда профессионалов демонстрировала высокий уровень креативности и понимания наших потребностей.</p>
-                <p class="t-w manrope review-text">Качество прототипов и готовой продукции безупречно. Мы особенно ценим внимание к деталям и высокий стандарт исполнения на каждом этапе производства. Готовая коллекция не только отражает бренд "Московский спорт", но и отлично вписывается в современные модные тренды.</p>
-                <p class="t-w manrope review-text">Мы рады сотрудничеству и с уверенностью рекомендуем вашу компанию как надежного партнера в сфере пошива одежды. Благодарим за профессионализм, качество работы и понимание наших потребностей.</p>
+                <div v-html="project.partner.content" class="t-w manrope review-text"></div>
             </div>
             <div class="review-block__right">
                 <div class="right-content">
                     <div class="right-content__border-line"></div>
-                    <div>
-                        <h3 class="review-right-title t-b swis">Идея и концепция</h3>
-                        <p class="review-right-text t-b manrope">На первом этапе разработки коллекции "Московский спорт" дизайнеры изучили модные тенденции и предпочтения целевой аудитории. Были определены стиль, направление коллекции, а также выбрана цветовая палитра и материалы.</p>
-                    </div>
-                    <div>
-                        <h3 class="review-right-title t-b swis">Прототипирование и примерка</h3>
-                        <p class="review-right-text t-b manrope">Создание прототипов одежды началось после утверждения концепции. Разработаны выкройки, выбраны ткани и материалы, после чего проведена примерка пробных моделей для коррекции дизайна и посадки.</p>
-                    </div>
-                    <div>
-                        <h3 class="review-right-title t-b swis">Подготовка к производству</h3>
-                        <p class="review-right-text t-b manrope">После утверждения прототипов началась подготовка к массовому производству. Закуплены необходимые материалы, создана технологическая документация и установлены стандарты качества.</p>
-                    </div>
-                    <div>
-                        <h3 class="review-right-title t-b swis">Швейное производство</h3>
-                        <p class="review-right-text t-b manrope">Массовое производство одежды для "Московского спорта" стартовало с вырезки и сшивания деталей по утвержденным выкройкам. Каждый этап производства контролировался для обеспечения высокого качества готовой продукции.</p>
-                    </div>
-                    <div>
-                        <h3 class="review-right-title t-b swis">Упаковка и распределение</h3>
-                        <p class="review-right-text t-b manrope">После завершения производства одежда упакована согласно стандартам компании. Готовая продукция отправлена на склад для последующей дистрибуции в торговые точки и к заказчикам.</p>
-                    </div>
+                    <div class="content review-right-text" v-html="project.content"></div>
                 </div>
             </div>
         </div>
@@ -161,6 +131,7 @@
 </template>
 
 <style lang="scss" scoped>
+
 .portfolio-card-container{
     :global(.swiper-button-prev){
         width: 34px;
@@ -187,6 +158,22 @@
         content: none;
       }
   }
+  .content > h3{
+    color: rgba(23, 7, 7, 1);
+    font-family: Swis721CnBTRusbyme-Roman;
+    font-weight: 400;
+    font-size: 32px ;
+    line-height: 120%;
+    margin-bottom: 12px;
+    }
+
+    .content > p{
+        color: rgba(23, 7, 7, 1);
+        font-family: manrope;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+    }
 .button__line{
     border-left: dashed 1px rgba(255, 252, 251, 1);
     height: 40px;

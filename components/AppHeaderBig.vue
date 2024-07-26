@@ -73,7 +73,7 @@
                     <h1 class="bloger-name">{{ bloger.pagetitle }}</h1>
                     <p class="bloger-description">{{ bloger.introtext }}</p>
                 </div>
-                <p :class="{blogerText: isActive, hidden: !isActive}" >{{ bloger.content }}</p>
+                <p :class="{blogerText: isActive, hidden: !isActive}" >{{ bloger.content}}</p>
 
                 <div class="buttons-container">
                     <NuxtLink to="/">
