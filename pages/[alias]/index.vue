@@ -1,5 +1,5 @@
 <script setup>
-	import { ref, computed, onMounted } from 'vue';
+	import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
 	import { shopCart } from '../../stores/cart';
 	import { useCatalogFilter } from '../../stores/catalogFilter';
 	import { useModal } from '../../stores/modal';
@@ -49,9 +49,6 @@
 	const selectedSort = ref("");
 
   const productsArray = Array.isArray(bloger.value?.products) ? bloger.value.products : (bloger.value?.products ? Object.values(bloger.value.products) : []);  
-  // const maxPrice = ref(Math.max(...(Array.isArray(bloger.value.products) ? bloger.value.products : Object.values(bloger.value.products)).map(product => product.price)));
-  // const minPrice = ref(Math.min(...(Array.isArray(bloger.value.products) ? bloger.value.products : Object.values(bloger.value.products)).map(product => product.price)));
-
 
   const maxPrice = ref(Math.max(...(Array.isArray(bloger?.value?.products) 
     ? bloger.value.products 
@@ -196,7 +193,23 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
 		cart.addToCart(curentProduct);
 	};
   
+
+const isFixed = ref(false);
+
+const createObserver = () => {
+  const preorderButton = document.querySelector('#preorderButton');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isFixed.value = !entry.isIntersecting;
+    });
+  });
+
+  observer.observe(preorderButton);
+};
+
 	onMounted(async () => {
+    createObserver();
 		const bloggersData = await useBloggers();
 		blogers.value = bloggersData;
 		const blogerId = blogers.value.find(bloger => bloger.alias === router.params.alias)?.id;
@@ -216,6 +229,21 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
   <CartModal/>
   <InfoFeedBackModal/>
   <section class="catalog-container">
+    <div class="sticky-basket" :class="{ visibly: isFixed, hidden: cartStore.cartIsOpen }">
+      <v-btn
+      class="button-preorder"
+      variant="flat"
+      width="233"
+      height="34"
+      rounded="0"
+      border="1.5px"
+      color="rgba(221, 58, 26, 1)"
+      @click="openCart"
+      >
+        <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
+        <img src="/assets/image/cart-white.svg">
+      </v-btn>  
+    </div>
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
       divider="|"
@@ -245,6 +273,7 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
       <CatalogTimer class="timer-container__hidden"/>
       <div class="buttons-container">
         <v-btn
+        id="preorderButton"
         class="button-preorder"
         variant="flat"
         width="233"
@@ -253,11 +282,11 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
         border="1.5px"
         color="rgba(221, 58, 26, 1)"
         @click="openCart"
+        
         >
           <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
           <img src="/assets/image/cart-white.svg">
         </v-btn>
-        
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
           <span class="button-text__collection button-text__collection__mobile">Еще коллекции</span>
@@ -992,6 +1021,30 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
   .cardSizeButton{
     background-color: rgba(221, 58, 26, 1);
   }
+  .sticky-basket{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding-right: 40px;
+    position: sticky;
+    top: -50px;
+    padding-right: 40px;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 100;
+    transform: translateY(40px);
+  }
+  .visibly{
+    visibility: visible;
+    top: 0px;
+    opacity: 1;
+  }
+  .fixed{
+    position: sticky;
+    top: 0;
+    right: 50px;
+    z-index: 100;
+  }
   @media(hover: hover){
     input[type="radio"] + label div:hover,
     input[type="radio"] + label:hover div{
@@ -1016,6 +1069,7 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
       background-color: black;
       color: white;
     }
+  
   @media (max-width: 1650px) {
       .card-item:hover{
         .card-photo{
@@ -1274,6 +1328,11 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
     }
     .size-container{
       top: 475px;
+    }
+  }
+  @media (max-width: 600px) {
+    .sticky-basket{
+      padding-right: 15px;
     }
   }
   @media (max-width: 430px) {

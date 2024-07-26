@@ -1,295 +1,170 @@
-<!-- <script setup>
-    import { useModal } from '../stores/modal'; 
-    import { useAppOrder } from '~/stores/appOrder';
-    import { getDocument } from '~/composables/getDocument';
-    import { defineRule, Form, Field } from 'vee-validate';
+<script setup>
+import { vMaska } from "maska";
+import { useModal } from '../stores/modal'; 
+import { useAppOrder } from '~/stores/appOrder';
+import { getDocument } from '~/composables/getDocument';
+import { defineRule, useForm } from 'vee-validate';
+import { required, email } from '@vee-validate/rules';
 
-    defineRule('customEmail', value => {
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return pattern.test(value) || 'Поле должно быть действительным электронным адресом.';
-    });
+defineRule('customEmail', value => {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(value) || 'Поле должно быть действительным электронным адресом.';
+});
 
+defineRule('required', required);
+defineRule('email', email);
 
-    const appOrder = useAppOrder();
-    const privacy = await getDocument(37);
+const appOrder = useAppOrder();
+const privacy = await getDocument(37);
 
-    const fio = ref();
-    const phoneNumber = ref();
-    const mail = ref();
-    const postIndex = ref();
-    const city = ref();
-    const street = ref();
-    const build = ref();
-    const apartment = ref();
+const cartModalStore = useModal();
+const closeAppOrder = () => {
+  cartModalStore.closeAppOrder();
+  appOrder.resetStage();
+};
 
+const showModal = computed(() => cartModalStore.appOrder);
 
-    const cartModalStore = useModal();
-    const closeAppOrder = ( ) => {
-        cartModalStore.closeAppOrder();
-        appOrder.resetStage();
-    };
-    const showModal = computed(() => cartModalStore.appOrder);
-    const toDeliveryAdress = () => {
-        appOrder.toSecondStage();
-    }
+const form = useForm();
 
-    const purchase = () => {
-        appOrder.resetStage();
-    }
+const toDeliveryAdress = async () => {
+  const { valid } = await form.validate();
+  if (!valid) {
+    return;
+  }
+  appOrder.toSecondStage();
+};
+
+const purchase = async () => {
+  const { valid } = await form.validate();
+  if (!valid) {
+    return;
+  }
+  console.log('Data for payment:', {
+    fullName: form.values.fullName,
+    phone: form.values.phone,
+    email: form.values.email,
+    postalCode: form.values.postalCode,
+    city: form.values.city,
+    street: form.values.street,
+    building: form.values.building,
+    apartment: form.values.apartment,
+  });
+  //    appOrder.resetStage();
+};
 </script>
 
 <template>
-    <section class="order-background" v-if="showModal">
-        <div class="background" @click="closeAppOrder()"></div>
-        <div class="order-container">
-            <h1 class="order-title">Оформление заказа</h1>
-            <div class="stepper-container">
-                <div class="stepper-line"></div>
-                <div class="first-line" :class="{ 'stepper-line__fill': (appOrder.orderStage[1].stageStatus)}"></div>
-                <div class="thumb-square thumb-square-fill first-thumb"></div>
-                <div class="thumb-square second-thumb" :class="{'thumb-square-fill': (appOrder.orderStage[1].stageStatus)}" ></div>
-                <span class="label first-label cursor-pointer" 
-                @click="appOrder.resetStage()" 
-                :class="{'label-active': appOrder.orderStage[0].stageStatus}"
-                >
-                Контакты</span>
-                <span class="label second-label cursor-pointer" 
-                @click="toDeliveryAdress()"
-                :class="{'label-active': appOrder.orderStage[1].stageStatus}">Адрес доставки</span>
+  <section class="order-background" v-if="showModal">
+    <div class="background" @click="closeAppOrder()"></div>
+    <div class="order-container">
+      <h1 class="order-title">Оформление заказа</h1>
+      <div class="stepper-container">
+        <div class="stepper-line"></div>
+        <div class="first-line" :class="{ 'stepper-line__fill': (appOrder.orderStage[1].stageStatus)}"></div>
+        <div class="thumb-square thumb-square-fill first-thumb"></div>
+        <div class="thumb-square second-thumb" :class="{'thumb-square-fill': (appOrder.orderStage[1].stageStatus)}"></div>
+        <span class="label first-label cursor-pointer" @click="appOrder.resetStage()" :class="{'label-active': appOrder.orderStage[0].stageStatus}">
+          Контакты
+        </span>
+        <span class="label second-label cursor-pointer" @click="toDeliveryAdress()" :class="{'label-active': appOrder.orderStage[1].stageStatus}">
+          Адрес доставки
+        </span>
+      </div>
 
+      <VeeForm v-slot="{ handleSubmit, errors }" @submit="handleSubmit(purchase)">
+        <div class="page first-page" :class="{'page-active': appOrder.orderStage[0].stageStatus}">
+          <div class="input-container input-container__big">
+            <VeeField name="fullName" rules="required" v-slot="{ field, meta }">
+              <input v-bind="field" type="text" placeholder="ФИО" class="input-field" />
+              <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+              <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+            </VeeField>
+          </div>
+          <div class="double-input-container">
+            <div class="input-container input-container__small">
+              <VeeField name="phone" rules="required" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" placeholder="+7  (         ) " class="input-field" v-maska data-maska="+7(###)-###-##-##"/>
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              </VeeField>
             </div>
-            <div class="page first-page" :class="{'page-active': appOrder.orderStage[0].stageStatus}">
-                <div class="input-container input-container__big">
-                    <input type="text" placeholder="ФИО" >
-                    <img src="/assets/image/validate-arrow.svg" alt="">
-                </div>
-                <div class="double-input-container">
-                    <div class="input-container input-container__small">
-                        <input type="text" placeholder="+7  (         ) ">
-                        <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
-                    <div class="input-container input-container__small">
-                        <input type="text" placeholder="E-mail" rules="required|customEmail" >
-                        <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
-                </div>
-                
+            <div class="input-container input-container__small">
+              <VeeField name="email" rules="required|customEmail" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" placeholder="E-mail" class="input-field" />
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              </VeeField>
             </div>
-            <div class="page second-page " :class="{'page-active': appOrder.orderStage[1].stageStatus}">
-                <div class="double-input-container">
-                    <div class="input-container input-container__small">
-                        <input type="text" placeholder="Индекс">
-                        <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
-                    <div class="input-container input-container__small">
-                        <input type="text" placeholder="Город">
-                        <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
-                </div>
-                <div class="input-container input-container__big">
-                    <input type="text" placeholder="Улица">
-                    <img src="/assets/image/validate-arrow.svg" alt="">
-                </div>
-                <div class="double-input-container">
-                    <div class="input-container input-container__small">
-                        <input type="text" placeholder="Дом, строение">
-                        <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
-                    <div class="input-container input-container__small">
-                        <input type="text" placeholder="Квартира">
-                        <img src="/assets/image/validate-arrow.svg" alt="">
-                    </div>
-                </div>
-                <div class="third-page__bottom">
-                    <div class="personal-data__container">
-                        <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
-
-                        <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink >
-                    </div>
-                    <v-btn
-                    class="d-flex flex-row purchase-button"
-                    variant="flat"
-                    color="rgba(221, 58, 26, 1)"
-                    rounded="0"
-                    width="230"
-                    height="52"
-                    @click="purchase()"
-                    >
-                    <span class="purchase-text">Оплатить</span>
-                    <img src="/assets/image/purchase.svg" alt="" class="buy-button">
-                    </v-btn>
-                </div>
-            </div>
-            <v-btn
-            class="next-button"
-            variant="flat"
-            size="73"
-            color="rgba(221, 58, 26, 1)"
-            rounded="0"
-            @click="toDeliveryAdress()"
-            :class="{hidden: !appOrder.orderStage[0].stageStatus }"
-            >
-            <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button">
-            
-            </v-btn>
-
+          </div>
         </div>
-    </section>
+
+        <div class="page second-page" :class="{'page-active': appOrder.orderStage[1].stageStatus}">
+          <div class="double-input-container">
+            <div class="input-container input-container__small">
+              <VeeField name="postalCode" rules="required" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" placeholder="Индекс" class="input-field" v-maska data-maska="###-###"/>
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              </VeeField>
+            </div>
+            <div class="input-container input-container__small">
+              <VeeField name="city" rules="required" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" placeholder="город" class="input-field"/>
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              </VeeField>
+            </div>
+          </div>
+          <div class="input-container input-container__big">
+            <VeeField name="street" rules="required" v-slot="{ field, meta }">
+              <input v-bind="field" type="text" placeholder="Улица" class="input-field" />
+              <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+              <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+            </VeeField>
+          </div>
+          <div class="double-input-container">
+            <div class="input-container input-container__small">
+              <VeeField name="building" rules="required" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" placeholder="Дом, строение" class="input-field" />
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              </VeeField>
+            </div>
+            <div class="input-container input-container__small">
+              <VeeField name="apartment" rules="" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" placeholder="Квартира" class="input-field" />
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              </VeeField>
+            </div>
+          </div>
+        </div>
+        <div class="third-page__bottom" :class="{hidden: !appOrder.orderStage[1].stageStatus }">
+          <div class="personal-data__container">
+            <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
+            <NuxtLink :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink>
+          </div>
+          <v-btn class="d-flex flex-row purchase-button"  variant="flat" color="rgba(221, 58, 26, 1)" rounded="0" width="230" height="52" @click="purchase()">
+            <span class="purchase-text">Оплатить</span>
+            <img src="/assets/image/purchase.svg" alt="" class="buy-button">
+          </v-btn>
+        </div>
+        <v-btn class="next-button" variant="flat" size="73" color="rgba(221, 58, 26, 1)" rounded="0" @click="toDeliveryAdress()" :class="{hidden: !appOrder.orderStage[0].stageStatus }">
+          <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button">
+        </v-btn>
+      </VeeForm>
+    </div>
+  </section>
 </template>
- -->
- <script setup>
- import { useModal } from '../stores/modal'; 
- import { useAppOrder } from '~/stores/appOrder';
- import { getDocument } from '~/composables/getDocument';
- import { defineRule, useForm } from 'vee-validate';
- import { required } from '@vee-validate/rules';
- 
- // Определяем правило валидации для email
- defineRule('customEmail', value => {
-   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   return pattern.test(value) || 'Поле должно быть действительным электронным адресом.';
- });
- 
- // Определяем правило обязательного поля
- defineRule('required', required);
- 
- const appOrder = useAppOrder();
- const privacy = await getDocument(37);
- 
- const form = useForm();
- 
- const cartModalStore = useModal();
- const closeAppOrder = () => {
-   cartModalStore.closeAppOrder();
-   appOrder.resetStage();
- };
- 
- const showModal = computed(() => cartModalStore.appOrder);
- 
- const toDeliveryAdress = () => {
-   if (!form.meta.value.valid) {
-     form.meta.value.setErrors('Please fix the errors before proceeding');
-     return;
-   }
-   appOrder.toSecondStage();
- };
- 
- const purchase = () => {
-   if (!form.meta.value.valid) {
-     form.meta.value.setErrors('Please fix the errors before proceeding');
-     return;
-   }
-   appOrder.resetStage();
- };
- </script>
- 
- <template>
-   <section class="order-background" v-if="showModal">
-     <div class="background" @click="closeAppOrder()"></div>
-     <div class="order-container">
-       <h1 class="order-title">Оформление заказа</h1>
-       <div class="stepper-container">
-         <div class="stepper-line"></div>
-         <div class="first-line" :class="{ 'stepper-line__fill': (appOrder.orderStage[1].stageStatus)}"></div>
-         <div class="thumb-square thumb-square-fill first-thumb"></div>
-         <div class="thumb-square second-thumb" :class="{'thumb-square-fill': (appOrder.orderStage[1].stageStatus)}"></div>
-         <span class="label first-label cursor-pointer" @click="appOrder.resetStage()" :class="{'label-active': appOrder.orderStage[0].stageStatus}">
-           Контакты
-         </span>
-         <span class="label second-label cursor-pointer" @click="toDeliveryAdress()" :class="{'label-active': appOrder.orderStage[1].stageStatus}">
-           Адрес доставки
-         </span>
-       </div>
- 
-       <VeeForm v-slot="{ handleSubmit }" @submit="handleSubmit(purchase)">
-         <div class="page first-page" :class="{'page-active': appOrder.orderStage[0].stageStatus}">
-           <div class="input-container input-container__big">
-             <VeeField name="fullName" rules="required" v-slot="{ field, errors }">
-               <input v-bind="field" type="text" placeholder="ФИО" class="input-field" />
-               <img src="/assets/image/validate-arrow.svg" alt="">
-               <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-             </VeeField>
-           </div>
-           <div class="double-input-container">
-             <div class="input-container input-container__small">
-               <VeeField name="phone" rules="required" v-slot="{ field, errors }">
-                 <input v-bind="field" type="text" placeholder="+7  (         ) " class="input-field" />
-                 <img src="/assets/image/validate-arrow.svg" alt="">
-                 <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-               </VeeField>
-             </div>
-             <div class="input-container input-container__small">
-               <VeeField name="email" rules="required|customEmail" v-slot="{ field, errors }">
-                 <input v-bind="field" type="text" placeholder="E-mail" class="input-field" />
-                 <img src="/assets/image/validate-arrow.svg" alt="">
-                 <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-               </VeeField>
-             </div>
-           </div>
-         </div>
- 
-         <div class="page second-page" :class="{'page-active': appOrder.orderStage[1].stageStatus}">
-           <div class="double-input-container">
-             <div class="input-container input-container__small">
-               <VeeField name="postalCode" rules="required" v-slot="{ field, errors }">
-                 <input v-bind="field" type="text" placeholder="Индекс" class="input-field" />
-                 <img src="/assets/image/validate-arrow.svg" alt="">
-                 <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-               </VeeField>
-             </div>
-             <div class="input-container input-container__small">
-               <VeeField name="city" rules="required" v-slot="{ field, errors }">
-                 <input v-bind="field" type="text" placeholder="Город" class="input-field" />
-                 <img src="/assets/image/validate-arrow.svg" alt="">
-                 <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-               </VeeField>
-             </div>
-           </div>
-           <div class="input-container input-container__big">
-             <VeeField name="street" rules="required" v-slot="{ field, errors }">
-               <input v-bind="field" type="text" placeholder="Улица" class="input-field" />
-               <img src="/assets/image/validate-arrow.svg" alt="">
-               <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-             </VeeField>
-           </div>
-           <div class="double-input-container">
-             <div class="input-container input-container__small">
-               <VeeField name="building" rules="required" v-slot="{ field, errors }">
-                 <input v-bind="field" type="text" placeholder="Дом, строение" class="input-field" />
-                 <img src="/assets/image/validate-arrow.svg" alt="">
-                 <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-               </VeeField>
-             </div>
-             <div class="input-container input-container__small">
-               <VeeField name="apartment" rules="required" v-slot="{ field, errors }">
-                 <input v-bind="field" type="text" placeholder="Квартира" class="input-field" />
-                 <img src="/assets/image/validate-arrow.svg" alt="">
-                 <span v-if="errors.length" class="error-message">{{ errors[0] }}</span>
-               </VeeField>
-             </div>
-           </div>
-         </div>
-         <div class="third-page__bottom">
-           <div class="personal-data__container">
-             <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
-             <NuxtLink :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink>
-           </div>
-           <v-btn class="d-flex flex-row purchase-button" variant="flat" color="rgba(221, 58, 26, 1)" rounded="0" width="230" height="52" @click="purchase()">
-             <span class="purchase-text">Оплатить</span>
-             <img src="/assets/image/purchase.svg" alt="" class="buy-button">
-           </v-btn>
-         </div>
-         <v-btn class="next-button" variant="flat" size="73" color="rgba(221, 58, 26, 1)" rounded="0" @click="toDeliveryAdress()" :class="{hidden: !appOrder.orderStage[0].stageStatus }">
-           <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button">
-         </v-btn>
-       </VeeForm>
-     </div>
-   </section>
- </template>
+
+
 <style lang="scss" scoped>
-    .hidden{
-        display: none;
+    .validate-image{
+        max-width: 22px;
+        max-height: 22px;
     }
+
     .order-background{
         background-color: rgba(23, 7, 7, 0.35);
         position: fixed;
@@ -501,6 +376,9 @@
         width: 100vw;
         height: 100vh;
         position: absolute;
+    }
+    .hidden{
+        display: none;
     }
     @media (max-width: 1200px) {
         .order-container{

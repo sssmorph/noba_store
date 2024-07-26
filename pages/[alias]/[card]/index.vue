@@ -109,6 +109,22 @@
 
     cart.addToCart(curentProduct)
   }
+  const isFixed = ref(false);
+
+  const createObserver = () => {
+    const preorderButton = document.querySelector('#preorderButton');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isFixed.value = !entry.isIntersecting;
+      });
+    });
+
+    observer.observe(preorderButton);
+  };
+  onMounted(async () => {
+    createObserver();
+  })
   useHead({
     title: curProduct.pagetitle
   })
@@ -120,6 +136,21 @@
   <InfoFeedBackModal/>
   <CartModal/>
   <section class="card-page-container">
+    <div class="sticky-basket" :class="{ visibly: isFixed, hidden: cartStore.cartIsOpen }">
+      <v-btn
+      class="button-preorder"
+      variant="flat"
+      width="233"
+      height="34"
+      rounded="0"
+      border="1.5px"
+      color="rgba(221, 58, 26, 1)"
+      @click="openCart"
+      >
+        <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
+        <img src="/assets/image/cart-white.svg">
+      </v-btn>  
+    </div>
     <div class="sub-header-container">
       <v-breadcrumbs :items="items"
       divider="|"
@@ -146,6 +177,7 @@
           <img src="/assets/image/shirt.png">          
         </NuxtLink>
         <v-btn
+        id="preorderButton"
         class="button-preorder"
         variant="flat"
         width="233"
@@ -914,6 +946,33 @@
   .cardSizeButton{
     background-color: rgba(221, 58, 26, 1);
   }
+  .sticky-basket{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding-right: 40px;
+    position: sticky;
+    top: -50px;
+    padding-right: 40px;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 100;
+    transform: translateY(40px);
+  }
+  .visibly{
+    visibility: visible;
+    top: 0px;
+    opacity: 1;
+  }
+  .fixed{
+    position: sticky;
+    top: 0;
+    right: 50px;
+    z-index: 100;
+  }
+  .hidden{
+    display: none;
+  }
   @media (max-width: 1650px) {
     .card-item:hover{
       .size-container__rec{
@@ -1139,10 +1198,16 @@
       height: 28px;
       align-items: center;
     }
+    .sticky-basket{
+      padding-right: 15px;
+    }
   }
   @media (max-width: 600px) {
     .breadcrumbs{
       display: none;
+    }
+    .button-preorder{
+      width: 184px !important;
     }
     .breadcrumbs__mobile{
       display: block;

@@ -1251,6 +1251,13 @@
     local-pkg "^0.5.0"
     vee-validate "4.13.2"
 
+"@vee-validate/rules@^4.13.2":
+  version "4.13.2"
+  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.13.2.tgz#f460970883bcf528235180c818bc5c9aafc8e453"
+  integrity sha512-NrmjxXw/gZQVhjgwIdEOeRYxn74I/3BYXTuExdwbpCPVgFh0pjTQx9aPGkVBnueeszVqO2LfWyKUpvwSWLPXRA==
+  dependencies:
+    vee-validate "4.13.2"
+
 "@vercel/nft@^0.26.4":
   version "0.26.4"
   resolved "https://registry.yarnpkg.com/@vercel/nft/-/nft-0.26.4.tgz#d7e8ebb91567d25240e8cb996152ea77392cea7f"
