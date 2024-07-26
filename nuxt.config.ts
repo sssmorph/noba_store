@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     "nuxt-marquee",
     '@pinia/nuxt',
+    '@vee-validate/nuxt',
     //...
   ],
   vite: {
@@ -37,7 +38,17 @@ export default defineNuxtConfig({
     '@/assets/css/reset.css',
     '@/public/fonts/main.css',
   ],  
-  
+  veeValidate: {
+    // disable or enable auto imports
+    autoImports: true,
+    // Use different names for components
+    componentNames: {
+      Form: 'VeeForm',
+      Field: 'VeeField',
+      FieldArray: 'VeeFieldArray',
+      ErrorMessage: 'VeeErrorMessage',
+    },
+  },
 })
 
 

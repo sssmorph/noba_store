@@ -55,7 +55,7 @@
       </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "/assets/css/index.scss";
 input:-webkit-autofill,
 input:-webkit-autofill:focus,
