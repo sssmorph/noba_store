@@ -1,14 +1,20 @@
 <script setup>
+    import { useModal } from '../stores/modal'; 
+    const modal = useModal();
+    const showModal = computed(() => modal.errorModal)
 
+    const closeModal = () => {
+        modal.closeErrorModal()
+    }
 </script>
 
 <template>
-    <transition>
+    <transition v-if="showModal">
         <section class="modal-background">
             <div class="modal-container">
                 <div class="content-container">
-                    <img src="/assets/image/man.svg" alt="">
-                    <p class="content-text">Что-то пошло не так, попробуйте позже.</p>
+                    <NuxtImg  src="/assets/image/man.svg" alt=""/>
+                    <p class="content-text">Размер не выбран</p>
                 </div>
                 <v-btn
                 class="close-button"
@@ -16,8 +22,9 @@
                 size="58"
                 color="rgba(221, 58, 26, 1)"
                 rounded="0"
+                @click="closeModal"
                 >
-                <img src="/assets/image/close-modal-black.svg" alt="">
+                <NuxtImg src="/assets/image/close-modal-black.svg" alt=""/>
                 </v-btn>
             </div>
         </section>
@@ -28,7 +35,7 @@
     .modal-background{
         background-color: rgba(23, 7, 7, 0.5);
         position: fixed;
-        z-index: 10;
+        z-index: 150;
         width: 100vw;
         height: 100vh;
         display: flex;

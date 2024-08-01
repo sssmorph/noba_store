@@ -39,7 +39,7 @@
   </div>
   <section class="bloger-section">
     <div class="wrapper-container">
-      <img src="../assets/image/heart_red.svg" class="background-image">
+      <img src="../assets/image/heart_red.svg" class="background-image"/>
       <div class="bloger-container d-flex flex-row flex-wrap">
         <CollectionBlogerCard 
         class="cursor-pointer"

@@ -24,15 +24,14 @@
 	const blogerData = await getBloger(blogerId);
 	bloger.value = blogerData;
 
-	const categories = bloger.value.category;
+	const categories = ref(bloger.value.category);
   
   
   // const normalizedCategories = Array.isArray(categories.value) ? categories.value : (categories.value ? Object.values(categories.value) : []);
-
   const normalizedCategories = Array.isArray(categories?.value) 
     ? categories.value 
     : (categories?.value ? Object.values(categories.value) : []);
-
+    
   const currentCategories = ref(normalizedCategories.map(category => {
     return {
     categoryName: category.pagetitle,
@@ -180,6 +179,11 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
 	const updateSortOrder = (order) => {
 		selectedSort.value = order
 	};
+  const openError = () =>{
+    cartStore.openErrorModal();
+  }
+  
+
 	const toCart = (product) => {
     let curentProduct = {
       id: product.id,
@@ -190,7 +194,11 @@ const minPrice = ref(Math.min(...(Array.isArray(bloger?.value?.products)
       price: product.price,
       count: 1,
     }
-		cart.addToCart(curentProduct);
+    if(!curentProduct.size){
+      openError();
+    }else{
+      cart.addToCart(curentProduct);
+    }
 	};
   
 
@@ -224,12 +232,14 @@ const createObserver = () => {
 </script>
 
 <template>
+  <PlacedOrderModal/>
+  <ErrorModal />
   <AppOrder/>
   <AppHeaderBig v-if="bloger" :bloger="bloger"/>
   <CartModal/>
   <InfoFeedBackModal/>
   <section class="catalog-container">
-    <div class="sticky-basket" :class="{ visibly: isFixed, hidden: cartStore.cartIsOpen }">
+    <div class="sticky-basket" :class="{ visibly: isFixed, hidden: (cartStore.cartIsOpen || cartStore.appOrder || cartStore.placedOrder) }">
       <v-btn
       class="button-preorder"
       variant="flat"
@@ -241,7 +251,7 @@ const createObserver = () => {
       @click="openCart"
       >
         <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-        <img src="/assets/image/cart-white.svg">
+        <img src="/assets/image/cart-white.svg" alt="белая корзина"/>
       </v-btn>  
     </div>
     <div class="sub-header-container">
@@ -285,12 +295,12 @@ const createObserver = () => {
         
         >
           <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-          <img src="/assets/image/cart-white.svg">
+          <img  src="/assets/image/cart-white.svg"/>
         </v-btn>
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
           <span class="button-text__collection button-text__collection__mobile">Еще коллекции</span>
-          <img src="/assets/image/shirt.png">          
+          <img src="/assets/image/shirt.png"/>          
         </NuxtLink>
         <v-btn
         variant="flat"
@@ -299,7 +309,7 @@ const createObserver = () => {
         color="rgba(221, 58, 26, 1)"
         class="hidden"
         >
-          <img src="/assets/image/cart-black.svg" alt="">
+          <img src="/assets/image/cart-black.svg" alt=""/>
         </v-btn>
       </div>
     </div>
@@ -344,7 +354,7 @@ const createObserver = () => {
       size="34"
       rounded="0"
       >
-        <img src="/assets/image/white-arrow.svg" alt="" class="button-arrow-filter">
+        <img  src="/assets/image/white-arrow.svg" alt="" class="button-arrow-filter"/>
       </v-btn>
     </div>
     <div :class="{opennedFilter: filterIsActive, hidden: !filterIsActive}" class="filter-box__container">
@@ -502,7 +512,10 @@ const createObserver = () => {
         
         <div  v-for="product in filterProducts" :key="product.id" class="card-item">
           <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
-            <img :src="`http://api.noba.store${product.image}`" class="card-photo">
+            <NuxtImg format="webp" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
+            <div v-else class="card-photo d-flex justify-center align-center bg-f1">
+              <img format="webp" src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="Camera"/>
+            </div>
           </NuxtLink>
           <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }">
             <div class="card-item-bottom__header">
@@ -544,6 +557,9 @@ const createObserver = () => {
  }
  :global(.v-field__outline){
   border-bottom: 2px black solid !important;
+ }
+ .bg-f1{
+  background-color: #f1f1f1;
  }
  :global(.v-breadcrumbs){ 
     padding: 4px 0 !important;
@@ -1044,6 +1060,9 @@ const createObserver = () => {
     top: 0;
     right: 50px;
     z-index: 100;
+  }
+  .contain{
+    object-fit: contain;
   }
   @media(hover: hover){
     input[type="radio"] + label div:hover,

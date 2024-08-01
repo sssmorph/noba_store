@@ -43,13 +43,13 @@
               <div class="CAPTCHA">CAPTCHA</div>
               <button class="btn_take_part">
                 <h4>Отправить</h4>
-                <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
+                <NuxtImg  class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
               </button>
             </div>
             <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на 
-              <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink >
+              <NuxtLink  :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">обработку персональных данных</NuxtLink >
             </h4>
-            
+
           </div>
         </div>
       </div>

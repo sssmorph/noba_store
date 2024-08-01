@@ -48,7 +48,7 @@
                 </div>
                 <div class="modal_warn-container">
                     <h4 class="modal_warn">Нажимая на кнопку <span class="modal_warn__bold">Отправить</span>, вы даёте
-                        <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">согласие на обработку персональных данных</NuxtLink >
+                        <NuxtLink  :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">согласие на обработку персональных данных</NuxtLink >
                     </h4>
                     <div class="modal_warn-line"></div>
                 </div>

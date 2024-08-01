@@ -125,14 +125,14 @@ const onPause = () => {
           <a v-for="social in socialMedia" :key="social.MIGX_id" 
           :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
           class="socail_icon">
-              <img :src="getImageSource(social.social)">
+              <NuxtImg :src="getImageSource(social.social)"/>
           </a>
         </div> 
         <div class="header__socail_mobile">
           <a v-for="social in socialMedia" :key="social.MIGX_id" 
           :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
           class="socail_icon">
-            <img :src="getImageSourceMobile(social.social)">
+            <NuxtImg  :src="getImageSourceMobile(social.social)"/>
         </a>
         </div> 
           <button id="nav-toggle" class="nav-toggle" :class="{opened: burgerIsOpen}" @click="burgerIsOpen = !burgerIsOpen">
@@ -186,7 +186,7 @@ const onPause = () => {
               <div class="hero__blok__bottom__btn">
                 <button id="callback-button" class="btn_take_part" @click="openModal">
                   <h4>Участвовать</h4>
-                  <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
+                  <img  class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
                 </button>
               </div>
             </div>
@@ -196,11 +196,11 @@ const onPause = () => {
           <h1 class="hero_title">Media Start</h1>
           <h2 class="hero__be_real grey">Be real</h2>
           <h2 class="hero__be_real white">Be real</h2>
-          <img class="description__arrow" src="assets/image/target_set.svg" alt="arrow">
-          <img class="hero__img__arrow" src="assets/image/arrow_header.svg" alt="arrow">
-          <img class="hero__img__hat" src="assets/image/hat_header.svg" alt="hat">
-          <img class="hero_bg_grey" src="assets/image/background_head.svg" alt="background">
-          <img class="hero_bg_grey_mobile" src="assets/image/background_head_mobile.svg" alt="background">
+          <img class="description__arrow" src="assets/image/target_set.svg" alt="arrow"/>
+          <img class="hero__img__arrow" src="assets/image/arrow_header.svg" alt="arrow"/>
+          <img class="hero__img__hat" src="assets/image/hat_header.svg" alt="hat"/>
+          <img class="hero_bg_grey" src="assets/image/background_head.svg" alt="background"/>
+          <img class="hero_bg_grey_mobile" src="assets/image/background_head_mobile.svg" alt="background"/>
         </div>
       </section>
       <section id="stages" class="stages">
@@ -216,7 +216,7 @@ const onPause = () => {
                   <div class="stages_item__left__title">
                     <h3>Знакомство и <span class="red_text">обсуждение</span> условий <span class="mobile_off">конкурса</span></h3>
                     <div class="stages_item__left__content ">
-                      <img class="stages_img_number" src="assets/image/01.svg" alt="01">
+                      <img  class="stages_img_number" src="assets/image/01.svg" alt="01"/>
                       <p>{{ konkurs['migx.stages'][0].content }}</p>
                     </div>
                   </div>
@@ -238,7 +238,7 @@ const onPause = () => {
                   <div class="stages_item__left__title">
                     <h3>Подписание<span class="red_text"> договора</span></h3>
                     <div class="stages_item__left__content stages_blok_revers">
-                      <img class="stages_img_number" src="assets/image/02.svg" alt="02">
+                      <img  class="stages_img_number" src="assets/image/02.svg" alt="02"/>
                       <p>{{ konkurs['migx.stages'][1].content }}</p>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ const onPause = () => {
                   <div class="stages_item__left__title">
                     <h3>Разработка и<span class="red_text"> создание</span> коллекции</h3>
                     <div class="stages_item__left__content">
-                      <img class="stages_img_number" src="assets/image/03.svg" alt="03">
+                      <img  class="stages_img_number" src="assets/image/03.svg" alt="03"/>
                       <p>{{ konkurs['migx.stages'][2].content }}</p>
                     </div>
                   </div>
@@ -278,7 +278,7 @@ const onPause = () => {
                   <div class="stages_item__left__title stages_item__left__title_four">
                     <h3>Подготовка к <span class="red_text">продажам</span></h3>
                     <div class="stages_item__left__content stages_blok_revers">
-                      <img class="stages_img_number" src="assets/image/04.svg" alt="04">
+                      <img  class="stages_img_number" src="assets/image/04.svg" alt="04"/>
                       <p>{{ konkurs['migx.stages'][3].content }}</p>
                     </div>
                   </div>
@@ -299,7 +299,7 @@ const onPause = () => {
                   <div class="stages_item__left__title">
                     <h3><span class="red_text">Старт</span> продаж</h3>
                     <div class="stages_item__left__content">
-                      <img class="stages_img_number" src="assets/image/05.svg" alt="05">
+                      <img  class="stages_img_number" src="assets/image/05.svg" alt="05"/>
                       <p>{{ konkurs['migx.stages'][4].content }}</p>
                     </div>
                   </div>
@@ -324,7 +324,7 @@ const onPause = () => {
                   <div class="stages_item__left__title stages_item__left__title_six">
                     <h3>Определение <span class="red_text">победителей</span></h3>
                     <div class="stages_item__left__content stages_blok_revers">
-                      <img class="stages_img_number" src="assets/image/06.svg" alt="06">
+                      <img  class="stages_img_number" src="assets/image/06.svg" alt="06"/>
                       <p>{{ konkurs['migx.stages'][5].content }}</p>
                     </div>
                   </div>
@@ -359,55 +359,55 @@ const onPause = () => {
               <div class="bonus__container__top__list">
                 <hr class="accordion_line">
                 <button class="accordion" :class="{active: isAccOpen[0]}" @click="isAccOpen[0] = !isAccOpen[0]; closeAccordion(0, isAccOpen[0] )">
-                  <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
+                  <img  class="check_btn" src="assets/image/check_mark.svg" alt="check mark"/>
                   <h4><span class="mobile_off">Автоматическое</span> участие в битве за миллиард</h4>
-                  <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
+                  <img  class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button"/>
                 </button>
                   <p class="panel" :class="{panelIsActive: isAccOpen[0]}">{{ konkurs['migx.steps'][0].content }} </p>
                 <hr class="accordion_line">
                 
                 <button class="accordion" :class="{active: isAccOpen[1]}" @click="isAccOpen[1] = !isAccOpen[1]; closeAccordion(1, isAccOpen[1])">
-                  <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
+                  <img  class="check_btn" src="assets/image/check_mark.svg" alt="check mark"/>
                   <h4>прибыль с продаж <span class="mobile_off">своей</span> коллекции</h4>
-                  <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
+                  <img  class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button"/>
                 </button>
                   <p class="panel" :class="{panelIsActive: isAccOpen[1]}">{{konkurs['migx.steps'][1].content}}</p>
                 <hr class="accordion_line">
                 
                 <button class="accordion" :class="{active: isAccOpen[2]}" @click="isAccOpen[2] = !isAccOpen[2]; closeAccordion(2, isAccOpen[2])">
-                  <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
+                  <img  class="check_btn" src="assets/image/check_mark.svg" alt="check mark"/>
                   <h4>Приток новой аудитории</h4>
-                  <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
+                  <img  class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button"/>
                 </button>
                   <p class="panel" :class="{panelIsActive: isAccOpen[2]}">{{ konkurs['migx.steps'][2].content }}</p>
                 <hr class="accordion_line">
                 
                 <button class="accordion" :class="{active: isAccOpen[3]}" @click="isAccOpen[3] = !isAccOpen[3]; closeAccordion(3, isAccOpen[3])">
-                  <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
+                  <img  class="check_btn" src="assets/image/check_mark.svg" alt="check mark"/>
                   <h4>Коллекция качественной одежды</h4>
-                  <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
+                  <img  class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button"/>
                 </button>  
                   <p class="panel" :class="{panelIsActive: isAccOpen[3]}">{{ konkurs['migx.steps'][3].content }}</p>
                 <hr class="accordion_line">
                 
                 <button class="accordion" :class="{active: isAccOpen[4]}" @click="isAccOpen[4] = !isAccOpen[4]; closeAccordion(4, isAccOpen[4])">
-                  <img class="check_btn" src="assets/image/check_mark.svg" alt="check mark">
+                  <img  class="check_btn" src="assets/image/check_mark.svg" alt="check mark"/>
                   <h4>Подарки для подписчиков</h4>
-                  <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button">
+                  <img class="accordion_arrow_button" src="assets/image/arrow_button_black.svg" alt="arrow button"/>
                 </button>
                   <p class="panel" :class="{panelIsActive: isAccOpen[4]}">{{ konkurs['migx.steps'][4].content }}</p>
                 <hr class="accordion_line">
               </div>
-              <img class="winner__img" src="assets/image/winner.svg" alt="winner women">
+              <img class="winner__img" src="assets/image/winner.svg" alt="winner women"/>
             </div>
 
             
           </div>
           <div class="bonus__container__bottom">
-            <img src="assets/image/arrow_bonus.svg" alt="arrow bonus">
+            <img src="assets/image/arrow_bonus.svg" alt="arrow bonus"/>
             <div class="btn_take_part get-modal_1"  @click="openModal">
               <h4>Участвовать</h4>
-              <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
+              <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
             </div>
           </div> 
         </div>
@@ -422,9 +422,9 @@ const onPause = () => {
             <div class="we_near__container__second"><h3>Возьмём на себя все расходы и отвественность за производство твоей коллекции</h3></div>
             <div class="we_near__container__third we_near__container__right"><h3>Создадим совместный <span class="red_text">вирусный контент,</span> чтобы привлечь ещё <span class="red_text">больше аудитории</span></h3></div>
             <div class="we_near__container__fourth we_near__container__right"><h3>Направим средства от продаж 5 <span class="red_text">благотворительным</span> фондам и предоставим отчет</h3></div>
-            <img class="paperplane_img" src="assets/image/paperplane.svg" alt="plane">
-            <img class="sneaker_img" src="assets/image/sneaker.svg" alt="sneaker">
-            <img class="hands_heart_img" src="assets/image/hands_heart.svg" alt="hands_heart">
+            <img class="paperplane_img" src="assets/image/paperplane.svg" alt="plane"/>
+            <img class="sneaker_img" src="assets/image/sneaker.svg" alt="sneaker"/>
+            <img class="hands_heart_img" src="assets/image/hands_heart.svg" alt="hands_heart"/>
           </div>
         </div>
         <div class="we_near__bg_black"></div>
@@ -447,8 +447,8 @@ const onPause = () => {
           <div class="winner__headline">
             <h2 class="winner__headline__taxt texst_like_h1">Участники</h2>
             <div class="winner__headline__right">
-              <img class="winner__headline__img_text" src="assets/image/Fashion fusion.svg" alt="">
-              <img class="winner__headline__img_heat" src="assets/image/heart_red.svg" alt="heart">
+              <img class="winner__headline__img_text" src="assets/image/Fashion fusion.svg" alt=""/>
+              <img class="winner__headline__img_heat" src="assets/image/heart_red.svg" alt="heart"/>
             </div>
           </div>
           <div class="winner__cards">
@@ -464,10 +464,10 @@ const onPause = () => {
         <div class="winner_bottom">
           <h2>BE REAL</h2>
           <div class="winner_bottom__block">
-            <img class="winner_bottom__img" src="assets/image/heart-white.svg" alt="heart">
+            <img  class="winner_bottom__img" src="assets/image/heart-white.svg" alt="heart"/>
             <div class="winner_bottom__btn btn_take_part get-modal_1"  @click="openModal">
               <h4>Участвовать</h4>
-              <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow">
+              <img  class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
             </div>
           </div>
         </div>
@@ -476,10 +476,11 @@ const onPause = () => {
   <footer>
     <div class="wrapper">
       <div class="footer">
-        <img src="assets/image/NOBA_logo.svg" alt="NOBA logo">
+        <img  src="assets/image/NOBA_logo.svg" alt="NOBA logo"/>
         <div class="footer__right">
           <div class="footer__right_mobile_off"><h3>Не является публичной офертой</h3></div>
-          <NuxtLink :to="{ name: 'document', params: { document: konkursRule.alias } }"><h3>Правила проведения конкурса</h3></NuxtLink>
+          <NuxtLink :to="{ name: 'document-alias', params: { alias: 'pravila-provedeniya-konkursa' } }"><h3>Правила проведения конкурса</h3></NuxtLink>
+
         </div>
       </div>
     </div>

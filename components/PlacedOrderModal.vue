@@ -1,13 +1,20 @@
 <script setup>
+    import { useModal } from '../stores/modal'; 
+    const modal = useModal();
+    const showModal = computed(() => modal.placedOrder)
+    
+    const closeModal = () => {
+        modal.closePlacedOrder();
+    }
 
 </script>
 
 <template>
     <transition>
-        <section class="modal-background">
+        <section class="modal-background" v-if="showModal">
             <div class="modal-container">
                 <div class="content-container">
-                    <img src="/assets/image/woman_shopping.svg" alt="">
+                    <img src="/assets/image/woman_shopping.svg" alt=""/>
                     <p class="content-text">Ваш заказ успешно оформлен, Вся информация о совершенной покупке была отправлена вам на почту.</p>
                 </div>
                 <v-btn
@@ -16,8 +23,9 @@
                 size="58"
                 color="rgba(221, 58, 26, 1)"
                 rounded="0"
+                @click="closeModal()"
                 >
-                <img src="/assets/image/close-modal-black.svg" alt="">
+                <img src="/assets/image/close-modal-black.svg" alt=""/>
                 </v-btn>
             </div>
         </section>

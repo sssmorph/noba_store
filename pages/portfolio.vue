@@ -16,7 +16,6 @@
     const portfolioData = await getPortfolio();
     portfolio.value = portfolioData.results;    
     
-    console.log(portfolio.value)
     onMounted( async () => {
 
 
@@ -56,8 +55,8 @@
             <swiper-slide 
             v-for="(project, projectIndex) in item.projects" :key="projectIndex"
             class="portfolio-card-item">
-                <NuxtLink :to="{ name: 'work', params: { work: project.alias }, query: { id: project.id} }">
-                    <img :src="'http://api.noba.store/' + project.image" alt="" class="portfolio-card-item__photo">
+                <NuxtLink :to="{ name: 'work-work', params: { work: project.alias }, query: { id: project.id} }">
+                    <NuxtImg format="webp" :src="'http://api.noba.store/' + project.image" alt="" class="portfolio-card-item__photo"/>
                     <div class="portfolio-card-item__bottom">
                         <p class="t-b swis portfolio-card__name">{{ project.pagetitle }}</p>
                         <p class="t-b manrope portfolio-card__count">{{ projectIndex  }}</p>
@@ -69,6 +68,7 @@
                         <span class="button__line more-work"></span>
                     </button>
                 </NuxtLink>
+
             </swiper-slide>
 
             <div class="card-navigation-container prevContainer">
@@ -81,7 +81,7 @@
                 class="recomendationPrev cardPrev"
         
                 >
-                  <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+                  <img  src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
                 </v-btn>
             </div>
             <div class="card-navigation-container nextContainer">
@@ -93,7 +93,7 @@
                 rounded="0"
                 class="recomendationNext cardNext"
                 >
-                  <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+                  <img  src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
                 </v-btn>
             </div>
         </Swiper>
@@ -224,6 +224,7 @@
         max-width: 451px;
         padding-top:50px;
         width: 451px;
+        height: calc(100% - 50px);
     }
     .portfolio-card-item__small{
         max-width: 173px;
@@ -239,8 +240,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 141px;
-        width: 451px;
+        height: 105px;
+        width: 402px;
     }
     .portfolio-card-item__bottom__mobile{
         padding: 25px 10px 18px 16px;
@@ -294,7 +295,7 @@
         position: absolute;
         bottom: 50%;
         right: 0;
-        z-index: 10;
+        z-index: 100;
       }
       .cardPrev{
         rotate: 180deg;

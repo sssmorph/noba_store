@@ -34,10 +34,10 @@
     <header :class="{headerBig: isActive, colored: isActive}">
         <div class="header-container" :class="{headerBig: isActive, colored: isActive}">
             <div class="bloger-main-information">
-                <img :src="mainImage" alt="" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}">
+                <NuxtImg format="webp" :src="mainImage" alt="" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}"/>
                 <div class="main-information-container" :class="{mainInfoContainerBig: isActive}">
                     <div class="main-information-top">
-                        <img :src="miniImage" class="bloger-avatar">
+                        <NuxtImg format="webp" :src="miniImage" class="bloger-avatar" alt="bloger avatar"/>
                         <div class="bloger-header">
                             <span class="bloger-nick-name">{{ bloger.name }}</span>
                             <span class="subscribers">{{ bloger.quantity }}</span>
@@ -51,7 +51,7 @@
                             class="social-media-link" 
                             target="_blank" 
                             rel="noopener noreferrer">
-                                <img :src="getImageSource(social.social)">
+                                <img :src="getImageSource(social.social)"/>
                             </a>
                         </div>
                         <v-btn  
@@ -73,8 +73,7 @@
                     <h1 class="bloger-name">{{ bloger.pagetitle }}</h1>
                     <p class="bloger-description">{{ bloger.introtext }}</p>
                 </div>
-                <p :class="{blogerText: isActive, hidden: !isActive}" >{{ bloger.content}}</p>
-
+                <div :class="{blogerText: isActive, hidden: !isActive}" v-html="bloger.content"></div>
                 <div class="buttons-container">
                     <NuxtLink to="/">
                         <v-btn  class="header-button"
@@ -82,7 +81,7 @@
                         size="73"
                         color="rgba(23, 7, 7, 1)"
                         rounded="0">
-                            <img class="header-button__photo" src="/assets/image/burger-lines.svg" alt="">
+                            <img class="header-button__photo" src="/assets/image/burger-lines.svg" alt=""/>
                         </v-btn>
                     </NuxtLink>
                     <v-btn  class="header-button"
@@ -92,7 +91,7 @@
                     rounded="0"
                     :class="{ active: isActive }" 
                     @click="toggleHeader">
-                        <img class="header-button__photo" :class="{rotatedarrow: isActive,}" src="/assets/image/menu-arrow.svg" alt="">
+                        <img class="header-button__photo" :class="{rotatedarrow: isActive,}" src="/assets/image/menu-arrow.svg" alt=""/>
                     </v-btn>
                 </div>
             </div>

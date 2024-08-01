@@ -33,9 +33,9 @@
     <footer>
         <div class="wrapper">
             <div class="logo-copy">
-                <img src="/assets/image/logo-white.png" alt="" class="logo-img">
+                <img src="/assets/image/logo-white.png" alt="" class="logo-img"/>
                 <div class="copyright-container">
-                    <img src="/assets/image/copyright.svg" alt="" class="copyright-img">
+                    <img src="/assets/image/copyright.svg" alt="" class="copyright-img"/>
                     <span class="t-w manrope copyright">Все права защищены</span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         class="social-media__item"
                         target="_blank"
                         >
-                            <img :src="getImageSource(social.social)" alt="" class="social-media__image">
+                            <NuxtImg  :src="getImageSource(social.social)" alt="" class="social-media__image"/>
                         </a>
                     </div>
                     <div class="contacts-container">
@@ -83,6 +83,8 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        margin: auto;
+        height: 140px;
     }
     .logo-copy{
         display: flex;
@@ -178,6 +180,7 @@
     @media (max-width: 860px) {
         .wrapper{
             position: relative;
+            height: 358px;
         }
         footer{
             height: 358px;

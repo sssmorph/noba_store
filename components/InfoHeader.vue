@@ -46,7 +46,7 @@
                         class="social-media__item"
                         target="_blank"
                         >
-                            <img :src="getImageSource(social.social)" alt="" class="social-media__image">
+                            <img :src="getImageSource(social.social)" alt="" class="social-media__image"/>
                         </a>
                 </div>
                 <div class="burger-menu" @click="toggleBurger">
@@ -77,6 +77,7 @@
         max-width: 1440px;
         height: 100%;
         padding: 30px 44px;    
+        margin: auto;
     }
     .t-w{
         color: rgba(255, 252, 251, 1);

@@ -4,7 +4,10 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-
+  router: {
+    base: '/',
+    mode: 'history',
+  },
   devtools: { enabled: true },
   build: {
     transpile: ['vuetify'],
@@ -21,6 +24,7 @@ export default defineNuxtConfig({
     "nuxt-marquee",
     '@pinia/nuxt',
     '@vee-validate/nuxt',
+    '@nuxt/image'
     //...
   ],
   vite: {

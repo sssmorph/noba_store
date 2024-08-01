@@ -1,10 +1,12 @@
 <script setup>
-import { vMaska } from "maska";
+import { ref, computed } from 'vue';
+import { vMaska } from 'maska';
 import { useModal } from '../stores/modal'; 
 import { useAppOrder } from '~/stores/appOrder';
 import { getDocument } from '~/composables/getDocument';
-import { defineRule, useForm } from 'vee-validate';
+import { defineRule, useForm, Field as VeeField, Form as VeeForm } from 'vee-validate';
 import { required, email } from '@vee-validate/rules';
+import { shopCart } from '../stores/cart';
 
 defineRule('customEmail', value => {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,45 +15,143 @@ defineRule('customEmail', value => {
 
 defineRule('required', required);
 defineRule('email', email);
+const cart = shopCart();
 
+if(cart.productInCart.length === 0){
+    cart.getProductInCart()
+}
+const normalizedCart = ref(cart.productInCart.map(product => {
+    return{
+        id: product.id,
+        pagetitle: product.title,
+        price: product.price,
+        gallery: product.image,
+        size: product.size,
+        count: product.count
+    }
+}))
+// console.log(JSON.stringify(normalizedCart.value))
 const appOrder = useAppOrder();
 const privacy = await getDocument(37);
+
+
 
 const cartModalStore = useModal();
 const closeAppOrder = () => {
   cartModalStore.closeAppOrder();
   appOrder.resetStage();
 };
+const openPlaceOrder = () =>{
+    cartModalStore.openPlacedOrder();
+}
 
 const showModal = computed(() => cartModalStore.appOrder);
 
-const form = useForm();
+const { handleSubmit, setFieldValue, values } = useForm({
+  initialValues: {
+    fullName: '',
+    phone: '',
+    email: '',
+    postalCode: '',
+    city: '',
+    street: '',
+    building: '',
+    apartment: ''
+  }
+});
 
 const toDeliveryAdress = async () => {
-  const { valid } = await form.validate();
-  if (!valid) {
-    return;
-  }
+
   appOrder.toSecondStage();
 };
 
-const purchase = async () => {
-  const { valid } = await form.validate();
-  if (!valid) {
-    return;
+const purchase = handleSubmit(async (values) => {
+  const arr = JSON.stringify(normalizedCart.value);
+  const params = new URLSearchParams(); 
+  params.append('postcart', arr);
+  params.append('delivery', 1);
+  params.append('payment', 1);
+  params.append('email', values.email);
+  params.append('name', values.fullName);
+  params.append('phone', values.phone);
+  params.append('city', values.city);
+  params.append('street', values.street);
+  params.append('building', values.building);
+  params.append('apartment', values.apartment);
+  params.append('index', values.postalCode);
+  params.append('customer', values.fullName)
+  try {
+    const response = await fetch('http://api.noba.store/api/order', {
+      method: 'POST',
+      body: params
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data)
+
+    console.log(data.object.response.data);
+    getOrderStatus(data.object.response.data.msorder); // response.data.object.response.data.msorder возвращает id заказа
+    appOrder.resetStage();
+  } catch (error) {
+    console.error('Error:', error); 
   }
-  console.log('Data for payment:', {
-    fullName: form.values.fullName,
-    phone: form.values.phone,
-    email: form.values.email,
-    postalCode: form.values.postalCode,
-    city: form.values.city,
-    street: form.values.street,
-    building: form.values.building,
-    apartment: form.values.apartment,
-  });
-  //    appOrder.resetStage();
-};
+  
+});
+
+async function getOrderStatus(id) {
+  try {
+    const response = await fetch(`http://api.noba.store/api/orders/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    if (data.object.status == '1') {
+      // Проверка на status == 1, если статус 1 значит заказ не оплачен и мы запускаем функцию postEditOrder
+      await postEditOrder(id);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+async function postEditOrder(id) {
+  try {
+    const response = await fetch('http://api.noba.store/api/orderedit/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        status: 2 // Устанавливаем заказу статус 2 - оплачено
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data);
+    cart.clearCart()
+    closeAppOrder();
+
+    openPlaceOrder();
+  } catch (error) {
+    
+    console.error('Error:', error);
+  }
+}
 </script>
 
 <template>
@@ -72,28 +172,28 @@ const purchase = async () => {
         </span>
       </div>
 
-      <VeeForm v-slot="{ handleSubmit, errors }" @submit="handleSubmit(purchase)">
+      <form @submit="purchase">
         <div class="page first-page" :class="{'page-active': appOrder.orderStage[0].stageStatus}">
           <div class="input-container input-container__big">
             <VeeField name="fullName" rules="required" v-slot="{ field, meta }">
               <input v-bind="field" type="text" placeholder="ФИО" class="input-field" />
-              <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-              <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+              <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
             </VeeField>
           </div>
           <div class="double-input-container">
             <div class="input-container input-container__small">
               <VeeField name="phone" rules="required" v-slot="{ field, meta }">
-                <input v-bind="field" type="text" placeholder="+7  (         ) " class="input-field" v-maska data-maska="+7(###)-###-##-##"/>
-                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+                <input v-bind="field" type="text" placeholder="+7  (         ) " class="input-field" v-maska data-maska="###########"/>
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
               </VeeField>
             </div>
             <div class="input-container input-container__small">
-              <VeeField name="email" rules="required|customEmail" v-slot="{ field, meta }">
+              <VeeField name="email" rules="required|email" v-slot="{ field, meta }">
                 <input v-bind="field" type="text" placeholder="E-mail" class="input-field" />
-                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
               </VeeField>
             </div>
           </div>
@@ -103,39 +203,39 @@ const purchase = async () => {
           <div class="double-input-container">
             <div class="input-container input-container__small">
               <VeeField name="postalCode" rules="required" v-slot="{ field, meta }">
-                <input v-bind="field" type="text" placeholder="Индекс" class="input-field" v-maska data-maska="###-###"/>
-                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+                <input v-bind="field" type="text" placeholder="Индекс" class="input-field" v-maska data-maska="######"/>
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
               </VeeField>
             </div>
             <div class="input-container input-container__small">
               <VeeField name="city" rules="required" v-slot="{ field, meta }">
                 <input v-bind="field" type="text" placeholder="город" class="input-field"/>
-                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
               </VeeField>
             </div>
           </div>
           <div class="input-container input-container__big">
             <VeeField name="street" rules="required" v-slot="{ field, meta }">
               <input v-bind="field" type="text" placeholder="Улица" class="input-field" />
-              <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-              <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+              <img" v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+              <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
             </VeeField>
           </div>
           <div class="double-input-container">
             <div class="input-container input-container__small">
               <VeeField name="building" rules="required" v-slot="{ field, meta }">
                 <input v-bind="field" type="text" placeholder="Дом, строение" class="input-field" />
-                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
               </VeeField>
             </div>
             <div class="input-container input-container__small">
               <VeeField name="apartment" rules="" v-slot="{ field, meta }">
                 <input v-bind="field" type="text" placeholder="Квартира" class="input-field" />
-                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image">
-                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image">
+                <img v-if="meta.valid && meta.touched" src="/assets/image/validate-arrow.svg" alt="valid" class="validate-image"/>
+                <img v-else-if="!meta.valid && meta.touched" src="/assets/image/cross.svg" alt="invalid" class="validate-image"/>
               </VeeField>
             </div>
           </div>
@@ -143,21 +243,20 @@ const purchase = async () => {
         <div class="third-page__bottom" :class="{hidden: !appOrder.orderStage[1].stageStatus }">
           <div class="personal-data__container">
             <span class="personal-data">Нажимая кнопку, я подтверждаю своё согласие на </span>
-            <NuxtLink :to="{ name: 'document', params: { document: privacy.alias } }" class="personal-data__link">обработку персональных данных</NuxtLink>
+            <NuxtLink :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">обработку персональных данных</NuxtLink>
           </div>
           <v-btn class="d-flex flex-row purchase-button"  variant="flat" color="rgba(221, 58, 26, 1)" rounded="0" width="230" height="52" @click="purchase()">
             <span class="purchase-text">Оплатить</span>
-            <img src="/assets/image/purchase.svg" alt="" class="buy-button">
+            <img src="/assets/image/purchase.svg" alt="" class="buy-button"/>
           </v-btn>
         </div>
         <v-btn class="next-button" variant="flat" size="73" color="rgba(221, 58, 26, 1)" rounded="0" @click="toDeliveryAdress()" :class="{hidden: !appOrder.orderStage[0].stageStatus }">
-          <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button">
+          <img src="/assets/image/menu-arrow.svg" alt="" class="arrow-button"/>
         </v-btn>
-      </VeeForm>
+    </form>
     </div>
   </section>
 </template>
-
 
 <style lang="scss" scoped>
     .validate-image{

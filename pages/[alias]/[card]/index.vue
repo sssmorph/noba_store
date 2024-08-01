@@ -37,7 +37,9 @@
   const openCart = () => {
     cartStore.openCartModal();
   };
-
+  const openError = () => {
+    cartStore.openErrorModal();
+  }
 
   const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
@@ -94,7 +96,13 @@
       price: curProduct.price,
       count: 1,
     }
-    cart.addToCart(curentProduct);
+    if(!curentProduct.size){
+      openError();
+    }
+    else{
+      cart.addToCart(curentProduct);
+    }
+
   };
   const recomendationToCart = (product) => {
     let curentProduct = {
@@ -106,8 +114,12 @@
       price: product.price,
       count: 1,
     };
-
-    cart.addToCart(curentProduct)
+    if(!curentProduct.size){
+      openError();
+    }else{
+      cart.addToCart(curentProduct)
+    }
+    
   }
   const isFixed = ref(false);
 
@@ -131,12 +143,14 @@
 </script>
 
 <template>
+  <PlacedOrderModal/>
+  <ErrorModal/>
   <AppOrder/>
   <AppHeaderBig :bloger="bloger"/>
   <InfoFeedBackModal/>
   <CartModal/>
   <section class="card-page-container">
-    <div class="sticky-basket" :class="{ visibly: isFixed, hidden: cartStore.cartIsOpen }">
+    <div class="sticky-basket" :class="{ visibly: isFixed, hidden: (cartStore.cartIsOpen || cartStore.appOrder || cartStore.placedOrder) }">
       <v-btn
       class="button-preorder"
       variant="flat"
@@ -148,7 +162,7 @@
       @click="openCart"
       >
         <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-        <img src="/assets/image/cart-white.svg">
+        <img src="/assets/image/cart-white.svg"/>
       </v-btn>  
     </div>
     <div class="sub-header-container">
@@ -174,7 +188,7 @@
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
           <span class="button-text__collection button-text__collection-mobile">Ещё коллекции</span>
-          <img src="/assets/image/shirt.png">          
+          <img src="/assets/image/shirt.png"/>          
         </NuxtLink>
         <v-btn
         id="preorderButton"
@@ -188,7 +202,7 @@
         @click="openCart"
         >
           <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-          <img src="/assets/image/cart-white.svg">
+          <img src="/assets/image/cart-white.svg"/>
         </v-btn>      
       </div>
     </div>
@@ -196,7 +210,10 @@
       <div class="card__photos">
         <h1 class="item-name item-name__mobile">{{ curProduct.pagetitle }}</h1>
         <p class="item-article item-article__mobile">Арт.:{{ curProduct.article }}</p>
-        <swiper
+      </div>
+      <div class="card__photos" v-if="gallery.length != 0">
+
+        <swiper 
         class="card-photo-slider"
 
         :navigation="{
@@ -222,10 +239,17 @@
         }"
         >
         <swiper-slide class="card-photo-slider__item" v-for="(image, index) in gallery" :key="index">
-          <img :src="'http://api.noba.store' + image.url" />
+          <NuxtImg format="webp" :src="'http://api.noba.store' + image.url" />
+
         </swiper-slide>
 
-        <div class="card-navigation-container">
+        <swiper-slide v-if="gallery.length === 1" class="card-photo-slider__item  bg-f1">
+          <div class="h-100 w-100 d-flex justify-center align-center">
+            <NuxtImg  src="~/assets/image/Camera.svg" class="contain h-25 w-25"/>
+          </div>
+        </swiper-slide>
+
+        <div class="card-navigation-container" >
             <v-btn
             ref="cardPrev"
             variant="flat"
@@ -235,7 +259,7 @@
             class="cardPrev"
     
             >
-              <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+              <img  src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
             </v-btn>
             <v-btn
             ref="cardNext"
@@ -245,11 +269,13 @@
             rounded="0"
             class=" cardNext"
             >
-              <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+              <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
             </v-btn>
         </div>
+
       </swiper>
       <swiper
+        
         class="thumbSlider"
         :spaceBetween="5"
         :slidesPerView="4"
@@ -260,14 +286,19 @@
         
       >
         <swiper-slide class="card-photo-slider__thumb" v-for="(image, index) in gallery" :key="index">
-          <img :src="'http://api.noba.store' + image.url" />
+          <NuxtImg format="webp" :src="'http://api.noba.store' + image.url" />
         </swiper-slide>
       </swiper>
+
+      </div>
+      <div class="" v-else>
+        <NuxtImg  src="~/assets/image/no_photo.svg" class="no-photo"/>
+        <NuxtImg  src="~/assets/image/no_photo_mobile.svg" class="no-photo__mobile"/>
       </div>
       <div class="card__description">
         <h1 class="item-name">{{ curProduct.pagetitle }}</h1>
         <p class="item-article"> Арт.:{{ curProduct.article }}</p>
-        <p class="item-description" >{{ curProduct.content }}</p>
+        <div v-html="curProduct.content" class="item-description"> </div>
         <div class="item-information__container">
           <div class="item-information">
             <span class="information-title">Состав:</span>
@@ -294,7 +325,7 @@
           <div class="composition-container">
             <span class="composition-title">Гладить при 150°С</span>
             <div class="composition-icon-container">
-              <img
+              <NuxtImg format="webp"
               v-for="(composition, index) in compositions"
               :key="index"
               :src="composition.imagePath"
@@ -315,7 +346,7 @@
           @click="toCart()"
           >
             <span class="to-basket">В корзину</span>
-            <img src="/assets/image/cart-white.svg" alt="">
+            <img  src="/assets/image/cart-white.svg" alt=""/>
           </v-btn>  
         </div>
       </div>
@@ -344,7 +375,7 @@
         rounded="0"
         class="recomendationNext"
         >
-          <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+          <img  src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
         </v-btn>
       </div>
 
@@ -385,7 +416,10 @@
           class="card-item"
           >
             <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
-              <img :src="`http://api.noba.store${product.image}`" class="card-photo">
+              <NuxtImg format="webp" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
+              <div v-else class="card-photo d-flex justify-center align-center bg-f1">
+                <NuxtImg src="~/assets/image/Camera.svg" class="contain h-25 w-25"/>
+              </div>
             </NuxtLink>
             <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }">
               <div class="card-item-bottom__header">
@@ -427,6 +461,14 @@
 <style lang="scss" scoped>
   *{
     transition: 0.2s all ease-in-out;
+  }
+
+  .bg-f1{ 
+    background-color: #f1f1f1;
+  }
+
+  .no-photo__mobile{
+    display: none;
   }
   .card-page-container{
     max-width: 1440px;
@@ -499,6 +541,18 @@
     margin-top: 27px;
   }
   .item-description{
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    letter-spacing: 0.02em;
+    text-align: left;
+    color: rgba(23, 7, 7, 1);
+    max-width: 430px;
+    margin-top: 28px;
+
+  }
+  p{
     font-family: Manrope;
     font-size: 16px;
     font-weight: 400;
@@ -738,6 +792,9 @@
       object-fit: cover;
     }
   }
+  .card-photo-slider__item{
+    height: 613px;
+  }
   .card-photo-slider__thumb{
     img{
       width: 210px;
@@ -961,7 +1018,7 @@
   }
   .visibly{
     visibility: visible;
-    top: 0px;
+    top: -25px;
     opacity: 1;
   }
   .fixed{
@@ -972,6 +1029,9 @@
   }
   .hidden{
     display: none;
+  }
+  .contain{
+    object-fit: contain !important;
   }
   @media (max-width: 1650px) {
     .card-item:hover{
@@ -1094,6 +1154,10 @@
         width: 100%;
         max-width: 100%;
       }
+      p{
+        width: 100%;
+        max-width: 100%;
+      }
       .item-name{
         max-width: 100%;
         width: 100%;
@@ -1128,6 +1192,9 @@
     .item-description{
       margin-top: 0;
     }
+    p{
+      margin-top: 0;
+    }
     .card-photo-slider{
       margin-bottom: 0 !important;
     }
@@ -1151,7 +1218,12 @@
     }
   }
   @media (max-width: 640px) {
-
+    .no-photo{
+      display: none;
+    }
+    .no-photo__mobile{
+      display: block;
+    }
     .recomendation-container{
       padding: 0 15px;
     }
@@ -1269,6 +1341,10 @@
       line-height: 120%;
     }
     .item-description{
+      font-size: 14px;
+      line-height: 120%;
+    }
+    p{
       font-size: 14px;
       line-height: 120%;
     }

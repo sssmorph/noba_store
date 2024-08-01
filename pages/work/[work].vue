@@ -37,8 +37,8 @@
     <InfoFeedBackModal/>
     <InfoHeader/>
     <section class="wrapper portfolio-block">
-        <img src="/assets/image/CardClothes.png" class="portfolio-image" alt="">
-        <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio">
+        <img src="/assets/image/CardClothes.png" class="portfolio-image" alt=""/>
+        <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio"/>
             <button
             class="more-work-button"
             @click="openModal"
@@ -69,7 +69,7 @@
                 v-for="(image, index) in slider"
                 :key="index"
             >
-                <img :src="'http://api.noba.store/' + image.image" alt="" class="portfolio-card-item__photo">
+                <NuxtImg format="webp" :src="'http://api.noba.store/' + image.image" alt="" class="portfolio-card-item__photo"/>
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
                 </div>
@@ -85,7 +85,7 @@
                 class="recomendationPrev cardPrev"
         
                 >
-                  <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+                  <img  src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
                 </v-btn>
             </div>
             <div class="card-navigation-container nextContainer">
@@ -97,7 +97,7 @@
                 rounded="0"
                 class="recomendationNext cardNext"
                 >
-                  <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;">
+                  <img  src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
                 </v-btn>
             </div>
         </Swiper>
@@ -105,8 +105,8 @@
     <section class="review-section">
         <div class="wrapper review-block">
             <div class="review-block__left">
-                <img src="/assets/image/review-bereal.png" alt="" class="review-be-real__small">
-                <img src="/assets/image/review-bereal-b.png" alt="" class="review-be-real__big">
+                <img src="/assets/image/review-bereal.png" alt="" class="review-be-real__small"/>
+                <img src="/assets/image/review-bereal-b.png" alt="" class="review-be-real__big"/>
                 <button
                 class="send-request"
                 @click="openModal"
@@ -173,6 +173,21 @@
         font-weight: 400;
         font-size: 16px;
         line-height: 160%;
+    }
+    p{
+        color: rgba(23, 7, 7, 1);
+        font-family: Manrope !important;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+    }
+    h3{
+        color: rgba(23, 7, 7, 1);
+        font-family: Swis721CnBTRusbyme-Roman;
+        font-weight: 400;
+        font-size: 32px ;
+        line-height: 120%;
+        margin-bottom: 12px;
     }
 .button__line{
     border-left: dashed 1px rgba(255, 252, 251, 1);
@@ -263,6 +278,7 @@ h2{
     max-width: 451px;
     padding-top:50px;
     width: 451px;
+    height: calc(100% - 50px);
 }
 .portfolio-card-item__small{
     max-width: 173px;
@@ -278,8 +294,9 @@ h2{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 141px;
-    width: 451px;
+    height: 105px;
+    width: 402px;
+
 }
 .portfolio-card-item__bottom__mobile{
     padding: 25px 10px 18px 16px;
@@ -398,7 +415,7 @@ h2{
     position: absolute;
     bottom: 50%;
     right: 0;
-    z-index: 10;
+    z-index: 100;
   }
   .cardPrev{
     rotate: 180deg;

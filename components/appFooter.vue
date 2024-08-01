@@ -18,8 +18,8 @@
 
 <template>
     <footer>
-        <div class="search-bar__mobile"
-        :class="{mobileSearchActive: searchBoxIsActive}">
+        <!-- <div class="search-bar__mobile"
+        :class="{mobileSearchActive: searchBoxIsActive}">1
             <v-responsive max-width="100%" class="search-box-container__mobile">
                 <v-text-field class="search-box__mobile"
                 clearable label="Поиск" 
@@ -31,32 +31,39 @@
                 </v-text-field>
 
             </v-responsive>
-        </div>
+        </div> -->
         <div class="footer-wrapper">
             <div class="link-container">
                 <ul class="link-list">
                     <li class="footer-link">
-                        <NuxtLink  :to="{ name: 'document', params: { document: obmen.alias } }" class="underline-hover-effect">Обмен и возврат</NuxtLink >
+                      <NuxtLink :to="{ name: 'document-alias', params: { alias: 'obmen-i-vozvrat' } }" class="underline-hover-effect">
+                        Обмен и возврат
+                      </NuxtLink>
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  :to="{ name: 'document', params: { document: delivery.alias } }" class="underline-hover-effect">Доставка</NuxtLink >
+                      <NuxtLink :to="{ name: 'document-alias', params: { alias: 'dostavka' } }" class="underline-hover-effect">
+                        Доставка
+                      </NuxtLink>
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  :to="{ name: 'document', params: { document: payment.alias } }" class="underline-hover-effect">Оплата</NuxtLink >
+                      <NuxtLink :to="{ name: 'document-alias', params: { alias: 'oplata' } }" class="underline-hover-effect">
+                        Оплата
+                      </NuxtLink>
                     </li>
                     <li class="footer-link">
-                        <span class="underline-hover-effect cursor-pointer" @click="openModal">Связаться с нами</span >
+                      <span class="underline-hover-effect cursor-pointer" @click="openModal()">Связаться с нами</span>
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  to="/info" class="underline-hover-effect">О компании</NuxtLink >
+                      <NuxtLink to="/info" class="underline-hover-effect">О компании</NuxtLink>
                     </li>
                     <li class="footer-link">
-                        <NuxtLink  :to="{ name: 'document', params: { document: privacy.alias } }" class="underline-hover-effect">Политика конфиденциальности</NuxtLink >
+                        <NuxtLink :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="underline-hover-effect">
+                            Политика конфиденциальности
+                        </NuxtLink>
                     </li>
-
-                </ul>
+                  </ul>
             </div>
-            <v-responsive max-width="424" class="search-box-container">
+            <!-- <v-responsive max-width="424" class="search-box-container">
                 <v-text-field class="search-box"
                 clearable label="Поиск" 
                 variant="underlined"
@@ -73,7 +80,7 @@
                 @click="toggleSearch()">
                     <img src="/assets/image/search-btn-mobile.svg" alt="">
                 </v-btn>
-            </v-responsive>
+            </v-responsive> -->
 
         </div>
 
@@ -91,7 +98,7 @@
         padding: 23px 40px;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        /* justify-content: space-around; */
         align-items: center;
         position: relative;
     }

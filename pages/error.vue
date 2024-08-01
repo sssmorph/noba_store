@@ -1,11 +1,10 @@
 <script>
-
-export default {
-  props: ['error'],
-  async asyncData({ error, statusCode }) {
-    return { error: { statusCode}};
-  }
-};
+// export default {
+//   props: ['error'],
+//   async asyncData({ error, statusCode }) {
+//     return { error: { statusCode}};
+//   }
+// };
 </script>
 
 <template>
@@ -13,17 +12,17 @@ export default {
   <section class="error-page">
     <p class="error-message__mobile">Кажется, здесь одежды нет</p>
     <div class="error-box">
-        <img src="/public/image/error-image.png" alt="">
+        <NuxtImg format="webp" src="/public/image/error-image.png" alt=""/>
         <span class="error-code">{{error.statusCode}}</span>
     </div>
     <div class="error-information">
         <p class="error-message">Кажется, здесь одежды нет</p>
         <div class="arrow-container">
             <p class="arrow-text">Зато есть там</p>
-            <img src="/public/image/error-arrow.svg" class="error-arrow">
+            <NuxtImg src="/public/image/error-arrow.svg" class="error-arrow"/>
         </div>
         <NuxtLink to="/" class="go-home-button d-flex flex-row justify-space-between align-center">Каталог
-            <img src="/assets/image/error-text.svg" alt="">
+            <NuxtImg src="/assets/image/error-text.svg" alt=""/>
         </NuxtLink>
         <p class="error-description">Возможно, страница была удалена или вовсе не существовала.</p>
     </div>

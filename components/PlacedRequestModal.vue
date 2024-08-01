@@ -7,7 +7,7 @@
         <section class="modal-background">
             <div class="modal-container">
                 <div class="content-container">
-                    <img src="/assets/image/girl.svg" alt="">
+                    <img src="/assets/image/girl.svg" alt=""/>
                     <p class="content-text">Спасибо за оставленную заявку, мы свяжемся с Вами в ближайшее время.</p>
                 </div>
                 <v-btn
@@ -17,7 +17,7 @@
                 color="rgba(221, 58, 26, 1)"
                 rounded="0"
                 >
-                <img src="/assets/image/close-modal-black.svg" alt="">
+                <img  src="/assets/image/close-modal-black.svg" alt=""/>
                 </v-btn>
             </div>
         </section>

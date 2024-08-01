@@ -48,7 +48,7 @@
             <div v-if="showModal" class="popup-background" @click="closePopup"></div>
             <transition name="fade" >
                 <div class="popup-cart-container" v-if="showModal">
-                    <div class="popup-cart">
+                    <div class="popup-cart"  v-if="cart.productInCart.length > 0 && showModal">
                         <v-btn
                         class="close-popup"
                         size="34"
@@ -57,12 +57,15 @@
                         rounded="0"
                         @click="closePopup"
                         >
-                        <img src="/assets/image/white-arrow.svg" style="pointer-events:none;">
+                        <img src="/assets/image/white-arrow.svg" style="pointer-events:none;"/>
 
                         </v-btn>
 
                         <div v-for="(item, index) in product" :key="index" class="product-in-cart">
-                            <img :src="'http://api.noba.store' + item.image" class="product-photo">
+                            <NuxtImg format="webp" v-if="item.image" :src="'http://api.noba.store' + item.image" class="product-photo"/>
+                            <div v-else class="card-photo product-photo d-flex justify-center align-center bg-f1">
+                                <img src="~/assets/image/Camera.svg" class="contain h-50 w-50">
+                              </div>
                             <div class="product-information-container">
                               <span class="product-name">{{ item.title }}</span>
                               <div class="product-information">
@@ -101,7 +104,7 @@
                               </div>
                             </div>
                             <v-btn class="cross-button" variant="plain" size="31" rounded="0" @click="removeFromCart(index)">
-                              <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;">
+                              <img src="/assets/image/cross.svg" alt="" style="pointer-events:none;"/>
                             </v-btn>
                           </div>
 
@@ -132,17 +135,89 @@
                             @click="openAppOrder()"
                             >
                             <span class="to-order-text">Перейти к оформлению</span>
-                            <img src="/assets/image/text-box-white.svg" alt="">
+                            <img src="/assets/image/text-box-white.svg" alt=""/>
                             </v-btn>
                         </div>
 
                     </div>
+                    <div v-else class="empty-cart ">
+                        <v-btn
+                        class="close-popup"
+                        size="34"
+                        variant="flat"
+                        color="rgba(23, 7, 7, 1)"
+                        rounded="0"
+                        @click="closePopup"
+                        >
+                        <img src="/assets/image/white-arrow.svg" style="pointer-events:none;"/>
+
+                        </v-btn>
+                        <h2 class="empty-cart__title">
+                            Вы ещё ничего не выбрали,
+                        </h2>
+                        <div class="error-text-arrow">
+                            <span class="emty-cart__text">но это можно исправтиь</span>
+                            <NuxtImg  src="/public/image/error-arrow.svg" class="error-arrow"/>                            
+                        </div>
+
+                        <NuxtLink to="/" class="go-home-button d-flex flex-row justify-space-between align-center">Каталог
+                            <NuxtImg src="/assets/image/error-text.svg" alt=""/>
+                        </NuxtLink>
+                    </div>
                 </div>
+
             </transition>
         </section>
 </template>
 
-<style lang="scss" scoped>  
+<style lang="scss" scoped>      
+    .empty-cart__title{
+        font-family: Manrope;
+        font-weight: 500;
+        font-size: 54px;
+        line-height: 120%;
+        color: rgb(23, 7, 7);
+        margin-left: 80px;
+    }
+    .empty-cart__text{
+        font-family: Manrope;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        letter-spacing: 0.02;
+        color: rgb(23, 7, 7);
+    }
+    .error-text-arrow{
+        display: flex;
+        flex-direction: row;
+        margin-left: 80px;
+        margin-top: 35px;
+        gap: 20px;
+    }
+    .error-arrow{
+        width: 77px;
+        rotate: 340deg;
+        transform: translateY(20px);
+
+    }
+.go-home-button{
+    background-color: rgba(221, 58, 26, 1);
+    color: rgba(255, 252, 251, 1);
+    font-family: Manrope;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 35.2px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    padding: 8px 30px;
+    max-width: 190px;
+    margin-top: 45px;
+    margin-right: 0;
+    margin-left: auto;
+}
+    .bg-f1{
+        background-color: #f1f1f1;
+    }
     .select-style {
         position: relative;
         padding: 0;
@@ -223,6 +298,13 @@
         height: 100%;
         padding: 30px 40px;
         overflow-y: scroll;
+    }
+    .empty-cart{
+        background-color: rgba(255, 252, 251, 1);
+        max-width: 737px;
+        width: 100%;
+        height: 100%;
+        padding: 30px 40px;
     }
     .close-popup{
         display: flex;
@@ -389,6 +471,9 @@
         .popup-cart{
             padding: 15px 10px 15px 15px;
         }
+        .empty-cart{
+            padding: 15px 10px 15px 15px;
+        }
     }
     @media (max-width: 800px) {
         .close-popup{
@@ -464,10 +549,27 @@
         .product-information-container{
             gap: 20px;
         }
+        .empty-cart__title{
+            margin-left: 55px;
+            font-size: 36px;
+
+        }
+        .error-text-arrow{
+            margin-top: 32px;
+            margin-left: 55px;
+            gap: 10px;
+            
+        }
+
     }
     @media (max-width: 680px) {
         .popup-cart-container{
             width: 100%;
+        }
+        .error-arrow{
+            width: 60px;
+            transform: translateY(10px);
+            rotate: 360deg;
         }
     }
     @media (max-width: 400px) {
@@ -477,5 +579,6 @@
         .popup-cart-bottom{
             flex-direction: column-reverse;
         }
+
     }
 </style>
