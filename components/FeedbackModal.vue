@@ -43,7 +43,7 @@
               <div class="CAPTCHA">CAPTCHA</div>
               <button class="btn_take_part">
                 <h4>Отправить</h4>
-                <NuxtImg  class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
+                <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
               </button>
             </div>
             <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на 

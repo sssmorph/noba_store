@@ -1,5 +1,5 @@
 <script setup>
-	import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
+	import { ref, computed, onMounted } from 'vue';
 	import { shopCart } from '../../stores/cart';
 	import { useCatalogFilter } from '../../stores/catalogFilter';
 	import { useModal } from '../../stores/modal';
@@ -27,7 +27,6 @@
 	const categories = ref(bloger.value.category);
   
   
-  // const normalizedCategories = Array.isArray(categories.value) ? categories.value : (categories.value ? Object.values(categories.value) : []);
   const normalizedCategories = Array.isArray(categories?.value) 
     ? categories.value 
     : (categories?.value ? Object.values(categories.value) : []);
@@ -227,11 +226,17 @@ const createObserver = () => {
 	});
 
 	useHead({
-		title: bloger.value ? bloger.value.pagetitle : 'Каталог'
+		title: bloger.value ? bloger.value.longtitle : 'Каталог',
+    meta: [
+      { name: 'description', content: bloger.value.description }
+    ],
+    htmlAttrs: {
+            lang: 'ru'
+        },
 	});
 </script>
 
-<template>
+<template lang="html">
   <PlacedOrderModal/>
   <ErrorModal />
   <AppOrder/>
@@ -295,12 +300,12 @@ const createObserver = () => {
         
         >
           <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-          <img  src="/assets/image/cart-white.svg"/>
+          <img  src="/assets/image/cart-white.svg" alt="cart"/>
         </v-btn>
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
           <span class="button-text__collection button-text__collection__mobile">Еще коллекции</span>
-          <img src="/assets/image/shirt.png"/>          
+          <img src="/assets/image/shirt.png" alt="shirt"/>          
         </NuxtLink>
         <v-btn
         variant="flat"
@@ -309,7 +314,7 @@ const createObserver = () => {
         color="rgba(221, 58, 26, 1)"
         class="hidden"
         >
-          <img src="/assets/image/cart-black.svg" alt=""/>
+          <img src="/assets/image/cart-black.svg" alt="cart"/>
         </v-btn>
       </div>
     </div>
@@ -502,7 +507,7 @@ const createObserver = () => {
     
         <v-btn variant="outlined" width="157" height="38" rounded="0" color="rgba(221, 58, 26, 1)" class="show-button-container" @click="toggleFilter">
           <span class="show-button-text">Показать</span>
-          <img src="/assets/image/filter-show-arrow.svg" alt="" />
+          <img src="/assets/image/filter-show-arrow.svg" alt="arrow" />
         </v-btn>
       </div>
         </div>
@@ -512,9 +517,9 @@ const createObserver = () => {
         
         <div  v-for="product in filterProducts" :key="product.id" class="card-item">
           <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
-            <NuxtImg format="webp" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
+            <NuxtImg format="webp" loading="lazy" quality="80" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo" alt="product photo"/>
             <div v-else class="card-photo d-flex justify-center align-center bg-f1">
-              <img format="webp" src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="Camera"/>
+              <img  src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="Camera"/>
             </div>
           </NuxtLink>
           <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }">

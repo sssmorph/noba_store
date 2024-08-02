@@ -5,6 +5,12 @@
 //     return { error: { statusCode}};
 //   }
 // };
+    useHead({
+        title: 'Ошибка',
+        htmlAttrs: {
+            lang: 'ru'
+        },
+    })
 </script>
 
 <template>

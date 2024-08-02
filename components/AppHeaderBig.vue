@@ -34,10 +34,10 @@
     <header :class="{headerBig: isActive, colored: isActive}">
         <div class="header-container" :class="{headerBig: isActive, colored: isActive}">
             <div class="bloger-main-information">
-                <NuxtImg format="webp" :src="mainImage" alt="" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}"/>
+                <NuxtImg format="webp" quality="75" loading="lazy" :src="mainImage" alt="big bloger photo" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}"/>
                 <div class="main-information-container" :class="{mainInfoContainerBig: isActive}">
                     <div class="main-information-top">
-                        <NuxtImg format="webp" :src="miniImage" class="bloger-avatar" alt="bloger avatar"/>
+                        <NuxtImg format="webp" quality="75" :src="miniImage" class="bloger-avatar" alt="bloger avatar"/>
                         <div class="bloger-header">
                             <span class="bloger-nick-name">{{ bloger.name }}</span>
                             <span class="subscribers">{{ bloger.quantity }}</span>
@@ -51,7 +51,7 @@
                             class="social-media-link" 
                             target="_blank" 
                             rel="noopener noreferrer">
-                                <img :src="getImageSource(social.social)"/>
+                                <img :src="getImageSource(social.social)" alt="social media image"/>
                             </a>
                         </div>
                         <v-btn  
@@ -80,7 +80,9 @@
                         variant="flat"
                         size="73"
                         color="rgba(23, 7, 7, 1)"
-                        rounded="0">
+                        rounded="0"
+                        aria-label="Catalog"
+                        >
                             <img class="header-button__photo" src="/assets/image/burger-lines.svg" alt=""/>
                         </v-btn>
                     </NuxtLink>

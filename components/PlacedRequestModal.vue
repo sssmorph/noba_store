@@ -17,7 +17,7 @@
                 color="rgba(221, 58, 26, 1)"
                 rounded="0"
                 >
-                <img  src="/assets/image/close-modal-black.svg" alt=""/>
+                <img src="/assets/image/close-modal-black.svg" alt=""/>
                 </v-btn>
             </div>
         </section>

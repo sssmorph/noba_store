@@ -138,11 +138,17 @@
     createObserver();
   })
   useHead({
-    title: curProduct.pagetitle
+    title: curProduct.longtitle,
+    meta: [
+      { name: 'description', content: curProduct.description }
+    ],
+    htmlAttrs: {
+            lang: 'ru'
+        },
   })
 </script>
 
-<template>
+<template lang="html">
   <PlacedOrderModal/>
   <ErrorModal/>
   <AppOrder/>
@@ -162,7 +168,7 @@
       @click="openCart"
       >
         <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-        <img src="/assets/image/cart-white.svg"/>
+        <img src="/assets/image/cart-white.svg" alt="cart"/>
       </v-btn>  
     </div>
     <div class="sub-header-container">
@@ -188,7 +194,7 @@
         <NuxtLink to="/" class="other-collection__link">
           <span class="button-text__collection">Другие коллекции</span>
           <span class="button-text__collection button-text__collection-mobile">Ещё коллекции</span>
-          <img src="/assets/image/shirt.png"/>          
+          <img src="/assets/image/shirt.png" alt="shirt"/>          
         </NuxtLink>
         <v-btn
         id="preorderButton"
@@ -202,7 +208,7 @@
         @click="openCart"
         >
           <span class="button-text__preorder">Корзина{{ cart.productInCart.length != 0 ? ` (${cart.productInCart.length})`: '' }}</span>
-          <img src="/assets/image/cart-white.svg"/>
+          <img src="/assets/image/cart-white.svg" alt="cart"/>
         </v-btn>      
       </div>
     </div>
@@ -239,13 +245,13 @@
         }"
         >
         <swiper-slide class="card-photo-slider__item" v-for="(image, index) in gallery" :key="index">
-          <NuxtImg format="webp" :src="'http://api.noba.store' + image.url" />
+          <NuxtImg format="webp" :src="'http://api.noba.store' + image.url" quality="80"/>
 
         </swiper-slide>
 
         <swiper-slide v-if="gallery.length === 1" class="card-photo-slider__item  bg-f1">
           <div class="h-100 w-100 d-flex justify-center align-center">
-            <NuxtImg  src="~/assets/image/Camera.svg" class="contain h-25 w-25"/>
+            <NuxtImg src="~/assets/image/Camera.svg" class="contain h-25 w-25"/>
           </div>
         </swiper-slide>
 
@@ -259,7 +265,7 @@
             class="cardPrev"
     
             >
-              <img  src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
+              <img  src="/assets/image/white-arrow.svg" alt="arrow" class="prev-button" style="pointer-events:none;"/>
             </v-btn>
             <v-btn
             ref="cardNext"
@@ -269,7 +275,7 @@
             rounded="0"
             class=" cardNext"
             >
-              <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
+              <img src="/assets/image/white-arrow.svg" alt="arrow" style="pointer-events:none;"/>
             </v-btn>
         </div>
 
@@ -286,7 +292,7 @@
         
       >
         <swiper-slide class="card-photo-slider__thumb" v-for="(image, index) in gallery" :key="index">
-          <NuxtImg format="webp" :src="'http://api.noba.store' + image.url" />
+          <NuxtImg quality="65" loading="lazy" format="webp" :src="'http://api.noba.store' + image.url" />
         </swiper-slide>
       </swiper>
 
@@ -325,7 +331,8 @@
           <div class="composition-container">
             <span class="composition-title">Гладить при 150°С</span>
             <div class="composition-icon-container">
-              <NuxtImg format="webp"
+              <img
+              alt="Operating conditions"
               v-for="(composition, index) in compositions"
               :key="index"
               :src="composition.imagePath"
@@ -346,7 +353,7 @@
           @click="toCart()"
           >
             <span class="to-basket">В корзину</span>
-            <img  src="/assets/image/cart-white.svg" alt=""/>
+            <img  src="/assets/image/cart-white.svg" alt="cart"/>
           </v-btn>  
         </div>
       </div>
@@ -365,7 +372,7 @@
         rounded="0"
         class="recomendationPrev"
         >
-          <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;">
+          <img src="/assets/image/white-arrow.svg" alt="prev" class="prev-button" style="pointer-events:none;">
         </v-btn>
         <v-btn
         ref="recomendationNext"
@@ -375,7 +382,7 @@
         rounded="0"
         class="recomendationNext"
         >
-          <img  src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
+          <img  src="/assets/image/white-arrow.svg" alt="next" style="pointer-events:none;"/>
         </v-btn>
       </div>
 
@@ -415,13 +422,13 @@
           <swiper-slide v-for="(product, index) in recomendation" :key="index"
           class="card-item"
           >
-            <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
-              <NuxtImg format="webp" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
+            <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }"  aria-label="recomendation product"> 
+              <NuxtImg format="webp" loading="lazy" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
               <div v-else class="card-photo d-flex justify-center align-center bg-f1">
-                <NuxtImg src="~/assets/image/Camera.svg" class="contain h-25 w-25"/>
+                <img src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="camera"/>
               </div>
             </NuxtLink>
-            <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }">
+            <NuxtLink class="card-item-bottom" :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" aria-label="recomendation product">
               <div class="card-item-bottom__header">
                 <span class="item-name__rec">{{ product.pagetitle }}</span>
                 <span class="item-price__rec">{{ product.price }}₽</span>
@@ -433,6 +440,7 @@
               v-for="currentSize in product.size" :key="currentSize" :value="currentSize"
               class="size-button__rec" :class="{cardSizeButton: currentSize == product.curSize}"
               @click="product.curSize = currentSize"
+              aria-label="size button"
               >{{currentSize}}</button>
             </div>
             <div class="to-basket-container">

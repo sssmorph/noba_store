@@ -157,11 +157,11 @@
                         </h2>
                         <div class="error-text-arrow">
                             <span class="emty-cart__text">но это можно исправтиь</span>
-                            <NuxtImg  src="/public/image/error-arrow.svg" class="error-arrow"/>                            
+                            <img src="/public/image/error-arrow.svg" class="error-arrow"/>                            
                         </div>
 
                         <NuxtLink to="/" class="go-home-button d-flex flex-row justify-space-between align-center">Каталог
-                            <NuxtImg src="/assets/image/error-text.svg" alt=""/>
+                            <img src="/assets/image/error-text.svg" alt=""/>
                         </NuxtLink>
                     </div>
                 </div>

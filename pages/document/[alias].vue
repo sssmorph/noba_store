@@ -29,17 +29,23 @@
         };
     const document = ref()
     document.value = await getDocument(choiceDocument(route.params.alias))
-
     onMounted(async() => {
 
     })
     useHead({
-        title: document.pagetitle
+        title: document.longtitle,
+        meta: [
+            { name: 'description', content: document.description }
+        ],
+        htmlAttrs: {
+            lang: 'ru'
+        },
+
     })
 </script>
 
 
-<template>
+<template lang="html">
     <InfoFeedBackModal/>
   <AppHeaderSmall/>
   <section class="document">

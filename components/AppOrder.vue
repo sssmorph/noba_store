@@ -30,7 +30,6 @@ const normalizedCart = ref(cart.productInCart.map(product => {
         count: product.count
     }
 }))
-// console.log(JSON.stringify(normalizedCart.value))
 const appOrder = useAppOrder();
 const privacy = await getDocument(37);
 
@@ -89,7 +88,6 @@ const purchase = handleSubmit(async (values) => {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log(data)
 
     console.log(data.object.response.data);
     getOrderStatus(data.object.response.data.msorder); // response.data.object.response.data.msorder возвращает id заказа

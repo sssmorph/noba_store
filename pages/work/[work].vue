@@ -13,8 +13,6 @@
     const route = useRoute()
     const slider = ref()
     const project = ref()
-    // const projects = await getProjects();
-    // const projectId = projects.find(project => project.alias === route.params.workCard)?.id;
     const projectData = await getProjectById(route.query.id);
     project.value = projectData;
     slider.value = projectData['migx.slider']    
@@ -27,18 +25,23 @@
     const openModal = () => {
         modalStore.openInfoFeedBack();
     }
-
     useHead({
-        
+        title: project.longtitle,
+        meta: [
+            { name: 'description', content: project.description }
+        ],
+        htmlAttrs: {
+            lang: 'ru'
+        },
     })
 </script>
 
-<template>
+<template lang="html">
     <InfoFeedBackModal/>
     <InfoHeader/>
     <section class="wrapper portfolio-block">
-        <img src="/assets/image/CardClothes.png" class="portfolio-image" alt=""/>
-        <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio"/>
+        <img src="/assets/image/CardClothes.png" class="portfolio-image" alt="clothes"/>
+        <img src="/assets/image/bereal-inf-port.svg" alt="be real" class="be-real-portfolio"/>
             <button
             class="more-work-button"
             @click="openModal"
@@ -69,7 +72,7 @@
                 v-for="(image, index) in slider"
                 :key="index"
             >
-                <NuxtImg format="webp" :src="'http://api.noba.store/' + image.image" alt="" class="portfolio-card-item__photo"/>
+                <NuxtImg format="webp" quality="80" loading="lazy" :src="'http://api.noba.store/' + image.image" alt="work photo" class="portfolio-card-item__photo"/>
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
                 </div>
@@ -83,9 +86,9 @@
                 size="34"
                 rounded="0"
                 class="recomendationPrev cardPrev"
-        
+                aria-label="Prev"
                 >
-                  <img  src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
+                  <img  src="/assets/image/white-arrow.svg" alt="Prev" class="prev-button" style="pointer-events:none;"/>
                 </v-btn>
             </div>
             <div class="card-navigation-container nextContainer">
@@ -96,8 +99,9 @@
                 size="34"
                 rounded="0"
                 class="recomendationNext cardNext"
+                aria-label="Next"
                 >
-                  <img  src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
+                  <img  src="/assets/image/white-arrow.svg" alt="Next" style="pointer-events:none;"/>
                 </v-btn>
             </div>
         </Swiper>
@@ -105,17 +109,18 @@
     <section class="review-section">
         <div class="wrapper review-block">
             <div class="review-block__left">
-                <img src="/assets/image/review-bereal.png" alt="" class="review-be-real__small"/>
-                <img src="/assets/image/review-bereal-b.png" alt="" class="review-be-real__big"/>
+                <img src="/assets/image/review-bereal.png" alt="be real" class="review-be-real__small"/>
+                <img src="/assets/image/review-bereal-b.png" alt=" be real" class="review-be-real__big"/>
                 <button
                 class="send-request"
                 @click="openModal"
+                aria-label="Send request"
                 >
                     <span class="button__text t-w swis">ОСТАВИТЬ ЗАЯВКУ</span>
                     <span class="button__line send-request-line"></span>
                 </button>                
                 <h2 class="t-w swis review-title">{{ project.partner.pagetitle }}</h2>
-                <img src="/assets/image/partner-dots.svg" alt="">
+                <img src="/assets/image/partner-dots.svg" alt="point">
                 <div v-html="project.partner.content" class="t-w manrope review-text"></div>
             </div>
             <div class="review-block__right">

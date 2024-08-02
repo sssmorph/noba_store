@@ -2,12 +2,17 @@
   import { useBloggers } from '../composables/useBloggers';
 
   const bloggers = await useBloggers();
+  const page = ref()
+  page.value = bloggers
   useHead({
-    title: "Noba Store"
+    title: bloggers.longtitle,
+    htmlAttrs: {
+      lang: 'ru'
+    },
   })
 </script>
 
-<template>
+<template lang="html">
   <AppHeaderSmall/>
   <InfoFeedBackModal/>
   <section class="noba-media-container">
@@ -39,7 +44,7 @@
   </div>
   <section class="bloger-section">
     <div class="wrapper-container">
-      <img src="../assets/image/heart_red.svg" class="background-image"/>
+      <img src="../assets/image/heart_red.svg" class="background-image" alt="red heart"/>
       <div class="bloger-container d-flex flex-row flex-wrap">
         <CollectionBlogerCard 
         class="cursor-pointer"
@@ -120,7 +125,7 @@
     z-index: 0;
   }
   .noba-media-container{
-    background-image: url(/assets/image/store-background.jpg);
+    background-image: url(/assets/image/store-background.webp);
     background-size: cover;
     background-position: center center;
     width: 100vw !important;
@@ -217,7 +222,7 @@
     z-index: 5;
   }
   .noba-factory-container{
-    background-image: url(/assets/image/tkan-background.jpg);
+    background-image: url(/assets/image/tkan-background.webp);
     background-size: cover;
     background-position: center center;
     position: relative;

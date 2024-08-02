@@ -15,17 +15,19 @@
     const portfolio = ref();
     const portfolioData = await getPortfolio();
     portfolio.value = portfolioData.results;    
-    
     onMounted( async () => {
 
 
     })
     useHead({
-        title: 'Портфолио'
+        title: 'Портфолио',
+        htmlAttrs: {
+            lang: 'ru'
+        },
     })
 </script>
 
-<template>
+<template lang="html">
     <InfoHeader/>
     <InfoFeedBackModal/>
     <section class="wrapper portfolio-block"
@@ -56,13 +58,14 @@
             v-for="(project, projectIndex) in item.projects" :key="projectIndex"
             class="portfolio-card-item">
                 <NuxtLink :to="{ name: 'work-work', params: { work: project.alias }, query: { id: project.id} }">
-                    <NuxtImg format="webp" :src="'http://api.noba.store/' + project.image" alt="" class="portfolio-card-item__photo"/>
+                    <NuxtImg format="webp" loading="lazy" quality="80" :src="'http://api.noba.store/' + project.image" alt="work photo" class="portfolio-card-item__photo"/>
                     <div class="portfolio-card-item__bottom">
                         <p class="t-b swis portfolio-card__name">{{ project.pagetitle }}</p>
                         <p class="t-b manrope portfolio-card__count">{{ projectIndex  }}</p>
                     </div>
                     <button
                     class="more-work-button more-work-button__item"
+                    aria-label="Подробнее"
                     >
                         <span class="button__text t-w swis">ПОДРОБНЕЕ</span>
                         <span class="button__line more-work"></span>
@@ -79,9 +82,9 @@
                 size="34"
                 rounded="0"
                 class="recomendationPrev cardPrev"
-        
+                aria-label="Prev"
                 >
-                  <img  src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
+                  <img  src="/assets/image/white-arrow.svg" alt="prev" class="prev-button" style="pointer-events:none;"/>
                 </v-btn>
             </div>
             <div class="card-navigation-container nextContainer">
@@ -92,8 +95,9 @@
                 size="34"
                 rounded="0"
                 class="recomendationNext cardNext"
+                aria-label="Next"
                 >
-                  <img  src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
+                  <img  src="/assets/image/white-arrow.svg" alt="next" style="pointer-events:none;"/>
                 </v-btn>
             </div>
         </Swiper>

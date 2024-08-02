@@ -19,10 +19,11 @@
     const cardPrev = ref(null);
     const cardNext = ref(null);
     const burgerIsActive = ref(false);
-    
+    const page = ref()
     const partners = ref();
     partners.value = partnersData.results;
     
+    page.value = corporate
     const portfolio = corporate.projects;
     const sliderPhoto = corporate['migx.mainslider']
     const toggleBurger = () =>{
@@ -53,11 +54,17 @@
         }
     };
     useHead({
-        title: corporate.pagetitle
+        title: corporate.longtitle,
+        meta: [
+            { name: 'description', content: corporate.description }
+        ],
+        htmlAttrs: {
+            lang: 'ru'
+        },
     })
 </script>
 
-<template>
+<template lang="html">
     <InfoFeedBackModal/>
     <section class="header-section">
         <div class="burger-menu" @click="toggleBurger">
@@ -86,7 +93,7 @@
             :modules="modules"
             >
                 <swiper-slide v-for="slide in sliderPhoto" :key="slide.MIGX_id">
-                    <img :src="'http://api.noba.store/'+slide.image">
+                    <NuxtImg format="webp" quality="80" loading="lazy" :src="'http://api.noba.store/'+slide.image" alt="background slider photo"/>
                 </swiper-slide>
             </swiper>
 
@@ -112,8 +119,10 @@
                 <a v-for="social in socialMedia" :key="social.MIGX_id" 
                 :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
                 target="_blank"
-                class="social-media__item">
-                    <img :src="getImageSource(social.social)" alt="" class="social-media__image">
+                class="social-media__item"
+                aria-label="social media"
+                >
+                    <img :src="getImageSource(social.social)" alt="social media icon" class="social-media__image">
                 </a>
             </div>
             <button
@@ -134,7 +143,7 @@
                     <p class="about-us-text manrope t-b about-us-margin__top">NOBAREY — это новый уровень российского производителя спортивной и стрит одежды. Технологии, опережающие время. Инновационные материалы. Безупречность исполнения и влекущий дизайн.</p>
                     <p class="about-us-text manrope-t-b about-us-margin__top">NOBAREY — это новый уровень российского производителя спортивной и стрит одежды. Технологии, опережающие время. Инновационные материалы. Безупречность исполнения и влекущий дизайн.</p>
                     <div class="awards-container">
-                        <img src="../assets/image/awards.png" alt="" class="award-image"/>
+                        <img src="../assets/image/awards.png" alt="award" class="award-image"/>
                         <p class="award-text t-b manrope">Победители в номинации “Лучшее производство одежды” 2021 года.</p>
                     </div>
                     <h2 class="sales-count swis t-r">23652+</h2>
@@ -170,7 +179,7 @@
     </section>
     <section class="wrapper portfolio-block">
         <h2 class="portfolio-title t-b swis">Наше портфолио</h2>
-        <img src="/assets/image/bereal-inf-port.svg" alt="" class="be-real-portfolio"/>
+        <img src="/assets/image/bereal-inf-port.svg" alt="be real" class="be-real-portfolio"/>
         <NuxtLink to="portfolio">
             <button
             class="more-work-button"
@@ -204,7 +213,7 @@
         >
             <swiper-slide v-for="(item, index) in portfolio" :key="item.id" class="portfolio-card-item">
                 <NuxtLink :to="{ name: 'work-work', params: { work: item.alias }, query: {id: item.id} }">
-                    <NuxtImg format="webp" :src="'http://api.noba.store/' + item.image" class="portfolio-card-item__photo"/>
+                    <NuxtImg format="webp" loading="lazy" quality="70" :src="'http://api.noba.store/' + item.image" alt="portfolio work" class="portfolio-card-item__photo"/>
                     <div class="portfolio-card-item__bottom">
                     <p class="t-b swis portfolio-card__name">{{ item.pagetitle }}</p>
                     <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
@@ -228,7 +237,7 @@
                 rounded="0"
                 class="recomendationPrev cardPrev"
                 >
-                  <img src="/assets/image/white-arrow.svg" alt="" class="prev-button" style="pointer-events:none;"/>
+                  <img src="/assets/image/white-arrow.svg" alt="arrow" class="prev-button" style="pointer-events:none;"/>
                 </v-btn>
             </div>
             <div class="card-navigation-container nextContainer">
@@ -240,7 +249,7 @@
                 rounded="0"
                 class="recomendationNext cardNext"
                 >
-                  <img src="/assets/image/white-arrow.svg" alt="" style="pointer-events:none;"/>
+                  <img src="/assets/image/white-arrow.svg" alt="arrow" style="pointer-events:none;"/>
                 </v-btn>
             </div>
         </Swiper>
@@ -252,7 +261,7 @@
     </section>
     <section class="konkurs-section">
         <div class="wrapper konkurs-block">
-            <img src="/assets/image/konkurs-back-mobile.png" alt="" class="konkurs-photo__mobile"/>
+            <img src="/assets/image/konkurs-back-mobile.png" alt="konkurs photo" class="konkurs-photo__mobile"/>
             <NuxtLink to="konkurs">
                 <button
                 class="more-konkurs-button"
@@ -261,7 +270,7 @@
                     <span class="button__line more-konkurs"></span>
             </button>
             </NuxtLink>
-            <img src="/assets/image/bereal-inf-konkurs.svg" class="konkurs-be-real"/>
+            <img src="/assets/image/bereal-inf-konkurs.svg" class="konkurs-be-real" alt="konkurs photo"/>
             <div class="konkurs-title-container">
                 <h2 class="t-w swis konkurs-title">Конкурс для блогеров</h2>
                 <div class="konkurs-line"></div>
@@ -279,7 +288,7 @@
             <div v-for="(partner, index) in partners" :key="index">
                 <div class="partner-item" v-if="(index++) % 2 != 0">
                     
-                    <NuxtImg format="webp" :src="'http://api.noba.store/' + partner.image" alt="" class="partner-photo"/>
+                    <NuxtImg loading="lazy" format="webp" :src="'http://api.noba.store/' + partner.image" alt="partner photo" class="partner-photo"/>
                     <div class="partner-item__information-container">
                         <h2 class="swis t-b partner-item-title">{{ partner.pagetitle }}</h2>
                         <img src="/assets/image/partner-dots.svg" alt="" class="partner-dots"/>
@@ -294,7 +303,7 @@
                         <div class="partner-item-text t-b manrope" v-html="partner.content"></div>
 
                     </div>
-                    <NuxtImg format="webp" :src="'http://api.noba.store/' + partner.image" alt="" class="partner-photo"/>
+                    <NuxtImg format="webp" loading="lazy" :src="'http://api.noba.store/' + partner.image" alt="partner photo" class="partner-photo"/>
                 </div>
             </div>
         </div>

@@ -104,11 +104,17 @@ const onPause = () => {
     window.removeEventListener('scroll',handleScroll);
   })
   useHead({
-    title: konkurs.pagetitle
+    title: konkurs.longtitle,
+    meta: [
+      { name: 'description', content: konkurs.description }
+    ],
+    htmlAttrs: {
+     lang: 'ru'
+    },
   })
 </script>
 
-<template>
+<template lang="html">
     <FeedbackModal/>
     <header class="header">
       <div class="red_line"></div>
@@ -125,17 +131,19 @@ const onPause = () => {
           <a v-for="social in socialMedia" :key="social.MIGX_id" 
           :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
           class="socail_icon">
-              <NuxtImg :src="getImageSource(social.social)"/>
+              <NuxtImg :src="getImageSource(social.social)" alt="social media icon"/>
           </a>
         </div> 
         <div class="header__socail_mobile">
           <a v-for="social in socialMedia" :key="social.MIGX_id" 
           :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
           class="socail_icon">
-            <NuxtImg  :src="getImageSourceMobile(social.social)"/>
+            <NuxtImg  :src="getImageSourceMobile(social.social)" alt="social media icon"/>
         </a>
         </div> 
-          <button id="nav-toggle" class="nav-toggle" :class="{opened: burgerIsOpen}" @click="burgerIsOpen = !burgerIsOpen">
+          <button 
+          aria-label="nav button"
+          id="nav-toggle" class="nav-toggle" :class="{opened: burgerIsOpen}" @click="burgerIsOpen = !burgerIsOpen">
             <span class="bar-top"></span>
             <span class="bar-mid"></span>
             <span class="bar-bot"></span>

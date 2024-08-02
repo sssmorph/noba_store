@@ -25,9 +25,9 @@
   })
 </script>
 
-<template>
+<template lang="html">
     <NuxtLink :to="{ name: 'alias', params: { alias: person.alias }}" class="bloger-card">
-        <NuxtImg format="webp" :src="blogerImage" class="bloger-card__photo"/>
+        <NuxtImg format="webp" quality="70" loading="lazy" :src="blogerImage" class="bloger-card__photo" alt="bloger photo"/>
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
           <NuxtImg  :src="mainSocialMedia" alt="" class="description__social-media"/>
 
