@@ -1,60 +1,117 @@
 <script setup>
-  import { vMaska } from "maska"
-  import { getDocument } from '~/composables/getDocument';
-  const privacy = await getDocument(37);
+import { ref, computed } from 'vue';
+import { vMaska } from 'maska';
+import { useModal } from '../stores/modal'; 
+import { getDocument } from '~/composables/getDocument';
+import { defineRule, useForm, Field as VeeField, Form as VeeForm } from 'vee-validate';
+import { required, email } from '@vee-validate/rules';
 
-    const modalStore = useModal();
-    const closeModal = () =>{
-        modalStore.closeFeedBack();
+defineRule('required', required);
+defineRule('email', email);
+defineRule('customEmail', value => {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return pattern.test(value) || 'Поле должно быть действительным электронным адресом.';
+});
+
+const privacy = await getDocument(37);
+const modalStore = useModal();
+
+const closeModal = () => {
+  modalStore.closeFeedBack();
+};
+
+const modalIsActive = computed(() => modalStore.feedbackIsOpen);
+
+const { handleSubmit, values } = useForm({
+  initialValues: {
+    name: '',
+    tel: '',
+    comment: '',
+    about: ''
+  }
+});
+
+const submitForm = handleSubmit(async (values) => {
+  try {
+    const response = await fetch('http://api.noba.store/api/forms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        form_name: 'konkurs',
+        name: values.name,
+        phone: values.tel, 
+        comment: values.comment,
+        message: values.about,
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-    let modalIsActive = computed(() => modalStore.feedbackIsOpen)
+
+    const data = await response.json();
+    console.log(data);
+    closeModal();
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
 </script>
 
 <template>
-    <div class="modal modal_active" id="modal-1" v-if="modalIsActive">
-        <div class="modal-background" @click="closeModal"></div>
-        <div class="modal__content">
-          <div class="modal__close-button" @click="closeModal"></div>
-          <div class="modal__wrapper">
-            <div class="modal__top_line">
-              <div class="contact_form__input__wrapper">
-                <input name="name" type="text" class="contact-form__input contact-form__input_name" placeholder="ИМЯ">
-                <div class="contact-form__error contact-form__error_name"></div>
+  <div class="modal modal_active" id="modal-1" v-if="modalIsActive">
+    <div class="modal-background" @click="closeModal"></div>
+    <div class="modal__content">
+      <div class="modal__close-button" @click="closeModal"></div>
+      <div class="modal__wrapper">
+        <form @submit="submitForm">
+          <div class="modal__top_line">
+            <div class="contact_form__input__wrapper">
+              <VeeField name="name" rules="required" v-slot="{ field, meta }">
+                <input v-bind="field" type="text" class="contact-form__input contact-form__input_name" placeholder="ИМЯ"/>
+                <div class="contact-form__error contact-form__error_name" v-if="meta.touched && !meta.valid">Это поле обязательно</div>
                 <div class="input-border"></div>
-              </div> 
-              <div class="contact_form__input__wrapper">
-                <input name="tel" type="tel" class="contact-form__input contact-form__input_tel" placeholder="НОМЕР" value="+7" v-maska data-maska="+7(###)-###-##-##">
-                <div class="contact-form__error contact-form__error_tel"></div>
+              </VeeField>
+            </div>
+            <div class="contact_form__input__wrapper">
+              <VeeField name="tel" rules="required" v-slot="{ field, meta }">
+                <input v-bind="field" type="tel" class="contact-form__input contact-form__input_tel" placeholder="НОМЕР"  v-maska data-maska="+7(###)-###-##-##"/>
+                <div class="contact-form__error contact-form__error_tel" v-if="meta.touched && !meta.valid">Это поле обязательно</div>
                 <div class="input-border"></div>
-              </div>
+              </VeeField>
             </div>
-            <div class="contact_form__input__wrapper comment-input">
-              <textarea name="comment" type="comment" class="contact-form__input contact-form__input_comment" placeholder="КОММЕНТАРИЙ"></textarea>
-              <div class="contact-form__error contact-form__error_comment"></div>
-              <div class="input-border"></div>
-            </div>
-
-            <div class="contact_form__input__wrapper about-input">
-              <textarea name="about" type="about" class="contact-form__input contact-form__input_about" placeholder="Расскажите о себе (сфера деятельности, охват аудитории)"></textarea>
-              <div class="contact-form__error contact-form__error_about"></div>
-              <div class="input-border"></div>
-            </div>
-            <div class="modal__bottom_line">
-              <div class="CAPTCHA">CAPTCHA</div>
-              <button class="btn_take_part">
-                <h4>Отправить</h4>
-                <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
-              </button>
-            </div>
-            <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на 
-              <NuxtLink  :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">обработку персональных данных</NuxtLink >
-            </h4>
-
           </div>
-        </div>
+          <div class="contact_form__input__wrapper comment-input">
+            <VeeField name="comment" v-slot="{ field, meta }">
+              <textarea v-bind="field" class="contact-form__input contact-form__input_comment" placeholder="КОММЕНТАРИЙ"></textarea>
+              <div class="contact-form__error contact-form__error_comment" v-if="meta.touched && !meta.valid">Это поле обязательно</div>
+              <div class="input-border"></div>
+            </VeeField>
+          </div>
+          <div class="contact_form__input__wrapper about-input">
+            <VeeField name="about" v-slot="{ field, meta }">
+              <textarea v-bind="field" class="contact-form__input contact-form__input_about" placeholder="Расскажите о себе (сфера деятельности, охват аудитории)"></textarea>
+              <div class="contact-form__error contact-form__error_about" v-if="meta.touched && !meta.valid">Это поле обязательно</div>
+              <div class="input-border"></div>
+            </VeeField>
+          </div>
+          <div class="modal__bottom_line">
+            <div class="CAPTCHA">CAPTCHA</div>
+            <button type="submit" class="btn_take_part">
+              <h4>Отправить</h4>
+              <img class="btn_arrow" src="assets/image/arrow_button.svg" alt="arrow"/>
+            </button>
+          </div>
+        </form>
+        <h4 class="modal_warn">Нажимая на кнопку Отправить, вы даёте согласие на 
+          <NuxtLink :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">обработку персональных данных</NuxtLink>
+        </h4>
       </div>
+    </div>
+  </div>
 </template>
-
 <style lang="scss" scoped>
 @import "/assets/css/index.scss";
 input:-webkit-autofill,

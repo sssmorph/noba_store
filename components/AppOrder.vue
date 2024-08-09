@@ -90,7 +90,7 @@ const purchase = handleSubmit(async (values) => {
     const data = await response.json();
 
     console.log(data.object.response.data);
-    getOrderStatus(data.object.response.data.msorder); // response.data.object.response.data.msorder возвращает id заказа
+    getOrderStatus(data.object.response.data.msorder); 
     appOrder.resetStage();
   } catch (error) {
     console.error('Error:', error); 
@@ -114,7 +114,6 @@ async function getOrderStatus(id) {
     const data = await response.json();
 
     if (data.object.status == '1') {
-      // Проверка на status == 1, если статус 1 значит заказ не оплачен и мы запускаем функцию postEditOrder
       await postEditOrder(id);
     }
   } catch (error) {
@@ -131,7 +130,7 @@ async function postEditOrder(id) {
       },
       body: JSON.stringify({
         id: id,
-        status: 2 // Устанавливаем заказу статус 2 - оплачено
+        status: 2 
       })
     });
 

@@ -5,10 +5,10 @@
     const contacts = await useContacts();
     const socialMedia = contacts['migx.mainsocial'];
     let links = [
-        {url: "portfolio",name: "Портфолио"},
+        {url: "http://noba.store/portfolio",name: "Портфолио"},
         {url: "/", name: "Интернет-магазин"},
-        {url: "konkurs", name: "Конкурс"},
-        {url: "info", name: "О компании"},]
+        {url: "http://noba.store/konkurs", name: "Конкурс"},
+        {url: "http://noba.store/info", name: "О компании"},]
 
     const modalStore = useModal();
     const openModal = () => {
@@ -67,6 +67,9 @@
 </template>
 
 <style lang="scss" scoped>
+    .social-media__image{
+        width: 23px;
+    }
     .swis{
         font-family: Swis721CnBTRusbyme-Roman;
     }

@@ -12,11 +12,13 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@nuxt/image": "^1.7.0",
+
     "@pinia/nuxt": "^0.5.1",
     "@vee-validate/nuxt": "^4.13.2",
     "@vee-validate/rules": "^4.13.2",
     "maska": "^2.1.11",
     "nuxt": "^3.11.2",
+    "nuxt-lcp-speedup": "^0.9.1",
     "nuxt-marquee": "^1.0.4",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.7",

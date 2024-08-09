@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineNuxtConfig } from 'nuxt/config'
@@ -16,7 +15,6 @@ export default defineNuxtConfig({
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
-        // @ts-expect-error
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
@@ -24,8 +22,9 @@ export default defineNuxtConfig({
     "nuxt-marquee",
     '@pinia/nuxt',
     '@vee-validate/nuxt',
-    '@nuxt/image'
-    //...
+    '@nuxt/image',
+    'nuxt-lcp-speedup',
+
   ],
   vite: {
     vue: {
@@ -43,9 +42,7 @@ export default defineNuxtConfig({
     '@/public/fonts/main.css',
   ],  
   veeValidate: {
-    // disable or enable auto imports
     autoImports: true,
-    // Use different names for components
     componentNames: {
       Form: 'VeeForm',
       Field: 'VeeField',
@@ -53,6 +50,10 @@ export default defineNuxtConfig({
       ErrorMessage: 'VeeErrorMessage',
     },
   },
+  lcpSpeedup: {
+    disablePrefetchLinks: true,
+    disableStylesheets: 'entry',
+  }
 })
 
 

@@ -452,7 +452,7 @@
         transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
       }
       .fade-enter, .fade-leave-to
-      /* .slide-fade-leave-active below version 2.1.8 */ {
+      {
         transform: translateX(100px);
         opacity: 0;
       }

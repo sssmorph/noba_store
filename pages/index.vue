@@ -1,11 +1,19 @@
 <script setup>
   import { useBloggers } from '../composables/useBloggers';
+  import { getSeo } from '../composables/getSeo'
+
+  const seo = await getSeo(2);
+  const seoContent = ref()
+  seoContent.value = seo;
 
   const bloggers = await useBloggers();
   const page = ref()
   page.value = bloggers
   useHead({
-    title: bloggers.longtitle,
+    title: seoContent.value.Longtitle,
+    meta: [
+      { name: 'description', content: seoContent.value.description }
+    ],
     htmlAttrs: {
       lang: 'ru'
     },

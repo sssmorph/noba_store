@@ -131,14 +131,14 @@ const onPause = () => {
           <a v-for="social in socialMedia" :key="social.MIGX_id" 
           :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
           class="socail_icon">
-              <NuxtImg :src="getImageSource(social.social)" alt="social media icon"/>
+              <NuxtImg class="social__image" :src="getImageSource(social.social)" alt="social media icon"/>
           </a>
         </div> 
         <div class="header__socail_mobile">
           <a v-for="social in socialMedia" :key="social.MIGX_id" 
           :href="(social.url.startsWith('http://') || social.url.startsWith('https://')) ? social.url : `https://${social.url}`" 
           class="socail_icon">
-            <NuxtImg  :src="getImageSourceMobile(social.social)" alt="social media icon"/>
+            <NuxtImg class="social__image" :src="getImageSourceMobile(social.social)" alt="social media icon"/>
         </a>
         </div> 
           <button 
@@ -516,6 +516,9 @@ const onPause = () => {
   width: 100px;
   top: calc(50% - 50px);
   left: calc(50% - 50px);
+}
+.social__image{
+  width: 23px;
 }
 @media(max-width: 768){
   .control-container{

@@ -142,6 +142,7 @@
     display: none;
   }
   .hidden{
+    display: none;
     width: 0 !important;
     transition: all ease-in-out 0.3s;
   }

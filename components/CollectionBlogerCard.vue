@@ -27,10 +27,12 @@
 
 <template lang="html">
     <NuxtLink :to="{ name: 'alias', params: { alias: person.alias }}" class="bloger-card">
-        <NuxtImg format="webp" quality="70" loading="lazy" :src="blogerImage" class="bloger-card__photo" alt="bloger photo"/>
+        <NuxtImg v-if="person.cover_img" format="webp" quality="70" loading="lazy" :src="blogerImage" class="bloger-card__photo" alt="bloger photo"/>
+        <div class="bloger-card__photo bg-f1 d-flex align-center justify-center" v-else>
+          <img src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="Camera" />
+        </div>
         <div class="bloger-card__description d-flex flex-row justify-space-between align-start">
-          <NuxtImg  :src="mainSocialMedia" alt="" class="description__social-media"/>
-
+          <NuxtImg v-if="mainSocialMedia" :src="mainSocialMedia" alt="" class="description__social-media"/>
           <div class="d-flex flex-column">
             <div class="description__header-container d-flex flex-row align-center justify-space-between">
               <span class="description__title">{{person.pagetitle}}</span>
@@ -46,6 +48,9 @@
 </template>
 
 <style lang="scss" scoped>
+.bg-f1{
+  background-color: #f1f1f1;
+}
 .bloger-card{
     z-index: 2;
     position:relative;
@@ -86,6 +91,7 @@
   .description__social-media{
     max-width: 25px;
     margin-top: 10px;
+    width: 100%;
   }
   .description__title{
     font-family: Swis721CnBTRusbyme-Roman;

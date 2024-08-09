@@ -93,7 +93,7 @@
             :modules="modules"
             >
                 <swiper-slide v-for="slide in sliderPhoto" :key="slide.MIGX_id">
-                    <NuxtImg format="webp" quality="80" loading="lazy" :src="'http://api.noba.store/'+slide.image" alt="background slider photo"/>
+                    <NuxtImg format="webp" quality="60" :src="'http://api.noba.store/'+slide.image" alt="background slider photo"/>
                 </swiper-slide>
             </swiper>
 
@@ -463,7 +463,7 @@
         margin-right: 12px;
     }
     .about-us-block{
-        background-image: url(/assets/image/aboutus-back.png);
+        background-image: url(/assets/image/aboutus-back.webp);
         background-position: right 0;
         height: 820px;
         position: relative;
@@ -533,7 +533,7 @@
     .our-benefit{
         position: relative;
         height: 800px;
-        background-image: url(/assets/image/benefit-back.png);
+        background-image: url(/assets/image/benefit-back.webp);
         padding-top: 1px;
     }
     .be-real{
@@ -650,6 +650,7 @@
         max-width: 451px;
         width: 451px;
         padding-top:50px;
+        height: 715px;
     }
     .portfolio-card-item__small{
         max-width: 173px;
@@ -717,7 +718,7 @@
     }
     .konkurs-block{
         height: 742px;
-        background-image: url(/assets/image/portfolio-konkurs.png);
+        background-image: url(/assets/image/portfolio-konkurs.webp);
         position: relative;
     }
     .more-work{
@@ -861,6 +862,7 @@
   }
   .hidden{
     width: 0 !important;
+    display: none;
     transition: all ease-in-out 0.3s;
   }
   .burger-menu-container{
@@ -1154,7 +1156,7 @@
             gap: 20px;
         }
         .partner-photo{
-
+            max-width: 320px;
             max-height: 310px;
         }
         .konkurs-block{

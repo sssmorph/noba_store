@@ -245,7 +245,7 @@
         }"
         >
         <swiper-slide class="card-photo-slider__item" v-for="(image, index) in gallery" :key="index">
-          <NuxtImg format="webp" :src="'http://api.noba.store' + image.url" quality="80"/>
+          <NuxtImg format="webp"  :src="'http://api.noba.store' + image.url" quality="60"/>
 
         </swiper-slide>
 
@@ -292,14 +292,14 @@
         
       >
         <swiper-slide class="card-photo-slider__thumb" v-for="(image, index) in gallery" :key="index">
-          <NuxtImg quality="65" loading="lazy" format="webp" :src="'http://api.noba.store' + image.url" />
+          <NuxtImg quality="50" loading="lazy" format="webp" :src="'http://api.noba.store' + image.url" />
         </swiper-slide>
       </swiper>
 
       </div>
       <div class="" v-else>
-        <NuxtImg  src="~/assets/image/no_photo.svg" class="no-photo"/>
-        <NuxtImg  src="~/assets/image/no_photo_mobile.svg" class="no-photo__mobile"/>
+        <img src="~/assets/image/no_photo.svg" class="no-photo"/>
+        <img src="~/assets/image/no_photo_mobile.svg" class="no-photo__mobile"/>
       </div>
       <div class="card__description">
         <h1 class="item-name">{{ curProduct.pagetitle }}</h1>
@@ -328,8 +328,7 @@
               >{{size}}</button>
             </div>
           </div>
-          <div class="composition-container">
-            <span class="composition-title">Гладить при 150°С</span>
+          <div class="composition-container d-flex justify-end">
             <div class="composition-icon-container">
               <img
               alt="Operating conditions"
@@ -423,7 +422,7 @@
           class="card-item"
           >
             <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }"  aria-label="recomendation product"> 
-              <NuxtImg format="webp" loading="lazy" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
+              <NuxtImg format="webp" loading="lazy" quality="60" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo"/>
               <div v-else class="card-photo d-flex justify-center align-center bg-f1">
                 <img src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="camera"/>
               </div>
@@ -635,6 +634,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    padding-bottom: 10px;
   }
   .composition-title{
     font-family: Manrope;

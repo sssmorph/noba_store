@@ -98,7 +98,6 @@
         padding: 23px 40px;
         display: flex;
         flex-direction: row;
-        /* justify-content: space-around; */
         align-items: center;
         position: relative;
     }

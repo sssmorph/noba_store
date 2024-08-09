@@ -517,7 +517,7 @@ const createObserver = () => {
         
         <div  v-for="product in filterProducts" :key="product.id" class="card-item">
           <NuxtLink :to="{name: 'alias-card', params: {alias: bloger.alias, card: product.alias } }" >
-            <NuxtImg format="webp" loading="lazy" quality="80" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo" alt="product photo"/>
+            <NuxtImg format="webp" loading="lazy" quality="60" v-if="product.image" :src="`http://api.noba.store${product.image}`" class="card-photo" alt="product photo"/>
             <div v-else class="card-photo d-flex justify-center align-center bg-f1">
               <img  src="~/assets/image/Camera.svg" class="contain h-25 w-25" alt="Camera"/>
             </div>

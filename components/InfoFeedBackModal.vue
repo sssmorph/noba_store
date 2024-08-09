@@ -1,62 +1,117 @@
 <script setup>
-  import { vMaska } from "maska"
-  import { useModal } from '../stores/modal';
-  import { getDocument } from '~/composables/getDocument';
+import { ref, computed } from 'vue';
+import { vMaska } from 'maska';
+import { useModal } from '../stores/modal';
+import { getDocument } from '~/composables/getDocument';
 
-  const privacy = await getDocument(37);
+const privacy = await getDocument(37);
 
- const modalStore = useModal();
- const closeModal = () => {
-    modalStore.closeInfoFeedBack();
- } 
- let modalIsActive = computed(() => modalStore.infoFeedBackOpen)
+const modalStore = useModal();
+const closeModal = () => {
+  modalStore.closeInfoFeedBack();
+};
+
+const modalIsActive = computed(() => modalStore.infoFeedBackOpen);
+
+const name = ref('');
+const tel = ref('');
+const comment = ref('');
+
+const submitForm = async () => {
+  try {
+    const response = await fetch('http://api.noba.store/api/forms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        form_name: 'contact', 
+        name: name.value,
+        phone: tel.value,
+        comment: comment.value,
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data);
+    closeModal(); 
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 </script>
 
 <template>
-    <section class="modal-container" v-if="modalIsActive">
-        <div class="modal-background" @click="closeModal"></div>
-        <div class="modal-block">
-            <div class="modal__close-button feed-back__close-button" @click="closeModal"></div>
-            <div class="input-line">
-                <div class="contact_form__input__wrapper">
-                    <input name="name" type="text" class="contact-form__input contact-form__input_name input-padding" placeholder="ИМЯ">
-                    <div class="input-border"></div>
-                </div> 
-                <div class="contact_form__input__wrapper">
-                    <input name="tel" type="tel" class="contact-form__input contact-form__input_tel input-padding" placeholder="НОМЕР" value="+7"  v-maska data-maska="+7(###)-###-##-##">
-                    <div class="input-border"></div>
-                  </div>
-            </div>
-            <div class="contact_form__input__wrapper comment-input">
-                <textarea name="comment" type="comment" class="contact-form__input contact-form__input_comment input-padding" placeholder="КОММЕНТАРИЙ"></textarea>
-                <div class="input-border"></div>
-            </div>
-            <div class="modal-bottom">
-                <div class="capcha-button">
-                    <div class="capcha"></div>
-                    <v-btn
-                    class="submit-button"
-                    variant="flat"
-                    color="rgba(221, 58, 26, 1)"
-                    rounded="0"
-                    height="40"
-                    width="193"
-                    >
-                        <span class="button-text">ОТПРАВИТЬ</span>
-                        <div class="button-line"></div>
-                    </v-btn>
-                </div>
-                <div class="modal_warn-container">
-                    <h4 class="modal_warn">Нажимая на кнопку <span class="modal_warn__bold">Отправить</span>, вы даёте
-                        <NuxtLink  :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">согласие на обработку персональных данных</NuxtLink >
-                    </h4>
-                    <div class="modal_warn-line"></div>
-                </div>
-            </div>
+  <section class="modal-container" v-if="modalIsActive">
+    <div class="modal-background" @click="closeModal"></div>
+    <div class="modal-block">
+      <div class="modal__close-button feed-back__close-button" @click="closeModal"></div>
+      <div class="input-line">
+        <div class="contact_form__input__wrapper">
+          <input
+            v-model="name"
+            name="name"
+            type="text"
+            class="contact-form__input contact-form__input_name input-padding"
+            placeholder="ИМЯ"
+          />
+          <div class="input-border"></div>
         </div>
-    </section>
+        <div class="contact_form__input__wrapper">
+          <input
+            v-model="tel"
+            name="tel"
+            type="tel"
+            class="contact-form__input contact-form__input_tel input-padding"
+            placeholder="НОМЕР"
+            v-maska
+            data-maska="+7(###)-###-##-##"
+          />
+          <div class="input-border"></div>
+        </div>
+      </div>
+      <div class="contact_form__input__wrapper comment-input">
+        <textarea
+          v-model="comment"
+          name="comment"
+          class="contact-form__input contact-form__input_comment input-padding"
+          placeholder="КОММЕНТАРИЙ"
+        ></textarea>
+        <div class="input-border"></div>
+      </div>
+      <div class="modal-bottom">
+        <div class="capcha-button">
+          <div class="capcha"></div>
+          <v-btn
+            class="submit-button"
+            variant="flat"
+            color="rgba(221, 58, 26, 1)"
+            rounded="0"
+            height="40"
+            width="193"
+            @click="submitForm"
+          >
+            <span class="button-text">ОТПРАВИТЬ</span>
+            <div class="button-line"></div>
+          </v-btn>
+        </div>
+        <div class="modal_warn-container">
+          <h4 class="modal_warn">
+            Нажимая на кнопку <span class="modal_warn__bold">Отправить</span>, вы даёте
+            <NuxtLink :to="{ name: 'document-alias', params: { alias: 'politika-konfedenczialnosti' } }" class="personal-data__link">
+              согласие на обработку персональных данных
+            </NuxtLink>
+          </h4>
+          <div class="modal_warn-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
-
 <style lang="scss" scoped>
 @import "/assets/css/index.scss";
     input:-webkit-autofill,

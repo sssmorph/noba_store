@@ -72,7 +72,7 @@
                 v-for="(image, index) in slider"
                 :key="index"
             >
-                <NuxtImg format="webp" quality="80" loading="lazy" :src="'http://api.noba.store/' + image.image" alt="work photo" class="portfolio-card-item__photo"/>
+                <NuxtImg format="webp" quality="65" loading="lazy" :src="'http://api.noba.store/' + image.image" alt="work photo" class="portfolio-card-item__photo"/>
                 <div class="portfolio-card-item__bottom">
                     <p class="t-b manrope portfolio-card__count">{{ index +1 }}</p>
                 </div>
@@ -126,7 +126,7 @@
             <div class="review-block__right">
                 <div class="right-content">
                     <div class="right-content__border-line"></div>
-                    <div class="content review-right-text" v-html="project.content"></div>
+                    <div class="content review-right-text content" v-html="project.content"></div>
                 </div>
             </div>
         </div>
@@ -163,37 +163,43 @@
         content: none;
       }
   }
-  .content > h3{
-    color: rgba(23, 7, 7, 1);
-    font-family: Swis721CnBTRusbyme-Roman;
-    font-weight: 400;
-    font-size: 32px ;
-    line-height: 120%;
-    margin-bottom: 12px;
+  :global(.content > h3){
+    color: rgba(23, 7, 7, 1) !important;
+    font-family: Swis721CnBTRusbyme-Roman !important;
+    font-weight: 400 !important;
+    font-size: 32px !important;
+    line-height: 120% !important;
+    margin-bottom: 12px !important;
     }
 
-    .content > p{
-        color: rgba(23, 7, 7, 1);
-        font-family: manrope;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 160%;
-    }
-    p{
-        color: rgba(23, 7, 7, 1);
+    :global(.content > p){
+        color: rgba(23, 7, 7, 1) !important;
         font-family: Manrope !important;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 160%;
+        font-weight: 400 !important;
+        font-size: 16px !important;
+        line-height: 160% !important;
+        margin-bottom: 32px !important;
     }
-    h3{
-        color: rgba(23, 7, 7, 1);
-        font-family: Swis721CnBTRusbyme-Roman;
-        font-weight: 400;
-        font-size: 32px ;
-        line-height: 120%;
-        margin-bottom: 12px;
+    :global(.content){
+        h3{
+            color: rgba(23, 7, 7, 1) !important;
+            font-family: Swis721CnBTRusbyme-Roman !important;
+            font-weight: 400 !important;
+            font-size: 32px !important;
+            line-height: 120% !important;
+            margin-bottom: 12px !important;
+
+        }
+        p{
+            color: rgba(23, 7, 7, 1) !important;
+            font-family: Manrope !important;
+            font-weight: 400 !important;
+            font-size: 16px !important;
+            line-height: 160% !important;
+            margin-bottom: 32px !important;
+        }
     }
+
 .button__line{
     border-left: dashed 1px rgba(255, 252, 251, 1);
     height: 40px;
@@ -216,10 +222,10 @@ h2{
     font-family: manrope;
 }
 .t-w{
-    color: rgba(255, 252, 251, 1)
+    color: rgba(255, 252, 251, 1) !important;
 }
 .t-b{
-    color: rgba(23, 7, 7, 1);
+    color: rgba(23, 7, 7, 1) !important;
 }
 .t-g{
     color: rgba(216, 216, 216, 1);
@@ -593,5 +599,20 @@ h2{
         .review-text{
             margin-top: 20px;
         }
+    }
+    p{
+        color: rgba(23, 7, 7, 1) !important;
+        font-family: Manrope !important;
+        font-weight: 400 Im !important;
+        font-size: 16px !important;
+        line-height: 160% Im !important;
+    }
+    h2,h3{
+        color: rgba(23, 7, 7, 1) !important;
+        font-family: Swis721CnBTRusbyme-Roman !important;
+        font-weight: 400 !important;
+        font-size: 32px !important;
+        line-height: 120% !important;
+        margin-bottom: 12px !important;
     }
 </style>

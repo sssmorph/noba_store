@@ -8,6 +8,11 @@
     import 'swiper/css/free-mode';
     import 'swiper/css/thumbs';
     import { getPortfolio } from '~/composables/getPortfolio';
+    import { getSeo } from '../composables/getSeo'
+
+    const seo = await getSeo(21);
+    const seoContent = ref()
+    seoContent.value = seo;
     const modules = ref([Autoplay, Pagination, Navigation]);
     const recomendationPrev = ref(null);
     const recomendationNext = ref(null);
@@ -20,7 +25,10 @@
 
     })
     useHead({
-        title: 'Портфолио',
+        title: seoContent.value.Longtitle,
+        meta: [
+        { name: 'description', content: seoContent.value.description }
+        ],
         htmlAttrs: {
             lang: 'ru'
         },
@@ -58,7 +66,7 @@
             v-for="(project, projectIndex) in item.projects" :key="projectIndex"
             class="portfolio-card-item">
                 <NuxtLink :to="{ name: 'work-work', params: { work: project.alias }, query: { id: project.id} }">
-                    <NuxtImg format="webp" loading="lazy" quality="80" :src="'http://api.noba.store/' + project.image" alt="work photo" class="portfolio-card-item__photo"/>
+                    <NuxtImg format="webp" loading="lazy" quality="65" :src="'http://api.noba.store/' + project.image" alt="work photo" class="portfolio-card-item__photo"/>
                     <div class="portfolio-card-item__bottom">
                         <p class="t-b swis portfolio-card__name">{{ project.pagetitle }}</p>
                         <p class="t-b manrope portfolio-card__count">{{ projectIndex  }}</p>

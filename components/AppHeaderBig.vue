@@ -34,10 +34,11 @@
     <header :class="{headerBig: isActive, colored: isActive}">
         <div class="header-container" :class="{headerBig: isActive, colored: isActive}">
             <div class="bloger-main-information">
-                <NuxtImg format="webp" quality="75" loading="lazy" :src="mainImage" alt="big bloger photo" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}"/>
+                <NuxtImg v-if="bloger.cover_img" format="webp" quality="60" loading="lazy" :src="mainImage" alt="big bloger photo" class="bloger-photo" :class="{grayFilter: !isActive, bigphoto: isActive}"/>
+
                 <div class="main-information-container" :class="{mainInfoContainerBig: isActive}">
                     <div class="main-information-top">
-                        <NuxtImg format="webp" quality="75" :src="miniImage" class="bloger-avatar" alt="bloger avatar"/>
+                        <NuxtImg v-if="bloger.mini_img" format="webp" quality="60" loading="lazy" :src="miniImage" class="bloger-avatar" alt="bloger avatar"/>
                         <div class="bloger-header">
                             <span class="bloger-nick-name">{{ bloger.name }}</span>
                             <span class="subscribers">{{ bloger.quantity }}</span>

@@ -68,6 +68,7 @@
         line-height: 120%;
         margin-bottom: 40px;
         font-weight: 700;
+        word-wrap: break-word;
     }
     .document__content{
         font-size: 16px;

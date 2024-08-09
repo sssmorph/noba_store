@@ -1,10 +1,5 @@
 <script>
-// export default {
-//   props: ['error'],
-//   async asyncData({ error, statusCode }) {
-//     return { error: { statusCode}};
-//   }
-// };
+
     useHead({
         title: 'Ошибка',
         htmlAttrs: {

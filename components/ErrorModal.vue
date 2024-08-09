@@ -13,7 +13,7 @@
         <section class="modal-background">
             <div class="modal-container">
                 <div class="content-container">
-                    <NuxtImg  src="/assets/image/man.svg" alt=""/>
+                    <img src="/assets/image/man.svg" alt=""/>
                     <p class="content-text">Размер не выбран</p>
                 </div>
                 <v-btn
@@ -24,7 +24,7 @@
                 rounded="0"
                 @click="closeModal"
                 >
-                <NuxtImg src="/assets/image/close-modal-black.svg" alt=""/>
+                <img src="/assets/image/close-modal-black.svg" alt=""/>
                 </v-btn>
             </div>
         </section>
