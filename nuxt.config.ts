@@ -23,8 +23,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vee-validate/nuxt',
     '@nuxt/image',
-    'nuxt-lcp-speedup',
-
+    'nuxt-vitalizer',
   ],
   vite: {
     vue: {
@@ -50,10 +49,11 @@ export default defineNuxtConfig({
       ErrorMessage: 'VeeErrorMessage',
     },
   },
-  lcpSpeedup: {
+  vitalizer: {
     disablePrefetchLinks: true,
     disableStylesheets: 'entry',
-  }
+  },
+
 })
 
 

@@ -2550,7 +2550,6 @@ dotenv@^16.3.1, dotenv@^16.4.5:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
   integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
-
 duplexer@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
@@ -4207,15 +4206,6 @@ nuxi@^3.11.1:
   optionalDependencies:
     fsevents "~2.3.3"
 
-nuxt-lcp-speedup@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/nuxt-lcp-speedup/-/nuxt-lcp-speedup-0.9.1.tgz#7b4cb779b80cd2a589d076688b7dd6c0c0231a93"
-  integrity sha512-wv5nB95JNDKviJERy8OoN4k+GT2bx9X1THbFK82SCFWscNCML2tnBxhtefVanGj3kI4ATRLur1MEyqcVFCkUfA==
-  dependencies:
-    "@nuxt/kit" "^3.12.2"
-    defu "^6.1.4"
-    knitwork "^1.1.0"
-
 nuxt-marquee@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/nuxt-marquee/-/nuxt-marquee-1.0.4.tgz#aa26d3e7cc47761d4f5ae4f9ee89c13dd0e18650"
@@ -4231,6 +4221,15 @@ nuxt-swiper@^1.2.2:
   dependencies:
     "@nuxt/kit" "^3.7.0"
     swiper "^10.2.0"
+
+nuxt-vitalizer@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/nuxt-vitalizer/-/nuxt-vitalizer-0.10.0.tgz#1a9a163fd5de852ce736280aa55448ddc2ce8da6"
+  integrity sha512-z5leudr8wD2msKl7ETLGUICSOVoXVLMA8bAeRuWN4/UuYl7g7G2k7Idzl1z8ft/VmoYZ9ld3J0/2UZOZuxxzog==
+  dependencies:
+    "@nuxt/kit" "^3.12.2"
+    defu "^6.1.4"
+    knitwork "^1.1.0"
 
 nuxt@^3.11.2:
   version "3.11.2"
